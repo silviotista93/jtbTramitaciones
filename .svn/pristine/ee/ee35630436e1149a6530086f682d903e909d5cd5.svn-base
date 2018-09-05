@@ -1,0 +1,293 @@
+<?php $__env->startSection('header'); ?>
+    <h1>
+        Administrar Ventas
+        <small>Ventas</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Ventas</a></li>
+        <li class="active">Administrar</li>
+    </ol>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('contenido'); ?>
+    <div class="box box-primary">
+
+        <div class="box-header">
+            <div class="form-group">
+                <h3 class="box-title">Listado de Ventas</h3>
+            </div>
+        </div>
+
+        <div class="box-body table-responsive ">
+            <table class="table table-bordered table-striped dt-responsive tablas table_admiVentas">
+                <thead>
+                <tr>
+                    <th>Código factura</th>
+                    <th>Identificacion</th>
+                    <th>Cliente</th>
+                    <th>Vendedor</th>
+                    <th>Tipo Tramite</th>
+                    <th>Forma de pago</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Financiación</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+
+                </thead>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- MODAL AGREGAR CLIENTE -->
+    <div class="modal fade " id="modalInfoVenta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #056F00;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true"
+                                style="color: #FFFFFF;">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel" style="color: #FFFFFF">Información del Tramite</h4>
+                </div>
+                <form method="post" action="">
+
+                    <div class="modal-body">
+                                <!-- title row -->
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="page-header">
+                                            <img src="/adminlte/img/logo.png" width="7%" alt="">  Tramitaciones John Bolaños
+                                            <h3 class="pull-right"><strong>Codigo Venta</strong> <span style="color: red !important;"><strong>TR-<div id="infoVentaClienteCodigoFactura" style="display: inline-block;"></div></strong></span></h3>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- info row -->
+                                <div class="row invoice-info">
+                                    <div class="col-sm-4 invoice-col">
+                                        <address>
+                                            <h4><strong>Tramitaciones John Bolaños</strong></h4>
+                                            OFI.Carrera 20 # 5-52 B/La Esmeralda<br>
+                                            <b>Tel:</b> 8396673<br>
+                                            <b>Cel 1:</b> 315 531-0563<br>
+                                            <b>Cel 2:</b> 323 447-0569<br>
+                                            <b>Email:</b> johnbtramitaciones@hotmail.com
+                                        </address>
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-sm-4 invoice-col">
+                                        <address>
+                                            <h4><strong>Cliente</strong></h4>
+                                            <b>Nombre: </b><div id="infoVentaClienteNombre" style="display: inline;"></div> <div id="infoVentaClienteApellidos" style="display: inline;"></div><br>
+                                            <b>Identificación: </b><div id="infoVentaClienteIdentificacion" style="display: inline-block;"></div><br>
+                                            <b>Tipo Documento:</b> Cedula de Ciudadania<br>
+                                            <b>Teléfono: </b><div id="infoVentaClienteTelefono" style="display: inline-block;"></div><br>
+                                            <b>Email: </b><div id="infoVentaClienteEmail" style="display: inline-block;"></div>
+                                        </address>
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-sm-4 invoice-col">
+                                        <h4><strong>Tipo Tramite</strong></h4>
+                                        <b>Tramite: </b><div id="infoVentaClienteTramite" style="display: inline-block;"></div><br>
+                                        <b>Fecha: </b><div id="infoVentaClienteFecha" style="display: inline-block;"></div><br>
+                                        <b>Atendido Por: </b><div id="infoVentaClienteVendedorNombre" style="display: inline-block;"></div> <div id="infoVentaClienteVendedorApellidos" style="display: inline-block;"></div><br>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+
+                                <!-- Table row -->
+                                <div class="row">
+                                    <div class="col-xs-12 table-responsive">
+                                        <table class="table table-striped" id="table_info_venta">
+                                            <thead>
+                                            <tr>
+                                                <th>Cantidad</th>
+                                                <th>Tipo</th>
+                                                <th>Descripción</th>
+                                                <th>Precio</th>
+                                                <th>Total</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr id="info">
+                                                <td id="infoVentaClienteVendedorCantidad">1</td>
+                                                <td id="infoVentaClienteVendedorTipo">2</td>
+                                                <td>El snort testosterone trophy driving gloves handsome</td>
+                                                <td>455-981-221</td>
+                                                <td>$64.50</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+
+                                <div class="row">
+                                    <!-- accepted payments column -->
+                                    <div class="col-xs-6">
+
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-xs-6">
+                                        <p class="lead">Ultima Actualizacion 2/22/2014</p>
+
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <tr>
+                                                    <th style="width:50%">Subtotal:</th>
+                                                    <td>$250.30</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Tax (9.3%)</th>
+                                                    <td>$10.34</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Shipping:</th>
+                                                    <td>$5.80</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total:</th>
+                                                    <td>$265.24</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                            <!-- /.content -->
+                            <div class="clearfix"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- TABLA DINAMICA Clientes-->
+<?php $__env->startSection('dataTablesClientes'); ?>
+        <script>
+          var table = $('.table_admiVentas').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "stateSave": true,
+                "data": null,
+                "ajax": "/admin/api/admin-ventas",
+                "columns":[
+                    {data: 'id'},
+                    {data: 'idcliente.identificacion'},
+                    {"width": "20%",
+                        render:function (data,type, JsonResultRow,meta) {
+                            return '<p>'+JsonResultRow.idcliente.name+' '+JsonResultRow.idcliente.apellidos+'</p>'
+                        }
+                    },
+                    {"width": "20%",
+                        render:function (data,type, JsonResultRow,meta) {
+                            return '<p>'+JsonResultRow.id_vendedor.name+' '+JsonResultRow.id_vendedor.apellidos+'</p>'
+                        }
+                    },
+                    {data: 'tipo_tramite.nombre'},
+                    {"width": "10%",
+                        render:function (data,type, JsonResultRow,meta) {
+                            return '<p style="text-transform: uppercase">'+JsonResultRow.metodo_pago+'</p>'
+                        }
+                    },
+                    {
+                        render:function (data,type, JsonResultRow,meta) {
+                            return '<input disabled type="text"  class="total_administarVentas" style="width: 145px; border: 0; background: border-box;" value="'+JsonResultRow.total+'">\n'
+                        }
+                    },
+                    {
+                        render:function (data,type, JsonResultRow,meta) {
+                            return '<span class="label label-success"  style="font-size: 11px;">'+JsonResultRow.estado+'</span>\n'
+
+                        }
+                    },
+                    {
+                        render:function (data,type, JsonResultRow,meta) {
+                            var datos = JsonResultRow.tramites_abono;
+                            var ultimo = datos[datos.length-1].estado;
+
+                            if (ultimo == 'Debe'){
+                                return '<span class="label label-danger" style="font-size: 11px;">'+ultimo+'</span>\n'
+                            }else{
+                                return '<span class="label label-success" style="font-size: 11px;">'+ultimo+'</span>\n'
+
+                            }
+
+
+                        }
+                    },
+
+                    { "width": "15%", data: 'created_at'},
+                    {render: function (data, type, JsonResultRow, meta) {
+                            return '<a href="/admin/factura/'+JsonResultRow.id+'" target="_blank" class="btn btn-xs btn-success btnEditarUsuario" ><i class="fa fa-print"></i></a>\n'+
+                                    '<a href="/admin/info-venta/'+JsonResultRow.id+'" class="btn btn-xs btn-info btnInfoUsuario"><i class="fa fa-eye"></i></a>\n'
+
+                        }},
+
+                ],
+                "language":{
+                    "sProcessing":     "Procesando...",
+                    "sLengthMenu":     "Mostrar _MENU_ registros",
+                    "sZeroRecords":    "No se encontraron resultados",
+                    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix":    "",
+                    "sSearch":         "Buscar:",
+                    "sUrl":            "",
+                    "sInfoThousands":  ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst":    "Primero",
+                        "sLast":     "Último",
+                        "sNext":     "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+            });
+
+            //INFORMACION DE LA VENTA
+          $('.table_admiVentas tbody').on('click','.btnInfoUsuario',function () {
+              var data = table.row($(this).parents('tr')).data();
+              console.log(data);
+              $('#infoVentaClienteCodigoFactura').html(data.id);
+
+              $('#infoVentaClienteNombre').html(data.idcliente.name);
+              $('#infoVentaClienteApellidos').html(data.idcliente.apellidos);
+              $('#infoVentaClienteIdentificacion').html(data.idcliente.identificacion);
+              $('#infoVentaClienteTelefono').html(data.idcliente.telefono);
+              $('#infoVentaClienteEmail').html(data.idcliente.email);
+
+              $('#infoVentaClienteTramite').html(data.tipo_tramite.nombre);
+              $('#infoVentaClienteFecha').html(data.created_at);
+              $('#infoVentaClienteVendedorNombre').html(data.id_vendedor.name);
+              $('#infoVentaClienteVendedorApellidos').html(data.id_vendedor.apellidos);
+
+          })
+
+
+
+
+    </script>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

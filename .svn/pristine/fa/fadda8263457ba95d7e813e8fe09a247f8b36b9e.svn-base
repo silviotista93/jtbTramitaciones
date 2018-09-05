@@ -1,0 +1,307 @@
+@extends('admin.layout')
+
+@section('header')
+    <h1>
+        Tramite de Seguros
+        <small>Seguro</small>
+    </h1>
+    <ol class="breadcrumb">
+        {{--<li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>--}}
+        {{--<li class="active">Ini</li>--}}
+    </ol>
+@stop
+
+@section('contenido')
+
+    <div class="box box-primary">
+        <div class="box-header">
+            <h3 class="box-title"></h3>
+            {{--<button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal"><i--}}
+            {{--class="fa fa-plus"> </i> Agregar Cliente--}}
+            {{--</button>--}}
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <form id="frmagregarClienteSeguro" novalidate>
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a id="tab_liquidacion_seguro" href="#tab_1"
+                                              data-toggle="tab" style="pointer-events: none">Liquidación</a>
+                        </li>
+                        <li><a id="tab_cliente_seguro" href="#tab_2" data-toggle="tab" style="pointer-events: none">Cliente</a>
+                        </li>
+                        <li><a id="tab_resumen_seguro" href="#tab_3" data-toggle="tab" style="pointer-events: none">Resumen</a>
+                        </li>
+                        <!--Dropdow -->
+
+                    {{--<li class="dropdown">--}}
+                    {{--<a class="dropdown-toggle" data-toggle="dropdown" href="#">--}}
+                    {{--Dropdown <span class="caret"></span>--}}
+                    {{--</a>--}}
+                    {{--<ul class="dropdown-menu">--}}
+                    {{--<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Liquidación</a></li>--}}
+                    {{--<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Cliente</a></li>--}}
+                    {{--<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Resumen</a></li>--}}
+                    {{--<li role="presentation" class="divider"></li>--}}
+                    {{--<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>--}}
+                    {{--</ul>--}}
+                    {{--</li>--}}
+
+                    <!--Boton Configuracion -->
+                        {{--<li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>--}}
+                    </ul>
+
+                    <div class="tab-content">
+                        <!-- TAB LIQUIDACION -->
+                        <div class="tab-pane active" id="tab_1">
+                            <div class="row">
+                                <!--Titulo Para CAMPEROS Y CAMIONETAS -->
+                                <div class=" col-lg-5 col-md-5 col-sm-5 col-2 pull-right" style="display: none"
+                                     id="titulo_seguro_camperos">
+                                    <h2>Seguro para Camperos y Camionetas</h2>
+                                </div>
+                                <!--Titulo Para MOTO -->
+                                <div class=" col-lg-5 col-md-5 col-sm-5 col-2 pull-right" style="display: none"
+                                     id="titulo_seguro_moto">
+                                    <h2>Seguro para Moto</h2>
+                                </div>
+                                <!--Titulo Para CAMPEROS Y CAMIONETAS -->
+                                <div class=" col-lg-5 col-md-5 col-sm-5 col-2 pull-right" style="display: none"
+                                     id="titulo_seguro_carga">
+                                    <h2>Seguro para Carga o Mixto</h2>
+                                </div>
+
+                                <div class=" col-lg-4 col-md-4 col-sm-4 col-5">
+                                    <h4>Seleccione Tipo Automovil</h4>
+                                    <div class="form-group">
+                                        <select class="form-control" id="select_tramite_tipoVehiculo">
+                                            <option value="0">Seleccione</option>
+                                            @foreach($tipoVehiculos as $tipoVehiculo)
+
+                                                <option {{old('idTipoVehiculo')==$tipoVehiculo->id ? 'selected':''}} value="{{$tipoVehiculo->id}}">{{$tipoVehiculo->nombre}}</option>
+
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Tramite SEGURO PARA CAMPEROS -->
+                            <div class="form-group" id="seguro_cilindrajes" style="display: block">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-3">
+                                        <h4>Seleccione Cilindraje</h4>
+                                        <div class="form-group">
+                                            <select class="form-control" id="select_cilindraje">
+
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="mostrar_año_seguro" style="display: none;">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-3">
+                                        <h4>Año o Modelo</h4>
+                                        <input type="text" class="form-control modeloInput" id=""
+                                               placeholder="Modelo">
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- MOSTRAR CALCULO DEL VALOR SIN MODELO O AÑO-->
+                            <div class="form-group" id="calculoValor_sin_modelo" style="display: none">
+                                <div class="row">
+                                    <div class="col-lg-5 col-md-5 col-sm-4 col-4">
+                                        <table class="table table-striped">
+                                            <tr>
+                                                <th style="width: 150px">Cilindraje</th>
+                                                <th>Costo</th>
+                                            </tr>
+                                            <td><input disabled id="" class="cilindraje_calcular"
+                                                       style="width: 135px; border: 0; background: border-box;"></td>
+                                            <td><input disabled id="" class="costo_calcular"
+                                                       style="width: 135px; border: 0; background: border-box;"></td>
+                                        </table>
+                                        <input type="hidden" class="id_cilindraje">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN CALCULO DEL VALOR SIN MODELO O AÑO
+
+                            <!-- MOSTRAR CALCULO DEL VALOR CON MODELO O AÑO -->
+                            <div class="form-group" id="calculoValor_con_modelo" style="display: none;">
+                                <div class="row">
+                                    <div class="col-lg-5 col-md-5 col-sm-4 col-4">
+                                        <table class="table table-striped">
+                                            <tr>
+                                                <th style="width: 150px">Cilindraje</th>
+                                                <th>Costo</th>
+                                                <th>Modelo</th>
+                                            </tr>
+                                            <td><input disabled id="" class="cilindraje_calcular"
+                                                       style="width: 135px; border: 0; background: border-box;"></td>
+                                            <td><input disabled id="" class="costo_calcular"
+                                                       style="width: 135px; border: 0; background: border-box;"></td>
+                                            <td><input disabled id="" class="modelo_calcular"
+                                                       style="width: 135px; border: 0; background: border-box;"></td>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN CALCULO DEL VALOR CON MODELO O AÑO  -->
+
+
+                        </div>
+
+                        <!-- TAB CLIENTE -->
+                        <div class="tab-pane" id="tab_2" >
+                            <!-- INFORMACION DEL TRAMITE -->
+                            <div class="form-group">
+
+                                <div class="form-group">
+                                    <h4>Datos del Cliente</h4>
+                                    <div class="row">
+
+                                        <div class="col-lg-4 col-md-4">
+                                            <h5>Nombre*</h5>
+                                            <input type="text" class="form-control" id="nombre_cliente_seguro"
+                                                   name="name"
+                                                   placeholder="Enter nombre">
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            <h5>Apellido*</h5>
+                                            <input type="text" class="form-control" id="apellidos_cliente_seguro"
+                                                   name="apellidos"
+                                                   placeholder="Enter apellido">
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            <h5>Identificacion*</h5>
+                                            <input type="text" class="form-control" id="identificacion_cliente_seguro"
+                                                   name="identificacion"
+                                                   placeholder="Enter identificacion">
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            <h5>Email</h5>
+                                            <input type="email" class="form-control" id="email_cliente_seguro"
+                                                   name="email"
+                                                   placeholder="Enter email">
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-4">
+                                            <h5>Celular*</h5>
+                                            <input type="text" class="form-control" id="telefono_cliente_seguro"
+                                                   name="telefono"
+                                                   placeholder="Enter celular">
+                                        </div>
+
+                                        <input type="hidden" id="rol_cliente_seguro" value="4" name="rol">
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="tab_3">
+                            <div class="form-group">
+                                <div class="row">
+
+                                    <input type="hidden" name="idCliente" class="idcliente" value="">
+                                        <input type="hidden" name="idSeguro" class="id_seguro_resumen" value="">
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th>Identificación</th>
+                                                <th style="width: 180px">Nombres</th>
+                                                <th style="width: 180px">Apellidos</th>
+                                                <th>Vehiculo</th>
+                                                <th>Cilindraje</th>
+                                                <th>Modelo</th>
+                                                <th>Costo</th>
+                                            </tr>
+                                            <td class="">1061759221</td>
+                                            <td class="">Silvio Mauricio</td>
+                                            <td class="">Gutierrez Quiñones</td>
+                                            <td class="">
+                                               <input disabled id="" class="resumen_vehiculo_seguro"
+                                                style="width: 135px; border: 0; background: border-box;"></td>
+                                            </td>
+                                            <td class="">
+                                                <input disabled id="" class="resumen_cilindraje_seguro"
+                                                       style="width: 135px; border: 0; background: border-box;"></td>
+                                            </td>
+                                            <td class="">
+                                                <input disabled id="" class="resumen_modelo_seguro"
+                                                       style="width: 135px; border: 0; background: border-box;"></td>
+                                            </td>
+
+                                            <td class="">
+                                                <input disabled id="" class="resumen_costo_seguro"
+                                                       style="width: 135px; border: 0; background: border-box;">
+                                            </td>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-4 col-3">
+                                        <h4>Abono</h4>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="exampleInputEmail1"
+                                                   placeholder="$"
+                                                   value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+
+
+                <div id="botones_seguro">
+                    <button type="button" id="btnSiguienteLiquidacion" class="btn btn-primary pull-right margin">
+                        Siguiente
+                    </button>
+                    <button type="submit" id="btn-guardar_tramite_seguro" class="btn btn-primary pull-right margin" style="display: none">
+                        Seguro Tramite
+                    </button>
+                    <button type="submit" id="agregaClienteSeguro" value="add" class="btn btn-primary pull-right margin btn-guardar_cliente_seguro" style="display: block">
+                        Guardar cliente</button>
+                    <button type="submit" id="actualizar_cliente_seguro" idActaulizarCliente="" class="btn btn-primary pull-right margin" style="display: block">
+                        Actualizar cliente</button>
+
+                    <a id="botonCalcu" class="btn btn-primary pull-left margin">
+                        Calcular
+                    </a>
+                    <a id="boton_limpiar_seguro" type="button" class="btn btn-primary pull-left margin"
+                       href="{{route('tramitar-seguro')}}">Limpiar
+                    </a>
+                </div>
+                <div>
+                    <a href="{{route('tramitar-seguro')}}" idEliminarCliente="" id="boton_cancelar_seguro" type="button" class="btn btn-danger pull-right margin"
+                            style="display: none">Cancelar
+                    </a>
+                    <button id="boton_atras_seguro" type="button" class="btn btn-primary pull-right margin"
+                            style="display: none">Atrás
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+@stop

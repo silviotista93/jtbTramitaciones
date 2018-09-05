@@ -1,0 +1,490 @@
+var t = null;
+/*=============================================
+BUSCAR SI EXISTE EL CLIENTE
+=============================================*/
+$(document).ready(function(){
+
+    setInterval(function () {
+        if ($(".inputBuscarCliente").val() !== t) {
+            $("#tablaMostrarCliente").hide();
+            $("#nombreCliente").hide();
+            $("#identificacionCliente").hide();
+        }
+    }, 250);
+
+    $(".inputBuscarCliente").keypress(function (e) {
+        if (e.charCode === 13){
+            e.preventDefault();
+            t = $(this).val();
+            $("#btnAgregarCliente").click();
+        }
+    });
+
+    $('#btnAgregarCliente').click(function (e) {
+        validarCliente()
+    });
+
+});
+
+function validarCliente () {
+    var url = '/api/encontrarCliente/'+document.querySelector(".inputBuscarCliente").value;
+    if (document.querySelector(".inputBuscarCliente").value.trim().length === 0){
+        $("#tablaMostrarCliente").hide();
+        $("#nombreCliente").hide();
+        $("#identificacionCliente").hide();
+        $('#modalAgregarCliente').modal('show');
+        return;
+    }
+    $.get(url, null, function (r) {
+        console.log(r);
+        if (r.length !== 0){
+            /*=============================================
+                EDITAR EL CLIENTE
+            =============================================*/
+            $("#tablaMostrarCliente").show();
+            $('#nombreCliente').val(r[0].name+" "+r[0].apellidos);
+            $('#identificacionCliente').val(r[0].identificacion);
+            $('#idCliente').val(r[0].id);
+
+            $("#nombreCliente").show();
+            $("#identificacionCliente").show();
+
+            //EDITAR CLIENTE
+            $("#txtEditarNombreCliente").val(r[0].name);
+            $("#txtEditarApellidosCliente").val(r[0].apellidos);
+            $("#txtEditartipoIdentificacionCliente").val(r[0].tipo_documento.id);
+            $("#txtEditarIdentificacionCliente").val(r[0].identificacion);
+            $("#txtEditarEmailCliente").val(r[0].email);
+            $("#txtEditarTelefonoCliente").val(r[0].telefono);
+            $("#txtEditarTelefono_2Cliente").val(r[0].telefono_2);
+
+
+            $("#btnActualizarCliente").hide();
+            $("#btnCancelarEditarCliente").hide();
+
+            $(document).on('click','#btnEditarCliente',function(e){
+                e.preventDefault();
+                console.log(r[0]);
+                $( "#txtEditarNombreCliente" ).prop( "disabled", false );
+                $( "#txtEditarApellidosCliente" ).prop( "disabled", false );
+                $( "#txtEditartipoIdentificacionCliente" ).prop( "disabled", false );
+                $( "#txtEditarIdentificacionCliente" ).prop( "disabled", false );
+                $( "#txtEditarEmailCliente" ).prop( "disabled", false );
+                $( "#txtEditarTelefonoCliente" ).prop( "disabled", false );
+                $( "#txtEditarTelefono_2Cliente" ).prop( "disabled", false );
+
+                $("#btnCancelarEditarCliente").show();
+                $("#btnActualizarCliente").show();
+                $("#btnEditarCliente").hide();
+            });
+            $(document).on('click','#btnCancelarEditarCliente',function(e){
+                e.preventDefault();
+                $( "#txtEditarNombreCliente" ).prop( "disabled", true );
+                $( "#txtEditarApellidosCliente" ).prop( "disabled", true );
+                $( "#txtEditartipoIdentificacionCliente" ).prop( "disabled", true );
+                $( "#txtEditarIdentificacionCliente" ).prop( "disabled", true );
+                $( "#txtEditarEmailCliente" ).prop( "disabled", true );
+                $( "#txtEditarTelefonoCliente" ).prop( "disabled", true );
+                $( "#txtEditarTelefono_2Cliente" ).prop( "disabled", true );
+
+                $("#btnEditarCliente").show();
+                $("#btnActualizarCliente").hide();
+                $("#btnCancelarEditarCliente").hide();
+            });
+
+            //ACTUALIZAR CLIENTE
+            var urlActualizarCliente ='/admin/actualizar-cliente/'+r[0].id;
+
+            console.log(urlActualizarCliente,'urlActualizarCliente');
+
+            $('#form_actualizar_cliente').attr('action',urlActualizarCliente);
+
+            $('#btnActualizarCliente').click(function () {
+
+                $(".actualizarClienteForm").submit();
+            })
+
+        }else {
+            $("#tablaMostrarCliente").hide();
+            $("#nombreCliente").hide();
+            $("#identificacionCliente").hide();
+
+            //AGREGAR CLIENTE
+            document.getElementById('txtIdentificacionCliente').value = document.querySelector(".inputBuscarCliente").value;
+            $('#modalAgregarCliente').modal('show');
+        }
+
+
+    });
+    return false;
+}
+
+
+
+$(function () {
+    $('#tablaLicencias tbody').on('click','.agregarVentaLicencia',function (e) {
+        if ($(this).hasClass('btn-default')){
+            return;
+        }
+        var data = table.row($(this).parents('tr')).data();
+
+        var el = e.target;
+        var classL = el.classList;
+        classL.remove("btn-danger");
+        classL.add('btn-default');
+
+        $.get('/api/seguroBuscar/'+data.id+'',function (respuesta) {
+            var id = respuesta[0].id;
+            var nombre = respuesta[0].tipo_vehiculo.nombre;
+            var cilindraje = respuesta[0].cilindraje;
+            var precio = respuesta[0].precio;
+            console.log(respuesta[0].precio);
+
+            $(".nuevaLicencia").append(
+                '<div class="row" style="padding:5px 15px">'+
+                '<!-- Descripción del producto -->'+
+                '<div class="col-xs-4" style="padding-right:0px">'+
+                '<div class="input-group">'+
+                '<input type="hidden" name="idLicencia[]" value="'+id+'">'+
+                '<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs quitarLicencia" value="'+id+'"><i class="fa fa-times"></i></button></span>'+
+                '<input type="text" class="form-control nuevaDescripcionLicencia" idLicencia="'+id+'" name="agregarLicencia" value="'+nombre+'" readonly required>'+
+                '</div>'+
+                '</div>'+
+                '<!-- Cantidad del producto -->'+
+                '<div class="col-xs-3">'+
+                '<input type="text" class="form-control" name="" min="1" value="'+cilindraje+'" required readonly>'+
+                '</div>' +
+                '<div class="col-xs-2" style="padding-left: 0px">'+
+                '<input type="number" class="form-control nuevaCantidadLicencia" name="nuevaCantidadLicencia[]" min="1" value="1" required>'+
+                '</div>' +
+                '<!-- Precio del producto -->'+
+                '<div class="col-xs-3 ingresoPrecio" style="padding-left:0px">'+
+                '<div class="input-group">'+
+                '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
+                '<input type="text" class="form-control nuevoPrecioLicencia" precioReal="'+precio+'" name="nuevoPrecioLicencia[]" value="'+precio+'" readonly required>'+
+                '<input type="hidden" name="totalPrecioCantidad[]">'+
+                '</div>'+
+                '</div>'+
+                '</div>');
+            //SUMAR EL TOTAL DE PRECIOS
+            sumarTotalPrecios()
+
+        });
+
+    });
+});
+/*=============================================
+QUITAR PRODUCTOS DE LA VENTA Y RECUPERAR BOTÓN
+=============================================*/
+$(".formularioVentaLicencia").on("click", ".quitarLicencia", function(){
+
+    $(this).parent().parent().parent().parent().remove();
+
+    var idLicencia = $(this).val();
+
+    /* $('.recuperarBoton').attr('idSeguro',idSeguro).removeClass('btn-default');
+     $('.recuperarBoton').attr('idSeguro',idSeguro).addClass('btn-primary agregarProducto');*/
+    var el = document.getElementById("btnAgregarVentaLicencia"+idLicencia);
+    if (el){
+        var classL = el.classList;
+        if (classL) {
+            classL.add("btn-danger");
+            classL.remove('btn-default');
+        }
+    }
+    if($(".nuevaLicencia").children().length == 0){
+
+        $("#nuevoTotalVenta").val(0);
+        $("#totalVentaDB").val(0);
+        $("#saldoVentaAbono").val(0);
+
+    }else{
+        //SUMAR EL TOTAL DE PRECIOS
+        sumarTotalPrecios()
+    }
+
+
+});
+
+/*=============================================
+CAMBIAR LA CANTIDAD
+=============================================*/
+
+$(".formularioVentaLicencia").on("change", ".nuevaCantidadLicencia", function(){
+
+    var precio = $(this).parent().parent().children(".ingresoPrecio").children().children(".nuevoPrecioLicencia");
+
+    var precioFinal = $(this).val() * precio.attr("precioReal");
+
+        precio.val(precioFinal);
+
+    //SUMAR EL TOTAL DE PRECIOS
+    sumarTotalPrecios()
+
+
+});
+
+/*=============================================
+SUMAR TODOS LOS PRECIOS
+=============================================*/
+
+function sumarTotalPrecios() {
+
+   var precioCadaLicencia = $(".nuevoPrecioLicencia");
+   var arraySumaPrecio = [];
+   
+   for (var i = 0; i < precioCadaLicencia.length; i++){
+        arraySumaPrecio.push(Number($(precioCadaLicencia[i]).val()));
+
+   }
+    function sumarArrayPrecios(total, numero) {
+
+       return total + numero;
+    }
+    var sumaTotalPrecio = arraySumaPrecio.reduce(sumarArrayPrecios);
+
+   $("#nuevoTotalVenta").val(sumaTotalPrecio);
+    $("#totalVentaDB").val(sumaTotalPrecio);
+    $("#saldoVentaAbono").val(sumaTotalPrecio);
+
+    //PONER FORMATO AL PRECIO DE LOS SEGUROS
+    $("#nuevoTotalVenta").number(true, 2);
+}
+
+
+
+$(".crearVentaLicencia").click(function (e){
+
+    e.preventDefault();
+
+    var url ='/admin/tramite-seguro-creado';
+    console.log(url);
+    //DATOS DEL TRAMITE
+    //Cliente
+
+
+   var nombreCliente = $('#nombreCliente').val();
+   var identificacionCliente = $('#identificacionCliente').val();
+   var tipoIdentificacion = $("#txtEditartipoIdentificacionCliente").val();
+   var emailCliente = $('#txtEditarEmailCliente').val();
+   var telefonoCliente = $('#txtEditarTelefonoCliente').val();
+   var telefonoCliente_2 = $('#txtEditarTelefono_2Cliente').val();
+   var tablaVenta = $('#tablamostrarVentaAlerta').html();
+
+   //VALIDACION TIPO IDENTIFICACION DEL CLIENTE
+    if (tipoIdentificacion == 1){
+        var nombreIdentificacion = 'Cédula de Ciudadania';
+    }else if(tipoIdentificacion == 2){
+        var nombreIdentificacion = 'Tarjeta de Indentidad';
+    }else if(tipoIdentificacion == 4){
+        var nombreIdentificacion = 'Cédula de Extranjeria';
+    }else{
+        var nombreIdentificacion = 'Pasaporte';
+    }
+
+    //VALIDACION TELEFONO 2 CLIENTE
+        if (telefonoCliente_2 == ''){
+            var telefono_2 = 'Número no registrado'
+        }else{
+            var telefono_2 = $('#txtEditarTelefono_2Cliente').val();
+        }
+
+    $('.formularioVentaLicencia').attr('action',url);
+    $.confirm({
+        animation: 'top',
+        closeAnimation: 'scale',
+        content: '<h4>Cliente</h4>' +
+        '<div>' +
+        '   <div class="row">' +
+        '           <div class="col-sm-6">' +
+        '              <label>Nombre:</label> '+nombreCliente+''+
+        '           </div>' +
+        '           <div class="col-sm-6">' +
+        '               <label>Identificacion:</label> '+identificacionCliente+''+
+        '           </div>' +
+        '           <div class="col-sm-6">'+
+        '                   <label>Tipo Identificacion:</label> '+nombreIdentificacion+'' +
+        '           </div>' +
+        '           <div class="col-sm-6">' +
+        '                   <label>Email:</label> '+emailCliente+'' +
+        '           </div>' +
+        '           <div class="col-sm-6">' +
+        '                   <label>Telefono:</label> '+telefonoCliente+'' +
+        '            </div>' +
+        '            <div class="col-sm-6">' +
+        '                    <label>Telefono 2:</label> '+telefono_2+'' +
+        '              </div>' +
+        '   </div>' +
+        '   <h4>Venta</h4>' +
+        '   <div class="row">' +
+        '       <div class="col-sm-12">' +
+        '           ' +
+        '       </div>' +
+        '   </div>' +
+        '</div>',
+        columnClass: 'col-md-7 col-md-offset-3',
+        icon: '',
+        title: 'Datos de Venta',
+        typeAnimated: true,
+        buttons: {
+            tryAgain: {
+                text: 'Esta bien!',
+                btnClass: 'btn-green',
+                action: function(){
+                    //VALIDACIONES
+                    if ($('#idCliente').val() === '' & $('#nuevoMetodoPago').val() === ''  & $('#totalVentaDB').val() === '')  {
+                        toastr.error('Cliente Requerido');
+                        toastr.error('Metodo de Pago Requerido');
+                        toastr.error('Total Venta Requerido');
+
+                    }else if($('#nuevoMetodoPago').val() === '' & $('#totalVentaDB').val() === '') {
+                        toastr.error('Metodo de Pago Requerido');
+                        toastr.error('Total de Venta Requerido');
+
+                    }else if($('#idCliente').val() === '' & $('#totalVentaDB').val() === '') {
+                        toastr.error('Cliente Requerido');
+                        toastr.error('Total Venta Requerido');
+
+                    }else if($('#idCliente').val() === '' & $('#nuevoMetodoPago').val() === '') {
+                        toastr.error('Cliente Requerido');
+                        toastr.error('Metodo de Pago Requerido');
+                    }else if ($('#idCliente').val() === ''){
+                        toastr.error('Cliente Requerido');
+                    }else if ($('#nuevoMetodoPago').val() === ''){
+                        toastr.error('Metodo de Pago Requerido');
+                    }else if ($('#totalVentaDB').val() === ''){
+                        toastr.error('Total Venta Requerido');
+                    }
+                    else{
+                        $(".formularioVentaLicencia").submit();
+                    }
+
+
+                }
+            },
+
+            cerrar: function () {
+            }
+        }
+    });
+});
+
+/*=============================================
+    SELECCIONAR METODO DE PAGO
+=============================================*/
+$(function () {
+    $('#nuevoMetodoPago').on('change',function () {
+        if (this.value == 'efectivo'){
+            $('#mostrarCodigoTransaccion').hide();
+            $('#mostrarValorEFectivo').show();
+            $('#mostrarCambioEFectivo').show();
+
+            $(".nuevoValorEfectivo").number(true, 2);
+            $(".nuevoCambioEfectivo").number(true, 2);
+
+        }else{
+            $('#mostrarCodigoTransaccion').show();
+            $('#mostrarValorEFectivo').hide();
+            $('#mostrarCambioEFectivo').hide();
+        }
+    })
+
+});
+
+/*=============================================
+    CAMBIO EN EFECTIVO
+=============================================*/
+$(".formularioVentaLicencia").on("click", ".nuevoValorEfectivo", function(){
+
+    var efectivo = $(this).val();
+    $(function () {
+        var cambio = Number(efectivo) - Number($('#nuevoTotalVenta').val());
+
+        $('.nuevoCambioEfectivo').val(cambio);
+    })
+
+
+});
+
+/*=============================================
+    APARECER CAMPOS ABONOS
+=============================================*/
+
+$(function () {
+    $('#btn-mostrarAbono').click(function (e) {
+        e.preventDefault();
+        $('#titulo-tabla-abono').show('blind');
+        $('#campo-ingresar-abono').show('blind');
+        $('#btn-mostrarAbono').hide('blid');
+        $('#btn-cancelarAbono').show('blid');
+    })
+    $('#btn-cancelarAbono').click(function (e) {
+        e.preventDefault();
+
+        $('#btn-mostrarAbono').show('blid');
+        $('#titulo-tabla-abono').hide('blind');
+        $('#campo-ingresar-abono').hide('blind');
+        $('#btn-cancelarAbono').hide('blind');
+
+    })
+    $('#btn-mostrarAbono').click(function (e) {
+        e.preventDefault();
+
+        $('#saldoVentaPrincipal').remove();
+        $("#camposSaldos").append(
+            '<input type="hidden" name="saldo" id="saldoVentaAbono" value="">'
+        )
+
+    })
+    $('#btn-cancelarAbono').click(function (e) {
+        e.preventDefault();
+        $('#saldoVentaAbono').remove();
+        $("#camposSaldos").append(
+            '<input type="hidden" name="saldo" id="saldoVentaPrincipal" value="0">'
+        )
+        $("#estadoSaldo").val('Cancelado');
+    })
+});
+
+/*=============================================
+RESTAR EL VALOR DEL ABONO
+=============================================*/
+
+
+/*=============================================
+CAMBIO EN EFECTIVO
+=============================================*/
+$(".inputAbono").keyup(function(){
+    var efectivo=0;
+    var saldo=0;
+    var cambio=0;
+    efectivo = $(this).val();
+    saldo=$('#totalVentaDB').val();
+    cambio =  Number(saldo-efectivo);
+    if(cambio < 0 ){
+        $.confirm({
+            animationBounce: 1.5,
+            closeAnimation: 'scale',
+            icon: 'fa fa-warning',
+            title: 'El valor es mayor al Total',
+            content: '',
+            type: 'red',
+            typeAnimated: true,
+            buttons: {
+
+                cerrar: function () {
+                }
+            }
+        });
+    }else{
+        $("#estadoSaldo").val('Debe');
+        $('#saldoVentaAbono').val(cambio);
+    }
+
+
+    console.log(cambio);
+    // var nuevoCambioEfectivo = $(this).parent().parent().parent().children('#camposSaldos').children().children('#saldoVentaAbono');
+
+    // nuevoCambioEfectivo.val(cambio);
+
+});

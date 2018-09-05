@@ -1,0 +1,113 @@
+<?php $__env->startSection('header'); ?>
+    <h1>
+        Administrar Ventas
+        <small>Ventas</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Ventas</a></li>
+        <li class="active">Administrar</li>
+    </ol>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('contenido'); ?>
+    <div class="box box-primary">
+
+        <div class="box-header">
+            <div class="form-group">
+                <h3 class="box-title">Listado de Ventas</h3>
+            </div>
+        </div>
+
+        <div class="box-body table-responsive ">
+            <table class="table table-bordered table-striped dt-responsive tablas table_admiVentas">
+                <thead>
+                <tr>
+                    <th>Código factura</th>
+                    <th>Cliente</th>
+                    <th>Vendedor</th>
+                    <th>Tipo Tramite</th>
+                    <th>Forma de pago</th>
+                    <th>Total</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+
+                </thead>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- TABLA DINAMICA Clientes-->
+<?php $__env->startSection('dataTablesClientes'); ?>
+    <script>
+      var table = $('.table_admiVentas').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "data": null,
+            "ajax": "/admin/api/admin-ventas",
+            "columns":[
+                {data: 'id'},
+                {
+                    render:function (data,type, JsonResultRow,meta) {
+                        return '<p>'+JsonResultRow.idcliente.name+' '+JsonResultRow.idcliente.apellidos+'</p>'
+                    }
+                },
+                {
+                    render:function (data,type, JsonResultRow,meta) {
+                        return '<p>'+JsonResultRow.id_vendedor.name+' '+JsonResultRow.id_vendedor.apellidos+'</p>'
+                    }
+                },
+                {data: 'tipo_tramite.nombre'},
+                {
+                    render:function (data,type, JsonResultRow,meta) {
+                        return '<p style="text-transform: uppercase">'+JsonResultRow.metodo_pago+'</p>'
+                    }
+                },
+                {
+                    render:function (data,type, JsonResultRow,meta) {
+                        return '<input disabled  class="total_administarVentas" style="width: 145px; border: 0; background: border-box;" value="'+JsonResultRow.total+'"></td>\n'
+                    }
+                },
+                {data: 'created_at'},
+                {render: function (data, type, JsonResultRow, meta) {
+                        return '<a href="/admin/factura/'+JsonResultRow.id+'" target="_blank" class="btn btn-xs btn-success btnEditarUsuario" data-toggle="modal"><i class="fa fa-print"></i></a>\n'+
+                                '<button class="btn btn-xs btn-info btnInfoUsuario" data-toggle="modal"><i class="fa fa-eye"></i></button>\n' +
+                            '                        <a idUsuario="" class="btn btn-xs btn-danger eliminar"><i class="fa fa-times"></i></a>'
+                    }},
+
+            ],
+            "language":{
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+
+    </script>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

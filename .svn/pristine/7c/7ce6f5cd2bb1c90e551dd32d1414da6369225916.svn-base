@@ -1,0 +1,112 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\ResumenTramite;
+use App\Seguro;
+use App\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use \App\TipoVehiculo;
+
+class SeguroController extends Controller
+{
+    public function index(){
+
+        //Todos los Vehiculos
+        $tipoVehiculos = TipoVehiculo::all();
+        $ultimoCliente = User::select('id')->orderBy('created_at','DESC')->first();
+
+        return view('admin.seguro.seguro',compact('ultimoCliente','tipoVehiculos'));
+    }
+
+    public function cilindrajes($id){
+
+      return  $cilindrajes = Seguro::where('idTipoVehiculo',$id)->get();
+    }
+
+    public function agregarSeguro(Request $request){
+
+        $cliente = ResumenTramite::create([
+
+            'idUsuario' => $request->get('idCliente')
+        ]);
+
+        $cliente->segurosTramite()->attach($request->idSeguro);
+        return response()->json($cliente);
+    }
+
+    public function agregarCliente(Request $request){
+
+
+        $user = User::create([
+            'name' => $request->get('name'),
+            'apellidos' => $request->get('apellidos'),
+            'identificacion' => $request->get('identificacion'),
+            'email' => $request->get('email'),
+            'telefono' => $request->get('telefono')
+        ]);
+
+        $user->assignRole($request->rol);
+
+        return $request;
+    }
+
+    public function actualizarCliente(Request $request, $id){
+            $user = User::find($id);
+            $user->identificacion = $request->get('identificacion');
+            $user->name = $request->get('name');
+            $user->email = $request->get('email');
+            $user->apellidos = $request->get('apellidos');
+            $user->telefono = $request->get('telefono');
+
+            $user->save();
+
+            return response()->json($user);
+    }
+
+    public function eliminarCliente($id){
+
+        $clienteEliminar = User::findOrFail($id);
+        $clienteEliminar->delete();
+
+        return response()->json($clienteEliminar);
+
+    }
+
+    public function existeCedula($identificacion){
+
+        return $exiteCedula = User::where('identificacion', $identificacion)->get();
+    }
+
+
+
+    //ADMINISTRAR SEGURO........................................
+
+    public function administrarSeguro(){
+
+        $seguros = Seguro::all();
+
+
+        return view('admin.seguro.admin_seguro',compact('seguros'));
+    }
+
+    public function actualizarPrecioSeguro(Request $request, Seguro $seguro){
+
+        $data = $request->validate([
+
+            'cilindraje' => 'required',
+            'precio' => 'required',
+            'ultima_actualizacion' => 'required'
+        ]);
+
+        $seguro->update($data);
+
+        return back()->withFlash('Seguro Actaulizado');
+
+    }
+
+
+
+
+}

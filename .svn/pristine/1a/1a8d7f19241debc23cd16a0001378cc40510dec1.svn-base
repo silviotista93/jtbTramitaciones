@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\ResumenTramite;
+use App\TipoDocumento;
+use App\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class LicenciaController extends Controller
+{
+    public function index(){
+        $tipoDocumento = TipoDocumento::all();
+        $clientes = User::role(['Cliente'])->orderBy('id','DESC')->get();
+        $codigoFactura = ResumenTramite::select('id')->orderby('created_at','DESC')->first();
+        return view('admin.licencia',compact('tipoDocumento','clientes','codigoFactura'));
+    }
+}

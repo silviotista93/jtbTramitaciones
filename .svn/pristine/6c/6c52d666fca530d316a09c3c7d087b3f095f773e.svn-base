@@ -1,0 +1,22 @@
+<?php $__env->startComponent('mail::message'); ?>
+# Tus credenciales para acceder a <?php echo e(config('app.name')); ?>
+
+
+Utiliza estas credenciales para acceder al sistema.
+
+<?php $__env->startComponent('mail::table'); ?>
+
+    | Usuario | Contraseña |
+    |:---------|:------------|
+    |<?php echo e($user->email); ?> | <?php echo e($password); ?>|
+
+
+<?php echo $__env->renderComponent(); ?>
+<?php $__env->startComponent('mail::button', ['url' => route('login')]); ?>
+    Login
+<?php echo $__env->renderComponent(); ?>
+
+Gracias,<br>
+<?php echo e(config('app.name')); ?>
+
+<?php echo $__env->renderComponent(); ?>

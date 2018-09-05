@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\ResumenTramite;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class ResumenTramiteController extends Controller
+{
+    //VENTAS TRAMITE SEGURO
+    public function agregarSeguro(Request $request){
+
+        $cliente = ResumenTramite::create([
+
+            'idUsuario' => $request->get('idCliente'),
+            'metodo_pago' => $request->get('metodo_pago'),
+            'idVendedor' => $request->get('idVendedor'),
+            'total' => $request->get('total'),
+
+        ]);
+
+
+        $cliente->segurosTramite()->attach($request->get('idSeguro'));
+        return  back()->withFlash('Venta Realizada Correctamente');
+    }
+}

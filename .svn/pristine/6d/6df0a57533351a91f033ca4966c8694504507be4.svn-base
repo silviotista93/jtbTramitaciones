@@ -1,0 +1,181 @@
+
+var urlCrearCliente = "http://jtb.mauro/admin/cliente-seguro-creado";
+//CREAR CLIENTE SEGURO EN LA BASE DE DATOS
+$( "#identificacion_cliente_seguro" ).keyup(function() {
+   var identificacion = $(this).val();
+
+    $.get('/api/ultimoCedula/'+identificacion+'',function (data) {
+
+        if (data.length===0){
+            $('#agregaClienteSeguro').addClass('btn-guardar_cliente_seguro');
+            $('#agregaClienteSeguro').removeClass('cristian');
+
+        }else{
+            $('#agregaClienteSeguro').addClass('cristian');
+            $('#agregaClienteSeguro').removeClass('btn-guardar_cliente_seguro');
+        }
+    });
+
+});
+
+$('.cristian').click(function () {
+
+    $("#tab_resumen_seguro").click();
+})
+
+
+var urlCrearTramite = "http://jtb.mauro/admin/tramite-seguro-creado";
+
+$(".btn-guardar_cliente_seguro").click(function (e) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+
+    e.preventDefault();
+
+    var formData = {
+        name: $('input[name=name]').val(),
+        apellidos:$('input[name=apellidos]').val(),
+        identificacion: $('input[name=identificacion]').val(),
+        email:$('input[name=email]').val(),
+        telefono:$('input[name=telefono]').val(),
+        rol:$('input[name=rol]').val()
+
+    };
+
+    // utilizado para determinar el metodo http que se va a utilizar [add = POST], [update = PUT]
+    var type = "POST"; // para crear un nuevo recurso
+    var my_url = urlCrearCliente;
+
+    $.ajax({
+        type: type,
+        url: "http://jtb.mauro/admin/cliente-seguro-creado",
+        data: formData,
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+
+            $('#frmagregarClienteSeguro').trigger();
+
+
+
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+
+
+    });
+
+
+
+    $("#tab_resumen_seguro").click();
+
+
+});
+
+//CREAR TRAMITE SEGURO CON EL CLIENTE AGREGADO
+$("#btn-guardar_tramite_seguro").click(function (e) {
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+    e.preventDefault();
+    var formData = {
+        idCliente: $('input[name=idCliente]').val(),
+        idSeguro:$('input[name=idSeguro]').val(),
+
+    };
+
+    // utilizado para determinar el metodo http que se va a utilizar [add = POST], [update = PUT]
+    var type = "POST"; // para crear un nuevo recurso
+    var my_url = urlCrearTramite;
+
+    $.ajax({
+        type: type,
+        url: my_url,
+        data: formData,
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+
+            $('#frmagregarClienteSeguro').trigger();
+
+
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+    });
+});
+
+/*=============================================
+ELIMINAR CLIENTE Y CANCELAR SEGURO
+=============================================*/
+
+$(document).on('click', '#boton_cancelar_seguro', function () {
+    var cliente_id = $(this).attr('idEliminarCliente');
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    })
+    $.ajax({
+        type: "DELETE",
+        url: 'http://jtb.mauro/admin/cliente-eliminar/'+cliente_id+'',
+        success: function (data) {
+            console.log(data);
+            $('#frmagregarClienteSeguro').trigger()
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+    });
+});
+
+
+
+//ACTUALIZAR EL CLIENTE
+$("#actualizar_cliente_seguro").click(function (e) {
+    var cliente_id = $(this).attr('idActaulizarCliente');
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+    e.preventDefault();
+
+    var formData = {
+        name: $('input[name=name]').val(),
+        apellidos:$('input[name=apellidos]').val(),
+        identificacion: $('input[name=identificacion]').val(),
+        email:$('input[name=email]').val(),
+        telefono:$('input[name=telefono]').val()
+
+    };
+
+    $.ajax({
+        type: "PUT",
+        url: 'http://jtb.mauro/admin/cliente-actualizar/'+cliente_id+'',
+        data: formData,
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+
+            $('#frmagregarClienteSeguro').submit();
+
+
+
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+
+    });
+
+});
+

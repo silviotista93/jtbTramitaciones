@@ -1,0 +1,73 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
+class ResumenTramite extends Model
+{
+    protected $fillable = [
+        'idTramitador','idUsuario','metodo_pago','idVendedor','total','id_tipoTramite','estado','nota'
+    ];
+
+        public function idcliente(){
+
+            return $this->belongsTo(User::class,'idUsuario');
+        }
+
+        public function tipoTramite(){
+            return $this->belongsTo(Tramite::class,'id_tipoTramite');
+        }
+
+    public function segurosTramite(){
+
+        return $this->belongsToMany(Seguro::class,'resumenTramite_seguro','id_resumen_tramite','id_seguro');
+    }
+    public function abonos(){
+        return $this->belongsTo(Abono::class,'id_resumen_tramite');
+    }
+
+
+
+    public function idvendedor(){
+
+            return $this->belongsTo(User::class,'idVendedor');
+    }
+
+
+    public function cantidad($id){
+        return DB::table('resumenTramite_seguro')
+            ->select('*')
+            ->where([['id_resumen_tramite','=',$this->id],['id_seguro','=',$id]])
+            ->get();
+        }
+
+        public function tipoIdentificacion($id){
+            return DB::table('tipo_documentos')
+                ->select('*')
+                ->where('id','=',$id)->first();
+        }
+
+        public function tipoVehiculoSeguro($id){
+            return DB::table('tipo_vehiculos')
+                ->select('*')
+                ->where('id','=',$id)->first();
+        }
+        public function obtenerAbonos($id){
+            return DB::table('abonos')
+                ->select('*')
+                ->where('id_resumen_tramite','=',$id)->get();
+        }
+
+        public function tramitesDeben(){
+            return DB::table('resumen_tramites')
+                ->select('resumen_tramites.*','abonos.*','resumentramite_seguro.*','seguros.*')
+                ->join('resumen_tramites', 'resumen_tramites.id', '=', 'abonos.id_resumen_tramite')
+                ->join('resumentramite_seguro','resumentramite_seguro.id_resumen_tramite','=','resumen_tramites.id')
+                ->join('seguros','seguros.id','=','resumentramite_seguro.id_seguro')
+                ->join('tramites','tramites.id','=','seguros.idTipoTramte')
+                ->get();
+
+        }
+}

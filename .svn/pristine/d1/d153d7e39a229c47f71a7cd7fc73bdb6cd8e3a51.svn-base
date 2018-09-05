@@ -1,0 +1,109 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Role;
+
+class UserController extends Controller
+{
+    public function index()
+    {
+
+        $usuarios = User::role(['Administrador','Secretario'])->get();
+        $roles = Role::where("name", "=", "Administrador")->orWhere("name", "=", "Secretario")->get()->sortBy('id');
+
+
+        return view('admin.usuarios', compact('usuarios', 'roles'));
+    }
+
+    public function store(Request $request)
+    {
+
+        $rule = [
+
+            'name' => 'required|string|max:255',
+            'apellidos' => 'required',
+            'email' => 'required|string|email|max:255|unique:users',
+            'telefono' => 'required',
+            'foto' => 'required',
+
+        ];
+
+        $data = $request->validate($rule);
+        $pass = 'cantare.de.2310';
+
+        $data['password'] = $pass;
+        $user = User::create($data);
+        $user->assignRole($request->rol);
+
+        return back()->withFlash('Empleado Creado Existosamente');
+
+    }
+
+    public function destroy($id)
+    {
+
+        $usuario = User::findOrFail($id);
+        $usuario->delete();
+
+        return back()->with('eliminar', 'Empleado Eliminado Correctamente');
+    }
+
+    public function actualizarEstado(Request $request, User $usuario,$estado){
+
+        if ($estado === "activo"){
+            $usuario->estado = "activo";
+        }else if ($estado == "inactivo"){
+            $usuario->estado = "inactivo";
+        }else{
+            return false;
+        }
+        return json_encode($usuario->update());
+    }
+
+    //AGREGAR CLIENTES
+
+    public function AgregarCliente(Request $request){
+
+
+        $rule = [
+            'name' => 'required',
+            'apellidos' => 'required',
+            'identificacion' => 'required|unique:users',
+            'id_tipoIdentificacion' => 'required',
+            'email' => 'required|string|email|max:255|unique:users',
+            'telefono' => 'required'
+
+        ];
+
+        $data = $request->validate($rule);
+
+        $user = User::create($data);
+        $user->assignRole($request->rol);
+
+        return back()->withFlash('Cliente Creado Existosamente');;
+
+    }
+
+    //ACTUALIZAR CLIENTES
+    public function actualizarCliente( Request $request, User $user){
+
+            $data = $request->validate([
+                'name' => 'required',
+                'apellidos' => 'required',
+                'identificacion' => 'required',
+                'id_tipoIdentificacion' => 'required',
+                'email' => 'required',
+                'telefono' => 'required'
+            ]);
+
+            $user->update($data);
+
+            return back()->withFlash('Cliente Actualizado');
+
+    }
+
+}

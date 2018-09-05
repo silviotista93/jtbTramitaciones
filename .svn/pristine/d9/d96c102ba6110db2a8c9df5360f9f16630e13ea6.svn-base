@@ -1,0 +1,427 @@
+<?php $__env->startSection('header'); ?>
+    <h1>
+        Tramite de Seguros
+        <small>Seguros</small>
+    </h1>
+    <ol class="breadcrumb">
+        
+        
+    </ol>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('contenido'); ?>
+
+    <div class="row">
+
+        <!--=====================================
+        EL FORMULARIO
+        ======================================-->
+
+        <div class="col-lg-6 col-xs-12">
+
+            <div class="box box-success">
+
+                <div class="box-header">
+                    <div class="form-group">
+                        <h3 class="box-title">Venta</h3>
+                    </div>
+                </div>
+
+                <form role="form" method="post" class="formularioVentaSeguro">
+
+                    <div class="box-body">
+
+                        <div class="box">
+
+                            <!--=====================================
+                            ENTRADA DEL VENDEDOR
+                            ======================================-->
+
+                            <div class="form-group">
+
+                                <div class="input-group">
+
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+
+                                    <input type="text" class="form-control" id="nuevoVendedor" name="nuevoVendedor"
+                                           value="<?php echo e(auth()->user()->name); ?> <?php echo e(auth()->user()->apellidos); ?>" readonly>
+                                    <input type="hidden" name="idVendedor" value="<?php echo e(auth()->user()->id); ?>">
+
+                                </div>
+
+                            </div>
+
+                            <!--=====================================
+                            ENTRADA DEL VENDEDOR
+                            ======================================-->
+
+                            <div class="form-group">
+
+                            </div>
+
+                            <!--=====================================
+                            ENTRADA DEL CLIENTE
+                            ======================================-->
+
+                            <div class="form-group">
+
+                                <div class="input-group">
+
+                                    <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                    <input type="text" class="form-control inputBuscarCliente" value="" placeholder="digite numero de cedula">
+
+                                    
+
+                                    <span class="input-group-addon"><button type="button" class="btn btn-default btn-xs"
+
+                                                                            data-target="#modalAgregarCliente"
+                                                                            data-dismiss="modal" id="btnAgregarCliente">Agregar cliente</button></span>
+
+                                </div>
+
+                            </div>
+                            <div>
+                                <p id="nombrePersona"></p>
+                            </div>
+
+                            <!--=====================================
+                            ENTRADA PARA AGREGAR PRODUCTO
+                            ======================================-->
+
+                            <div class="form-group row nuevoSeguro">
+
+
+
+                            </div>
+
+                            <!--=====================================
+                            BOTÓN PARA AGREGAR PRODUCTO
+                            ======================================-->
+
+                            <button type="button" class="btn btn-default hidden-lg btnAgregarProducto"> Agregar producto</button>
+
+                            <hr>
+
+                            <div class="row">
+
+                                <!--=====================================
+                                ENTRADA IMPUESTOS Y TOTAL
+                                ======================================-->
+
+                                <div class="col-xs-8 pull-right">
+
+                                    <table class="table">
+
+                                        <thead>
+
+                                        <tr>
+                                            <th>Total</th>
+                                        </tr>
+
+                                        </thead>
+
+                                        <tbody>
+
+                                        <tr>
+
+                                            
+
+                                            <td style="width: 50%">
+
+                                                <div class="input-group">
+
+                                                    <span class="input-group-addon"><i
+                                                                class="ion ion-social-usd"></i></span>
+
+                                                    <input type="number" min="1" class="form-control"
+                                                           id="nuevoTotalVenta" name="nuevoTotalVenta"
+                                                           placeholder="00000" readonly required>
+
+
+                                                </div>
+
+                                            </td>
+
+                                        </tr>
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                            </div>
+
+                            <hr>
+
+                            <!--=====================================
+                            ENTRADA MÉTODO DE PAGO
+                            ======================================-->
+
+                            <div class="form-group row">
+
+                                <div class="col-xs-6" style="padding-right:0px">
+
+                                    <div class="input-group">
+
+                                        <select class="form-control" id="nuevoMetodoPago" name="nuevoMetodoPago"
+                                                required>
+                                            <option value="">Seleccione método de pago</option>
+                                            <option value="efectivo">Efectivo</option>
+                                            <option value="tarjetaCredito">Tarjeta Crédito</option>
+                                            <option value="tarjetaDebito">Tarjeta Débito</option>
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-xs-6" style="padding-left:0px">
+
+                                    <div class="input-group">
+
+                                        <input type="text" class="form-control" id="nuevoCodigoTransaccion"
+                                               name="nuevoCodigoTransaccion" placeholder="Código transacción" required>
+
+                                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <br>
+
+                        </div>
+
+                    </div>
+
+                    <div class="box-footer">
+
+                        <button type="submit" class="btn btn-primary pull-right">Guardar venta</button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <!--=====================================
+        LA TABLA DE PRODUCTOS
+        ======================================-->
+
+        <div class="col-lg-6 hidden-md hidden-sm hidden-xs">
+
+            <div class="box box-warning">
+
+                <div class="box-header">
+                    <div class="form-group">
+                        <h3 class="box-title">Seguros</h3>
+                    </div>
+                </div>
+
+
+                <div class="box-body">
+                    <table class="table table-bordered dt-responsive table-striped" id="tablaSeguros">
+                        <thead>
+                        <tr>
+
+                            <th width="40%">Tipo vehiculo</th>
+                            <th>Cilindrajes</th>
+                            <th>Subtipo</th>
+                            <th>Precios</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                    </table>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <!-- MODAL AGREGAR CLIENTE -->
+    <div class="modal fade " id="modalAgregarCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #056F00;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true"
+                                style="color: #FFFFFF;">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel" style="color: #FFFFFF"><i class="fa fa-plus"></i>Agregar Cliente </h4>
+                </div>
+                <form method="post" action="<?php echo e(route('clienteAgregado')); ?>">
+                    <?php echo csrf_field(); ?>
+                    <div class="modal-body">
+                        <div class="box-body">
+                            <div class="form-group <?php echo e($errors->has('name')? 'has-error':''); ?>">
+                                <label for="">Nombres</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input type="text" name="name" class="form-control"
+                                           placeholder="Ingrese nombre">
+                                    <?php echo $errors->first('name','<span class="help-block">*:message</span>'); ?>
+
+                                </div>
+                            </div>
+                            <div class="form-group <?php echo e($errors->has('apellidos')? 'has-error':''); ?>">
+                                <label for="">Apellidos</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input type="text" name="apellidos" class="form-control"
+                                           placeholder="Ingrese apellidos">
+                                    <?php echo $errors->first('apellidos','<span class="help-block">*:message</span>'); ?>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group <?php echo e($errors->has('id_tipoIdentificacion')? 'has-error':''); ?>">
+                                <label for="">Tipo de Documento</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                    <select name="id_tipoIdentificacion" id="id_tipoIdentificacion" class="form-control">
+                                        <option value="">Seleccione</option>
+                                        <?php $__currentLoopData = $tipoDocumento; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tipoDocumentos): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option class="text-uppercase" <?php echo e(old('id_tipoIdentificacion')==$tipoDocumentos->id ? 'selected':''); ?> value="<?php echo e($tipoDocumentos->id); ?>"><?php echo e($tipoDocumentos->documento); ?></option>
+
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                    </select>
+                                    <?php echo $errors->first('id_documento','<span class="help-block">Seleccione Tipo</span>'); ?>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group <?php echo e($errors->has('identificacion')? 'has-error':''); ?>">
+                                <label for="">Documento</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                    <input id="txtIdentificacionPersona" type="number" name="identificacion" class="form-control"
+                                           placeholder="Ingrese documento">
+                                    <?php echo $errors->first('identificacion','<span class="help-block">*:message</span>'); ?>
+
+                                </div>
+                            </div>
+                            <div class="form-group <?php echo e($errors->has('email')? 'has-error':''); ?>">
+                                <label for="">Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                    <input type="email" name="email" class="form-control" placeholder="Ingrese Email">
+                                    <?php echo $errors->first('email','<span class="help-block">*:message</span>'); ?>
+
+                                </div>
+                            </div>
+                            <div class="form-group <?php echo e($errors->has('telefono')? 'has-error':''); ?>">
+                                <label for="">Teléfono</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+                                    <input type="text" name="telefono" class="form-control"
+                                           data-inputmask='"mask": "(999) 999-9999"'
+                                           data-mask placeholder="Ingrese teléfono">
+                                    <?php echo $errors->first('telefono','<span class="help-block">*:message</span>'); ?>
+
+                                </div>
+                            </div>
+                            
+                            <input type="hidden" id="rol_cliente_seguro" value="4" name="rol">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Agregar Cliente</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+<?php $__env->startSection('dataTablesSeguros'); ?>
+        <script>
+            function  obtenerClase(id) {
+                var info = 'btn-danger';
+                var all = document.querySelectorAll('.quitarSeguro');
+                all.forEach(function (e) {
+                    if (e.value === id) {
+                        info = 'btn-default';
+                    }
+                });
+                return info;
+            }
+            var table = $('#tablaSeguros').DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "stateSave": true,
+                    "data": null,
+                    "ajax": "/admin/api/seguros",
+                    "columns":[
+                        {data: 'tipo_vehiculo.nombre'},
+                        {data: 'cilindraje'},
+                        {
+                            render: function (data, type, JsonResultRow, meta) {
+                                if (JsonResultRow.modelo.length > 0) {
+                                    return '<div class="btn-group"><button class="btn btn-warning">' + JsonResultRow.modelo + '</button></div>'
+                                } else {
+                                    return '';
+                                }
+                            }
+                        },
+                        {data: 'precio'},
+                        {
+                            render: function (data, type, JsonResultRow, meta) {
+                                return '<button id="btnAgregarVentaSeguro'+JsonResultRow.id+'" class="btn btn-dark '+obtenerClase(JsonResultRow.id)+' recuperarBoton agregarVentaSeguro" idSeguro>Agregar</button>\n'
+                            }
+                        },
+                    ],
+                    "language":{
+                        "sProcessing":     "Procesando...",
+                        "sLengthMenu":     "Mostrar _MENU_ registros",
+                        "sZeroRecords":    "No se encontraron resultados",
+                        "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix":    "",
+                        "sSearch":         "Buscar:",
+                        "sUrl":            "",
+                        "sInfoThousands":  ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst":    "Primero",
+                            "sLast":     "Último",
+                            "sNext":     "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    }
+                });
+        </script>
+
+    <?php $__env->stopSection(); ?>
+<?php $__env->startSection('validacionAgregarClientes'); ?>
+    <script>
+
+        <?php if(count($errors) > 0): ?>
+        $('#modalAgregarCliente').modal('show');
+        <?php endif; ?>
+
+    </script>
+
+<?php $__env->stopSection(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,17 @@
+<?php $__env->startSection('header'); ?>
+    <h1>
+        Tramite de Licencia de Conducción
+        <small>Licencia</small>
+    </h1>
+    <ol class="breadcrumb">
+        
+        
+    </ol>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('contenido'); ?>
+    <h1>Hola Mundo</h1>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

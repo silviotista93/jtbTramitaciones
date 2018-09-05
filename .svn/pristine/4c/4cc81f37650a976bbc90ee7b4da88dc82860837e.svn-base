@@ -1,0 +1,132 @@
+@extends('admin.layout')
+
+@section('contenido')
+
+@section('header')
+    <h1>
+        Perfil
+        <small>Usuario</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="{{route('usuarios')}}"><i class="fa fa-dashboard"></i> Usuarios</a></li>
+        <li class="active">Perfil</li>
+    </ol>
+@stop
+
+<div class="row justify-content-end">
+
+    <div class="col-md-6">
+        <!-- Widget: user widget style 1 -->
+        <div class="box box-widget widget-user">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div class="widget-user-header bg-black"
+                 style="background: url('/adminlte/img/fondo-perfil.jpg') center center;">
+                <h3 class="widget-user-username" style="font-weight: 400">{{auth()->user()->name}} {{auth()->user()->apellidos}}</h3>
+                <h5 class="widget-user-desc"></h5>
+            </div>
+            <div class="widget-user-image dropzone dz-clickable" style="border: 0px !important; margin-left: -69px !important;margin-top: -56px !important; background-color:rgba(0, 0, 0, 0);">
+                <img class="img-circle dz-default dz-message" src="{{auth()->user()->foto}}" alt="User Avatar">
+            </div>
+
+
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-sm-6 border-right">
+                        <div class="description-block">
+                            <span class="description-header">EMAIL</span>
+                            <h5 class="">{{auth()->user()->email}}</h5>
+
+                        </div>
+                        <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-6 border-right">
+                        <div class="description-block">
+                            <span class="description-header">CARGO</span>
+                            <h5 class="">{{auth()->user()->roles->first()->name}}</h5>
+                        </div>
+                        <!-- /.description-block -->
+                    </div>
+                    {{--<!-- /.col -->--}}
+                    {{--<div class="col-sm-4">--}}
+                    {{--<div class="description-block">--}}
+                    {{--<span class="description-header">DIRECCION</span>--}}
+                    {{--<h5 class="">Rincon de Yambitara 2Etap</h5>--}}
+                    {{--</div>--}}
+                    {{--<!-- /.description-block -->--}}
+                    {{--</div>--}}
+
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <label for="archivo">Actualiza tu foto de Perfil</label>
+            <div class="form-group text-center">
+                <div class="text-center dropzone dz-clickable" id="f_foto" style="width: 65%; margin: auto; border: 0px !important;">
+                    <div class="text-center dz-default dz-message" data-dz-message="" style="margin-top: 0px !important;">
+                        <span><img width="100%" src="/adminlte/img/fondo_perfil.png"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if($errors->any())
+
+            <ul class="list-group">
+
+                @foreach($errors->all() as $error)
+
+                    <li class="list-group-item list-group-item-danger">
+
+                        {{$error}}
+                    </li>
+
+                @endforeach
+
+            </ul>
+
+        @endif
+
+    </div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Cambiar Contraseña</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form method="post" action="">
+
+                <div class="box-body">
+                    <!-- Contraseña-->
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" name="password" class="form-control" id="exampleInputEmail1" placeholder="Nueva Contraseña">
+                        <span class="help-block">Dejar en blanco si no deseas cambiar la contraseña</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password_confirmation">Confirmar Contraseña</label>
+                        <input type="password" name="password_confirmation" class="form-control" id="exampleInputEmail1" placeholder="Repite Contraseña">
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block boton-actualizar">Actualizar</button>
+                    </div>
+                </div>
+                <input type="hidden" name="archivo" value="" id="inputArchivoUsuario">
+            </form>
+        </div>
+    </div>
+</div>
+
+@stop
+
+@section('dropzoneProfile')
+    <script></script>
+
+@endsection

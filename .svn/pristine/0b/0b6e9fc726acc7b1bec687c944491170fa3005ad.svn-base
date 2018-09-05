@@ -1,0 +1,14 @@
+$(document).ready(function () {
+   $('.total_administarVentas').number(true, 2);
+   $('.infoVentaTotal').number(true,2);
+    $('.infoVentaPrecio').number(true,2);
+    $('.infoVentaPrecioTotal').number(true,2);
+    $('.valorDeuda').number(true,2);
+    $('.valorFinanciacion').number(true,2);
+    $('.valorSaldo_a_la_fecha').number(true,2);
+    $('.valor_a_pagar_financiacion').number(true,2);
+    $('.valorPagoHistorialAbonos').number(true,2);
+    $('.valorPagoHistorialSaldo').number(true,2);
+
+
+});

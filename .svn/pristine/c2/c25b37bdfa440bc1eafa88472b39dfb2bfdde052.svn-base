@@ -1,0 +1,227 @@
+var t = null;
+$(document).ready(function(){
+
+    setInterval(function () {
+        if ($(".inputBuscarCliente").val() !== t) {
+            $("#tablaMostrarCliente").hide();
+            $("#nombreCliente").hide();
+            $("#identificacionCliente").hide();
+        }
+    }, 250);
+
+    $(".inputBuscarCliente").keypress(function (e) {
+        if (e.charCode === 13){
+            e.preventDefault();
+            t = $(this).val();
+            $("#btnAgregarCliente").click();
+        }
+    });
+
+    $('#btnAgregarCliente').click(function (e) {
+        validarCliente()
+    });
+
+});
+
+function validarCliente () {
+    var url = 'http://jtb.mauro/api/encontrarCliente/'+document.querySelector(".inputBuscarCliente").value;
+    if (document.querySelector(".inputBuscarCliente").value.trim().length === 0){
+        $("#tablaMostrarCliente").hide();
+        $("#nombreCliente").hide();
+        $("#identificacionCliente").hide();
+        $('#modalAgregarCliente').modal('show');
+        return;
+    }
+    $.get(url, null, function (r) {
+        if (r.length !== 0){
+            $("#tablaMostrarCliente").show();
+            $('#nombreCliente').val(r[0].name+" "+r[0].apellidos);
+            $('#identificacionCliente').val(r[0].identificacion);
+            $('#idCliente').val(r[0].id);
+
+            $("#nombreCliente").show();
+            $("#identificacionCliente").show();
+
+            //EDITAR CLIENTE
+            $("#txtEditarNombreCliente").val(r[0].name);
+            $("#txtEditarApellidosCliente").val(r[0].apellidos);
+            $("#txtEditartipoIdentificacionCliente").val(r[0].tipo_documento.id);
+            $("#txtEditarIdentificacionCliente").val(r[0].identificacion);
+            $("#txtEditarEmailCliente").val(r[0].email);
+            $("#txtEditarTelefonoCliente").val(r[0].telefono);
+
+            $("#btnActualizarCliente").hide();
+            $("#btnCancelarEditarCliente").hide();
+
+            $(document).on('click','#btnEditarCliente',function(e){
+                e.preventDefault();
+                $( "#txtEditarNombreCliente" ).prop( "disabled", false );
+                $( "#txtEditarApellidosCliente" ).prop( "disabled", false );
+                $( "#txtEditartipoIdentificacionCliente" ).prop( "disabled", false );
+                $( "#txtEditarIdentificacionCliente" ).prop( "disabled", false );
+                $( "#txtEditarEmailCliente" ).prop( "disabled", false );
+                $( "#txtEditarTelefonoCliente" ).prop( "disabled", false );
+
+                $("#btnCancelarEditarCliente").show();
+                $("#btnActualizarCliente").show();
+                $("#btnEditarCliente").hide();
+            });
+            $(document).on('click','#btnCancelarEditarCliente',function(e){
+                e.preventDefault();
+                $( "#txtEditarNombreCliente" ).prop( "disabled", true );
+                $( "#txtEditarApellidosCliente" ).prop( "disabled", true );
+                $( "#txtEditartipoIdentificacionCliente" ).prop( "disabled", true );
+                $( "#txtEditarIdentificacionCliente" ).prop( "disabled", true );
+                $( "#txtEditarEmailCliente" ).prop( "disabled", true );
+                $( "#txtEditarTelefonoCliente" ).prop( "disabled", true );
+
+                $("#btnEditarCliente").show();
+                $("#btnActualizarCliente").hide();
+                $("#btnCancelarEditarCliente").hide();
+            });
+
+            //ACTUALIZAR CLIENTE
+            var urlActualizarCliente ='/admin/actualizar-cliente/'+r[0].id;
+
+            console.log(urlActualizarCliente,'urlActualizarCliente');
+
+            $('#form_actualizar_cliente').attr('action',urlActualizarCliente);
+
+            $('#btnActualizarCliente').click(function () {
+
+                $(".actualizarClienteForm").submit();
+            })
+
+        }else {
+            $("#tablaMostrarCliente").hide();
+            $("#nombreCliente").hide();
+            $("#identificacionCliente").hide();
+
+            //AGREGAR CLIENTE
+            document.getElementById('txtIdentificacionCliente').value = document.querySelector(".inputBuscarCliente").value;
+            $('#modalAgregarCliente').modal('show');
+        }
+
+
+    });
+    return false;
+}
+
+
+
+$(function () {
+    $('#tablaSeguros tbody').on('click','.agregarVentaSeguro',function (e) {
+        if ($(this).hasClass('btn-default')){
+            return;
+        }
+        var data = table.row($(this).parents('tr')).data();
+
+        var el = e.target;
+        var classL = el.classList;
+        classL.remove("btn-danger");
+        classL.add('btn-default');
+
+        $.get('/api/seguroBuscar/'+data.id+'',function (respuesta) {
+            var id = respuesta[0].id;
+            var nombre = respuesta[0].tipo_vehiculo.nombre;
+            var cilindraje = respuesta[0].cilindraje;
+            var precio = respuesta[0].precio;
+            console.log(respuesta[0].precio);
+
+            $(".nuevoSeguro").append(
+                '<div class="row" style="padding:5px 15px">'+
+                '<!-- Descripción del producto -->'+
+                '<div class="col-xs-4" style="padding-right:0px">'+
+                '<div class="input-group">'+
+                '<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs quitarSeguro" value="'+id+'"><i class="fa fa-times"></i></button></span>'+
+                '<input type="text" class="form-control nuevaDescripcionSeguro" idSeguro="'+id+'" name="agregarSeguro" value="'+nombre+'" readonly required>'+
+                '</div>'+
+                '</div>'+
+                '<!-- Cantidad del producto -->'+
+                '<div class="col-xs-3">'+
+                '<input type="text" class="form-control" name="" min="1" value="'+cilindraje+'" required readonly>'+
+                '</div>' +
+                '<div class="col-xs-2" style="padding-left: 0px">'+
+                '<input type="number" class="form-control nuevaCantidadSeguro" name="nuevaCantidadSeguro" min="1" value="1" required>'+
+                '</div>' +
+                '<!-- Precio del producto -->'+
+                '<div class="col-xs-3 ingresoPrecio" style="padding-left:0px">'+
+                '<div class="input-group">'+
+                '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
+                '<input type="text" class="form-control nuevoPrecioSeguro" precioReal="'+precio+'" name="nuevoPrecioSeguro" value="'+precio+'" readonly required>'+
+                '</div>'+
+                '</div>'+
+                '</div>');
+            //SUMAR EL TOTAL DE PRECIOS
+            sumarTotalPrecios()
+        });
+
+    });
+});
+/*=============================================
+QUITAR PRODUCTOS DE LA VENTA Y RECUPERAR BOTÓN
+=============================================*/
+$(".formularioVentaSeguro").on("click", ".quitarSeguro", function(){
+
+    $(this).parent().parent().parent().parent().remove();
+
+    var idSeguro = $(this).val();
+
+    /* $('.recuperarBoton').attr('idSeguro',idSeguro).removeClass('btn-default');
+     $('.recuperarBoton').attr('idSeguro',idSeguro).addClass('btn-primary agregarProducto');*/
+    var el = document.getElementById("btnAgregarVentaSeguro"+idSeguro);
+    if (el){
+        var classL = el.classList;
+        if (classL) {
+            classL.add("btn-danger");
+            classL.remove('btn-default');
+        }
+    }
+    if($(".nuevoSeguro").children().length == 0){
+
+        $("#nuevoTotalVenta").val(0);
+    }else{
+        //SUMAR EL TOTAL DE PRECIOS
+        sumarTotalPrecios()
+    }
+
+
+});
+
+/*=============================================
+CAMBIAR LA CANTIDAD
+=============================================*/
+
+$(".formularioVentaSeguro").on("click", ".nuevaCantidadSeguro", function(){
+
+    var precio = $(this).parent().parent().children(".ingresoPrecio").children().children(".nuevoPrecioSeguro");
+
+    var precioFinal = $(this).val() * precio.attr("precioReal");
+
+        precio.val(precioFinal);
+
+    //SUMAR EL TOTAL DE PRECIOS
+    sumarTotalPrecios()
+
+});
+
+/*=============================================
+SUMAR TODOS LOS PRECIOS
+=============================================*/
+
+function sumarTotalPrecios() {
+
+   var precioCadaSeguro = $(".nuevoPrecioSeguro");
+   var arraySumaPrecio = [];
+   
+   for (var i = 0; i < precioCadaSeguro.length; i++){
+        arraySumaPrecio.push(Number($(precioCadaSeguro[i]).val()));
+
+   }
+    function sumarArrayPrecios(total, numero) {
+
+       return total + numero;
+    }
+    var sumaTotalPrecio = arraySumaPrecio.reduce(sumarArrayPrecios);
+   $("#nuevoTotalVenta").val(sumaTotalPrecio);
+}

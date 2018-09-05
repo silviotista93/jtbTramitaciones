@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> Tramitaciones | Reset</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="/adminlte/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/adminlte/css/AdminLTE.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="hold-transition lockscreen">
+<!-- Automatic element centering -->
+@if (session('status'))
+    <div class="alert alert-success" role="alert">
+        {{ session('status') }}
+    </div>
+@endif
+<div class="lockscreen-wrapper">
+    <div class="lockscreen-logo">
+        <a href="/"><b>TJB</b> Tramitaciones</a>
+    </div>
+    <!-- User name -->
+    <div class="lockscreen-name">Reestablecer Contraseña</div>
+
+    <!-- START LOCK SCREEN ITEM -->
+    <div class="lockscreen-item">
+        <!-- lockscreen image -->
+        <div class="lockscreen-image">
+            <img src="/adminlte//img/logo.png" alt="User Image">
+        </div>
+
+        <!-- /.lockscreen-image -->
+
+        <!-- lockscreen credentials (contains the form) -->
+        <form method="POST" class="lockscreen-credentials" action="{{ route('password.email') }}" aria-label="{{ __('Reset Password') }}">
+            @csrf
+            <div class="input-group">
+                <input id="email" type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required placeholder="Email">
+
+                <div class="input-group-btn">
+                    <button type="submit" class="btn"><i class="fa fa-arrow-right text-muted"></i></button>
+                </div>
+
+            </div>
+            @if ($errors->has('email'))
+                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+            @endif
+        </form>
+        <!-- /.lockscreen credentials -->
+
+    </div>
+    <!-- /.lockscreen-item -->
+    <div class="help-block text-center">
+        A su correo enviaremos un enlace para reestablecer su contraseña
+    </div>
+    <div class="text-center">
+        <a href="/">O intente iniciar sesión nuevamente</a>
+    </div>
+    <div class="lockscreen-footer text-center">
+        Copyright &copy; 2018 <b><a href="{{ route('password.request') }}" class="text-black">Tramitaciones TJB</a></b><br>
+        Derechos Reservados
+    </div>
+</div>
+<!-- /.center -->
+
+<!-- jQuery 2.2.3 -->
+<script src="/adminlte/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="/adminlte/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

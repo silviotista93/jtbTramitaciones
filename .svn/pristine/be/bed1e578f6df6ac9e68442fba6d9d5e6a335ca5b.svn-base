@@ -1,0 +1,45 @@
+<?php
+
+namespace App;
+
+use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable
+{
+    use Notifiable, HasRoles;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name','apellidos','id_tipoIdentificacion','identificacion','email','telefono','foto' ,'password','estado','genero','fecha_nacimiento'
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    public function tramites(){
+
+        return $this->belongsTo(ResumenTramite::class);
+    }
+
+    public function tipoDocumento(){
+
+        return $this->belongsTo(TipoDocumento::class,'id_tipoIdentificacion');
+    }
+
+    public function setPasswordAttribute($password){
+
+        $this->attributes['password'] = bcrypt($password);
+    }
+}

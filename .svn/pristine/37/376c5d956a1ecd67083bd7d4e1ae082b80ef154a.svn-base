@@ -1,0 +1,54 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
+class ResumenTramite extends Model
+{
+    protected $fillable = [
+        'idTramitador','idUsuario','metodo_pago','idVendedor','total','id_tipoTramite','estado','nota'
+    ];
+
+        public function idcliente(){
+
+            return $this->belongsTo(User::class,'idUsuario');
+        }
+
+        public function tipoTramite(){
+            return $this->belongsTo(Tramite::class,'id_tipoTramite');
+        }
+
+    public function segurosTramite(){
+
+        return $this->belongsToMany(Seguro::class,'resumenTramite_seguro','id_resumen_tramite','id_seguro');
+    }
+
+
+
+    public function idvendedor(){
+
+            return $this->belongsTo(User::class,'idVendedor');
+    }
+
+
+    public function cantidad($id){
+        return DB::table('resumenTramite_seguro')
+            ->select('*')
+            ->where([['id_resumen_tramite','=',$this->id],['id_seguro','=',$id]])
+            ->get();
+        }
+
+        public function tipoIdentificacion($id){
+            return DB::table('tipo_documentos')
+                ->select('*')
+                ->where('id','=',$id)->first();
+        }
+
+        public function tipoVehiculoSeguro($id){
+            return DB::table('tipo_vehiculos')
+                ->select('*')
+                ->where('id','=',$id)->first();
+        }
+}

@@ -1,0 +1,437 @@
+# ************************************************************
+# Sequel Pro SQL dump
+# Version 4541
+#
+# http://www.sequelpro.com/
+# https://github.com/sequelpro/sequelpro
+#
+# Host: 127.0.0.1 (MySQL 5.5.5-10.1.26-MariaDB)
+# Database: jtb
+# Generation Time: 2018-07-27 02:14:06 +0000
+# ************************************************************
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table migrations
+# ------------------------------------------------------------
+
+LOCK TABLES `migrations` WRITE;
+/*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`)
+VALUES
+	(31,'2014_10_12_000000_create_users_table',1),
+	(32,'2014_10_12_100000_create_password_resets_table',1),
+	(33,'2018_07_03_153506_create_permission_tables',1),
+	(34,'2018_07_03_214850_create_seguros_table',1),
+	(35,'2018_07_03_221355_create_tramites_table',1),
+	(36,'2018_07_03_221430_create_tipo_vehiculos_table',1),
+	(39,'2014_10_12_000000_create_users_table',1),
+	(40,'2014_10_12_100000_create_password_resets_table',1),
+	(41,'2018_07_03_153506_create_permission_tables',1),
+	(42,'2018_07_03_214850_create_seguros_table',1),
+	(43,'2018_07_03_221355_create_tramites_table',1),
+	(44,'2018_07_03_221430_create_tipo_vehiculos_table',1),
+	(45,'2018_07_07_210205_create_resumen_tramites_table',1),
+	(46,'2018_07_07_211523_create_resumen_tramite_seguro_table',1),
+	(71,'2014_10_12_000000_create_users_table',1),
+	(72,'2014_10_12_100000_create_password_resets_table',1),
+	(73,'2018_07_03_153506_create_permission_tables',1),
+	(74,'2018_07_03_214850_create_seguros_table',1),
+	(75,'2018_07_03_221355_create_tramites_table',1),
+	(76,'2018_07_03_221430_create_tipo_vehiculos_table',1),
+	(77,'2018_07_07_210205_create_resumen_tramites_table',1),
+	(78,'2018_07_07_211523_create_resumen_tramite_seguro_table',1),
+	(88,'2014_10_12_000000_create_users_table',1),
+	(89,'2014_10_12_100000_create_password_resets_table',1),
+	(90,'2018_07_03_153506_create_permission_tables',1),
+	(91,'2018_07_03_214850_create_seguros_table',1),
+	(92,'2018_07_03_221355_create_tramites_table',1),
+	(93,'2018_07_03_221430_create_tipo_vehiculos_table',1),
+	(94,'2018_07_07_210205_create_resumen_tramites_table',1),
+	(95,'2018_07_07_211523_create_resumen_tramite_seguro_table',1),
+	(96,'2018_07_25_104416_create_tipo_documentos_table',1);
+
+/*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table model_has_permissions
+# ------------------------------------------------------------
+
+
+
+# Dump of table model_has_roles
+# ------------------------------------------------------------
+
+LOCK TABLES `model_has_roles` WRITE;
+/*!40000 ALTER TABLE `model_has_roles` DISABLE KEYS */;
+
+INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`)
+VALUES
+	(1,'App\\User',1),
+	(1,'App\\User',2),
+	(2,'App\\User',100),
+	(4,'App\\User',3),
+	(4,'App\\User',4),
+	(4,'App\\User',5),
+	(4,'App\\User',6),
+	(4,'App\\User',7),
+	(4,'App\\User',14),
+	(4,'App\\User',15),
+	(4,'App\\User',16),
+	(4,'App\\User',17),
+	(4,'App\\User',18),
+	(4,'App\\User',19),
+	(4,'App\\User',20),
+	(4,'App\\User',21),
+	(4,'App\\User',22),
+	(4,'App\\User',23),
+	(4,'App\\User',24),
+	(4,'App\\User',25),
+	(4,'App\\User',26),
+	(4,'App\\User',27),
+	(4,'App\\User',28),
+	(4,'App\\User',29),
+	(4,'App\\User',30),
+	(4,'App\\User',31),
+	(4,'App\\User',32),
+	(4,'App\\User',33),
+	(4,'App\\User',34),
+	(4,'App\\User',35),
+	(4,'App\\User',36),
+	(4,'App\\User',41),
+	(4,'App\\User',42),
+	(4,'App\\User',43),
+	(4,'App\\User',44),
+	(4,'App\\User',45),
+	(4,'App\\User',46),
+	(4,'App\\User',47),
+	(4,'App\\User',49),
+	(4,'App\\User',51),
+	(4,'App\\User',52),
+	(4,'App\\User',53),
+	(4,'App\\User',54),
+	(4,'App\\User',55),
+	(4,'App\\User',56),
+	(4,'App\\User',57),
+	(4,'App\\User',58),
+	(4,'App\\User',59),
+	(4,'App\\User',60),
+	(4,'App\\User',61),
+	(4,'App\\User',62),
+	(4,'App\\User',63),
+	(4,'App\\User',64),
+	(4,'App\\User',65),
+	(4,'App\\User',69),
+	(4,'App\\User',71),
+	(4,'App\\User',72),
+	(4,'App\\User',73),
+	(4,'App\\User',74),
+	(4,'App\\User',75),
+	(4,'App\\User',77),
+	(4,'App\\User',78),
+	(4,'App\\User',81),
+	(4,'App\\User',82),
+	(4,'App\\User',83),
+	(4,'App\\User',85),
+	(4,'App\\User',86),
+	(4,'App\\User',87),
+	(4,'App\\User',88),
+	(4,'App\\User',93),
+	(4,'App\\User',103),
+	(4,'App\\User',104);
+
+/*!40000 ALTER TABLE `model_has_roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table password_resets
+# ------------------------------------------------------------
+
+
+
+# Dump of table permissions
+# ------------------------------------------------------------
+
+
+
+# Dump of table resumen_tramites
+# ------------------------------------------------------------
+
+LOCK TABLES `resumen_tramites` WRITE;
+/*!40000 ALTER TABLE `resumen_tramites` DISABLE KEYS */;
+
+INSERT INTO `resumen_tramites` (`id`, `idTramitador`, `idUsuario`, `created_at`, `updated_at`)
+VALUES
+	(1,NULL,24,'2018-07-11 02:25:53','2018-07-11 02:25:53'),
+	(2,NULL,26,'2018-07-11 03:17:10','2018-07-11 03:17:10'),
+	(3,NULL,26,'2018-07-11 03:23:36','2018-07-11 03:23:36'),
+	(4,NULL,27,'2018-07-11 03:28:13','2018-07-11 03:28:13'),
+	(5,NULL,28,'2018-07-11 13:32:27','2018-07-11 13:32:27'),
+	(6,NULL,30,'2018-07-11 14:38:27','2018-07-11 14:38:27'),
+	(7,NULL,30,'2018-07-11 14:52:45','2018-07-11 14:52:45'),
+	(8,NULL,32,'2018-07-11 14:54:31','2018-07-11 14:54:31'),
+	(9,NULL,32,'2018-07-11 14:55:37','2018-07-11 14:55:37'),
+	(10,NULL,32,'2018-07-11 14:55:38','2018-07-11 14:55:38'),
+	(11,NULL,32,'2018-07-11 14:55:38','2018-07-11 14:55:38'),
+	(12,NULL,32,'2018-07-11 14:56:27','2018-07-11 14:56:27'),
+	(13,NULL,34,'2018-07-11 15:02:23','2018-07-11 15:02:23'),
+	(14,NULL,34,'2018-07-11 15:04:47','2018-07-11 15:04:47'),
+	(15,NULL,35,'2018-07-11 15:07:57','2018-07-11 15:07:57'),
+	(16,NULL,36,'2018-07-11 17:07:40','2018-07-11 17:07:40'),
+	(17,NULL,36,'2018-07-11 17:07:45','2018-07-11 17:07:45'),
+	(18,NULL,41,'2018-07-11 17:08:45','2018-07-11 17:08:45'),
+	(19,NULL,41,'2018-07-11 17:08:47','2018-07-11 17:08:47'),
+	(20,NULL,41,'2018-07-11 17:15:57','2018-07-11 17:15:57'),
+	(21,NULL,42,'2018-07-11 17:18:55','2018-07-11 17:18:55'),
+	(22,NULL,42,'2018-07-11 17:18:58','2018-07-11 17:18:58'),
+	(23,NULL,49,'2018-07-11 17:28:05','2018-07-11 17:28:05'),
+	(24,NULL,49,'2018-07-11 17:29:24','2018-07-11 17:29:24'),
+	(25,NULL,49,'2018-07-11 17:29:25','2018-07-11 17:29:25'),
+	(26,NULL,49,'2018-07-11 17:29:25','2018-07-11 17:29:25'),
+	(27,NULL,49,'2018-07-11 17:30:58','2018-07-11 17:30:58'),
+	(28,NULL,49,'2018-07-11 17:31:14','2018-07-11 17:31:14'),
+	(29,NULL,53,'2018-07-11 19:19:37','2018-07-11 19:19:37'),
+	(30,NULL,2,'2018-07-11 19:37:06','2018-07-11 19:37:06'),
+	(31,NULL,2,'2018-07-11 19:39:33','2018-07-11 19:39:33'),
+	(32,NULL,60,'2018-07-11 19:41:38','2018-07-11 19:41:38'),
+	(33,NULL,5,'2018-07-11 19:51:19','2018-07-11 19:51:19'),
+	(34,NULL,64,'2018-07-11 19:58:37','2018-07-11 19:58:37'),
+	(35,NULL,66,'2018-07-11 20:04:19','2018-07-11 20:04:19'),
+	(36,NULL,66,'2018-07-11 20:05:49','2018-07-11 20:05:49'),
+	(37,NULL,66,'2018-07-11 20:06:53','2018-07-11 20:06:53'),
+	(38,NULL,66,'2018-07-11 20:07:28','2018-07-11 20:07:28'),
+	(39,NULL,67,'2018-07-11 20:19:44','2018-07-11 20:19:44'),
+	(40,NULL,66,'2018-07-11 21:48:56','2018-07-11 21:48:56'),
+	(41,NULL,83,'2018-07-13 01:13:30','2018-07-13 01:13:30'),
+	(42,NULL,88,'2018-07-13 01:21:43','2018-07-13 01:21:43'),
+	(43,NULL,89,'2018-07-13 01:27:30','2018-07-13 01:27:30'),
+	(44,NULL,89,'2018-07-13 01:30:53','2018-07-13 01:30:53'),
+	(45,NULL,93,'2018-07-24 01:23:02','2018-07-24 01:23:02');
+
+/*!40000 ALTER TABLE `resumen_tramites` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table resumenTramite_seguro
+# ------------------------------------------------------------
+
+LOCK TABLES `resumenTramite_seguro` WRITE;
+/*!40000 ALTER TABLE `resumenTramite_seguro` DISABLE KEYS */;
+
+INSERT INTO `resumenTramite_seguro` (`id`, `id_seguro`, `id_resumen_tramite`, `created_at`, `updated_at`)
+VALUES
+	(1,3,1,NULL,NULL),
+	(2,1,4,NULL,NULL),
+	(3,1,5,NULL,NULL),
+	(4,1,6,NULL,NULL),
+	(5,1,7,NULL,NULL),
+	(6,1,8,NULL,NULL),
+	(7,1,9,NULL,NULL),
+	(8,1,10,NULL,NULL),
+	(9,1,11,NULL,NULL),
+	(10,1,12,NULL,NULL),
+	(11,1,13,NULL,NULL),
+	(12,1,14,NULL,NULL),
+	(13,1,15,NULL,NULL),
+	(14,4,20,NULL,NULL),
+	(15,7,21,NULL,NULL),
+	(16,7,22,NULL,NULL),
+	(17,6,23,NULL,NULL),
+	(18,6,24,NULL,NULL),
+	(19,6,25,NULL,NULL),
+	(20,6,26,NULL,NULL),
+	(21,6,27,NULL,NULL),
+	(22,6,28,NULL,NULL),
+	(23,2,29,NULL,NULL),
+	(24,1,30,NULL,NULL),
+	(25,1,31,NULL,NULL),
+	(26,1,32,NULL,NULL),
+	(27,15,33,NULL,NULL),
+	(28,2,34,NULL,NULL),
+	(29,3,35,NULL,NULL),
+	(30,2,36,NULL,NULL),
+	(31,2,37,NULL,NULL),
+	(32,2,38,NULL,NULL),
+	(33,5,39,NULL,NULL),
+	(34,9,41,NULL,NULL),
+	(35,6,42,NULL,NULL),
+	(36,18,43,NULL,NULL),
+	(37,5,44,NULL,NULL),
+	(38,1,45,NULL,NULL);
+
+/*!40000 ALTER TABLE `resumenTramite_seguro` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table role_has_permissions
+# ------------------------------------------------------------
+
+
+
+# Dump of table roles
+# ------------------------------------------------------------
+
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+
+INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`)
+VALUES
+	(1,'Administrador','web','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(2,'Secretario','web','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(3,'Tramitador','web','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(4,'Cliente','web','2018-07-06 01:45:44','2018-07-06 01:45:44');
+
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table seguros
+# ------------------------------------------------------------
+
+LOCK TABLES `seguros` WRITE;
+/*!40000 ALTER TABLE `seguros` DISABLE KEYS */;
+
+INSERT INTO `seguros` (`id`, `cilindraje`, `modelo`, `idTipoVehiculo`, `precio`, `idTipoTramte`, `created_at`, `updated_at`)
+VALUES
+	(1,'Menos de 100 cc','',1,337650,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(2,'De 100 a 200 cc','',1,452850,1,'2018-07-06 01:45:44','2018-07-24 14:53:03'),
+	(3,'Mas de 200 cc','',1,510750,1,'2018-07-06 01:45:44','2018-07-24 19:32:21'),
+	(4,'Motocarro','',1,510750,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(5,'Menos de 1500 cc','',2,531750,1,'2018-07-06 01:45:44','2018-07-24 14:54:11'),
+	(6,'De 1500 a 2500 cc','',2,634950,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(7,'Mas de 2500 cc','',2,744750,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(8,'Menor de 5 toneladas','',3,595800,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(9,'De 5 a 15 toneladas','',3,860250,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(10,'Mas de 15 toneladas','',3,23456,1,'2018-07-06 01:45:44','2018-07-24 15:03:33'),
+	(11,'Menor de 1500 cc','',4,670500,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(12,'De 1500 a 2500 cc','',4,845100,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(13,'Mas de 2500 cc','',4,1013100,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(14,'Menor de 1500 cc','',5,300150,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(15,'De 1500 a 2500 cc','',5,365400,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(16,'Mas de 2500 cc ','',5,426750,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(17,'Menor de 2500 cc','',6,534900,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(18,'Igual o Mayor de 2500 cc','',6,715800,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(19,'Menor de 1500 cc','',7,371700,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(20,'De 1500 a 2500 cc','',7,461850,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(21,'Mas de 2500 cc','',7,595800,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(22,'Valor Unico','',8,889200,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(23,'Menor de 10 Pasajeros','',9,879450,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(24,'De 10 Pasajeros en adelante','',9,1275900,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(25,'Menos de 1500 cc','= + 10 Años',2,639150,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(26,'De 1500 a 2500 cc','= + 10 Años',2,752100,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(27,'Mas de 2500 cc','= + 10 Años',2,854400,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(28,'Menor de 1500 cc','= + 10 Años',5,397800,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(29,'De 1500 a 2500 cc','= + 10 Años',5,454500,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(30,'Mas de 2500 cc ','= + 10 Años',5,505950,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(31,'Menor de 2500 cc','= + 10 Años',6,682650,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(32,'Igual o Mayor de 2500 cc','= + 10 Años',6,859500,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(33,'Menor de 1500 cc','= + 10 Años',7,464250,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(34,'De 1500 a 2500 cc','= + 10 Años',7,570900,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(35,'Mas de 2500 cc','= + 10 Años',7,699000,1,'2018-07-06 01:45:44','2018-07-06 01:45:44');
+
+/*!40000 ALTER TABLE `seguros` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table tipo_documentos
+# ------------------------------------------------------------
+
+LOCK TABLES `tipo_documentos` WRITE;
+/*!40000 ALTER TABLE `tipo_documentos` DISABLE KEYS */;
+
+INSERT INTO `tipo_documentos` (`id`, `documento`, `created_at`, `updated_at`)
+VALUES
+	(1,'Cédula Ciudadania',NULL,NULL),
+	(2,'Tarjeta de Identidad',NULL,NULL),
+	(3,'Cédula de Extranjeria',NULL,NULL),
+	(4,'Pasaporte',NULL,NULL);
+
+/*!40000 ALTER TABLE `tipo_documentos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table tipo_vehiculos
+# ------------------------------------------------------------
+
+LOCK TABLES `tipo_vehiculos` WRITE;
+/*!40000 ALTER TABLE `tipo_vehiculos` DISABLE KEYS */;
+
+INSERT INTO `tipo_vehiculos` (`id`, `nombre`, `created_at`, `updated_at`)
+VALUES
+	(1,'Motos','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(2,'Camperos y Camionetas','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(3,'Carga o Mixto','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(4,'Ofi Especiales Ambulancias Transporte Valores','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(5,'Autos Familiares','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(6,'Vehiculos con capacidad de 6 o mas personas','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(7,'Autos de alquiler enseñanza funebres taxis microbuses','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(8,'Buses y Busetas','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(9,'Servicio publico intermunicipal','2018-07-06 01:45:44','2018-07-06 01:45:44');
+
+/*!40000 ALTER TABLE `tipo_vehiculos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table tramites
+# ------------------------------------------------------------
+
+LOCK TABLES `tramites` WRITE;
+/*!40000 ALTER TABLE `tramites` DISABLE KEYS */;
+
+INSERT INTO `tramites` (`id`, `nombre`, `created_at`, `updated_at`)
+VALUES
+	(1,'seguro','2018-07-06 01:45:44','2018-07-06 01:45:44');
+
+/*!40000 ALTER TABLE `tramites` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table users
+# ------------------------------------------------------------
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+
+INSERT INTO `users` (`id`, `identificacion`, `id_tipoIdentificacion`, `name`, `apellidos`, `email`, `password`, `telefono`, `foto`, `estado`, `genero`, `fecha_nacimiento`, `remember_token`, `created_at`, `updated_at`)
+VALUES
+	(1,'1061759221',1,'SIlvio Mauricio','Gutierrez Quiñones','silviotista93@gmail.com','$2y$10$TJK28Rb6qPn/6B9Y2Tx8quX9hU2GpvctDZTy.lXX75bFyIRAGg/qq','(318) 564-3822','','activo',NULL,NULL,'2BRaGZBEOBPrQwnIJXDEF1b9bMBvendXOsU7C1Xi96njx62vA6azWLvQwC2s','2018-07-06 01:45:44','2018-07-26 19:28:05'),
+	(2,NULL,1,'Diana','Navia','diana@gmail.com','$2y$10$iQNVQ/a4VVBszILtk8YzM.iD48XhoAVvcAbjchm9V.LQGy9lc6PZW','(313) 133-1313','/adminlte/img/perfil.jpg','activo',NULL,NULL,'wtFsLMr4fH3Dm3U0r9l5Oos2ytVMtOKrmAPCtkjT7Uo9KUBDO26oQ4ebj1Qt','2018-07-06 21:21:44','2018-07-24 01:37:44'),
+	(3,'1061787359',NULL,'Cristian Andres','Zalazar','jari@gmail.com',NULL,'3187951410',NULL,'activo',NULL,NULL,NULL,'2018-07-07 22:04:49','2018-07-07 22:04:49'),
+	(5,'1030120102',NULL,'Paul','Perez','paul@gmail.com',NULL,'321212122',NULL,'activo',NULL,NULL,NULL,'2018-07-09 19:52:30','2018-07-09 19:52:30'),
+	(64,'1234561',NULL,'Mawi','Yanez','mawi@gmail.com',NULL,'3187951410',NULL,'activo',NULL,NULL,NULL,'2018-07-11 19:51:05','2018-07-11 19:51:05'),
+	(65,'313142',NULL,'pendejo','porque','pendejo@gmail.cm',NULL,'3187951410',NULL,'activo',NULL,NULL,NULL,'2018-07-11 19:58:15','2018-07-11 19:58:15'),
+	(77,'32378654',NULL,'hector','Montoya','hectorgmail.com',NULL,'12312',NULL,'activo',NULL,NULL,NULL,'2018-07-11 22:12:22','2018-07-11 22:12:22'),
+	(78,'22112876',NULL,'jhon','bolaños','joh@gmaol.com',NULL,'312',NULL,'activo',NULL,NULL,NULL,'2018-07-11 22:13:32','2018-07-11 22:13:32'),
+	(81,'32010934',NULL,'jijjeje','ejjeje','jejeijj@gmail.cmo',NULL,'31256700123',NULL,'activo',NULL,NULL,NULL,'2018-07-13 01:01:08','2018-07-13 01:01:08'),
+	(82,'31256431',NULL,'omar','sancheez','omar@gmail.com',NULL,'3187951410',NULL,'activo',NULL,NULL,NULL,'2018-07-13 01:02:29','2018-07-13 01:02:29'),
+	(83,'3123400',NULL,'pepe','son','pepe01@gmail.com',NULL,'3187951410',NULL,'activo',NULL,NULL,NULL,'2018-07-13 01:03:08','2018-07-13 01:03:08'),
+	(85,'341256',NULL,'jonatan','perez','jota@gmail.com',NULL,'3132434355',NULL,'activo',NULL,NULL,NULL,'2018-07-13 01:12:43','2018-07-13 01:12:43'),
+	(86,'3121000763',NULL,'json','laravel','tintin@gmail.com',NULL,'3187951410',NULL,'activo',NULL,NULL,NULL,'2018-07-13 01:17:39','2018-07-13 01:17:39'),
+	(87,'1210098',NULL,'pppp','ppp','p@gmail.com',NULL,'3187951410',NULL,'activo',NULL,NULL,NULL,'2018-07-13 01:18:31','2018-07-13 01:18:31'),
+	(88,'12000009',NULL,'jiji','jijij','jij@gmail.com',NULL,'3187951410',NULL,'activo',NULL,NULL,NULL,'2018-07-13 01:21:26','2018-07-13 01:21:26'),
+	(93,'00100012',NULL,'jejejejejj','jejejejej','ejejl@gmail.com',NULL,'3123121212',NULL,'activo',NULL,NULL,NULL,'2018-07-24 01:21:04','2018-07-24 01:21:04'),
+	(100,NULL,NULL,'Alexis','Gua','alexis@gmail.com','$2y$10$ejAIQuBuV1YJM2waoR5vEeITwzyRyjrl1Wf2PchGwZHhZ2mxUtkMW','(312) 211-2131','/adminlte/img/perfil.jpg','activo',NULL,NULL,NULL,'2018-07-24 17:25:06','2018-07-24 17:25:06'),
+	(103,'111000212',1,'Omar','Gonzalez','omarje@gmail.com',NULL,'(312) 121-2212',NULL,'activo',NULL,NULL,NULL,'2018-07-25 11:53:00','2018-07-25 11:53:00'),
+	(104,'1061759222',1,'Dario','Martinez','dariii@gmail.com',NULL,'(312) 131-2312',NULL,'activo',NULL,NULL,NULL,'2018-07-26 09:04:22','2018-07-26 09:04:22');
+
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

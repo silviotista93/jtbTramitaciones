@@ -1,0 +1,133 @@
+var t = null;
+$(document).ready(function(){
+
+    setInterval(function () {
+        if ($(".inputBuscarCliente").val() !== t) {
+            $("#nombrePersona").hide();
+        }
+    }, 250);
+
+    $(".inputBuscarCliente").keypress(function (e) {
+        if (e.charCode === 13){
+            e.preventDefault();
+            t = $(this).val();
+            $("#btnAgregarCliente").click();
+        }
+    });
+
+    $('#btnAgregarCliente').click(function (e) {
+        validarCliente()
+    });
+
+});
+
+function validarCliente () {
+    var url = 'http://jtb.mauro/api/encontrarCliente/'+document.querySelector(".inputBuscarCliente").value;
+    if (document.querySelector(".inputBuscarCliente").value.trim().length === 0){
+        $("#nombrePersona").hide();
+        $('#modalAgregarCliente').modal('show');
+        return;
+    }
+    $.get(url, null, function (r) {
+        if (r.length !== 0){
+            $('#nombrePersona').html(r[0].name+" "+r[0].apellidos);
+            $("#nombrePersona").show();
+        }else {
+            $("#nombrePersona").hide();
+            document.getElementById('txtIdentificacionPersona').value = document.querySelector(".inputBuscarCliente").value;
+            $('#modalAgregarCliente').modal('show');
+        }
+    });
+    return false;
+}
+
+$(function () {
+    $('#tablaSeguros tbody').on('click','.agregarVentaSeguro',function (e) {
+        if ($(this).hasClass('btn-default')){
+            return;
+        }
+        var data = table.row($(this).parents('tr')).data();
+
+        var el = e.target;
+        var classL = el.classList;
+        classL.remove("btn-danger");
+        classL.add('btn-default');
+
+        $.get('/api/seguroBuscar/'+data.id+'',function (respuesta) {
+            var id = respuesta[0].id;
+            var nombre = respuesta[0].tipo_vehiculo.nombre;
+            var cilindraje = respuesta[0].cilindraje;
+            var precio = respuesta[0].precio;
+
+            $(".nuevoSeguro").append(
+                '<div class="row" style="padding:5px 15px">'+
+                '<!-- Descripción del producto -->'+
+                '<div class="col-xs-4" style="padding-right:0px">'+
+                '<div class="input-group">'+
+                '<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs quitarSeguro" value="'+id+'"><i class="fa fa-times"></i></button></span>'+
+                '<input type="text" class="form-control nuevaDescripcionSeguro" idSeguro="'+id+'" name="agregarSeguro" value="'+nombre+'" readonly required>'+
+                '</div>'+
+                '</div>'+
+                '<!-- Cantidad del producto -->'+
+                '<div class="col-xs-3">'+
+                '<input type="text" class="form-control" name="" min="1" value="'+cilindraje+'" required readonly>'+
+                '</div>' +
+                '<div class="col-xs-2" style="padding-left: 0px">'+
+                '<input type="number" class="form-control nuevaCantidadSeguro" name="nuevaCantidadSeguro" min="1" value="1" required>'+
+                '</div>' +
+                '<!-- Precio del producto -->'+
+                '<div class="col-xs-3 ingresoPrecio" style="padding-left:0px">'+
+                '<div class="input-group">'+
+                '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
+                '<input type="text" class="form-control nuevoPrecioProducto" precioReal="'+precio+'" name="nuevoPrecioProducto" value="'+precio+'" readonly required>'+
+                '</div>'+
+                '</div>'+
+                '</div>');
+        });
+
+    });
+});
+/*=============================================
+QUITAR PRODUCTOS DE LA VENTA Y RECUPERAR BOTÓN
+=============================================*/
+$(".formularioVentaSeguro").on("click", ".quitarSeguro", function(){
+
+    $(this).parent().parent().parent().parent().remove();
+
+    var idSeguro = $(this).val();
+
+    /* $('.recuperarBoton').attr('idSeguro',idSeguro).removeClass('btn-default');
+     $('.recuperarBoton').attr('idSeguro',idSeguro).addClass('btn-primary agregarProducto');*/
+    var el = document.getElementById("btnAgregarVentaSeguro"+idSeguro);
+    if (el){
+        var classL = el.classList;
+        if (classL) {
+            classL.add("btn-danger");
+            classL.remove('btn-default');
+        }
+    }
+
+    /*if($(".nuevoProducto").children().length == 0){
+
+        $("#nuevoImpuestoVenta").val(0);
+        $("#nuevoTotalVenta").val(0);
+        $("#totalVenta").val(0);
+        $("#nuevoTotalVenta").attr("total",0);
+
+    }else{
+
+        // SUMAR TOTAL DE PRECIOS
+
+        sumarTotalPrecios()
+
+        // AGREGAR IMPUESTO
+
+        agregarImpuesto()
+
+        // AGRUPAR PRODUCTOS EN FORMATO JSON
+
+        listarProductos()
+
+    }*/
+
+});

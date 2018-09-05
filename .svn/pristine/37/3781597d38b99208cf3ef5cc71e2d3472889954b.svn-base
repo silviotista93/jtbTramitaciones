@@ -1,0 +1,66 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\ResumenTramite;
+use App\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade as PDF;
+
+
+class ResumenTramiteController extends Controller
+{
+
+    public function facturaPdf($id){
+
+        $obtenerDatos = ResumenTramite::where('id' ,$id)->with('segurosTramite','idcliente','tipoTramite')->first();
+
+
+        $pdf = PDF::loadView('admin.factura', compact('obtenerDatos'))->setPaper ([ 0 , 0 , 226.77 , 379.84 ]);
+
+        return $pdf->stream('listado.pdf');
+    }
+    public function reciboPdf($id){
+        $obtenerDatos = ResumenTramite::where('id' ,$id)->with('segurosTramite','idcliente','tipoTramite')->first();
+        return view('admin.recibo',compact('obtenerDatos'));
+    }
+    //VENTAS TRAMITE SEGURO
+    public function agregarSeguro(Request $request){
+
+       /* $this->validate($request, [
+
+            'idCliente' => 'required',
+            'id_tipoTramite' => 'required',
+            'idTipoProducto' => 'required',
+            'metodo_pago' => 'required',
+            'idVendedor' => 'required',
+            'total' => 'required',
+            'estado' => 'required',
+        ]);*/
+
+
+        $cliente = ResumenTramite::create([
+
+            'idUsuario' => $request->get('idCliente'),
+            'id_tipoTramite' => $request->get('id_tipoTramite'),
+            'metodo_pago' => $request->get('metodo_pago'),
+            'idVendedor' => $request->get('idVendedor'),
+            'total' => $request->get('total'),
+            'estado' => $request->get('estado'),
+            'nota' => $request->get('nota')
+
+        ]);
+        $seguros = $request->idSeguro;
+        $cantidad = $request->nuevaCantidadSeguro;
+        $sumaPrecio = $request->nuevoPrecioSeguro;
+        for ($i=0; $i<count($seguros); $i++){
+            $cliente->segurosTramite()->attach([
+                $seguros[$i] => ['cantidad' => $cantidad[$i],'precio_cantidad' => $sumaPrecio[$i]]
+
+            ]);
+        }
+
+        return  back()->withFlash('Venta Realizada Correctamente');
+    }
+}

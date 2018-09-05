@@ -1,0 +1,80 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Abono;
+use App\ResumenTramite;
+use App\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade as PDF;
+
+
+class ResumenTramiteController extends Controller
+{
+
+    public function facturaPdf($id){
+
+        $obtenerDatos = ResumenTramite::where('id' ,$id)->with('segurosTramite','idcliente','tipoTramite')->first();
+        $pdf = PDF::loadView('admin.factura', compact('obtenerDatos'))->setPaper ([ 0 , 0 , 226.77 , 379.84 ]);
+        return $pdf->stream('listado.pdf');
+    }
+    public function reciboPdf($id){
+        $obtenerDatos = ResumenTramite::where('id' ,$id)->with('segurosTramite','idcliente','tipoTramite')->first();
+        $abono = Abono::select('*')->where('id_resumen_tramite','=',$id)->orderby('created_at','DESC')->first();
+        return view('admin.recibo',compact('obtenerDatos','abono'));
+    }
+    public function reciboAbono($id){
+        $datosAbono = Abono::where('id',$id)->first();
+        return view('admin.recibo-abono',compact('datosAbono'));
+    }
+    //VENTAS TRAMITE SEGURO
+    public function agregarSeguro(Request $request){
+
+        $cliente = ResumenTramite::create([
+
+            'idUsuario' => $request->get('idCliente'),
+            'id_tipoTramite' => $request->get('id_tipoTramite'),
+            'metodo_pago' => $request->get('metodo_pago'),
+            'idVendedor' => $request->get('idVendedor'),
+            'total' => $request->get('total'),
+            'estado' => $request->get('estado'),
+
+
+        ]);
+        $seguros = $request->idSeguro;
+        $cantidad = $request->nuevaCantidadSeguro;
+        $sumaPrecio = $request->nuevoPrecioSeguro;
+        for ($i=0; $i<count($seguros); $i++){
+            $cliente->segurosTramite()->attach([
+                $seguros[$i] => ['cantidad' => $cantidad[$i],'precio_cantidad' => $sumaPrecio[$i]]
+
+            ]);
+        }
+
+        $cliente->abonos()->create([
+            'valor_abono' => $request->get('abono'),
+            'saldo' => $request->get('saldo'),
+            'nota' => $request->get('nota'),
+            'estado' => $request->get('estadoSaldo'),
+            'id_resumen_tramite' => $request->get('id_resumen_tramite')
+        ]);
+
+        return  back()->withFlash('Venta Realizada Correctamente');
+    }
+
+    public function agregarAbono(Request $request){
+
+        $abono = Abono::create([
+
+            'valor_abono' => $request->get('abono'),
+            'saldo' => $request->get('saldo'),
+            'estado' => $request->get('estadoSaldo'),
+            'nota' => $request->get('nota'),
+            'metodo_pago' => $request->get('metodo_pago'),
+            'id_resumen_tramite' => $request->get('id_resumen_tramite')
+        ]);
+
+        return back()->withFlash('Abono creado');
+    }
+}

@@ -1,0 +1,668 @@
+# ************************************************************
+# Sequel Pro SQL dump
+# Version 4541
+#
+# http://www.sequelpro.com/
+# https://github.com/sequelpro/sequelpro
+#
+# Host: 127.0.0.1 (MySQL 5.5.5-10.1.26-MariaDB)
+# Database: jtb
+# Generation Time: 2018-08-01 13:30:58 +0000
+# ************************************************************
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table abonos
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `abonos`;
+
+CREATE TABLE `abonos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `valor_abono` double NOT NULL,
+  `saldo` double NOT NULL,
+  `estado` enum('Cancelado','Debe') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Cancelado',
+  `id_resumen_tramite` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+# Dump of table migrations
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `migrations`;
+
+CREATE TABLE `migrations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `migrations` WRITE;
+/*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`)
+VALUES
+	(31,'2014_10_12_000000_create_users_table',1),
+	(32,'2014_10_12_100000_create_password_resets_table',1),
+	(33,'2018_07_03_153506_create_permission_tables',1),
+	(34,'2018_07_03_214850_create_seguros_table',1),
+	(35,'2018_07_03_221355_create_tramites_table',1),
+	(36,'2018_07_03_221430_create_tipo_vehiculos_table',1),
+	(39,'2014_10_12_000000_create_users_table',1),
+	(40,'2014_10_12_100000_create_password_resets_table',1),
+	(41,'2018_07_03_153506_create_permission_tables',1),
+	(42,'2018_07_03_214850_create_seguros_table',1),
+	(43,'2018_07_03_221355_create_tramites_table',1),
+	(44,'2018_07_03_221430_create_tipo_vehiculos_table',1),
+	(45,'2018_07_07_210205_create_resumen_tramites_table',1),
+	(46,'2018_07_07_211523_create_resumen_tramite_seguro_table',1),
+	(71,'2014_10_12_000000_create_users_table',1),
+	(72,'2014_10_12_100000_create_password_resets_table',1),
+	(73,'2018_07_03_153506_create_permission_tables',1),
+	(74,'2018_07_03_214850_create_seguros_table',1),
+	(75,'2018_07_03_221355_create_tramites_table',1),
+	(76,'2018_07_03_221430_create_tipo_vehiculos_table',1),
+	(77,'2018_07_07_210205_create_resumen_tramites_table',1),
+	(78,'2018_07_07_211523_create_resumen_tramite_seguro_table',1),
+	(88,'2014_10_12_000000_create_users_table',1),
+	(89,'2014_10_12_100000_create_password_resets_table',1),
+	(90,'2018_07_03_153506_create_permission_tables',1),
+	(91,'2018_07_03_214850_create_seguros_table',1),
+	(92,'2018_07_03_221355_create_tramites_table',1),
+	(93,'2018_07_03_221430_create_tipo_vehiculos_table',1),
+	(94,'2018_07_07_210205_create_resumen_tramites_table',1),
+	(95,'2018_07_07_211523_create_resumen_tramite_seguro_table',1),
+	(96,'2018_07_25_104416_create_tipo_documentos_table',1),
+	(151,'2014_10_12_000000_create_users_table',1),
+	(152,'2014_10_12_100000_create_password_resets_table',1),
+	(153,'2018_07_03_153506_create_permission_tables',1),
+	(154,'2018_07_03_214850_create_seguros_table',1),
+	(155,'2018_07_03_221355_create_tramites_table',1),
+	(156,'2018_07_03_221430_create_tipo_vehiculos_table',1),
+	(157,'2018_07_07_210205_create_resumen_tramites_table',1),
+	(158,'2018_07_07_211523_create_resumen_tramite_seguro_table',1),
+	(159,'2018_07_25_104416_create_tipo_documentos_table',1),
+	(223,'2014_10_12_000000_create_users_table',1),
+	(224,'2014_10_12_100000_create_password_resets_table',1),
+	(225,'2018_07_03_153506_create_permission_tables',1),
+	(226,'2018_07_03_214850_create_seguros_table',1),
+	(227,'2018_07_03_221355_create_tramites_table',1),
+	(228,'2018_07_03_221430_create_tipo_vehiculos_table',1),
+	(229,'2018_07_07_210205_create_resumen_tramites_table',1),
+	(230,'2018_07_07_211523_create_resumen_tramite_seguro_table',1),
+	(231,'2018_07_25_104416_create_tipo_documentos_table',1),
+	(232,'2014_10_12_000000_create_users_table',1),
+	(233,'2014_10_12_100000_create_password_resets_table',1),
+	(234,'2018_07_03_153506_create_permission_tables',1),
+	(235,'2018_07_03_214850_create_seguros_table',1),
+	(236,'2018_07_03_221355_create_tramites_table',1),
+	(237,'2018_07_03_221430_create_tipo_vehiculos_table',1),
+	(238,'2018_07_07_210205_create_resumen_tramites_table',1),
+	(239,'2018_07_07_211523_create_resumen_tramite_seguro_table',1),
+	(240,'2018_07_25_104416_create_tipo_documentos_table',1),
+	(241,'2014_10_12_000000_create_users_table',1),
+	(242,'2014_10_12_100000_create_password_resets_table',1),
+	(243,'2018_07_03_153506_create_permission_tables',1),
+	(244,'2018_07_03_214850_create_seguros_table',1),
+	(245,'2018_07_03_221355_create_tramites_table',1),
+	(246,'2018_07_03_221430_create_tipo_vehiculos_table',1),
+	(247,'2018_07_07_210205_create_resumen_tramites_table',1),
+	(248,'2018_07_07_211523_create_resumen_tramite_seguro_table',1),
+	(249,'2018_07_25_104416_create_tipo_documentos_table',1),
+	(250,'2014_10_12_000000_create_users_table',1),
+	(251,'2014_10_12_100000_create_password_resets_table',1),
+	(252,'2018_07_03_153506_create_permission_tables',1),
+	(253,'2018_07_03_214850_create_seguros_table',1),
+	(254,'2018_07_03_221355_create_tramites_table',1),
+	(255,'2018_07_03_221430_create_tipo_vehiculos_table',1),
+	(256,'2018_07_07_210205_create_resumen_tramites_table',1),
+	(257,'2018_07_07_211523_create_resumen_tramite_seguro_table',1),
+	(258,'2018_07_25_104416_create_tipo_documentos_table',1),
+	(259,'2018_07_31_204557_create_abonos_table',1);
+
+/*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table model_has_permissions
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `model_has_permissions`;
+
+CREATE TABLE `model_has_permissions` (
+  `permission_id` int(10) unsigned NOT NULL,
+  `model_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
+  KEY `model_has_permissions_model_type_model_id_index` (`model_type`,`model_id`),
+  CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+# Dump of table model_has_roles
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `model_has_roles`;
+
+CREATE TABLE `model_has_roles` (
+  `role_id` int(10) unsigned NOT NULL,
+  `model_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`role_id`,`model_id`,`model_type`),
+  KEY `model_has_roles_model_type_model_id_index` (`model_type`,`model_id`),
+  CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `model_has_roles` WRITE;
+/*!40000 ALTER TABLE `model_has_roles` DISABLE KEYS */;
+
+INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`)
+VALUES
+	(1,'App\\User',1),
+	(1,'App\\User',2),
+	(2,'App\\User',100),
+	(2,'App\\User',106),
+	(4,'App\\User',3),
+	(4,'App\\User',4),
+	(4,'App\\User',5),
+	(4,'App\\User',6),
+	(4,'App\\User',7),
+	(4,'App\\User',14),
+	(4,'App\\User',15),
+	(4,'App\\User',16),
+	(4,'App\\User',17),
+	(4,'App\\User',18),
+	(4,'App\\User',19),
+	(4,'App\\User',20),
+	(4,'App\\User',21),
+	(4,'App\\User',22),
+	(4,'App\\User',23),
+	(4,'App\\User',24),
+	(4,'App\\User',25),
+	(4,'App\\User',26),
+	(4,'App\\User',27),
+	(4,'App\\User',28),
+	(4,'App\\User',29),
+	(4,'App\\User',30),
+	(4,'App\\User',31),
+	(4,'App\\User',32),
+	(4,'App\\User',33),
+	(4,'App\\User',34),
+	(4,'App\\User',35),
+	(4,'App\\User',36),
+	(4,'App\\User',41),
+	(4,'App\\User',42),
+	(4,'App\\User',43),
+	(4,'App\\User',44),
+	(4,'App\\User',45),
+	(4,'App\\User',46),
+	(4,'App\\User',47),
+	(4,'App\\User',49),
+	(4,'App\\User',51),
+	(4,'App\\User',52),
+	(4,'App\\User',53),
+	(4,'App\\User',54),
+	(4,'App\\User',55),
+	(4,'App\\User',56),
+	(4,'App\\User',57),
+	(4,'App\\User',58),
+	(4,'App\\User',59),
+	(4,'App\\User',60),
+	(4,'App\\User',61),
+	(4,'App\\User',62),
+	(4,'App\\User',63),
+	(4,'App\\User',64),
+	(4,'App\\User',65),
+	(4,'App\\User',69),
+	(4,'App\\User',71),
+	(4,'App\\User',72),
+	(4,'App\\User',73),
+	(4,'App\\User',74),
+	(4,'App\\User',75),
+	(4,'App\\User',77),
+	(4,'App\\User',78),
+	(4,'App\\User',81),
+	(4,'App\\User',82),
+	(4,'App\\User',83),
+	(4,'App\\User',85),
+	(4,'App\\User',86),
+	(4,'App\\User',87),
+	(4,'App\\User',88),
+	(4,'App\\User',93),
+	(4,'App\\User',103),
+	(4,'App\\User',104),
+	(4,'App\\User',105),
+	(4,'App\\User',107),
+	(4,'App\\User',108),
+	(4,'App\\User',109),
+	(4,'App\\User',110),
+	(4,'App\\User',111);
+
+/*!40000 ALTER TABLE `model_has_roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table password_resets
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `password_resets`;
+
+CREATE TABLE `password_resets` (
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  KEY `password_resets_email_index` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+# Dump of table permissions
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `permissions`;
+
+CREATE TABLE `permissions` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+# Dump of table resumen_tramites
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `resumen_tramites`;
+
+CREATE TABLE `resumen_tramites` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `metodo_pago` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `total` double NOT NULL,
+  `idTramitador` int(10) unsigned DEFAULT NULL,
+  `idUsuario` int(10) unsigned NOT NULL,
+  `idVendedor` int(10) unsigned NOT NULL,
+  `id_tipoTramite` int(10) unsigned NOT NULL,
+  `estado` enum('Recibido','En tramite','Entregado') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Recibido',
+  `nota` longtext COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `resumen_tramites` WRITE;
+/*!40000 ALTER TABLE `resumen_tramites` DISABLE KEYS */;
+
+INSERT INTO `resumen_tramites` (`id`, `metodo_pago`, `total`, `idTramitador`, `idUsuario`, `idVendedor`, `id_tipoTramite`, `estado`, `nota`, `created_at`, `updated_at`)
+VALUES
+	(55,'efectivo',1349550,NULL,77,106,1,'Entregado',NULL,'2018-07-28 00:12:30','2018-07-28 00:12:30'),
+	(56,'efectivo',3126000,NULL,86,106,1,'Entregado',NULL,'2018-07-28 11:59:12','2018-07-28 11:59:12'),
+	(57,'efectivo',2253750,NULL,108,1,1,'Entregado',NULL,'2018-07-29 20:48:33','2018-07-29 20:48:33'),
+	(58,'efectivo',1115100,NULL,109,1,1,'Entregado',NULL,'2018-07-30 11:30:06','2018-07-30 11:30:06'),
+	(59,'efectivo',833550,NULL,109,1,1,'Entregado','A partir de la fecha, este cliente se encuentra con una deuda de 20.000.000, hay que solicitarle a cata que averigue por que no a cancelado esta deuda. El salio de viaje, y menciona que regresa el dia 23 de enero. por favor esta pendiente de este cliente.','2018-07-30 11:56:39','2018-07-30 11:56:39'),
+	(60,'efectivo',7861800,NULL,105,1,1,'Entregado','Diego hasta la fecha debe algunos seguros, cobrar por favor','2018-07-30 12:01:19','2018-07-30 12:01:19');
+
+/*!40000 ALTER TABLE `resumen_tramites` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table resumenTramite_seguro
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `resumenTramite_seguro`;
+
+CREATE TABLE `resumenTramite_seguro` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_seguro` int(10) unsigned NOT NULL,
+  `id_resumen_tramite` int(10) unsigned NOT NULL,
+  `cantidad` int(10) unsigned NOT NULL,
+  `precio_cantidad` double NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `resumenTramite_seguro` WRITE;
+/*!40000 ALTER TABLE `resumenTramite_seguro` DISABLE KEYS */;
+
+INSERT INTO `resumenTramite_seguro` (`id`, `id_seguro`, `id_resumen_tramite`, `cantidad`, `precio_cantidad`, `created_at`, `updated_at`)
+VALUES
+	(1,3,1,0,0,NULL,NULL),
+	(2,1,4,0,0,NULL,NULL),
+	(3,1,5,0,0,NULL,NULL),
+	(4,1,6,0,0,NULL,NULL),
+	(5,1,7,0,0,NULL,NULL),
+	(6,1,8,0,0,NULL,NULL),
+	(7,1,9,0,0,NULL,NULL),
+	(8,1,10,0,0,NULL,NULL),
+	(9,1,11,0,0,NULL,NULL),
+	(10,1,12,0,0,NULL,NULL),
+	(11,1,13,0,0,NULL,NULL),
+	(12,1,14,0,0,NULL,NULL),
+	(13,1,15,0,0,NULL,NULL),
+	(14,4,20,0,0,NULL,NULL),
+	(15,7,21,0,0,NULL,NULL),
+	(16,7,22,0,0,NULL,NULL),
+	(17,6,23,0,0,NULL,NULL),
+	(18,6,24,0,0,NULL,NULL),
+	(19,6,25,0,0,NULL,NULL),
+	(20,6,26,0,0,NULL,NULL),
+	(21,6,27,0,0,NULL,NULL),
+	(22,6,28,0,0,NULL,NULL),
+	(23,2,29,0,0,NULL,NULL),
+	(24,1,30,0,0,NULL,NULL),
+	(25,1,31,0,0,NULL,NULL),
+	(26,1,32,0,0,NULL,NULL),
+	(27,15,33,0,0,NULL,NULL),
+	(28,2,34,0,0,NULL,NULL),
+	(29,3,35,0,0,NULL,NULL),
+	(30,2,36,0,0,NULL,NULL),
+	(31,2,37,0,0,NULL,NULL),
+	(32,2,38,0,0,NULL,NULL),
+	(33,5,39,0,0,NULL,NULL),
+	(34,9,41,0,0,NULL,NULL),
+	(35,6,42,0,0,NULL,NULL),
+	(36,18,43,0,0,NULL,NULL),
+	(37,5,44,0,0,NULL,NULL),
+	(38,1,45,0,0,NULL,NULL),
+	(42,16,49,0,0,NULL,NULL),
+	(43,14,50,0,0,NULL,NULL),
+	(45,14,52,0,0,NULL,NULL),
+	(46,30,52,0,0,NULL,NULL),
+	(47,1,52,0,0,NULL,NULL),
+	(48,22,53,0,0,NULL,NULL),
+	(49,2,54,0,0,NULL,NULL),
+	(50,30,54,0,0,NULL,NULL),
+	(51,1,55,1,337650,NULL,NULL),
+	(52,30,55,2,1011900,NULL,NULL),
+	(53,16,56,2,853500,NULL,NULL),
+	(54,29,56,5,2272500,NULL,NULL),
+	(55,14,57,6,1800900,NULL,NULL),
+	(56,2,57,1,452850,NULL,NULL),
+	(57,19,58,3,1115100,NULL,NULL),
+	(58,19,59,1,371700,NULL,NULL),
+	(59,20,59,1,461850,NULL,NULL),
+	(60,19,60,3,1115100,NULL,NULL),
+	(61,35,60,4,2796000,NULL,NULL),
+	(62,34,60,5,2854500,NULL,NULL),
+	(63,15,60,3,1096200,NULL,NULL);
+
+/*!40000 ALTER TABLE `resumenTramite_seguro` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table role_has_permissions
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `role_has_permissions`;
+
+CREATE TABLE `role_has_permissions` (
+  `permission_id` int(10) unsigned NOT NULL,
+  `role_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`permission_id`,`role_id`),
+  KEY `role_has_permissions_role_id_foreign` (`role_id`),
+  CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+# Dump of table roles
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `roles`;
+
+CREATE TABLE `roles` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+
+INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`)
+VALUES
+	(1,'Administrador','web','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(2,'Secretario','web','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(3,'Tramitador','web','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(4,'Cliente','web','2018-07-06 01:45:44','2018-07-06 01:45:44');
+
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table seguros
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `seguros`;
+
+CREATE TABLE `seguros` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cilindraje` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `modelo` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `idTipoVehiculo` int(10) unsigned NOT NULL,
+  `precio` double NOT NULL,
+  `idTipoTramte` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `seguros` WRITE;
+/*!40000 ALTER TABLE `seguros` DISABLE KEYS */;
+
+INSERT INTO `seguros` (`id`, `cilindraje`, `modelo`, `idTipoVehiculo`, `precio`, `idTipoTramte`, `created_at`, `updated_at`)
+VALUES
+	(1,'Menos de 100 cc','',1,337650,1,'2018-07-06 01:45:44','2018-07-29 21:18:51'),
+	(2,'De 100 a 200 cc','',1,452850,1,'2018-07-06 01:45:44','2018-07-24 14:53:03'),
+	(3,'Mas de 200 cc','',1,510750,1,'2018-07-06 01:45:44','2018-07-24 19:32:21'),
+	(4,'Motocarro','',1,510750,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(5,'Menos de 1500 cc','',2,531750,1,'2018-07-06 01:45:44','2018-07-24 14:54:11'),
+	(6,'De 1500 a 2500 cc','',2,634950,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(7,'Mas de 2500 cc','',2,744750,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(8,'Menor de 5 toneladas','',3,595800,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(9,'De 5 a 15 toneladas','',3,860250,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(10,'Mas de 15 toneladas','',3,23456,1,'2018-07-06 01:45:44','2018-07-24 15:03:33'),
+	(11,'Menor de 1500 cc','',4,670500,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(12,'De 1500 a 2500 cc','',4,845100,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(13,'Mas de 2500 cc','',4,1013100,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(14,'Menor de 1500 cc','',5,300150,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(15,'De 1500 a 2500 cc','',5,365400,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(16,'Mas de 2500 cc ','',5,426750,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(17,'Menor de 2500 cc','',6,534900,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(18,'Igual o Mayor de 2500 cc','',6,715800,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(19,'Menor de 1500 cc','',7,371700,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(20,'De 1500 a 2500 cc','',7,461850,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(21,'Mas de 2500 cc','',7,595800,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(22,'Valor Unico','',8,889200,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(23,'Menor de 10 Pasajeros','',9,879450,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(24,'De 10 Pasajeros en adelante','',9,1275900,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(25,'Menos de 1500 cc','= + 10 Años',2,639150,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(26,'De 1500 a 2500 cc','= + 10 Años',2,752100,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(27,'Mas de 2500 cc','= + 10 Años',2,854400,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(28,'Menor de 1500 cc','= + 10 Años',5,397800,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(29,'De 1500 a 2500 cc','= + 10 Años',5,454500,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(30,'Mas de 2500 cc ','= + 10 Años',5,505950,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(31,'Menor de 2500 cc','= + 10 Años',6,682650,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(32,'Igual o Mayor de 2500 cc','= + 10 Años',6,859500,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(33,'Menor de 1500 cc','= + 10 Años',7,464250,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(34,'De 1500 a 2500 cc','= + 10 Años',7,570900,1,'2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(35,'Mas de 2500 cc','= + 10 Años',7,699000,1,'2018-07-06 01:45:44','2018-07-06 01:45:44');
+
+/*!40000 ALTER TABLE `seguros` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table tipo_documentos
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tipo_documentos`;
+
+CREATE TABLE `tipo_documentos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `documento` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `tipo_documentos` WRITE;
+/*!40000 ALTER TABLE `tipo_documentos` DISABLE KEYS */;
+
+INSERT INTO `tipo_documentos` (`id`, `documento`, `created_at`, `updated_at`)
+VALUES
+	(1,'Cédula Ciudadania',NULL,NULL),
+	(2,'Tarjeta de Identidad',NULL,NULL),
+	(3,'Cédula de Extranjeria',NULL,NULL),
+	(4,'Pasaporte',NULL,NULL);
+
+/*!40000 ALTER TABLE `tipo_documentos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table tipo_vehiculos
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tipo_vehiculos`;
+
+CREATE TABLE `tipo_vehiculos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `tipo_vehiculos` WRITE;
+/*!40000 ALTER TABLE `tipo_vehiculos` DISABLE KEYS */;
+
+INSERT INTO `tipo_vehiculos` (`id`, `nombre`, `created_at`, `updated_at`)
+VALUES
+	(1,'Motos','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(2,'Camperos y Camionetas','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(3,'Carga o Mixto','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(4,'Ofi Especiales Ambulancias Transporte Valores','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(5,'Autos Familiares','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(6,'Vehiculos con capacidad de 6 o mas personas','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(7,'Autos de alquiler enseñanza funebres taxis microbuses','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(8,'Buses y Busetas','2018-07-06 01:45:44','2018-07-06 01:45:44'),
+	(9,'Servicio publico intermunicipal','2018-07-06 01:45:44','2018-07-06 01:45:44');
+
+/*!40000 ALTER TABLE `tipo_vehiculos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table tramites
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tramites`;
+
+CREATE TABLE `tramites` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `tramites` WRITE;
+/*!40000 ALTER TABLE `tramites` DISABLE KEYS */;
+
+INSERT INTO `tramites` (`id`, `nombre`, `created_at`, `updated_at`)
+VALUES
+	(1,'Seguro','2018-07-06 01:45:44','2018-07-06 01:45:44');
+
+/*!40000 ALTER TABLE `tramites` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table users
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `users`;
+
+CREATE TABLE `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `identificacion` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_tipoIdentificacion` int(11) DEFAULT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `apellidos` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `telefono` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telefono_2` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `foto` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `estado` enum('activo','inactivo') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'activo',
+  `genero` enum('masculino','femenino') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fecha_nacimiento` timestamp NULL DEFAULT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`),
+  UNIQUE KEY `users_identificacion_unique` (`identificacion`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+
+INSERT INTO `users` (`id`, `identificacion`, `id_tipoIdentificacion`, `name`, `apellidos`, `email`, `password`, `telefono`, `telefono_2`, `foto`, `estado`, `genero`, `fecha_nacimiento`, `remember_token`, `created_at`, `updated_at`)
+VALUES
+	(1,'1061759221',1,'SIlvio Mauricio','Gutierrez Quiñones','silviotista93@gmail.com','$2y$10$TJK28Rb6qPn/6B9Y2Tx8quX9hU2GpvctDZTy.lXX75bFyIRAGg/qq','(318) 564-3822',NULL,'','activo',NULL,NULL,'QKDHxeUruLPTDz9sCC7oxjbZBj3FGrbFAxvKwkWOiCNwtK1MfgjOE9B0kJus','2018-07-06 01:45:44','2018-07-26 19:28:05'),
+	(2,NULL,1,'Diana','Navia','diana@gmail.com','$2y$10$iQNVQ/a4VVBszILtk8YzM.iD48XhoAVvcAbjchm9V.LQGy9lc6PZW','(313) 133-1313',NULL,'/adminlte/img/perfil.jpg','activo',NULL,NULL,'wtFsLMr4fH3Dm3U0r9l5Oos2ytVMtOKrmAPCtkjT7Uo9KUBDO26oQ4ebj1Qt','2018-07-06 21:21:44','2018-07-24 01:37:44'),
+	(3,'1061787359',NULL,'Cristian Andres','Zalazar','jari@gmail.com',NULL,'3187951410',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-07 22:04:49','2018-07-07 22:04:49'),
+	(5,'1030120102',NULL,'Paul','Perez','paul@gmail.com',NULL,'321212122',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-09 19:52:30','2018-07-09 19:52:30'),
+	(64,'1234561',NULL,'Mawi','Yanez','mawi@gmail.com',NULL,'3187951410',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-11 19:51:05','2018-07-11 19:51:05'),
+	(65,'313142',NULL,'pendejo','porque','pendejo@gmail.cm',NULL,'3187951410',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-11 19:58:15','2018-07-11 19:58:15'),
+	(77,'32378654',1,'Hector','Montoya','hector@gmail.com',NULL,'12312',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-11 22:12:22','2018-07-11 22:12:22'),
+	(78,'22112876',NULL,'jhon','bolaños','joh@gmaol.com',NULL,'312',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-11 22:13:32','2018-07-11 22:13:32'),
+	(81,'32010934',NULL,'jijjeje','ejjeje','jejeijj@gmail.cmo',NULL,'31256700123',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-13 01:01:08','2018-07-13 01:01:08'),
+	(82,'31256431',NULL,'omar','sancheez','omar@gmail.com',NULL,'3187951410',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-13 01:02:29','2018-07-13 01:02:29'),
+	(83,'3123400',NULL,'pepe','son','pepe01@gmail.com',NULL,'3187951410',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-13 01:03:08','2018-07-13 01:03:08'),
+	(85,'341256',NULL,'jonatan','perez','jota@gmail.com',NULL,'3132434355',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-13 01:12:43','2018-07-13 01:12:43'),
+	(86,'3121000763',1,'Json','laravel','tintin@gmail.com',NULL,'3187951410',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-13 01:17:39','2018-07-13 01:17:39'),
+	(87,'1210098',NULL,'pppp','ppp','p@gmail.com',NULL,'3187951410',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-13 01:18:31','2018-07-13 01:18:31'),
+	(88,'12000009',NULL,'jiji','jijij','jij@gmail.com',NULL,'3187951410',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-13 01:21:26','2018-07-13 01:21:26'),
+	(93,'00100012',NULL,'jejejejejj','jejejejej','ejejl@gmail.com',NULL,'3123121212',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-24 01:21:04','2018-07-24 01:21:04'),
+	(100,NULL,NULL,'Alexis','Gua','alexis@gmail.com','$2y$10$ejAIQuBuV1YJM2waoR5vEeITwzyRyjrl1Wf2PchGwZHhZ2mxUtkMW','(312) 211-2131',NULL,'/adminlte/img/perfil.jpg','activo',NULL,NULL,NULL,'2018-07-24 17:25:06','2018-07-24 17:25:06'),
+	(103,'111000212',1,'Omar','Gonzalez','omarje@gmail.com',NULL,'(312) 121-2212',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-25 11:53:00','2018-07-25 11:53:00'),
+	(104,'1061759222',1,'Dario','Martinez','dariii@gmail.com',NULL,'(312) 131-2312',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-26 09:04:22','2018-07-26 09:04:22'),
+	(105,'1061703344',1,'Diego','Montoya','diego11022@hotmail.com',NULL,'(312) 312-3123',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-27 10:14:36','2018-07-27 10:14:36'),
+	(106,NULL,NULL,'Catalina','Alvarez','tataq@gmail.com','$2y$10$3RRQOhEuDDGw3KZ.hyP6TedWVnm3sUImIi1Hl8u3iCVC6ZSHjzzYW','(312) 123-1213',NULL,'/adminlte/img/perfil.jpg','activo',NULL,NULL,'f8aTNDDuag8y9BAMBRUBQcABL5mDLJBZNNZbXo4S4it3V4yud87Yj65Pcjx2','2018-07-28 00:10:24','2018-07-28 00:10:24'),
+	(107,'1061720723',1,'Edisson Fernando','Puchana Dagua','fernando.2889@gmail.com',NULL,'(300) 219-5160',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-29 20:42:06','2018-07-29 20:42:06'),
+	(108,'1061717404',1,'Diana Marcela','Navia Ortega','dmnaviaor@gmail.com',NULL,'(315) 274-2884',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-29 20:45:42','2018-07-29 20:45:42'),
+	(109,'111111111',1,'Cero','Otro','doyer@gmail.com',NULL,'(313) 312-3123','(318) 795-2020',NULL,'activo',NULL,NULL,NULL,'2018-07-30 11:19:30','2018-07-30 11:25:43'),
+	(110,'2312312',1,'Bert','costeño','ber2@gmail.com',NULL,'(312) 312-3123',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-30 11:28:49','2018-07-30 11:28:49'),
+	(111,'1235679',1,'pepito','gomez','pepito@gmial.com',NULL,'(315) 424-1213',NULL,NULL,'activo',NULL,NULL,NULL,'2018-07-30 14:59:27','2018-07-30 14:59:27');
+
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
