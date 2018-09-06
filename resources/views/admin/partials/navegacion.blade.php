@@ -52,7 +52,7 @@
         </a>
         <ul class="treeview-menu">
             <li class=""><a href="{{route('usuarios')}}"><i class="fa fa-user"></i><span>Usuarios Sistema</span></a></li>
-            <li class=""><a href="{{route('usuarios')}}"><i class="fa fa-user"></i><span>Clientes</span></a></li>
+            <li class=""><a href=""><i class="fa fa-user"></i><span>Clientes</span></a></li>
             <li class=""><a href="{{route('tramitadores')}}"><i class="fa fa-user"></i><span>Tramitadores</span></a></li>
 
         </ul>
