@@ -91,6 +91,7 @@
                     <div style="border: 1px solid #666; padding: 5px;width: 60px;border-bottom-left-radius: 5px;border-top-left-radius: 5px;display: inline-block;font-size: 13px;text-align: center">Saldo</div>
                     <div style="border: 1px solid #666; padding: 5px;width: 100px;border-bottom-right-radius: 5px;border-top-right-radius: 5px; display: inline-block;background-color:#666;color: floralwhite;margin-left: -4px;font-size: 13px">${{$abono->saldo}}</div>
                     <div style="border: 1px solid #666; padding: 5px;width: 255px;border-radius: 5px;display: inline-block;margin-left: 40px;font-size: 13px;height: 80px;">Recibi,</div>
+                    <div style="margin-top: -33px"><span><strong style="font-size: 14px">Metodo Pago: </strong></span><label id="currency" style="font-size: 14px">{{$obtenerDatos->metodo_pago}}</label></div>
                 </div>
 
             </div><!--End Table-->

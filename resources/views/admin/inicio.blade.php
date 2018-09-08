@@ -21,8 +21,8 @@
             {{--</button>--}}
         </div>
         <!-- /.box-header -->
-        <div class="box-body">
-            <table  class="table table-bordered table-striped table_clientes">
+        <div class="box-body table-responsive">
+            <table  class="table table-bordered table-striped dt-responsive table_clientes">
                 <thead>
                 <tr class="text-center">
                     <th>Identificación</th>

@@ -15,10 +15,10 @@ class UserController extends Controller
     {
 
         $usuarios = User::role(['Administrador','Secretari@'])->get();
-        $roles = Role::where("name", "=", "Administrador")->orWhere("name", "=", "Secretario")->get()->sortBy('id');
+        $roles = Role::where("name", "=", "Administrador")->orWhere("name", "=", "Secretari@")->get()->sortBy('id');
+        $editRoles = Role::pluck('name','id');
 
-
-        return view('admin.usuarios', compact('usuarios', 'roles'));
+        return view('admin.usuarios', compact('usuarios', 'roles','editRoles'));
     }
 
     public function store(Request $request)
@@ -74,6 +74,20 @@ class UserController extends Controller
         }
         return json_encode($usuario->update());
     }
+
+    //ACTUALIZAR  USUARIOS USUARIOS
+    public function indexUpdateUser($id){
+        $datosUsuario = User::find($id);
+        $editRoles = Role::pluck('name','id');
+
+        return view('admin.usuarios.actualizar_usuario',compact('datosUsuario','editRoles'));
+    }
+
+    public function actualizarUsuarios(Request $request, User $user){
+
+
+    }
+
 
     //EDITAR PERFIL DE LOS USUARIOS
 

@@ -2,7 +2,8 @@
 
 @section('header')
     <h1>
-        Tramite de Seguros
+
+        <strong>Trámite de Seguros</strong>
         <small>Seguros</small>
     </h1>
     <ol class="breadcrumb">
@@ -69,10 +70,10 @@
                                                value="TR-1" readonly>
                                         <input type="hidden" name="id_resumen_tramite" value="1">
                                     @else
-                                   @php($factura = $codigoFactura->id + 1)
-                                    <input type="text" class="form-control" id="nuevaVenta" name="nuevaVenta"
-                                           value="TR-{{$factura}}" readonly>
-                                    <input type="hidden" name="id_resumen_tramite" value="{{$factura}}">
+                                        @php($factura = $codigoFactura->id + 1)
+                                        <input type="text" class="form-control" id="nuevaVenta" name="nuevaVenta"
+                                               value="TR-{{$factura}}" readonly>
+                                        <input type="hidden" name="id_resumen_tramite" value="{{$factura}}">
                                     @endif
                                 </div>
                             </div>
@@ -85,7 +86,8 @@
                                 <div class="input-group">
 
                                     <span class="input-group-addon"><i class="fa fa-users"></i></span>
-                                    <input type="number" class="form-control inputBuscarCliente" value="" placeholder="digite numero de cedula">
+                                    <input type="number" class="form-control inputBuscarCliente" value=""
+                                           placeholder="digite numero de cedula">
 
                                     {{--<select class="form-control" id="seleccionarClienteSeguro" name="seleccionarClienteSeguro"
                                             required>
@@ -102,7 +104,9 @@
                                     <button style="display: none;" type="button" class="btn btn-default btn-xs"
 
                                             data-target="#modalAgregarCliente"
-                                            data-dismiss="modal" id="btnAgregarCliente">Agregar cliente</button ></span>
+                                            data-dismiss="modal" id="btnAgregarCliente">Agregar cliente
+                                    </button>
+                                    </span>
 
                                 </div>
 
@@ -116,22 +120,29 @@
                                     <div class="box-body no-padding">
                                         <table class="table table-striped">
                                             <tr>
-                                                <th style="width: 50px" >Nombre</th>
+                                                <th style="width: 50px">Nombre</th>
                                                 <th style="width: 30px">Identificacion</th>
                                                 <th style="width: 50px">Más Info</th>
                                             </tr>
 
 
                                             <tr>
-                                                <td >
-                                                    <input disabled id="nombreCliente" class="" style="width: 145px; border: 0; background: border-box;"></td>
+                                                <td>
+                                                    <input disabled id="nombreCliente" class=""
+                                                           style="width: 145px; border: 0; background: border-box;">
+                                                </td>
 
                                                 </td>
                                                 <td>
                                                     <input disabled id="identificacionCliente" class=""
-                                                           style="width: 125px; border: 0; background: border-box;"></td>
+                                                           style="width: 125px; border: 0; background: border-box;">
                                                 </td>
-                                                <td class="text-center"><button class="btn btn-xs btn-info btnEditarCliente" data-target="#modalEditarCliente" data-toggle="modal"><i class="fa fa-eye"></i></button></td>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-xs btn-info btnEditarCliente"
+                                                            data-target="#modalEditarCliente" data-toggle="modal"><i
+                                                                class="fa fa-eye"></i></button>
+                                                </td>
                                             </tr>
                                             <input type="hidden" id="idCliente" name="idCliente" value="">
                                             <input type="hidden" name="id_tipoTramite" value="1">
@@ -150,60 +161,62 @@
                             <div class="form-group row nuevoSeguro">
 
 
-
                             </div>
 
                             <!--=====================================
                             BOTÓN PARA AGREGAR PRODUCTO
                             ======================================-->
 
-                            <button type="button" class="btn btn-default hidden-lg btnAgregarProducto"> Agregar producto</button>
+                            <button type="button" class="btn btn-default hidden-lg btnAgregarProducto"> Agregar
+                                producto
+                            </button>
 
                             <hr>
                             <!-- TABLA PARA MOSTRAR LA VENTA -->
 
-                         {{--   <div class="box" id="tablamostrarVentaAlerta">
-                                <!-- /.box-header -->
-                                <div class="box-body no-padding">
-                                    <table class="table table-striped">
-                                        <tr>
-                                            <th style="width: 50px" >Cantidad</th>
-                                            <th style="width: 30px">tipo</th>
-                                            <th style="width: 50px">Descripcion</th>
-                                            <th style="width: 50px">Precio</th>
-                                            <th style="width: 50px">Total</th>
-                                        </tr>
+                            {{--   <div class="box" id="tablamostrarVentaAlerta">
+                                   <!-- /.box-header -->
+                                   <div class="box-body no-padding">
+                                       <table class="table table-striped">
+                                           <tr>
+                                               <th style="width: 50px" >Cantidad</th>
+                                               <th style="width: 30px">tipo</th>
+                                               <th style="width: 50px">Descripcion</th>
+                                               <th style="width: 50px">Precio</th>
+                                               <th style="width: 50px">Total</th>
+                                           </tr>
 
 
-                                        <tr>
-                                            <td >
+                                           <tr>
+                                               <td >
 
 
-                                            </td>
+                                               </td>
 
-                                        </tr>
-                                        <input type="hidden" id="idCliente" name="idCliente" value="">
-                                        <input type="hidden" name="id_tipoTramite" value="1">
-
-
-                                    </table>
-                                </div>
-                                <!-- /.box-body -->
-                            </div>--}}
+                                           </tr>
+                                           <input type="hidden" id="idCliente" name="idCliente" value="">
+                                           <input type="hidden" name="id_tipoTramite" value="1">
 
 
+                                       </table>
+                                   </div>
+                                   <!-- /.box-body -->
+                               </div>--}}
 
 
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div class="form-group">
-                                        <label >Observación</label>
-                                        <textarea class="form-control" name="nota" cols="10" rows="4" placeholder="Si es necesario, escriba observación"></textarea>
+                                        <label>Observación</label>
+                                        <textarea class="form-control" name="nota" cols="10" rows="4"
+                                                  placeholder="Si es necesario, escriba observación"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-xs-5">
                                     <button id="btn-mostrarAbono" class="btn btn-block btn-success">Abono</button>
-                                    <button id="btn-cancelarAbono" class="btn btn-block btn-danger" style="display: none">Cancelar Abono</button>
+                                    <button id="btn-cancelarAbono" class="btn btn-block btn-danger"
+                                            style="display: none">Cancelar Abono
+                                    </button>
                                 </div>
                             </div>
                             <hr>
@@ -235,10 +248,12 @@
 
                                                 <div class="input-group">
 
-                                                    <input type="number" class="form-control input-lg inputAbono" min="0"
+                                                    <input type="number" class="form-control input-lg inputAbono"
+                                                           min="0"
                                                            id="" name="abono" value="0"
                                                            placeholder="Abono" required>
-                                                    <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+                                                    <span class="input-group-addon"><i
+                                                                class="ion ion-social-usd"></i></span>
 
                                                 </div>
 
@@ -258,8 +273,10 @@
                                                     <input type="hidden" name="total" id="totalVentaDB">
                                                     <input type="hidden" name="estado" value="Entregado">
                                                     <div id="camposSaldosSeguro">
-                                                        <input type="hidden" name="saldo" id="saldoVentaPrincipalSeguro" value="0">
-                                                        <input type="hidden" id="estadoSaldo" name="estadoSaldo"  value="Cancelado">
+                                                        <input type="hidden" name="saldo" id="saldoVentaPrincipalSeguro"
+                                                               value="0">
+                                                        <input type="hidden" id="estadoSaldoSeguro" name="estadoSaldo"
+                                                               value="Cancelado">
 
                                                     </div>
 
@@ -286,14 +303,14 @@
 
                             <div class="form-group row">
 
-                                <div class="col-xs-4" style="padding-right:0px">
+                                <div class="col-xs-6" style="padding-right:0px">
 
                                     <div class="input-group">
 
                                         <select class="form-control" id="nuevoMetodoPago" name="metodo_pago"
                                                 required>
                                             <option value="">Seleccione método de pago</option>
-                                            <option value="efectivo">Efectivo</option>
+                                            <option value="Efectivo">Efectivo</option>
                                             <option value="TC">Tarjeta Crédito</option>
                                             <option value="TD">Tarjeta Débito</option>
                                         </select>
@@ -301,35 +318,14 @@
                                     </div>
 
                                 </div>
-
-                                <div class="col-xs-6" style="margin-left: 70px">
-
-                                    <div class="input-group" id="mostrarCodigoTransaccion" style="display: none">
-
-                                        <input type="text" class="form-control" id="nuevoCodigoTransaccion"
-                                               name="nuevoCodigoTransaccion" placeholder="Código transacción" required>
-
-                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-
-                                    </div>
+                                <input type="hidden" id="listaMetodoPago" name="listaMetodoPago">
+                                <div class="cajasMetodoPago">
 
                                 </div>
-                                <div class="col-xs-4">
-                                    <div class="input-group" id="mostrarValorEFectivo" style="display: none">
-                                        <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                                        <input type="text" class="form-control nuevoValorEfectivo" placeholder="000000" required >
-                                    </div>
-                                </div>
-                                <div class="col-xs-4 capturaCambioEfectivo" style="padding-left: 0px;">
-                                    <div class="input-group" id="mostrarCambioEFectivo" style="display: none">
-                                        <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                                        <input type="text" class="form-control nuevoCambioEfectivo" placeholder="000000" required  readonly>
-                                    </div>
-                                </div>
+
 
                             </div>
 
-                            <br>
 
                         </div>
 
@@ -395,7 +391,8 @@
                                 aria-hidden="true"
                                 style="color: #FFFFFF;">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel" style="color: #FFFFFF"><i class="fa fa-plus"></i>Agregar Cliente </h4>
+                    <h4 class="modal-title" id="myModalLabel" style="color: #FFFFFF"><i class="fa fa-plus"></i>Agregar
+                        Cliente </h4>
                 </div>
                 <form method="post" action="{{route('clienteAgregado')}}">
                     @csrf
@@ -414,7 +411,8 @@
                                 <label for="">Apellidos</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input value="{{old('apellidos')}}" type="text" name="apellidos" class="form-control"
+                                    <input value="{{old('apellidos')}}" type="text" name="apellidos"
+                                           class="form-control"
                                            placeholder="Ingrese apellidos">
                                     {!! $errors->first('apellidos','<span class="help-block">*:message</span>')!!}
                                 </div>
@@ -424,10 +422,12 @@
                                 <label for="">Tipo de Documento</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                                    <select name="id_tipoIdentificacion" id="id_tipoIdentificacion" class="form-control">
+                                    <select name="id_tipoIdentificacion" id="id_tipoIdentificacion"
+                                            class="form-control">
                                         <option value="">Seleccione</option>
                                         @foreach($tipoDocumento as $tipoDocumentos)
-                                            <option class="text-uppercase" {{old('id_tipoIdentificacion')==$tipoDocumentos->id ? 'selected':''}} value="{{$tipoDocumentos->id}}">{{$tipoDocumentos->documento}}</option>
+                                            <option class="text-uppercase"
+                                                    {{old('id_tipoIdentificacion')==$tipoDocumentos->id ? 'selected':''}} value="{{$tipoDocumentos->id}}">{{$tipoDocumentos->documento}}</option>
 
                                         @endforeach
 
@@ -440,7 +440,8 @@
                                 <label for="">Documento</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                    <input value="{{old('identificacion')}}" id="txtIdentificacionCliente" type="number" name="identificacion" class="form-control"
+                                    <input value="{{old('identificacion')}}" id="txtIdentificacionCliente" type="number"
+                                           name="identificacion" class="form-control"
                                            placeholder="Ingrese documento">
                                     {!! $errors->first('identificacion','<span class="help-block">*:message</span>')!!}
                                 </div>
@@ -449,7 +450,8 @@
                                 <label for="">Email</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                    <input value="{{old('email')}}" type="email" name="email" class="form-control" placeholder="Ingrese Email">
+                                    <input value="{{old('email')}}" type="email" name="email" class="form-control"
+                                           placeholder="Ingrese Email">
                                     {!! $errors->first('email','<span class="help-block">*:message</span>')!!}
                                 </div>
                             </div>
@@ -471,7 +473,8 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-phone"></i>
                                     </div>
-                                    <input value="{{old('telefono_2')}}" id="" type="text" name="telefono_2" class="form-control"
+                                    <input value="{{old('telefono_2')}}" id="" type="text" name="telefono_2"
+                                           class="form-control"
                                            data-inputmask='"mask": "(999) 999-9999"'
                                            data-mask placeholder="Ingrese teléfono 2">
                                     {!! $errors->first('telefono_2','<span class="help-block">*:message</span>')!!}
@@ -514,7 +517,8 @@
                                 aria-hidden="true"
                                 style="color: #FFFFFF;">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel" style="color: #FFFFFF"><i class=""></i>Informacion Cliente </h4>
+                    <h4 class="modal-title" id="myModalLabel" style="color: #FFFFFF"><i class=""></i>Informacion Cliente
+                    </h4>
                 </div>
                 <form id="form_actualizar_cliente" class="actualizarClienteForm" method="post" action="">
                     @csrf {{method_field('PUT')}}
@@ -524,7 +528,8 @@
                                 <label for="">Nombres</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input id="txtEditarNombreCliente" value="{{old('name')}}" type="text" name="name" class="form-control"
+                                    <input id="txtEditarNombreCliente" value="{{old('name')}}" type="text" name="name"
+                                           class="form-control"
                                            placeholder="Ingrese nombre" disabled>
                                     {!! $errors->first('name','<span class="help-block">*:message</span>')!!}
                                 </div>
@@ -533,7 +538,8 @@
                                 <label for="">Apellidos</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input value="{{old('apellidos')}}" id="txtEditarApellidosCliente" type="text" name="apellidos" class="form-control"
+                                    <input value="{{old('apellidos')}}" id="txtEditarApellidosCliente" type="text"
+                                           name="apellidos" class="form-control"
                                            placeholder="Ingrese apellidos" disabled>
                                     {!! $errors->first('apellidos','<span class="help-block">*:message</span>')!!}
                                 </div>
@@ -543,10 +549,12 @@
                                 <label for="">Tipo de Documento</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                                    <select name="id_tipoIdentificacion" id="txtEditartipoIdentificacionCliente" class="form-control" disabled>
+                                    <select name="id_tipoIdentificacion" id="txtEditartipoIdentificacionCliente"
+                                            class="form-control" disabled>
                                         <option value="">Seleccione</option>
                                         @foreach($tipoDocumento as $tipoDocumentos)
-                                            <option class="text-uppercase" {{old('id_tipoIdentificacion')==$tipoDocumentos->id ? 'selected':''}} value="{{$tipoDocumentos->id}}">{{$tipoDocumentos->documento}}</option>
+                                            <option class="text-uppercase"
+                                                    {{old('id_tipoIdentificacion')==$tipoDocumentos->id ? 'selected':''}} value="{{$tipoDocumentos->id}}">{{$tipoDocumentos->documento}}</option>
 
                                         @endforeach
 
@@ -559,7 +567,9 @@
                                 <label for="">Documento</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                    <input value="{{old('identificacion')}}" disabled id="txtEditarIdentificacionCliente" type="number" name="identificacion" class="form-control"
+                                    <input value="{{old('identificacion')}}" disabled
+                                           id="txtEditarIdentificacionCliente" type="number" name="identificacion"
+                                           class="form-control"
                                            placeholder="Ingrese documento">
                                     {!! $errors->first('identificacion','<span class="help-block">*:message</span>')!!}
                                 </div>
@@ -568,7 +578,8 @@
                                 <label for="">Email</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                    <input value="{{old('email')}}" disabled id="txtEditarEmailCliente" type="email" name="email" class="form-control" placeholder="Ingrese Email">
+                                    <input value="{{old('email')}}" disabled id="txtEditarEmailCliente" type="email"
+                                           name="email" class="form-control" placeholder="Ingrese Email">
                                     {!! $errors->first('email','<span class="help-block">*:message</span>')!!}
                                 </div>
                             </div>
@@ -578,7 +589,8 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-phone"></i>
                                     </div>
-                                    <input value="{{old('telefono')}}" disabled id="txtEditarTelefonoCliente" type="text" name="telefono" class="form-control"
+                                    <input value="{{old('telefono')}}" disabled id="txtEditarTelefonoCliente"
+                                           type="text" name="telefono" class="form-control"
                                            data-inputmask='"mask": "(999) 999-9999"'
                                            data-mask placeholder="Ingrese teléfono">
                                     {!! $errors->first('telefono','<span class="help-block">*:message</span>')!!}
@@ -590,7 +602,8 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-phone"></i>
                                     </div>
-                                    <input value="{{old('telefono_2')}}" disabled id="txtEditarTelefono_2Cliente" type="text" name="telefono_2" class="form-control"
+                                    <input value="{{old('telefono_2')}}" disabled id="txtEditarTelefono_2Cliente"
+                                           type="text" name="telefono_2" class="form-control"
                                            data-inputmask='"mask": "(999) 999-9999"'
                                            data-mask placeholder="">
                                     {!! $errors->first('telefono_2','<span class="help-block">*:message</span>')!!}
@@ -618,7 +631,8 @@
                     </div>
                     <div class="modal-footer">
                         <button id="btnCancelarEditarCliente" class="btn btn-danger">Cancelar</button>
-                        <button id="btnActualizarCliente" type="submit" class="btn btn-primary">Actualizar Cliente</button>
+                        <button id="btnActualizarCliente" type="submit" class="btn btn-primary">Actualizar Cliente
+                        </button>
                         <button id="btnEditarCliente" class="btn btn-warning">Editar</button>
                     </div>
                 </form>
@@ -630,7 +644,7 @@
 
 @section('dataTablesSeguros')
     <script>
-        function  obtenerClase(id) {
+        function obtenerClase(id) {
             var info = 'btn-danger';
             var all = document.querySelectorAll('.quitarSeguro');
             all.forEach(function (e) {
@@ -640,13 +654,14 @@
             });
             return info;
         }
+
         var table = $('#tablaSeguros').DataTable({
             "processing": true,
             "serverSide": true,
             "stateSave": true,
             "data": null,
             "ajax": "/admin/api/seguros",
-            "columns":[
+            "columns": [
                 {data: 'tipo_vehiculo.nombre'},
                 {data: 'cilindraje'},
                 {
@@ -661,31 +676,31 @@
                 {data: 'precio'},
                 {
                     render: function (data, type, JsonResultRow, meta) {
-                        return '<button id="btnAgregarVentaSeguro'+JsonResultRow.id+'" class="btn btn-dark '+obtenerClase(JsonResultRow.id)+' recuperarBoton agregarVentaSeguro" idSeguro>Agregar</button>\n'
+                        return '<button id="btnAgregarVentaSeguro' + JsonResultRow.id + '" class="btn btn-dark ' + obtenerClase(JsonResultRow.id) + ' recuperarBoton agregarVentaSeguro" idSeguro>Agregar</button>\n'
                     }
                 },
             ],
-            "language":{
-                "sProcessing":     "Procesando...",
-                "sLengthMenu":     "Mostrar _MENU_ registros",
-                "sZeroRecords":    "No se encontraron resultados",
-                "sEmptyTable":     "Ningún dato disponible en esta tabla",
-                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix":    "",
-                "sSearch":         "Buscar:",
-                "sUrl":            "",
-                "sInfoThousands":  ",",
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
                 "sLoadingRecords": "Cargando...",
                 "oPaginate": {
-                    "sFirst":    "Primero",
-                    "sLast":     "Último",
-                    "sNext":     "Siguiente",
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
                     "sPrevious": "Anterior"
                 },
                 "oAria": {
-                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                 }
             }

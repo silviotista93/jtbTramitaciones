@@ -2,7 +2,7 @@
 
 @section('header')
     <h1>
-        Información del Trámite
+        <strong>Información del Trámite</strong>
         <small>Trámite</small>
         @if($abono->estado == 'Debe')
             <div class="alert alert-danger">{{$abono->estado}}</div>
@@ -94,11 +94,14 @@
                                 @endif
                                 <br>
                             </div>
+                            <b>Metodo Pago: </b>
+                            {{$infoVentaDatos->metodo_pago}}
+                            <br>
                             <b>Tramite: </b>
                             {{$infoVentaDatos->tipoTramite->nombre}}
                             <br>
                             <b>Fecha: </b>
-                            {{$infoVentaDatos->created_at}}
+                            {{$infoVentaDatos->created_at->format('l jS \\of F Y h:i:s A')}}
                             <br>
                             @if(isset($infoVentaDatos->idtramitador->name) & isset($infoVentaDatos->idtramitador->apellidos))
                             <b>Tramidor: </b>
@@ -383,7 +386,7 @@
                             <div class="box-body">
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-lg-12">
+                                        <div class="col-lg-12 table-responsive">
                                             <table id="table_clientes" class="table table-bordered table-striped">
                                                 <thead>
                                                 <tr class="text-center">
@@ -445,7 +448,7 @@
                                 <div class="box-body">
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-lg-12">
+                                            <div class="col-lg-12 table-responsive">
                                                 <table id="table_clientes"
                                                        class="table table-bordered table-striped">
                                                     <thead>

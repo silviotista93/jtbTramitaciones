@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <div class="box-body">
+        <div class="box-body table-responsive">
             <table id="tabla-usuarios" class="table table-bordered dt-responsive table-striped">
                 <thead>
                 <tr>
@@ -45,7 +45,7 @@
                         <td>{{$usuario->roles->first()->name}}</td>
                         <td class="text-center">
                             <button href="#" class="btn btn-xs btn-default "><i class="fa fa-eye"></i></button>
-                            <button class="btn btn-xs btn-info btnEditarUsuario" data-toggle="modal"><i class="fa fa-pencil"></i></button>
+                            <a href="{{route('userUpdatePerfil',$usuario->id)}}" class="btn btn-xs btn-info btnEditarUsuario"><i class="fa fa-pencil"></i></a>
                             <form class="form_eliminar_usuario" action="" method="POST" style="display: inline;">
                                 @csrf
                                 {{method_field('DELETE')}}
@@ -84,7 +84,7 @@
                     <h4 class="modal-title" id="myModalLabel" style="color: #FFFFFF">Crear Usuario <i
                                 class="fa fa-plus"></i></h4>
                 </div>
-                <form method="post" action="{{route ('usuarioCreado')}}">
+                <form class="form-usuario-creado" method="post" action="{{route ('usuarioCreado')}}">
                     @csrf
                     <div class="modal-body">
                         <div class="box-body">
@@ -110,7 +110,7 @@
                                 <label for="">Email</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                    <input type="email" name="email" value="{{old('email')}}" class="form-control" placeholder="Ingrese Email">
+                                    <input type="email" name="email" value="{{old('email')}}" class="form-control emailAgregarUsuario" placeholder="Ingrese Email">
                                     {!! $errors->first('email','<span class="help-block">*:message</span>')!!}
                                 </div>
                             </div>
@@ -162,6 +162,43 @@
                         <button type="submit" class="btn btn-primary">Crear</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL RORLES -->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false"
+         id="modalActualizarRoles" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #FFFFFF;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true"
+                                style="color: #404040;">&times;</span>
+                    </button>
+                    <h4 class="modal-title inline" id="myModalLabel" style="color: #000000">Actualizar Roles para </h4><h4 class="nombreUsuarioRol inline"></h4><h4 class="apellidosUsuarioRol inline">&nbsp</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        @foreach($editRoles as $id => $name)
+                            <div class="checkbox">
+                                <label for="">
+                                    <input class="checkUpdateRoles" type="checkbox" value="{{$id}}">
+                                    {{$name}}
+                                </label>
+                                
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-warning "><i
+                                    class="fa fa-newspaper-o"></i> Validar
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

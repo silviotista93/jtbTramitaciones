@@ -222,6 +222,7 @@ $(".formularioVentaSeguro").on("change", ".nuevaCantidadSeguro", function(){
     sumarTotalPreciosSeguro()
 
 
+
 });
 
 /*=============================================
@@ -413,41 +414,77 @@ var fila = "";
 });
 
 /*=============================================
-    SELECCIONAR METODO DE PAGO
+SELECCIONAR METODO DE PAGO
 =============================================*/
-$(function () {
-    $('#nuevoMetodoPago').on('change',function () {
-        if (this.value == 'efectivo'){
-            $('#mostrarCodigoTransaccion').hide();
-            $('#mostrarValorEFectivo').show();
-            $('#mostrarCambioEFectivo').show();
+$('#nuevoMetodoPago').change(function () {
+    var metodo = $(this).val();
+    if(metodo == "Efectivo"){
+        $(this).parent().parent().removeClass('col-xs-6');
+        $(this).parent().parent().addClass('col-xs-4');
 
-            $(".nuevoValorEfectivo").number(true, 2);
-            $(".nuevoCambioEfectivo").number(true, 2);
+        $(this).parent().parent().parent().children('.cajasMetodoPago').html(
+            '<div class="col-xs-4">' +
+            '   <div class="input-group">' +
+            '       <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
+            '           <input type="text" class="form-control nuevoValorEfectivo" name="nuevoValorEfectivo" placeholder="000000" required>' +
+            '   </div>' +
+            '</div>' +
+            '<div class="col-xs-4 capturarCambioEfectivo" style="padding-left:0px">' +
+            '   <div class="input-group">' +
+            '       <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
+            '           <input type="text" class="form-control nuevoCambioEfectivo" name="nuevoCambioEfectivo" placeholder="000000" required readonly >' +
+            '   </div>' +
+            '</div>'
 
-        }else{
-            $('#mostrarCodigoTransaccion').show();
-            $('#mostrarValorEFectivo').hide();
-            $('#mostrarCambioEFectivo').hide();
-        }
-    })
+        );
+        //AGREGAR FORMATO AL PRECIO
+        $('.nuevoValorEfectivo').number(true,2);
+        $('.nuevoCambioEfectivo').number(true,2);
+        //LISTAR METODO EN LA ENTRADA
+        listarMetodos();
+    }else{
+        $(this).parent().parent().removeClass('col-xs-4');
+        $(this).parent().parent().addClass('col-xs-6');
 
+        $(this).parent().parent().parent().children('.cajasMetodoPago').html(
+            '<div class="col-xs-6" style="padding-left:0px">\n' +
+            '\n' +
+            '                                    <div class="input-group">\n' +
+            '\n' +
+            '                                        <input type="text" class="form-control" id="nuevoCodigoTransaccion"\n' +
+            '                                               name="nuevoCodigoTransaccion" placeholder="Código transacción" required>\n' +
+            '\n' +
+            '                                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>\n' +
+            '\n' +
+            '                                    </div>\n' +
+            '\n' +
+            '                                </div>'
+        )
+
+    }
 });
 
 /*=============================================
-    CAMBIO EN EFECTIVO
+CAMBIO EN EFECTIVO
 =============================================*/
-$(".formularioVentaSeguro").on("click", ".nuevoValorEfectivo", function(){
+$(".formularioVentaSeguro").on("change", ".nuevoValorEfectivo", function() {
 
     var efectivo = $(this).val();
-    $(function () {
-        var cambio = Number(efectivo) - Number($('#nuevoTotalVentaSeguro').val());
+    var cambio = Number(efectivo) - Number($('#totalVentaDB').val());
 
-        $('.nuevoCambioEfectivo').val(cambio);
-    })
+    var nuevoCambioEfectivo = $(this).parent().parent().parent().children('.capturarCambioEfectivo').children().children('.nuevoCambioEfectivo');
 
-
+    nuevoCambioEfectivo.val(cambio);
 });
+/*=============================================
+CAMBIO EN TRANSACCION
+=============================================*/
+$(".formularioVentaSeguro").on("change", "#nuevoCodigoTransaccion", function() {
+
+    listarMetodos();
+});
+
+
 
 /*=============================================
     APARECER CAMPOS ABONOS
@@ -489,14 +526,12 @@ $(function () {
     })
 });
 
+
+
 /*=============================================
 RESTAR EL VALOR DEL ABONO
 =============================================*/
 
-
-/*=============================================
-CAMBIO EN EFECTIVO
-=============================================*/
 $(".inputAbono").keyup(function(){
     var efectivo=0;
     var saldo=0;
@@ -531,3 +566,20 @@ $(".inputAbono").keyup(function(){
     // nuevoCambioEfectivo.val(cambio);
 
 });
+/*=============================================
+LISTAR METODO PAGO
+=============================================*/
+
+function listarMetodos() {
+
+    var listaMetodos = "";
+    if ($('#nuevoMetodoPago').val() == 'Efectivo'){
+
+        $('#listaMetodoPago').val('Efectivo');
+    }else {
+        $('#listaMetodoPago').val($('#nuevoMetodoPago').val()+'-'+$('#nuevoCodigoTransaccion').val());
+    }
+
+}
+
+

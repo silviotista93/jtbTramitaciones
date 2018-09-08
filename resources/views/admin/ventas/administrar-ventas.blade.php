@@ -2,7 +2,8 @@
 
 @section('header')
     <h1>
-        Administrar Ventas
+
+        <strong>Administrar Ventas</strong>
         <small>Ventas</small>
     </h1>
     <ol class="breadcrumb">
@@ -20,7 +21,7 @@
             </div>
         </div>
 
-        <div class="box-body table-responsive ">
+        <div class="box-body table-responsive">
             <table class="table table-bordered table-striped dt-responsive tablas table_admiVentas">
                 <thead>
                 <tr>
@@ -83,7 +84,6 @@
                     {
                         render:function (data,type, JsonResultRow,meta) {
                             var datos = JsonResultRow.tramites_abono;
-                            console.log(datos);
                             var ultimo = datos[datos.length-1].estado;
 
                             if (ultimo == 'Debe'){
@@ -137,28 +137,6 @@
                     }
                 }
             });
-
-            //INFORMACION DE LA VENTA
-          $('.table_admiVentas tbody').on('click','.btnInfoUsuario',function () {
-              var data = table.row($(this).parents('tr')).data();
-              console.log(data);
-              $('#infoVentaClienteCodigoFactura').html(data.id);
-
-              $('#infoVentaClienteNombre').html(data.idcliente.name);
-              $('#infoVentaClienteApellidos').html(data.idcliente.apellidos);
-              $('#infoVentaClienteIdentificacion').html(data.idcliente.identificacion);
-              $('#infoVentaClienteTelefono').html(data.idcliente.telefono);
-              $('#infoVentaClienteEmail').html(data.idcliente.email);
-
-              $('#infoVentaClienteTramite').html(data.tipo_tramite.nombre);
-              $('#infoVentaClienteFecha').html(data.created_at);
-              $('#infoVentaClienteVendedorNombre').html(data.id_vendedor.name);
-              $('#infoVentaClienteVendedorApellidos').html(data.id_vendedor.apellidos);
-
-          })
-
-
-
 
     </script>
 

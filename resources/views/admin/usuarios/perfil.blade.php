@@ -111,7 +111,7 @@
                 <div class="box-body">
                     <!-- Contraseña-->
                     <div class="form-group">
-                        <label for="password">Contraseña</label>
+                        <label for="password">Nueva Contraseña</label>
                         <input type="password" name="password" class="form-control" id="exampleInputEmail1"
                                placeholder="Nueva Contraseña">
                         <span class="help-block">Dejar en blanco si no deseas cambiar la contraseña</span>

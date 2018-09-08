@@ -31,7 +31,7 @@ Route::get('/usuario', function (){
    return App\User::select('name','apellidos')->orderby('created_at','DESC')->take(1)->first();
 });
 
-Route::get('/', 'Admin\AdminController@inicio')->name('lista-clientes')->middleware('auth');
+Route::get('/', 'Admin\AdminController@inicio')->name('lista-clientes')->middleware('loginVerifEstado');
 Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'auth'], function (){
 
     Route::get('/tramite/licencia','LicenciaController@index')->name('tramitar-licencia');
@@ -131,6 +131,10 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'auth']
     Route::get('/recibo-abono-licencia/{id}','ResumenTramiteController@reciboAbonoLicencia')->name('generar.recibo-abono-licencia');
     Route::get('/factura-licencia/{id}','ResumenTramiteController@facturaPdfLicencia')->name('generar.factura-licencia');
     Route::get('/factura-abono-licencia/{id}','ResumenTramiteController@facturaAbonoLicenciaPdf')->name('generar.factura-abono-licencia');
+});
+
+Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'auth'], function (){
+    Route::get('/usuario-actualizar-perfil/{id}','UserController@indexUpdateUser')->name('userUpdatePerfil');
 });
 
 

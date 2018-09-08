@@ -68,7 +68,7 @@ class ResumenTramiteController extends Controller
 
             'idUsuario' => $request->get('idCliente'),
             'id_tipoTramite' => $request->get('id_tipoTramite'),
-            'metodo_pago' => $request->get('metodo_pago'),
+            'metodo_pago' => $request->get('listaMetodoPago'),
             'idVendedor' => $request->get('idVendedor'),
             'total' => $request->get('total'),
             'estado' => $request->get('estado'),
@@ -121,7 +121,7 @@ class ResumenTramiteController extends Controller
 
             'idUsuario' => $request->get('idCliente'),
             'id_tipoTramite' => $request->get('id_tipoTramite'),
-            'metodo_pago' => $request->get('metodo_pago'),
+            'metodo_pago' => $request->get('listaMetodoPago'),
             'idVendedor' => $request->get('idVendedor'),
             'total' => $request->get('total'),
             'estado' => $request->get('estado'),

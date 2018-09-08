@@ -398,7 +398,8 @@ $(".crearVentaLicencia").click(function (e) {
             "categoria":$(descripcion[i]).val(),
             "cantidad":$(cantidad[i]).val(),
             "tipo_licencia":$(tipoLicencia[i]).val(),
-            "precio":$(precio[i]).val()})
+            "precio":$(precio[i]).val()
+        })
     };
 
 
@@ -424,12 +425,12 @@ var fila = "";
 
     $('.formularioVentaLicencia').attr('action', url);
     //VALIDACIONES
-    if ($('#idCliente').val() === '' & $('#nuevoMetodoPago').val() === '' & $('#totalVentaDB').val() === '') {
+    if ($('#idCliente').val() === '' & $('#nuevoMetodoPagoLicencia').val() === '' & $('#totalVentaDB').val() === '') {
         toastr.error('Cliente Requerido');
         toastr.error('Metodo de Pago Requerido');
         toastr.error('Total Venta Requerido');
 
-    } else if ($('#nuevoMetodoPago').val() === '' & $('#totalVentaDB').val() === '') {
+    } else if ($('#nuevoMetodoPagoLicencia').val() === '' & $('#totalVentaDB').val() === '') {
         toastr.error('Metodo de Pago Requerido');
         toastr.error('Total de Venta Requerido');
 
@@ -437,12 +438,12 @@ var fila = "";
         toastr.error('Cliente Requerido');
         toastr.error('Total Venta Requerido');
 
-    } else if ($('#idCliente').val() === '' & $('#nuevoMetodoPago').val() === '') {
+    } else if ($('#idCliente').val() === '' & $('#nuevoMetodoPagoLicencia').val() === '') {
         toastr.error('Cliente Requerido');
         toastr.error('Metodo de Pago Requerido');
     } else if ($('#idCliente').val() === '') {
         toastr.error('Cliente Requerido');
-    } else if ($('#nuevoMetodoPago').val() === '') {
+    } else if ($('#nuevoMetodoPagoLicencia').val() === '') {
         toastr.error('Metodo de Pago Requerido');
     } else if ($('#totalVentaDB').val() === '') {
         toastr.error('Total Venta Requerido');
@@ -526,41 +527,76 @@ var fila = "";
 });
 
 /*=============================================
-    SELECCIONAR METODO DE PAGO
+SELECCIONAR METODO DE PAGO
 =============================================*/
-$(function () {
-    $('#nuevoMetodoPago').on('change', function () {
-        if (this.value == 'efectivo') {
-            $('#mostrarCodigoTransaccion').hide();
-            $('#mostrarValorEFectivo').show();
-            $('#mostrarCambioEFectivo').show();
+$('#nuevoMetodoPagoLicencia').change(function () {
+    var metodo = $(this).val();
+    if(metodo == "Efectivo"){
+        $(this).parent().parent().removeClass('col-xs-6');
+        $(this).parent().parent().addClass('col-xs-4');
 
-            $(".nuevoValorEfectivo").number(true, 2);
-            $(".nuevoCambioEfectivo").number(true, 2);
+        $(this).parent().parent().parent().children('.cajasMetodoPagoLicencia').html(
+            '<div class="col-xs-4">' +
+            '   <div class="input-group">' +
+            '       <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
+            '           <input type="text" class="form-control nuevoValorEfectivoLicencia" name="nuevoValorEfectivo" placeholder="000000" required>' +
+            '   </div>' +
+            '</div>' +
+            '<div class="col-xs-4 capturarCambioEfectivo" style="padding-left:0px">' +
+            '   <div class="input-group">' +
+            '       <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
+            '           <input type="text" class="form-control nuevoCambioEfectivoLicencia" name="nuevoCambioEfectivo" placeholder="000000" required readonly >' +
+            '   </div>' +
+            '</div>'
 
-        } else {
-            $('#mostrarCodigoTransaccion').show();
-            $('#mostrarValorEFectivo').hide();
-            $('#mostrarCambioEFectivo').hide();
-        }
-    })
+        );
+        //AGREGAR FORMATO AL PRECIO
+        $('.nuevoValorEfectivoLicencia').number(true,2);
+        $('.nuevoCambioEfectivoLicencia').number(true,2);
+        //LISTAR METODO EN LA ENTRADA
+        listarMetodos();
+    }else{
+        $(this).parent().parent().removeClass('col-xs-4');
+        $(this).parent().parent().addClass('col-xs-6');
 
+        $(this).parent().parent().parent().children('.cajasMetodoPagoLicencia').html(
+            '<div class="col-xs-6" style="padding-left:0px">\n' +
+            '\n' +
+            '                                    <div class="input-group">\n' +
+            '\n' +
+            '                                        <input type="text" class="form-control" id="nuevoCodigoTransaccionLicencia"\n' +
+            '                                               name="nuevoCodigoTransaccion" placeholder="Código transacción" required>\n' +
+            '\n' +
+            '                                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>\n' +
+            '\n' +
+            '                                    </div>\n' +
+            '\n' +
+            '                                </div>'
+        )
+
+    }
 });
 
 /*=============================================
-    CAMBIO EN EFECTIVO
+CAMBIO EN EFECTIVO
 =============================================*/
-$(".formularioVentaLicencia").on("click", ".nuevoValorEfectivo", function () {
+$(".formularioVentaLicencia").on("change", ".nuevoValorEfectivoLicencia", function() {
 
     var efectivo = $(this).val();
-    $(function () {
-        var cambio = Number(efectivo) - Number($('#nuevoTotalVenta').val());
+    var cambio = Number(efectivo) - Number($('#totalVentaDB').val());
 
-        $('.nuevoCambioEfectivo').val(cambio);
-    })
+    var nuevoCambioEfectivo = $(this).parent().parent().parent().children('.capturarCambioEfectivo').children().children('.nuevoCambioEfectivoLicencia');
 
-
+    nuevoCambioEfectivo.val(cambio);
 });
+/*=============================================
+CAMBIO EN TRANSACCION
+=============================================*/
+$(".formularioVentaLicencia").on("change", "#nuevoCodigoTransaccionLicencia", function() {
+
+    listarMetodos();
+});
+
 
 /*=============================================
     APARECER CAMPOS ABONOS
@@ -644,4 +680,22 @@ $(".inputAbono").keyup(function () {
     // nuevoCambioEfectivo.val(cambio);
 
 });
+
+/*=============================================
+LISTAR METODO PAGO
+=============================================*/
+
+function listarMetodos() {
+
+    var listaMetodos = "";
+    if ($('#nuevoMetodoPagoLicencia').val() == 'Efectivo'){
+
+        $('#listaMetodoPagoLicencia').val('Efectivo');
+    }else {
+        $('#listaMetodoPagoLicencia').val($('#nuevoMetodoPagoLicencia').val()+'-'+$('#nuevoCodigoTransaccionLicencia').val());
+    }
+
+}
+
+
 

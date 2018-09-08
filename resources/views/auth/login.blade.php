@@ -7,6 +7,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
+    <link rel="shortcut icon" sizes="114x114" href="{{{ asset('assets/img/fivicon.png') }}}">
     <link rel="stylesheet" href="/adminlte/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -25,6 +26,11 @@
     <![endif]-->
 </head>
 <body class="hold-transition login-page">
+@if(session()->has('eliminar'))
+
+    <div class="alert alert-danger">{{session('eliminar')}}</div>
+
+@endif
 <div class="login-box">
     <div class="login-logo">
         <a href="/"><b>TJB</b> Tramitaciones</a>

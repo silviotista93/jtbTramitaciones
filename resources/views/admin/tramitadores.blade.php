@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <div class="box-body">
+        <div class="box-body table-responsive">
             <table class="table table-bordered dt-responsive table-striped table_tramitadores">
                 <thead>
                 <tr>

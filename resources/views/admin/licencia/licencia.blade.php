@@ -2,7 +2,8 @@
 
 @section('header')
     <h1>
-        Tramite de Licencia de Conducción
+
+        <strong>Trámite de Licencia de Conducción</strong>
         <small>Licencia</small>
     </h1>
     <ol class="breadcrumb">
@@ -332,14 +333,14 @@
 
                             <div class="form-group row">
 
-                                <div class="col-xs-4" style="padding-right:0px">
+                                <div class="col-xs-6" style="padding-right:0px">
 
                                     <div class="input-group">
 
-                                        <select class="form-control" id="nuevoMetodoPago" name="metodo_pago"
+                                        <select class="form-control" id="nuevoMetodoPagoLicencia" name="metodo_pago"
                                                 required>
                                             <option value="">Seleccione método de pago</option>
-                                            <option value="efectivo">Efectivo</option>
+                                            <option value="Efectivo">Efectivo</option>
                                             <option value="TC">Tarjeta Crédito</option>
                                             <option value="TD">Tarjeta Débito</option>
                                         </select>
@@ -347,33 +348,11 @@
                                     </div>
 
                                 </div>
-
-                                <div class="col-xs-6" style="margin-left: 70px">
-
-                                    <div class="input-group" id="mostrarCodigoTransaccion" style="display: none">
-
-                                        <input type="text" class="form-control" id="nuevoCodigoTransaccion"
-                                               name="nuevoCodigoTransaccion" placeholder="Código transacción" required>
-
-                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-
-                                    </div>
+                                <input type="hidden" id="listaMetodoPagoLicencia" name="listaMetodoPago">
+                                <div class="cajasMetodoPagoLicencia">
 
                                 </div>
-                                <div class="col-xs-4">
-                                    <div class="input-group" id="mostrarValorEFectivo" style="display: none">
-                                        <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                                        <input type="text" class="form-control nuevoValorEfectivo" placeholder="000000"
-                                               required>
-                                    </div>
-                                </div>
-                                <div class="col-xs-4 capturaCambioEfectivo" style="padding-left: 0px;">
-                                    <div class="input-group" id="mostrarCambioEFectivo" style="display: none">
-                                        <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                                        <input type="text" class="form-control nuevoCambioEfectivo" placeholder="000000"
-                                               required readonly>
-                                    </div>
-                                </div>
+
 
                             </div>
 

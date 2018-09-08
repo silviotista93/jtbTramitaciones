@@ -51,3 +51,9 @@ Route::get('/tramitadorBuscar/{id}',function ($id){
 
     return \App\User::where('id','=',$id)->first();
 });
+
+//BUSCAR USUARIO POR EMAIL
+Route::get('/usuarioEmailBuscar/{email}',function ($email){
+
+    return \App\User::where('email','=',$email)->with('roles')->first();
+});

@@ -360,6 +360,7 @@ desired effect
 <script src="/adminlte/js/administrar_ventas.js"></script>
 <script src="/adminlte/js/actualizar_procesos.js"></script>
 <script src="/adminlte/js/cupon-descuento.js"></script>
+<script src="/adminlte/js/roles-usuarios.js"></script>
 <script src="/adminlte/js/jqueryNumber.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 

@@ -7,6 +7,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
+    <link rel="shortcut icon" sizes="114x114" href="{{{ asset('assets/img/fivicon.png') }}}">
     <link rel="stylesheet" href="/adminlte/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -70,7 +71,7 @@
         A su correo enviaremos un enlace para reestablecer su contraseña
     </div>
     <div class="text-center">
-        <a href="/">O intente iniciar sesión nuevamente</a>
+        <a href="/login">O intente iniciar sesión nuevamente</a>
     </div>
     <div class="lockscreen-footer text-center">
         Copyright &copy; 2018 <b><a href="{{ route('password.request') }}" class="text-black">Tramitaciones TJB</a></b><br>

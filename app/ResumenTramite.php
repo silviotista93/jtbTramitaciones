@@ -7,6 +7,19 @@ use Illuminate\Support\Facades\DB;
 
 class ResumenTramite extends Model
 {
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    //FECHAS EN ESPAÑOL
+    use \Seiler\EloquentDate\EloquentDate;
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'published_at',
+    ];
+
     protected $fillable = [
         'idTramitador','idUsuario','metodo_pago','idVendedor','total','id_tipoTramite','estado','nota'
     ];
