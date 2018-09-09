@@ -441,7 +441,7 @@ $('#nuevoMetodoPago').change(function () {
         $('.nuevoValorEfectivo').number(true,2);
         $('.nuevoCambioEfectivo').number(true,2);
         //LISTAR METODO EN LA ENTRADA
-        listarMetodos();
+        listarMetodosSeguro();
     }else{
         $(this).parent().parent().removeClass('col-xs-4');
         $(this).parent().parent().addClass('col-xs-6');
@@ -481,7 +481,7 @@ CAMBIO EN TRANSACCION
 =============================================*/
 $(".formularioVentaSeguro").on("change", "#nuevoCodigoTransaccion", function() {
 
-    listarMetodos();
+    listarMetodosSeguro();
 });
 
 
@@ -570,7 +570,7 @@ $(".inputAbono").keyup(function(){
 LISTAR METODO PAGO
 =============================================*/
 
-function listarMetodos() {
+function listarMetodosSeguro() {
 
     var listaMetodos = "";
     if ($('#nuevoMetodoPago').val() == 'Efectivo'){
