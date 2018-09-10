@@ -4,7 +4,7 @@ $(document).on('click','.btnEditarLicencia',function(){
     console.log(id, 'id');
     $('#admin_categoria_licencia').val($(this).attr('categoria'));
     $('#admin_tipoLicencia_licencia').val($(this).attr('tipoLicencia'));
-    $('#admin_precio_licencia').val($(this).attr('precio')).number(true, 2);
+    $('#admin_precio_licencia').val($(this).attr('precio'))
     $('#admin_update_licencia').val($(this).attr('update'));
 
     var url ='/admin/actualizar-licencia/'+id;

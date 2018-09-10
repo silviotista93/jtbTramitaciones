@@ -87,13 +87,14 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form method="POST" action="">
+                <form method="POST" action="{{route('usuariosRoles',$datosUsuario)}}">
                     @csrf {{method_field('PUT')}}
                     <div class="box-body">
+                        <input type="hidden" name="idUsuario" value="{{$datosUsuario->id}}">
                         @foreach($editRoles as $id => $name)
                             <div class="checkbox">
                                 <label for="">
-                                    <input class="checkUpdateRoles" type="checkbox" value="{{$id}}" {{$datosUsuario->roles->contains($id) ? 'checked':''}}>
+                                    <input name="roles[]" class="checkUpdateRoles" type="checkbox" value="{{$name}}" {{$datosUsuario->roles->contains($id) ? 'checked':''}}>
                                     {{$name}}
                                 </label>
 
@@ -107,26 +108,6 @@
 
                 </form>
             </div>
-
-
-
-        @if($errors->any())
-
-            <ul class="list-group">
-
-                @foreach($errors->all() as $error)
-
-                    <li class="list-group-item list-group-item-danger">
-
-                        {{$error}}
-                    </li>
-
-                @endforeach
-
-            </ul>
-
-        @endif
-
     </div>
     <div class="col-md-6">
         <!-- general form elements -->
@@ -136,52 +117,54 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form method="POST" action="">
+            <form method="POST" action="{{route('UsuarioActualizado',$datosUsuario)}}">
                 @csrf {{method_field('PUT')}}
                 <div class="box-body">
                     <!-- Contraseña-->
-                    <div class="form-group">
+
+                    <div class="form-group {{$errors->has('name')? 'has-error':''}}">
                         <label for="">Nombre</label>
-                        <input type="text" name="password" class="form-control" id="exampleInputEmail1"
+                        <input type="text" name="name" class="form-control" id="exampleInputEmail1"
                                placeholder="" value="{{$datosUsuario->name}}">
+                        {!! $errors->first('name','<span class="help-block">:message</span>')!!}
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group {{$errors->has('apellidos')? 'has-error':''}}">
                         <label for="">Apellidos</label>
-                        <input type="text" name="" class="form-control" id="exampleInputEmail1"
+                        <input type="text" name="apellidos" class="form-control" id="exampleInputEmail1"
                                placeholder="" value="{{$datosUsuario->apellidos}}">
-
+                        {!! $errors->first('apellidos','<span class="help-block">:message</span>')!!}
                     </div>
-                    <div class="form-group">
+                    <div class="form-group {{$errors->has('email')? 'has-error':''}}">
                         <label for="">Email</label>
-                        <input type="text" name="" class="form-control" id="exampleInputEmail1"
+                        <input type="text" name="email" class="form-control" id="exampleInputEmail1"
                                placeholder="" value="{{$datosUsuario->email}}">
-
+                        {!! $errors->first('email','<span class="help-block">:message</span>')!!}
                     </div>
-                    <div class="form-group">
+                    <div class="form-group {{$errors->has('telefono')? 'has-error':''}}">
                         <label for="">Télefono</label>
-                        <input type="text" name="" class="form-control" id="exampleInputEmail1"
+                        <input type="text" name="telefono" class="form-control" id="exampleInputEmail1"
                                placeholder=""value="{{$datosUsuario->telefono}}">
-
+                        {!! $errors->first('telefono','<span class="help-block">:message</span>')!!}
                     </div>
-                    <div class="form-group">
+                    <div class="form-group {{$errors->has('telefono_2')? 'has-error':''}}">
                         <label for="">Télefono 2</label>
                         @if($datosUsuario->telefono_2 == null)
-                            <span class="help-block">No registrado</span>
+                            <input type="text" name="telefono_2" class="form-control" id="exampleInputEmail1"
+                                   placeholder="Ningún número registrado" value="">
+                            {!! $errors->first('telefono_2','<span class="help-block">:message</span>')!!}
                         @else
-                        <input type="text" name="" class="form-control" id="exampleInputEmail1"
+                        <input type="text" name="telefono_2" class="form-control" id="exampleInputEmail1"
                                placeholder="" value="{{$datosUsuario->telefono_2}}">
+                            {!! $errors->first('telefono_2','<span class="help-block">:message</span>')!!}
                         @endif
 
                     </div>
-
-
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-block boton-actualizar">Actualizar
                         </button>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>

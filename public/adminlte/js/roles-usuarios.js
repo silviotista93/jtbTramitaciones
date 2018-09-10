@@ -1,25 +1,29 @@
 /*=============================================
 Encontrar usuario por email
 =============================================*/
-$(".form-usuario-creado").on("change", ".emailAgregarUsuario", function() {
+$(".form-cliente-creado").on("change", ".emailAgregarUsuario", function() {
 
     var email = $(this).val();
     $.get('/api/usuarioEmailBuscar/'+email+'',function (data) {
-        if (data !== ""){
+        if (data != ""){
             $.confirm({
                 animationBounce: 1.5,
                 closeAnimation: 'scale',
                 icon: 'fa fa-warning',
-                title: 'Este Usuario ya existe en el sistema',
-                content: '¿desea actualizar roles?',
-                type: 'red',
+                title: 'Este usuario ya existe en el sistema',
+                content: '¿Desea actualizar roles?',
+                type: 'warning',
                 typeAnimated: true,
                 buttons: {
                     tryAgain: {
                         text: 'Esta Bien!',
-                        btnClass: 'btn-red',
+                        btnClass: 'btn-warning',
                         action: function(){
-                            window.open('/admin/usuario-actualizar-perfil/'+data.id, '_self');
+                            $('#modalActualizarRoles').modal('show');
+                            $('.nombreUsuarioRol').text(data.name);
+                            $('.apellidosUsuarioRol').text(data.apellidos);
+                            var url = '/admin/cliente-update-roles/'+data.id;
+                            $('.form-update-rol-cliente').attr('action', url);
                         }
                     },
 
@@ -28,7 +32,7 @@ $(".form-usuario-creado").on("change", ".emailAgregarUsuario", function() {
                 }
             });
         }else{
-            alert('prueba')
+
         }
 
     });

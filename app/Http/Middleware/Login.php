@@ -23,7 +23,14 @@ class Login
                 Auth::logout();
                 return back()->with('eliminar',$msg);
             } else {
+                if (Auth::user()->hasRole('Administrador') || Auth::user()->hasRole('Secretari@')) {
                     return $next($request);
+
+                } else {
+
+                    return redirect('/login')->with('eliminar','No tiene permisos para acceder al sistema, consulte con el administrador');
+
+                }
 
             }
         }

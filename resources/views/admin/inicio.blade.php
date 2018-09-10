@@ -2,7 +2,7 @@
 
 @section('header')
     <h1>
-        Todos los Clientes
+       <strong>Todos los Clientes</strong>
         <small>Inicio</small>
     </h1>
     <ol class="breadcrumb">

@@ -18,10 +18,12 @@
         <div class="box-header">
             <div class="form-group">
                 <h3 class="box-title">Lista de Usuarios</h3>
+                @if(auth()->user()->hasRole('Administrador'))
                 <button class="btn btn-primary pull-right" data-toggle="modal"
                         data-target="#modalAgregarUsuario">
                     <i class="fa fa-plus"></i> Crear Usuario
                 </button>
+                @endif
             </div>
         </div>
 
@@ -33,7 +35,9 @@
                     <th>Apellidos</th>
                     <th>Perfil</th>
                     <th>Acciones</th>
+                    @if(auth()->user()->hasRole('Administrador'))
                     <th>Estado</th>
+                    @endif
 
                 </tr>
                 </thead>
@@ -43,15 +47,20 @@
                         <td>{{$usuario->name}}</td>
                         <td>{{$usuario->apellidos}}</td>
                         <td>{{$usuario->roles->first()->name}}</td>
+
                         <td class="text-center">
                             <button href="#" class="btn btn-xs btn-default "><i class="fa fa-eye"></i></button>
+                            @if(auth()->user()->hasRole('Administrador'))
                             <a href="{{route('userUpdatePerfil',$usuario->id)}}" class="btn btn-xs btn-info btnEditarUsuario"><i class="fa fa-pencil"></i></a>
                             <form class="form_eliminar_usuario" action="" method="POST" style="display: inline;">
                                 @csrf
                                 {{method_field('DELETE')}}
                                 <a idUsuario="{{$usuario->id}}" class="btn btn-xs btn-danger eliminarUsuario"><i class="fa fa-times"></i></a>
                             </form>
+                            @endif
                         </td>
+
+                        @if(auth()->user()->hasRole('Administrador'))
                         <td class="text-center">
                             @if($usuario->id !== auth()->user()->id)
                                 <input class="cbEstado btn btn-danger btn-sm toggle-on" type="checkbox"
@@ -59,6 +68,7 @@
                                        data-size="small" data-id="{{ $usuario->id }}">
                             @endif
                         </td>
+                            @endif
 
                     </tr>
                         @endforeach
@@ -166,40 +176,4 @@
         </div>
     </div>
 
-
-    <!-- MODAL RORLES -->
-    <div class="modal fade" data-backdrop="static" data-keyboard="false"
-         id="modalActualizarRoles" tabindex="-1" role="dialog"
-         aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #FFFFFF;">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true"
-                                style="color: #404040;">&times;</span>
-                    </button>
-                    <h4 class="modal-title inline" id="myModalLabel" style="color: #000000">Actualizar Roles para </h4><h4 class="nombreUsuarioRol inline"></h4><h4 class="apellidosUsuarioRol inline">&nbsp</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="box-body">
-                        @foreach($editRoles as $id => $name)
-                            <div class="checkbox">
-                                <label for="">
-                                    <input class="checkUpdateRoles" type="checkbox" value="{{$id}}">
-                                    {{$name}}
-                                </label>
-                                
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-warning "><i
-                                    class="fa fa-newspaper-o"></i> Validar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 @stop

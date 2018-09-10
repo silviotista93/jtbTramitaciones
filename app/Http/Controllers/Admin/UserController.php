@@ -75,7 +75,7 @@ class UserController extends Controller
         return json_encode($usuario->update());
     }
 
-    //ACTUALIZAR  USUARIOS USUARIOS
+    //ACTUALIZAR  USUARIOS
     public function indexUpdateUser($id){
         $datosUsuario = User::find($id);
         $editRoles = Role::pluck('name','id');
@@ -83,11 +83,58 @@ class UserController extends Controller
         return view('admin.usuarios.actualizar_usuario',compact('datosUsuario','editRoles'));
     }
 
+
     public function actualizarUsuarios(Request $request, User $user){
 
+        $data = $request->validate([
+            'name' => 'required',
+            'apellidos' => 'required',
+            'email' => 'required',
+            'telefono' => 'required',
+            'telefono_2' => ''
+        ]);
+        $user->update($data);
 
+        return back()->withFlash('Usuario Actualizado');
     }
 
+    //CAMBIAR ROLES DEL USUARIO
+    public function updateRoles(Request $request, User $user){
+        $idUsuario= $request->get('idUsuario');
+        $traerDatosUsuario = User::select('*')->where('id','=',$idUsuario)->first();
+        $prueba = $request->get('roles');
+
+        if ($traerDatosUsuario['password'] == null){
+
+
+            if (in_array('Administrador',$prueba) or in_array('Secretari@',$prueba)){
+                $password  =  str_random(8);
+                $data['password'] = bcrypt($password);
+                $user->update($data);
+
+                $user->syncRoles($request->roles);
+
+                UserWasCreated::dispatch($user, $password);
+                return back()->with('flash','Roles actualizados, Hemos enviado un correo electronico con las credenciales para iniciar en el sistema');
+
+            }else{
+                $user->syncRoles($request->roles);
+                return back()->with('flash','Roles actualizados');
+            }
+        }else{
+            if (in_array('Administrador',$prueba) or in_array('Secretari@',$prueba)){
+
+                $user->syncRoles($request->roles);
+                return back()->with('flash','Roles actualizados, ya puede iniciar en el sistema.Si no recuerda su contraseña, vaya a Login, y luego a "Olvidé mi contraseña"');
+            }else{
+                $user->syncRoles($request->roles);
+                return back()->with('flash','Roles actualizados');
+            }
+
+
+        }
+
+    }
 
     //EDITAR PERFIL DE LOS USUARIOS
 
@@ -181,6 +228,12 @@ class UserController extends Controller
 
             return back()->withFlash('Cliente Actualizado');
 
+    }
+
+    //ACTUALIZAR ROLES DEL CLIENTE
+    public function updateRolCliente(Request $request, User $user){
+        $user->assignRole($request->roles);
+        return back()->with('flash','Roles actualizados');
     }
 
     //TRAMITADORES

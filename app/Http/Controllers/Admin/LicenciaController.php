@@ -8,6 +8,7 @@ use App\TipoDocumento;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Role;
 
 class LicenciaController extends Controller
 {
@@ -15,8 +16,9 @@ class LicenciaController extends Controller
         $tipoDocumento = TipoDocumento::all();
         $clientes = User::role(['Cliente'])->orderBy('id','DESC')->get();
         $tramitadores = User::role(['Tramitador'])->orderBy('id','DESC')->get();
+        $roles = Role::where("name", "=", "Cliente")->first();
         $codigoFactura = ResumenTramite::select('id')->orderby('created_at','DESC')->first();
-        return view('admin.licencia.licencia',compact('tipoDocumento','clientes','codigoFactura','tramitadores'));
+        return view('admin.licencia.licencia',compact('tipoDocumento','clientes','codigoFactura','tramitadores','roles'));
     }
 
     //ADMINISTRAR LICENCIA........................................

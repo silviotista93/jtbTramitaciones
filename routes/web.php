@@ -32,7 +32,7 @@ Route::get('/usuario', function (){
 });
 
 Route::get('/', 'Admin\AdminController@inicio')->name('lista-clientes')->middleware('loginVerifEstado');
-Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'auth'], function (){
+Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginVerifEstado'], function (){
 
     Route::get('/tramite/licencia','LicenciaController@index')->name('tramitar-licencia');
     Route::get('/tramite/seguro','SeguroController@index')->name('tramitar-seguro');
@@ -51,6 +51,10 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'auth']
     Route::post('usuario-imagen','UserController@fotoPerfil')->name('admin.usuarioImagen');
     Route::put('imagen-actualizada/{user}','UserController@guardarFoto')->name('actualizarFotoPerfil');
     Route::put('password-actualizada/{user}','UserController@updatePassword')->name('actualizarContraseña');
+    Route::put('/actualizar-usuario/{user}','UserController@actualizarUsuarios')->name('UsuarioActualizado');
+
+    Route::get('/usuario-actualizar-perfil/{id}','UserController@indexUpdateUser')->name('userUpdatePerfil');
+    Route::put('usuario-update-roles/{user}','UserController@updateRoles')->name('usuariosRoles');
 
     //Clientes
     Route::get('/api/clientes',function (){
@@ -58,6 +62,7 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'auth']
     });
     Route::post('/agregar-cliente','UserController@AgregarCliente')->name('clienteAgregado');
     Route::put('/actualizar-cliente/{user}','UserController@actualizarCliente')->name('clienteActualizado');
+    Route::put('cliente-update-roles/{user}','UserController@updateRolCliente')->name('clienteRoles');
 
     //Tramitadores
     Route::get('/tramitadores','UserController@indexTramitadores')->name('tramitadores');
@@ -133,9 +138,29 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'auth']
     Route::get('/factura-abono-licencia/{id}','ResumenTramiteController@facturaAbonoLicenciaPdf')->name('generar.factura-abono-licencia');
 });
 
-Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'auth'], function (){
+//RUTAS CON PERMISOS ESPECIFICOS
+Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => ['loginVerifEstado','permisos']], function (){
+    //Administrar Seguros
+    Route::get('/administrar-seguros','SeguroController@administrarSeguro')->name('administrarSeguro');
+    Route::put('/actualizar-seguro/{seguro}','SeguroController@actualizarPrecioSeguro')->name('actualizarSeguro');
+    //Administrar Licencia
+    Route::get('/administrar-licencias','LicenciaController@administrarLicencia')->name('administrarLicencia');
+    Route::put('/actualizar-licencia/{licencia}','LicenciaController@actaulizarPrecioLicencia')->name('actualizarLicencia');
+
     Route::get('/usuario-actualizar-perfil/{id}','UserController@indexUpdateUser')->name('userUpdatePerfil');
 });
+
+//RUTAS PARA LA DOCUMENACION
+Route::group(['prefix' => 'documentacion', 'namespace' =>'Document','middleware' => ['loginVerifEstado']], function (){
+
+    Route::get('/bienvenida','DocumentController@bienvenida')->name('bienvenida');
+});
+
+
+
+
+
+
 
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

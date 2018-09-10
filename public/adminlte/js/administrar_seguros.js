@@ -3,7 +3,7 @@ $(document).on('click','.btnEditarSeguro',function(){
     var id = $(this).attr('id');
     console.log(id, 'id');
     $('#admin_cilindraje_seguro').val($(this).attr('cilindraje'));
-    $('#admin_precio_seguro').val($(this).attr('precio')).number(true, 2);
+    $('#admin_precio_seguro').val($(this).attr('precio'));
     $('#admin_update_seguro').val($(this).attr('update'));
 
     var url ='/admin/actualizar-seguro/'+id;

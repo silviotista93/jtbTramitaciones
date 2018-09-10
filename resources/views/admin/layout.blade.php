@@ -197,15 +197,22 @@ desired effect
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
+                            @if(auth()->user()->foto == null)
+                                <img src="/adminlte/img/perfil.jpg" class="user-image" alt="User Image">
+                            @else
                             <img src="{{auth()->user()->foto}}" class="user-image" alt="User Image">
+                            @endif
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
                             <span class="hidden-xs">{{auth()->user()->roles->first()->name}}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
+                                @if(auth()->user()->foto == null)
+                                    <img src="/adminlte/img/perfil.jpg" class="img-circle" alt="User Image">
+                                @else
                                 <img src="{{auth()->user()->foto}}" class="img-circle" alt="User Image">
-
+                                @endif
                                 <p>
                                     {{auth()->user()->name}}-
                                      {{auth()->user()->roles->first()->name}}
@@ -258,7 +265,11 @@ desired effect
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel">
                 <div class="pull-left image">
+                    @if(auth()->user()->foto == null)
+                        <img src="/adminlte/img/perfil.jpg" class="img-circle" alt="User Image">
+                    @else
                     <img src="{{auth()->user()->foto}}" class="img-circle" alt="User Image">
+                    @endif
                 </div>
                 <div class="pull-left info">
                     <p>{{auth()->user()->name}}</p>

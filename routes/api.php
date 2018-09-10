@@ -32,7 +32,7 @@ Route::get('/licenciaBuscar/{id}',function ($id){
 
 Route::get('/encontrarCliente/{identificacion}',function ($identificacion){
 
-    return \App\User::where('identificacion', '=', $identificacion)->with('tipoDocumento')->get();
+    return \App\User::role(['Cliente'])->where('identificacion', '=', $identificacion)->with('tipoDocumento')->get();
 });
 
 Route::get('/resumenTramite/{id}',function ($id){

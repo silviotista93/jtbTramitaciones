@@ -49,21 +49,18 @@
         <!-- /.tab-pane -->
         <!-- Settings tab content -->
         <div class="tab-pane" id="control-sidebar-settings-tab">
-            <form method="post">
-                <h3 class="control-sidebar-heading">General Settings</h3>
+            <h3 class="control-sidebar-heading">Configuracion</h3>
+            <ul class="control-sidebar-menu">
+                <li>
+                    <a href="{{route('bienvenida')}}" target="_blank">
+                        <i class="menu-icon fa  fa-book bg-red"></i>
 
-                <div class="form-group">
-                    <label class="control-sidebar-subheading">
-                        Report panel usage
-                        <input type="checkbox" class="pull-right" checked>
-                    </label>
-
-                    <p>
-                        Some information about this general settings option
-                    </p>
-                </div>
-                <!-- /.form-group -->
-            </form>
+                        <div class="menu-info">
+                            <h4 class="control-sidebar-subheading">Documentación</h4>
+                        </div>
+                    </a>
+                </li>
+            </ul>
         </div>
         <!-- /.tab-pane -->
     </div>

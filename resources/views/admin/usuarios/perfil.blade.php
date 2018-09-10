@@ -27,7 +27,11 @@
             </div>
             <div class="widget-user-image dropzone dz-clickable"
                  style="border: 0px !important; margin-left: -69px !important;margin-top: -56px !important; background-color:rgba(0, 0, 0, 0);">
+                @if(auth()->user()->foto == null)
+                    <img class="img-circle dz-default dz-message" src="/adminlte/img/perfil.jpg" alt="User Avatar">
+                 @else
                 <img class="img-circle dz-default dz-message" src="{{auth()->user()->foto}}" alt="User Avatar">
+                    @endif
             </div>
             <form method="POST" action="{{route('actualizarFotoPerfil',auth()->user()->id)}}">
                 @csrf {{method_field('PUT')}}

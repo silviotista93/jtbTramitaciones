@@ -34,7 +34,9 @@
                     <th>Email</th>
                     <th>Teléfono</th>
                     <th>Teléfono 2</th>
+                    @if(auth()->user()->hasRole('Administrador'))
                     <th>Acciones</th>
+                    @endif
                     <th>Tramitaciones</th>
 
                 </tr>
@@ -268,6 +270,7 @@
                 {data: 'email'},
                 {data: 'telefono'},
                 {data: 'telefono_2'},
+                    @if(auth()->user()->hasRole('Administrador'))
                 {
                     render:function (data,type, JsonResultRow,meta) {
                         return '<div class="text-center">' +
@@ -281,6 +284,7 @@
 
                     }
                 },
+                @endif
                 {
                     render:function (data,type, JsonResultRow,meta) {
                         return '<a href="/admin/tramitador-ventas/'+JsonResultRow.id+'" class="btn btn-block btn-warning "><i class="fa fa-eye"></i></a>'

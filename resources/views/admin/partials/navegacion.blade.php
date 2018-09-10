@@ -29,7 +29,7 @@
             <li><a href=""><i class="fa fa-circle-o"></i>Reporte de Ventas</a></li>
         </ul>
     </li>
-
+    @if(auth()->user()->hasRole('Administrador'))
     <li class="treeview ">
         <a href="#"><i class="fa fa-list-ul"></i> <span>Administrar Tramites</span>
             <span class="pull-right-container">
@@ -44,6 +44,7 @@
             <li><a href="#"><i class="fa fa-circle-o"></i>Otros</a></li>
         </ul>
     </li>
+    @endif
     <li class="treeview ">
         <a href="#"><i class="fa fa-user"></i> <span>Usuarios</span>
             <span class="pull-right-container">

@@ -394,7 +394,7 @@
                     <h4 class="modal-title" id="myModalLabel" style="color: #FFFFFF"><i class="fa fa-plus"></i>Agregar
                         Cliente </h4>
                 </div>
-                <form method="post" action="{{route('clienteAgregado')}}">
+                <form method="post" action="{{route('clienteAgregado')}}" class="form-cliente-creado">
                     @csrf
                     <div class="modal-body">
                         <div class="box-body">
@@ -450,7 +450,8 @@
                                 <label for="">Email</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                    <input value="{{old('email')}}" type="email" name="email" class="form-control"
+                                    <input value="{{old('email')}}" type="email" name="email"
+                                           class="form-control emailAgregarUsuario"
                                            placeholder="Ingrese Email">
                                     {!! $errors->first('email','<span class="help-block">*:message</span>')!!}
                                 </div>
@@ -635,6 +636,46 @@
                         </button>
                         <button id="btnEditarCliente" class="btn btn-warning">Editar</button>
                     </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL RORLES -->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false"
+         id="modalActualizarRoles" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #FFFFFF;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true"
+                                style="color: #404040;">&times;</span>
+                    </button>
+                    <h4 class="modal-title inline" id="myModalLabel" style="color: #000000">Actualizar Roles para </h4>
+                    <h4 class="nombreUsuarioRol inline"></h4><h4 class="apellidosUsuarioRol inline">&nbsp</h4>
+                </div>
+                <form class="form-update-rol-cliente" method="POST" action="">
+                    @csrf {{method_field('PUT')}}
+                <div class="modal-body">
+                    <div class="box-body">
+
+                        <div class="checkbox">
+                            <label for="">
+                                <input name="roles" class="checkUpdateRoles" type="checkbox" value="{{$roles->name}}"
+                                       style="font-size: 14px; font-weight: bold">
+                                {{$roles->name}}
+                            </label>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-warning ">Agregar Rol Cliente</button>
+                    </div>
+                </div>
                 </form>
             </div>
         </div>

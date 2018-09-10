@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \App\TipoVehiculo;
+use Spatie\Permission\Models\Role;
 
 class SeguroController extends Controller
 {
@@ -16,8 +17,9 @@ class SeguroController extends Controller
         $tipoDocumento = TipoDocumento::all();
         $clientes = User::role(['Cliente'])->orderBy('id','DESC')->get();
         $seguros = Seguro::all();
+        $roles = Role::where("name", "=", "Cliente")->first();
         $codigoFactura = ResumenTramite::select('id')->orderby('created_at','DESC')->first();
-        return view('admin.seguro.seguro',compact('seguros','tipoDocumento','clientes','codigoFactura'));
+        return view('admin.seguro.seguro',compact('seguros','tipoDocumento','clientes','codigoFactura','roles'));
     }
 
 
