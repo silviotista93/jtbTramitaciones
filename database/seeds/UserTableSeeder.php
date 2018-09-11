@@ -33,5 +33,16 @@ class UserTableSeeder extends Seeder
         $admin->save();
         $admin->assignRole($adminRole);
 
+        $admin = new User;
+        $admin->identificacion = '100101010';
+        $admin->id_tipoIdentificacion = 1;
+        $admin->name = 'Fernando';
+        $admin->apellidos = 'Puchana Dagua';
+        $admin->email = 'fernando.2889@gmail.com';
+        $admin->password = bcrypt('qwerty');
+        $admin->telefono = '3002195160';
+        $admin->foto = '';
+        $admin->save();
+        $admin->assignRole($adminRole);
     }
 }
