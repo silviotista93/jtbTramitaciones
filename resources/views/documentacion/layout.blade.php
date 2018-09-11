@@ -16,7 +16,7 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="/document/css/neat.min.css?v=1.0">
+    <link rel="stylesheet" href="/adminlte/css/neat.css">
 </head>
 <body>
 
@@ -24,7 +24,7 @@
     <div class="o-page__sidebar js-page-sidebar">
         <aside class="c-sidebar">
             <div class="c-sidebar__brand">
-                <a href="#"><img src="/document/img/logo_d.png" alt="Neat" style="margin-left: -9px;"></a>
+                <a href="#"><img src="/adminlte/img/logo_d.png" alt="Neat" style="margin-left: -9px;"></a>
             </div>
 
             <!-- Scrollable -->
@@ -182,6 +182,6 @@
 </div>
 
 <!-- Main JavaScript -->
-<script src="/document/js/neat.min.js?v=1.0"></script>
+<script src="/adminlte/js/neat.js"></script>
 </body>
 </html>
