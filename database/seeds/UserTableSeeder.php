@@ -30,8 +30,6 @@ class UserTableSeeder extends Seeder
         $admin->password =bcrypt('cantare.de.2310');
         $admin->telefono = '318564382';
         $admin->foto = '';
-
-
         $admin->save();
         $admin->assignRole($adminRole);
 
@@ -44,8 +42,6 @@ class UserTableSeeder extends Seeder
         $admin->password =bcrypt('qwerty');
         $admin->telefono = '3002195160';
         $admin->foto = '';
-
-
         $admin->save();
         $admin->assignRole($adminRole);
     }
