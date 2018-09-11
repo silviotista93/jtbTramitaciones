@@ -27,22 +27,11 @@ class UserTableSeeder extends Seeder
         $admin->name = 'Silvio Mauricio';
         $admin->apellidos = 'Gutierrez Quiñones';
         $admin->email = 'silviotista93@gmail.com';
-        $admin->password =bcrypt('cantare.de.2310');
+        $admin->password = bcrypt('cantare.de.2310');
         $admin->telefono = '318564382';
         $admin->foto = '';
         $admin->save();
         $admin->assignRole($adminRole);
 
-        $admin = new User;
-        $admin->identificacion = '';
-        $admin->id_tipoIdentificacion = 1;
-        $admin->name = 'Fernando';
-        $admin->apellidos = 'Puchana Dagua';
-        $admin->email = 'fernando.2889@gmail.com';
-        $admin->password =bcrypt('qwerty');
-        $admin->telefono = '3002195160';
-        $admin->foto = '';
-        $admin->save();
-        $admin->assignRole($adminRole);
     }
 }
