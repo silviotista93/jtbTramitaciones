@@ -21,7 +21,7 @@
 
         <div class="box-header">
             <div class="form-group">
-                <h3 class="box-title">Listado de Ventas</h3>
+                <h3 class="box-title">Listado de Tramites</h3>
             </div>
         </div>
 

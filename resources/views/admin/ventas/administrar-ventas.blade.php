@@ -3,11 +3,11 @@
 @section('header')
     <h1>
 
-        <strong>Administrar Ventas</strong>
-        <small>Ventas</small>
+        <strong>Administrar Tramites</strong>
+        <small>Tramites</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Ventas</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Tramites</a></li>
         <li class="active">Administrar</li>
     </ol>
 @stop
@@ -17,7 +17,7 @@
 
         <div class="box-header">
             <div class="form-group">
-                <h3 class="box-title">Listado de Ventas</h3>
+                <h3 class="box-title">Listado de Tramites</h3>
             </div>
         </div>
 

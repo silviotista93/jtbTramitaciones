@@ -7,9 +7,9 @@ use App\Http\Controllers\Controller;
 
 class ClienteController extends Controller
 {
-    public function infoCliente(){
+    public function indexClientes(){
 
 
-        return view('admin.info-cliente');
+        return view('admin.clientes.lista-clientes');
     }
 }

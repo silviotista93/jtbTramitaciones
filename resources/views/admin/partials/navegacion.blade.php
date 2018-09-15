@@ -1,7 +1,7 @@
 <ul class="sidebar-menu">
     <li class="header">NAVEGACIÓN</li>
     <!-- Optionally, you can add icons to the links -->
-    <li class="{{request()->is('admin') ? 'active' : ''}}"><a href="{{route('lista-clientes')}}"><i class="fa fa-users"></i><span>Clientes</span></a></li>
+    <li class="{{request()->is('/') ? 'active' : ''}}"><a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
 
     {{--<li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>--}}
     <li class="treeview {{request()->is('admin/tramite*') ? 'active' : ''}}">
@@ -18,14 +18,14 @@
             <li><a href="#">Otros</a></li>
         </ul>
     </li>
-    <li class="treeview ">
+    <li class="treeview {{request()->is('admin/administrar-ventas') ? 'active' : ''}}">
         <a href="#"><i class="fa fa-dollar"></i> <span>Ventas</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="{{route('adminVentas')}}"><i class="fa fa-circle-o"></i>Administrar Ventas</a></li>
+            <li {{request()->is('admin/administrar-ventas') ? 'class=active' : '' }}><a href="{{route('adminVentas')}}"><i class="fa fa-circle-o"></i>Administrar Tramites</a></li>
             <li><a href=""><i class="fa fa-circle-o"></i>Reporte de Ventas</a></li>
         </ul>
     </li>
@@ -53,7 +53,7 @@
         </a>
         <ul class="treeview-menu">
             <li class=""><a href="{{route('usuarios')}}"><i class="fa fa-user"></i><span>Usuarios Sistema</span></a></li>
-            <li class=""><a href=""><i class="fa fa-user"></i><span>Clientes</span></a></li>
+            <li class=""><a href="{{route('clientes')}}"><i class="fa fa-user"></i><span>Clientes</span></a></li>
             <li class=""><a href="{{route('tramitadores')}}"><i class="fa fa-user"></i><span>Tramitadores</span></a></li>
 
         </ul>

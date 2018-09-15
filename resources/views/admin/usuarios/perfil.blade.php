@@ -8,7 +8,7 @@
         <small>Usuario</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{route('usuarios')}}"><i class="fa fa-dashboard"></i> Usuarios</a></li>
+        <li><a href="{{route('usuarios')}}"><i class="fa fa-user"></i> Usuarios</a></li>
         <li class="active">Perfil</li>
     </ol>
 @stop
@@ -73,6 +73,7 @@
                 </div>
             </form>
         </div>
+        <span class="help-block">Click en la imagen para cambiar tu foto de perfil</span>
         {{--<div class="form-group text-center">
             <label for="archivo">Actualiza tu foto de Perfil</label>
             <div class="form-group text-center">

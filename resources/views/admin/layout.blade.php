@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>TJB | Tramitaciones</title>
+    <title>JTB | Tramitaciones</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -76,9 +76,9 @@ desired effect
         <!-- Logo -->
         <a href="/" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>TJB</b></span>
+            <span class="logo-mini"><b>JTB</b></span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg">Tramitaciones<b> TJB</b></span>
+            <span class="logo-lg">Tramitaciones<b> JTB</b></span>
         </a>
 
         <!-- Header Navbar -->
@@ -368,6 +368,7 @@ desired effect
 <script src="/adminlte/js/venta_seguro.js"></script>
 <script src="/adminlte/js/venta_licencia.js"></script>
 <script src="/adminlte/js/tramitador.js"></script>
+<script src="/adminlte/js/agenda.js"></script>
 <script src="/adminlte/js/administrar_ventas.js"></script>
 <script src="/adminlte/js/actualizar_procesos.js"></script>
 <script src="/adminlte/js/cupon-descuento.js"></script>
@@ -427,6 +428,9 @@ desired effect
         @if (count($errors) > 0)
         $('#modalAgregarTramitador').modal('show');
     @endif
+    @if (count($errors) > 0)
+    $('#modalAgregarContacto').modal('show');
+    @endif
 
 
 </script>
@@ -446,6 +450,9 @@ desired effect
 
 @show
 @section('dataTablesTramitesTramitador')
+
+@show
+@section('dataTablesAgenda')
 
 @show
 

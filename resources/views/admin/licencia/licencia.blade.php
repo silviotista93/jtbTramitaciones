@@ -29,7 +29,7 @@
                         <h3 class="box-title">Venta</h3>
                     </div>
                     <a href="{{route('adminVentas')}}" class="btn btn-primary pull-right" data-toggle="modal">
-                        <i class="fa fa-dollar"></i> Administrar Ventas
+                        <i class="fa fa-dollar"></i> Administrar Tramites
                     </a>
                 </div>
 

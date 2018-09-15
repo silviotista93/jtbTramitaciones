@@ -13,7 +13,7 @@
 
 
 Route::get('tramites', function (){
-    return \App\ResumenTramite::with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono')->get();
+    return \App\ResumenTramite::with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono')->orderby('created_at','DESC')->take(5)->get();
 });
 Route::get('/ventas/{id}',function ($id){
     return \App\ResumenTramite::where('id' ,$id)->with('segurosTramite','idcliente','tipoTramite')->first();
@@ -31,14 +31,12 @@ Route::get('/usuario', function (){
    return App\User::select('name','apellidos')->orderby('created_at','DESC')->take(1)->first();
 });
 
-Route::get('/', 'Admin\AdminController@inicio')->name('lista-clientes')->middleware('loginVerifEstado');
+Route::get('/', 'Admin\AdminController@dashboard')->name('dashboard')->middleware('loginVerifEstado');
 Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginVerifEstado'], function (){
 
     Route::get('/tramite/licencia','LicenciaController@index')->name('tramitar-licencia');
     Route::get('/tramite/seguro','SeguroController@index')->name('tramitar-seguro');
     Route::get('/tramite/matricula','MatriculaController@index')->name('tramitar-matricula');
-
-    Route::get('/info-cliente','ClienteController@infoCliente')->name('info-cliente');
 
 
     //Usuarios...
@@ -57,6 +55,7 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     Route::put('usuario-update-roles/{user}','UserController@updateRoles')->name('usuariosRoles');
 
     //Clientes
+    Route::get('/clientes','ClienteController@indexClientes')->name('clientes');
     Route::get('/api/clientes',function (){
         return datatables()->of(\App\User::role(['Cliente'])->get())->toJson();
     });
@@ -136,6 +135,12 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     Route::get('/recibo-abono-licencia/{id}','ResumenTramiteController@reciboAbonoLicencia')->name('generar.recibo-abono-licencia');
     Route::get('/factura-licencia/{id}','ResumenTramiteController@facturaPdfLicencia')->name('generar.factura-licencia');
     Route::get('/factura-abono-licencia/{id}','ResumenTramiteController@facturaAbonoLicenciaPdf')->name('generar.factura-abono-licencia');
+
+    //Agenda
+    Route::post('/contacto-agregado','AgendaController@agregarContacto')->name('agregarContacto');
+    Route::get('/api/agenda',function (){
+        return datatables()->of(\App\Agenda::all())->toJson();
+    });
 });
 
 //RUTAS CON PERMISOS ESPECIFICOS
