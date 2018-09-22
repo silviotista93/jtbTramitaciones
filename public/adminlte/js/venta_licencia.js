@@ -126,7 +126,6 @@ $(function () {
             return;
         }
         var data = table.row($(this).parents('tr')).data();
-        console.log(data);
 
         var el = e.target;
         var classL = el.classList;
@@ -139,13 +138,12 @@ $(function () {
             var categoria = respuesta[0].categoria;
             var tipo_lencia = respuesta[0].tipo_licencia;
             var precio = respuesta[0].precio;
-            console.log(respuesta[0].precio);
-
+            var descuento = respuesta[0].descuento;
 
             $(".nuevaLicencia").append(
                 '<div class="row" style="padding:5px 15px">' +
                 '<!-- Descripción del producto -->' +
-                '<div class="col-xs-3" style="padding-right:0px">' +
+                '<div class="col-xs-4" style="padding-right:0px">' +
                 '<div class="input-group">' +
                 '<input type="hidden" name="idLicencia[]" value="' + id + '">' +
                 '<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs quitarLicencia" value="' + id + '"><i class="fa fa-times"></i></button></span>' +
@@ -153,24 +151,25 @@ $(function () {
                 '</div>' +
                 '</div>' +
                 '<!-- Cantidad del producto -->' +
-                '<div class="col-xs-3">' +
+                '<div class="col-xs-4">' +
                 '<input type="text" class="form-control tipoLicencia" name="" min="1" value="' + tipo_lencia + '" required readonly>' +
                 '</div>' +
                 '<!-- Precio del producto -->' +
-                '<div class="col-xs-3 ingresoPrecio" style="padding-left:0px">' +
+                '<div class="col-xs-4 ingresoPrecio" style="padding-left:0px">' +
                 '<div class="input-group">' +
                 '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
                 '<input type="text" class="form-control nuevoPrecioLicencia" precioReal="' + precio + '" name="nuevoPrecioLicencia[]" value="' + precio + '" readonly required>' +
+                '<input type="hidden" class="form-control nuevoDescuentoLicencia" precioReal="'+descuento+'" name="nuevoDescuentoLicencia[]" value="'+descuento+'" readonly required>' +
                 '<input type="hidden" name="totalPrecioCantidad[]">' +
                 '</div>' +
                 '</div>' +
                 '<!-- Aplicar Descuento -->' +
-                '<div class="col-xs-3">' +
-                '<div style="position:relative"><div id="checkLic" class="checkbox icheck" style="margin-top: 4px;margin-left: -20px">\n' +
+                /*'<div class="col-xs-3">' +*/
+                /*'<div style="position:relative"><div id="checkLic" class="checkbox icheck" style="margin-top: 4px;margin-left: -20px">\n' +
                 '                        <label>\n' +
                 '                            <input class="checkLicencia" type="checkbox" name="remember">&nbsp <span class="label label-info">Aplicar Descuento!</span> ' +
                 '                        </label>\n' +
-                '                    </div>' +
+                '                    </div>' +*/
                 '<div class="contenedor_input" style="position:absolute;top: -1px;cursor:pointer;left: -20px;width: 100%;height: 3rem;padding: .5rem;"></div></div></div>' +
                 '<div class="col-xs-2" style="padding-left: 0px">' +
                 '<input type="hidden" class="form-control nuevaCantidadLicencia" name="nuevaCantidadLicencia[]" min="1" value="1" required>' +
@@ -182,8 +181,10 @@ $(function () {
                 var check = $(this).parent().find(".icheckbox_square-blue").toggleClass("checked");
                 if (!check.hasClass("checked")) {
                     precio = respuesta[0].precio;
+                    $('.nuevoPrecioLicencia').prop("readonly", true);
                 } else {
                     precio = respuesta[0].descuento;
+                    $('.nuevoPrecioLicencia').prop("readonly", false);
                 }
                 $(this).parent().parent().parent().find('.nuevoPrecioLicencia').val(precio);
                 sumarTotalPrecios();
@@ -225,6 +226,7 @@ $(function () {
             var categoria = respuesta[0].categoria;
             var tipo_lencia = respuesta[0].tipo_licencia;
             var precio = respuesta[0].precio;
+            var descuento = respuesta[0].descuento;
 
             $(".nuevaLicencia").append(
                 '<div class="row" style="padding:5px 15px">' +
@@ -245,6 +247,7 @@ $(function () {
                 '<div class="input-group">' +
                 '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
                 '<input type="text" class="form-control nuevoPrecioLicencia" precioReal="' + precio + '" name="nuevoPrecioLicencia[]" value="' + precio + '" readonly required>' +
+                '<input type="hidden" class="form-control nuevoDescuentoLicencia" precioReal="'+descuento+'" name="nuevoDescuentoLicencia[]" value="'+descuento+'" readonly required>' +
                 '<input type="hidden" name="totalPrecioCantidad[]">' +
                 '</div>' +
                 '</div>' +
@@ -338,13 +341,23 @@ function sumarTotalPrecios() {
     }
 
     var sumaTotalPrecio = arraySumaPrecio.reduce(sumarArrayPrecios);
+    var tipoLicencia = $('.tipoLicencia');
+    var desc_examen_medico;
+    $.get('/api/examen-medico/1', function (respuesta) {
+        desc_examen_medico = respuesta.valor;
+        if(tipoLicencia.length > 1){
+            sumaTotalPrecio=sumaTotalPrecio-desc_examen_medico;
+            toastr.warning('Se aplico descuento, por examen medico de $'+desc_examen_medico);
+        }
 
-    $("#nuevoTotalVenta").val(sumaTotalPrecio);
-    $("#totalVentaDB").val(sumaTotalPrecio);
-    $("#saldoVentaAbonoLicencia").val(sumaTotalPrecio);
+        $("#nuevoTotalVenta").val(sumaTotalPrecio);
+        $("#totalVentaDB").val(sumaTotalPrecio);
+        $("#saldoVentaAbonoLicencia").val(sumaTotalPrecio);
 
-    //PONER FORMATO AL PRECIO DE LOS SEGUROS
-    $("#nuevoTotalVenta").number(true, 2);
+        //PONER FORMATO AL PRECIO DE LOS SEGUROS
+        $("#nuevoTotalVenta").number(true, 2);
+    });
+
 }
 
 
@@ -398,11 +411,8 @@ $(".crearVentaLicencia").click(function (e) {
             "categoria":$(descripcion[i]).val(),
             "cantidad":$(cantidad[i]).val(),
             "tipo_licencia":$(tipoLicencia[i]).val(),
-            "precio":$(precio[i]).val()
-        })
+            "precio":$(precio[i]).val()})
     };
-
-
     console.log(listarLicencias);
 var fila = "";
  for (var i = 0; i <listarLicencias.length; i++){
@@ -416,7 +426,6 @@ var fila = "";
     };
 
 
-    $.ajax({url:'archivo.php',method:'post',data:{"licencias":listarLicencias}});
 
     console.log(listarLicencias.length);
     
@@ -484,9 +493,7 @@ var fila = "";
             '                  <th>Tipo</th>\n' +
             '                  <th>Categoria</th>\n' +
             '                  <th>Precio</th>\n' +
-            '                </tr>' +
-            '                  <tr>' +
-            '                  </tr>' +
+            '                </tr>\n' +
             '                 <tbody> '+                                
             '                    '+fila+'     '+
             '                </tbody>  '+
@@ -597,7 +604,6 @@ $(".formularioVentaLicencia").on("change", "#nuevoCodigoTransaccionLicencia", fu
     listarMetodos();
 });
 
-
 /*=============================================
     APARECER CAMPOS ABONOS
 =============================================*/
@@ -696,6 +702,33 @@ function listarMetodos() {
     }
 
 }
+
+
+$("#btn-descuento").click(function (e) {
+    e.preventDefault();
+
+    var listarLicencias = [];
+
+    var descripcion = $('.nuevaDescripcionLicencia');
+    var cantidad = $('.nuevaCantidadLicencia');
+    var precio =   $('.nuevoPrecioLicencia');
+    var tipoLicencia = $('.tipoLicencia');
+    var descuento = $('.nuevoDescuentoLicencia');
+
+    for (var i = 0; i < descripcion.length; i++){
+        listarLicencias.push({
+            "categoria":$(descripcion[i]).val(),
+            "cantidad":$(cantidad[i]).val(),
+            "tipo_licencia":$(tipoLicencia[i]).val(),
+            "precio":$(precio[i]).val(),
+            "descuento":$(descuento[i].val())
+        })
+    };
+    console.log(listarLicencias);
+});
+
+
+
 
 
 

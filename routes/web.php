@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('/test', "Admin\ReportesController@datosGrafica");
+
 
 Route::get('tramites', function (){
     return \App\ResumenTramite::with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono')->orderby('created_at','DESC')->take(5)->get();
@@ -100,9 +102,7 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     Route::get('/administrar-ventas','AdministrarVentasController@index')->name('adminVentas');
     Route::get('/info-venta/{id}','AdministrarVentasController@infoVenta')->name('infoVentas');
     Route::get('/info-venta-licencia/{id}','AdministrarVentasController@infoVentaLicencia')->name('infoVentasLicencia');
-    Route::get('/api/admin-ventas',function (){
-        return datatables()->of(\App\ResumenTramite::with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono')->get())->toJson();
-    });
+    Route::get('/api/admin-ventas','AdministrarVentasController@reporteVentas');
 
     //Tramites de cada tramitador
     Route::get('/tramitador-ventas/{idTramitador}','AdministrarVentasController@tramitesTramitador')->name('tramitadorVentas');
@@ -130,6 +130,9 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     Route::get('/recibo/{id}','ResumenTramiteController@reciboPdf')->name('generar.recibo');
     Route::get('/recibo-abono/{id}','ResumenTramiteController@reciboAbono')->name('generar.recibo-abono');
 
+    //REPORTES
+    Route::get('/reportes','ReportesController@index')->name('reportes');
+
     //Recibo Licencia
     Route::get('/recibo-licencia/{id}','ResumenTramiteController@reciboPdfLicencia')->name('generar.recibo-licencia');
     Route::get('/recibo-abono-licencia/{id}','ResumenTramiteController@reciboAbonoLicencia')->name('generar.recibo-abono-licencia');
@@ -141,6 +144,14 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     Route::get('/api/agenda',function (){
         return datatables()->of(\App\Agenda::all())->toJson();
     });
+
+    //ADMINISTRAR PRECIOS
+    //Otros
+    //Precio examen medico
+    Route::get('/admi-tramites/otros','OtrosController@index')->name('admin-otros');
+    Route::put('precio-examen-medico-actualizado/{medico}','OtrosController@update')->name('examen-medico-actualizado');
+
+
 });
 
 //RUTAS CON PERMISOS ESPECIFICOS

@@ -298,7 +298,7 @@
 
                                                     <input type="text" class="form-control input-lg"
                                                            id="nuevoTotalVenta" name=""
-                                                           placeholder="00000" readonly required>
+                                                           placeholder="0" readonly required>
 
                                                     <input type="hidden" name="total" id="totalVentaDB">
                                                     <input type="hidden" name="estado" value="En Tramite">
@@ -314,12 +314,29 @@
                                                 </div>
 
                                             </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="input-group" style="display: none;">
+
+                                                    <span class="input-group-addon"><i
+                                                                class="ion ion-social-usd"></i></span>
+
+                                                    <input type="text" class="form-control input-lg"
+                                                           id="inputDescuento" name=""
+                                                           placeholder="0">
+
+                                                </div>
+                                            </td>
 
                                         </tr>
-
                                         </tbody>
 
                                     </table>
+
+                                    <div style="margin-left: 8px;">
+                                        <button id="btn-descuento" class="btn btn-block btn-info">Aplicar Descuento!</button>
+                                    </div>
 
                                 </div>
 

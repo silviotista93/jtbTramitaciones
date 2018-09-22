@@ -39,6 +39,10 @@ Route::get('/resumenTramite/{id}',function ($id){
 
     return \App\ResumenTramite::where('id',$id)->get();
 });
+Route::get('/examen-medico/{id}',function ($id){
+
+    return \App\Medico::where('id',$id)->first();
+});
 
 Route::get('/ultimoCedula/{identificacion}','Admin\SeguroController@existeCedula');
 

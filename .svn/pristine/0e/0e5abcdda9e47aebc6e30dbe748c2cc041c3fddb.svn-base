@@ -1,0 +1,144 @@
+<?php $__env->startSection('header'); ?>
+    <h1>
+
+        <strong>Administrar Tramites</strong>
+        <small>Tramites</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Tramites</a></li>
+        <li class="active">Administrar</li>
+    </ol>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('contenido'); ?>
+    <div class="box box-primary">
+
+        <div class="box-header">
+            <div class="form-group">
+                <h3 class="box-title">Listado de Tramites</h3>
+            </div>
+        </div>
+
+        <div class="box-body table-responsive">
+            <table class="table table-bordered table-striped dt-responsive tablas table_admiVentas">
+                <thead>
+                <tr>
+                    <th>Código factura</th>
+                    <th>Identificacion</th>
+                    <th>Cliente</th>
+                    <th>Vendedor</th>
+                    <th>Tipo Tramite</th>
+                    <th>Estado</th>
+                    <th>Financiación</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+
+                </thead>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- TABLA DINAMICA Clientes-->
+<?php $__env->startSection('dataTablesClientes'); ?>
+        <script>
+          var table = $('.table_admiVentas').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "stateSave": true,
+                "data": null,
+                "ajax": "/admin/api/admin-ventas",
+                "columns":[
+                    {data: 'id'},
+                    {data: 'idcliente.identificacion'},
+                    {"width": "20%",
+                        render:function (data,type, JsonResultRow,meta) {
+                            return '<p>'+JsonResultRow.idcliente.name+' '+JsonResultRow.idcliente.apellidos+'</p>'
+                        }
+                    },
+                    {"width": "20%",
+                        render:function (data,type, JsonResultRow,meta) {
+                            return '<p>'+JsonResultRow.id_vendedor.name+' '+JsonResultRow.id_vendedor.apellidos+'</p>'
+                        }
+                    },
+                    {data: 'tipo_tramite.nombre'},
+
+                    {
+                        render:function (data,type, JsonResultRow,meta) {
+                            if (JsonResultRow.estado == 'En tramite'){
+                                return '<span class="label label-warning"  style="font-size: 16px;">'+JsonResultRow.estado+'</span>\n'
+                            }else{
+                                return '<span class="label label-success"  style="font-size: 11px;">'+JsonResultRow.estado+'</span>\n'
+                            }
+
+
+                        }
+                    },
+                    {
+                        render:function (data,type, JsonResultRow,meta) {
+                            var datos = JsonResultRow.tramites_abono;
+                            var ultimo = datos[datos.length-1].estado;
+
+                            if (ultimo == 'Debe'){
+                                return '<span class="label label-danger text-center" style="font-size: 16px;">'+ultimo+'</span>\n'
+                            }else{
+                                return '<span class="label label-success" style="font-size: 11px;">'+ultimo+'</span>\n'
+
+                            }
+
+
+                        }
+                    },
+
+                    { "width": "15%", data: 'created_at'},
+                    {render: function (data, type, JsonResultRow, meta) {
+                        if (JsonResultRow.id_tipoTramite == 1){
+                            return '<a href="/admin/factura/'+JsonResultRow.id+'" target="_blank" class="btn btn-xs btn-success btnEditarUsuario" ><i class="fa fa-print"></i></a>\n' +
+
+                            '<a href="/admin/info-venta/'+JsonResultRow.id+'" class="btn btn-xs btn-info btnInfoUsuario"><i class="fa fa-eye"></i></a>'
+                        }else{
+                            return '<a href="/admin/factura-licencia/'+JsonResultRow.id+'" target="_blank" class="btn btn-xs btn-success btnEditarUsuario" ><i class="fa fa-print"></i></a>\n' +
+                            '<a href="/admin/info-venta-licencia/'+JsonResultRow.id+'" class="btn btn-xs btn-info btnInfoUsuario"><i class="fa fa-eye"></i></a>'
+                        }
+
+
+                        }},
+
+                ],
+                "language":{
+                    "sProcessing":     "Procesando...",
+                    "sLengthMenu":     "Mostrar _MENU_ registros",
+                    "sZeroRecords":    "No se encontraron resultados",
+                    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix":    "",
+                    "sSearch":         "Buscar:",
+                    "sUrl":            "",
+                    "sInfoThousands":  ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst":    "Primero",
+                        "sLast":     "Último",
+                        "sNext":     "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+            });
+
+    </script>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

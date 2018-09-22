@@ -19,8 +19,13 @@
             <div class="form-group">
                 <h3 class="box-title">Listado de Tramites</h3>
             </div>
+            <button type="button" class="btn btn-default pull-right" id="dpFecha">
+                <span>
+                    <i class="fa fa-calendar"></i> Rango fecha
+                </span>
+                <i class="fa fa-caret-down"></i>
+            </button>
         </div>
-
         <div class="box-body table-responsive">
             <table class="table table-bordered table-striped dt-responsive tablas table_admiVentas">
                 <thead>
@@ -48,29 +53,47 @@
 
     <!-- TABLA DINAMICA Clientes-->
 @section('dataTablesClientes')
+        <script src="/adminlte/plugins/daterangepicker/moment_spa.js"></script>
+        <script src="/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+        <link rel="stylesheet" type="text/css" href="/adminlte/plugins/daterangepicker/daterangepicker.css" />
+        <script src="/js/rango_fecha.js"></script>
+        <script src="/js/administrar_ventas_admin.js"></script>
         <script>
-          var table = $('.table_admiVentas').DataTable({
+            fechaInicio = getStorage("fechaInicio");
+            fechaFin = getStorage("fechaFin");
+            var table = null;
+            function cargarTabla (){
+                if (table !== null){
+                    table.destroy();
+                }
+                table = $('.table_admiVentas').DataTable({
                 "processing": true,
                 "serverSide": true,
                 "stateSave": true,
                 "data": null,
-                "ajax": "/admin/api/admin-ventas",
+                "ajax": {
+                    url: "/admin/api/admin-ventas",
+                    data: {
+                        fechaInicio: fechaInicio,
+                        fechaFin: fechaFin
+                    }
+                },
                 "columns":[
                     {data: 'id'},
                     {data: 'idcliente.identificacion'},
-                    {"width": "20%",
+                    {data: 'idcliente.name', "width": "20%",
                         render:function (data,type, JsonResultRow,meta) {
                             return '<p>'+JsonResultRow.idcliente.name+' '+JsonResultRow.idcliente.apellidos+'</p>'
                         }
                     },
-                    {"width": "20%",
+                    {data: 'id_vendedor.name', "width": "20%",
                         render:function (data,type, JsonResultRow,meta) {
                             return '<p>'+JsonResultRow.id_vendedor.name+' '+JsonResultRow.id_vendedor.apellidos+'</p>'
                         }
                     },
                     {data: 'tipo_tramite.nombre'},
-
                     {
+                        data: 'estado',
                         render:function (data,type, JsonResultRow,meta) {
                             if (JsonResultRow.estado == 'En tramite'){
                                 return '<span class="label label-warning"  style="font-size: 16px;">'+JsonResultRow.estado+'</span>\n'
@@ -82,6 +105,7 @@
                         }
                     },
                     {
+                        data: "idcliente.apellidos",
                         render:function (data,type, JsonResultRow,meta) {
                             var datos = JsonResultRow.tramites_abono;
                             var ultimo = datos[datos.length-1].estado;
@@ -98,7 +122,9 @@
                     },
 
                     { "width": "15%", data: 'created_at'},
-                    {render: function (data, type, JsonResultRow, meta) {
+                    {
+                        data: "id_vendedor.apellidos",
+                        render: function (data, type, JsonResultRow, meta) {
                         if (JsonResultRow.id_tipoTramite == 1){
                             return '<a href="/admin/factura/'+JsonResultRow.id+'" target="_blank" class="btn btn-xs btn-success btnEditarUsuario" ><i class="fa fa-print"></i></a>\n' +
 
@@ -137,9 +163,12 @@
                     }
                 }
             });
+            }
+                cargarTabla();
+
 
     </script>
-
+    <script src="/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
 @endsection
 
 @stop

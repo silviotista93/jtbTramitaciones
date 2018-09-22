@@ -1,0 +1,285 @@
+<?php $__env->startSection('header'); ?>
+    <h1>
+        <strong>Tramitadores</strong>
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Tramitadores</li>
+        <li class="active">Administrar</li>
+    </ol>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('contenido'); ?>
+
+    <div class="box box-primary">
+        <div class="box-header">
+            <div class="form-group">
+                <h3 class="box-title">Lista de Tramitadores</h3>
+                <button class="btn btn-primary pull-right" data-toggle="modal"
+                        data-target="#modalAgregarTramitador">
+                    <i class="fa fa-plus"></i> Crear Tramitador
+                </button>
+            </div>
+        </div>
+
+        <div class="box-body table-responsive">
+            <table class="table table-bordered dt-responsive table-striped table_tramitadores">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Teléfono 2</th>
+                    <?php if(auth()->user()->hasRole('Administrador')): ?>
+                    <th>Acciones</th>
+                    <?php endif; ?>
+                    <th>Tramitaciones</th>
+
+                </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL AGREGAR TRAMITADOR -->
+    <div class="modal fade" id="modalAgregarTramitador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #056F00;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true"
+                                style="color: #FFFFFF;">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel" style="color: #FFFFFF">Crear Tramitador <i
+                                class="fa fa-plus"></i></h4>
+                </div>
+                <form method="post" action="<?php echo e(route ('tramitadorCreado')); ?>">
+                    <?php echo csrf_field(); ?>
+                    <div class="modal-body">
+                        <div class="box-body">
+                            <form action="">
+                                <div class="form-group <?php echo e($errors->has('name')? 'has-error':''); ?>">
+                                    <label for="">Nombres</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        <input type="text" name="name" value="<?php echo e(old('name')); ?>" class="form-control" placeholder="Ingrese Nombres">
+                                        <?php echo $errors->first('name','<span class="help-block">*:message</span>'); ?>
+
+                                    </div>
+                                </div>
+                                <div class="form-group <?php echo e($errors->has('apellidos')? 'has-error':''); ?>">
+                                    <label for="">Apellidos</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        <input type="text" name="apellidos" value="<?php echo e(old('apellidos')); ?>" class="form-control"
+                                               placeholder="Ingrese Apellidos">
+                                        <?php echo $errors->first('apellidos','<span class="help-block">*:message</span>'); ?>
+
+                                    </div>
+                                </div>
+                                <div class="form-group <?php echo e($errors->has('email')? 'has-error':''); ?>">
+                                    <label for="">Email</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                        <input type="email" name="email" value="<?php echo e(old('email')); ?>" class="form-control" placeholder="Ingrese Email">
+                                        <?php echo $errors->first('email','<span class="help-block">*:message</span>'); ?>
+
+                                    </div>
+                                </div>
+                                <div class="form-group <?php echo e($errors->has('telefono')? 'has-error':''); ?>">
+                                    <label for="">Teléfono</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-phone"></i>
+                                        </div>
+                                        <input type="text" name="telefono" class="form-control"
+                                               data-inputmask='"mask": "(999) 999-9999"' placeholder="Ingrese teléfono"
+                                               data-mask value="<?php echo e(old('telefono')); ?>">
+                                        <?php echo $errors->first('telefono','<span class="help-block">*:message</span>'); ?>
+
+                                    </div>
+                                </div>
+                                <div class="form-group <?php echo e($errors->has('telefono_2')? 'has-error':''); ?>">
+                                    <label for="">Teléfono 2</label><span class="help-block inline"> (Opcional)</span>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-phone"></i>
+                                        </div>
+                                        <input value="<?php echo e(old('telefono_2')); ?>" id="" type="text" name="telefono_2" class="form-control"
+                                               data-inputmask='"mask": "(999) 999-9999"'
+                                               data-mask placeholder="Ingrese teléfono 2">
+                                        <?php echo $errors->first('telefono_2','<span class="help-block">*:message</span>'); ?>
+
+                                    </div>
+                                </div>
+                                <input type="hidden" name="rol" value="3">
+                                
+
+                            
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Crear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EDITAR TRAMITADOR -->
+    <div class="modal fade" id="modalEditarTramitador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #056F00;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true"
+                                style="color: #FFFFFF;">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel" style="color: #FFFFFF">Editar Tramitador <i
+                                class="fa fa-pencil"></i></h4>
+                </div>
+                <form method="post" id="formEditTramitador">
+                    <?php echo csrf_field(); ?> <?php echo e(method_field('PUT')); ?>
+
+                    <div class="modal-body">
+                        <div class="box-body">
+                            <form action="">
+                                <div class="form-group <?php echo e($errors->has('name')? 'has-error':''); ?>">
+                                    <label for="">Nombres</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        <input id="nameTramitador" type="text" name="name" value="<?php echo e(old('name')); ?>" class="form-control" placeholder="Ingrese Nombres">
+                                        <?php echo $errors->first('name','<span class="help-block">*:message</span>'); ?>
+
+                                    </div>
+                                </div>
+                                <div class="form-group <?php echo e($errors->has('apellidos')? 'has-error':''); ?>">
+                                    <label for="">Apellidos</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        <input id="apellidosTramitador" type="text" name="apellidos" value="<?php echo e(old('apellidos')); ?>" class="form-control"
+                                               placeholder="Ingrese Apellidos">
+                                        <?php echo $errors->first('apellidos','<span class="help-block">*:message</span>'); ?>
+
+                                    </div>
+                                </div>
+                                <div class="form-group <?php echo e($errors->has('email')? 'has-error':''); ?>">
+                                    <label for="">Email</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                        <input id="emailTramitador" type="email" name="email" value="<?php echo e(old('email')); ?>" class="form-control" placeholder="Ingrese Email">
+                                        <?php echo $errors->first('email','<span class="help-block">*:message</span>'); ?>
+
+                                    </div>
+                                </div>
+                                <div class="form-group <?php echo e($errors->has('telefono')? 'has-error':''); ?>">
+                                    <label for="">Teléfono</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-phone"></i>
+                                        </div>
+                                        <input id="telefonoTramitador" type="text" name="telefono" class="form-control"
+                                               data-inputmask='"mask": "(999) 999-9999"' placeholder="Ingrese teléfono"
+                                               data-mask value="<?php echo e(old('telefono')); ?>">
+                                        <?php echo $errors->first('telefono','<span class="help-block">*:message</span>'); ?>
+
+                                    </div>
+                                </div>
+                                <div class="form-group <?php echo e($errors->has('telefono_2')? 'has-error':''); ?>">
+                                    <label for="">Teléfono 2</label><span class="help-block inline"> (Opcional)</span>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-phone"></i>
+                                        </div>
+                                        <input  value="<?php echo e(old('telefono_2')); ?>" id="telefono_2Tramitador" type="text" name="telefono_2" class="form-control"
+                                               data-inputmask='"mask": "(999) 999-9999"'
+                                               data-mask placeholder="Ingrese teléfono 2">
+                                        <?php echo $errors->first('telefono_2','<span class="help-block">*:message</span>'); ?>
+
+                                    </div>
+                                </div>
+                                <input type="hidden" name="rol" value="3">
+                            
+
+                            
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<?php $__env->startSection('dataTablesTramitadores'); ?>
+    <script>
+        $('.table_tramitadores').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "data": null,
+            "ajax": "/admin/api/tramitadores",
+            "columns":[
+                {data: 'name'},
+                {data: 'apellidos'},
+                {data: 'email'},
+                {data: 'telefono'},
+                {data: 'telefono_2'},
+                    <?php if(auth()->user()->hasRole('Administrador')): ?>
+                {
+                    render:function (data,type, JsonResultRow,meta) {
+                        return '<div class="text-center">' +
+                            '<button class="btn btn-sm btn-info btnEditarTramitador" idTramitador="'+JsonResultRow.id+'" data-target="#modalEditarTramitador" data-toggle="modal"><i class="fa fa-pencil"></i></button>' +
+                            ' <form method="post" class="formDeleteTramita inline" action="">' +
+                            '<?php echo csrf_field(); ?>
+                                <input type="hidden" name="_method" value="DELETE">' +
+                            '<a idTramitador="'+JsonResultRow.id+'" class="btn btn-sm btn-danger btnEliminarTramitador"><i class="fa fa-times"></i></a>' +
+                            '</form>' +
+                            '</div>'
+
+                    }
+                },
+                <?php endif; ?>
+                {
+                    render:function (data,type, JsonResultRow,meta) {
+                        return '<a href="/admin/tramitador-ventas/'+JsonResultRow.id+'" class="btn btn-block btn-warning "><i class="fa fa-eye"></i></a>'
+
+                    }
+                },
+            ],
+            "language":{
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+
+    </script>
+
+<?php $__env->stopSection(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

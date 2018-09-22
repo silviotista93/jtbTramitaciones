@@ -26,7 +26,7 @@
         </a>
         <ul class="treeview-menu">
             <li {{request()->is('admin/administrar-ventas') ? 'class=active' : '' }}><a href="{{route('adminVentas')}}"><i class="fa fa-circle-o"></i>Administrar Tramites</a></li>
-            <li><a href=""><i class="fa fa-circle-o"></i>Reporte de Ventas</a></li>
+            <li><a href="{{route('reportes')}}"><i class="fa fa-circle-o"></i>Reporte de Ventas</a></li>
         </ul>
     </li>
     @if(auth()->user()->hasRole('Administrador'))
@@ -41,7 +41,7 @@
             <li><a href="{{route('administrarSeguro')}}"><i class="fa fa-circle-o"></i>Seguro Obligatorio</a></li>
             <li><a href=""><i class="fa fa-circle-o"></i>Matricula</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i>Traspasos</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i>Otros</a></li>
+            <li><a href="{{route('admin-otros')}}"><i class="fa fa-circle-o"></i>Otros</a></li>
         </ul>
     </li>
     @endif

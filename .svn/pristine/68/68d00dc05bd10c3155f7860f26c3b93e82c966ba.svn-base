@@ -1,0 +1,385 @@
+<?php $__env->startSection('header'); ?>
+    <h1>
+       <strong>Administrar Licencia</strong>
+        <small>Licencias</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Administrar Tramites</li>
+        <li class="active">Licencia</li>
+    </ol>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('contenido'); ?>
+
+    <div class="row justify-content-end">
+        <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Precios al Público</h3>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Custom Tabs -->
+                            <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#primer_publi" data-toggle="tab">Primera Vez</a></li>
+                                    <li><a href="#refren_publi" data-toggle="tab">Refrendación</a></li>
+                                    <li><a href="#recat_publi" data-toggle="tab">Recategorizar</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="primer_publi">
+                                        <table id="tabla-usuarios" class="table table-bordered dt-responsive table-striped">
+                                            <thead>
+                                            <tr>
+
+                                                <th>Categoria</th>
+                                                <th>Precio</th>
+                                                <th>Ultima Actualización</th>
+                                                <th>Editar</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php $__currentLoopData = $licenciasPublico; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $licenciaPublico): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <?php if($licenciaPublico->tipo_licencia == 'Primera Vez'): ?>
+                                                    <tr>
+                                                        <td><?php echo e($licenciaPublico->categoria); ?></td>
+                                                        <td><?php echo e($licenciaPublico->precio); ?></td>
+                                                        <?php if($licenciaPublico->updated_at == null): ?>
+                                                            <td>No hay actualización</td>
+                                                        <?php else: ?>
+                                                            <td><?php echo e($licenciaPublico->updated_at->format('l jS \\of F Y h:i:s A')); ?></td>
+                                                        <?php endif; ?>
+                                                        <td class="text-center">
+                                                            <button data-target="#modalLicenciaEditar" data-toggle="modal"
+                                                                    id="<?php echo e($licenciaPublico->id); ?>"
+                                                                    categoria="<?php echo e($licenciaPublico->categoria); ?>"
+                                                                    tipoLicencia = "<?php echo e($licenciaPublico->tipo_licencia); ?>"
+                                                                    precio="<?php echo e($licenciaPublico->precio); ?>"
+                                                                    update="<?php echo e($licenciaPublico->updated_at); ?>"
+                                                                    class="btn btn-dark btn-danger btnEditarLicencia" data-toggle="modal"><i class="fa fa-pencil"></i></button>
+
+
+                                                        </td>
+                                                    </tr>
+                                                <?php endif; ?>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="refren_publi">
+                                        <table id="tabla-usuarios" class="table table-bordered dt-responsive table-striped">
+                                            <thead>
+                                            <tr>
+
+                                                <th>Categoria</th>
+                                                <th>Precio</th>
+                                                <th>Ultima Actualización</th>
+                                                <th>Editar</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php $__currentLoopData = $licenciasPublico; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $licenciaPublico): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <?php if($licenciaPublico->tipo_licencia == 'Refrendacion'): ?>
+                                                    <tr>
+                                                        <td><?php echo e($licenciaPublico->categoria); ?></td>
+                                                        <td><?php echo e($licenciaPublico->precio); ?></td>
+                                                        <?php if($licenciaPublico->updated_at == null): ?>
+                                                            <td>No hay actualización</td>
+                                                        <?php else: ?>
+                                                            <td><?php echo e($licenciaPublico->updated_at->format('l jS \\of F Y h:i:s A')); ?></td>
+                                                        <?php endif; ?>
+                                                        <td class="text-center">
+                                                            <button data-target="#modalLicenciaEditar" data-toggle="modal"
+                                                                    id="<?php echo e($licenciaPublico->id); ?>"
+                                                                    categoria="<?php echo e($licenciaPublico->categoria); ?>"
+                                                                    tipoLicencia = "<?php echo e($licenciaPublico->tipo_licencia); ?>"
+                                                                    precio="<?php echo e($licenciaPublico->precio); ?>"
+                                                                    update="<?php echo e($licenciaPublico->updated_at); ?>"
+                                                                    class="btn btn-dark btn-danger btnEditarLicencia" data-toggle="modal"><i class="fa fa-pencil"></i></button>
+
+
+                                                        </td>
+                                                    </tr>
+                                                <?php endif; ?>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="recat_publi">
+                                        <table id="tabla-usuarios" class="table table-bordered dt-responsive table-striped">
+                                            <thead>
+                                            <tr>
+
+                                                <th>Categoria</th>
+                                                <th>Precio</th>
+                                                <th>Ultima Actualización</th>
+                                                <th>Editar</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php $__currentLoopData = $licenciasPublico; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $licenciaPublico): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <?php if($licenciaPublico->tipo_licencia == 'Recategorizar'): ?>
+                                                    <tr>
+                                                        <td><?php echo e($licenciaPublico->categoria); ?></td>
+                                                        <td><?php echo e($licenciaPublico->precio); ?></td>
+                                                        <?php if($licenciaPublico->updated_at == null): ?>
+                                                            <td>No hay actualización</td>
+                                                        <?php else: ?>
+                                                            <td><?php echo e($licenciaPublico->updated_at->format('l jS \\of F Y h:i:s A')); ?></td>
+                                                        <?php endif; ?>
+                                                        <td class="text-center">
+                                                            <button data-target="#modalLicenciaEditar" data-toggle="modal"
+                                                                    id="<?php echo e($licenciaPublico->id); ?>"
+                                                                    categoria="<?php echo e($licenciaPublico->categoria); ?>"
+                                                                    tipoLicencia = "<?php echo e($licenciaPublico->tipo_licencia); ?>"
+                                                                    precio="<?php echo e($licenciaPublico->precio); ?>"
+                                                                    update="<?php echo e($licenciaPublico->updated_at); ?>"
+                                                                    class="btn btn-dark btn-danger btnEditarLicencia" data-toggle="modal"><i class="fa fa-pencil"></i></button>
+
+
+                                                        </td>
+                                                    </tr>
+                                                <?php endif; ?>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                </div>
+                                <!-- /.tab-content -->
+                            </div>
+                            <!-- nav-tabs-custom -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+            </div>
+        </div>
+        <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Precios al Tramitador</h3>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Custom Tabs -->
+                            <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#primer_tramit" data-toggle="tab">Primera Vez</a></li>
+                                    <li><a href="#refren_trami" data-toggle="tab">Refrendación</a></li>
+                                    <li><a href="#recat_trami" data-toggle="tab">Recategorizar</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="primer_tramit">
+                                        <table id="tabla-usuarios" class="table table-bordered dt-responsive table-striped">
+                                            <thead>
+                                            <tr>
+
+                                                <th>Categoria</th>
+                                                <th>Precio</th>
+                                                <th>Ultima Actualización</th>
+                                                <th>Editar</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php $__currentLoopData = $licenciasTramitador; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $licenciaTramitador): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <?php if($licenciaTramitador->tipo_licencia == 'Primera Vez'): ?>
+                                                    <tr>
+                                                        <td><?php echo e($licenciaTramitador->categoria); ?></td>
+                                                        <td><?php echo e($licenciaTramitador->precio); ?></td>
+                                                        <?php if($licenciaTramitador->updated_at == null): ?>
+                                                            <td>No hay actualización</td>
+                                                        <?php else: ?>
+                                                            <td><?php echo e($licenciaTramitador->updated_at->format('l jS \\of F Y h:i:s A')); ?></td>
+                                                        <?php endif; ?>
+                                                        <td class="text-center">
+                                                            <button data-target="#modalLicenciaEditar" data-toggle="modal"
+                                                                    id="<?php echo e($licenciaTramitador->id); ?>"
+                                                                    categoria="<?php echo e($licenciaTramitador->categoria); ?>"
+                                                                    tipoLicencia = "<?php echo e($licenciaTramitador->tipo_licencia); ?>"
+                                                                    precio="<?php echo e($licenciaTramitador->precio); ?>"
+                                                                    update="<?php echo e($licenciaTramitador->updated_at); ?>"
+                                                                    class="btn btn-dark btn-danger btnEditarLicencia" data-toggle="modal"><i class="fa fa-pencil"></i></button>
+
+
+                                                        </td>
+                                                    </tr>
+                                                <?php endif; ?>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="refren_trami">
+                                        <table id="tabla-usuarios" class="table table-bordered dt-responsive table-striped">
+                                            <thead>
+                                            <tr>
+
+                                                <th>Categoria</th>
+                                                <th>Precio</th>
+                                                <th>Ultima Actualización</th>
+                                                <th>Editar</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php $__currentLoopData = $licenciasTramitador; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $licenciaTramitador): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <?php if($licenciaTramitador->tipo_licencia == 'Refrendacion'): ?>
+                                                    <tr>
+                                                        <td><?php echo e($licenciaTramitador->categoria); ?></td>
+                                                        <td><?php echo e($licenciaTramitador->precio); ?></td>
+                                                        <?php if($licenciaTramitador->updated_at == null): ?>
+                                                            <td>No hay actualización</td>
+                                                        <?php else: ?>
+                                                            <td><?php echo e($licenciaTramitador->updated_at->format('l jS \\of F Y h:i:s A')); ?></td>
+                                                        <?php endif; ?>
+                                                        <td class="text-center">
+                                                            <button data-target="#modalLicenciaEditar" data-toggle="modal"
+                                                                    id="<?php echo e($licenciaTramitador->id); ?>"
+                                                                    categoria="<?php echo e($licenciaTramitador->categoria); ?>"
+                                                                    precio="<?php echo e($licenciaTramitador->precio); ?>"
+                                                                    tipoLicencia = "<?php echo e($licenciaTramitador->tipo_licencia); ?>"
+                                                                    update="<?php echo e($licenciaTramitador->updated_at); ?>"
+                                                                    class="btn btn-dark btn-danger btnEditarLicencia" data-toggle="modal"><i class="fa fa-pencil"></i></button>
+
+
+                                                        </td>
+                                                    </tr>
+                                                <?php endif; ?>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="recat_trami">
+                                        <table id="tabla-usuarios" class="table table-bordered dt-responsive table-striped">
+                                            <thead>
+                                            <tr>
+
+                                                <th>Categoria</th>
+                                                <th>Precio</th>
+                                                <th>Ultima Actualización</th>
+                                                <th>Editar</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php $__currentLoopData = $licenciasTramitador; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $licenciaTramitador): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <?php if($licenciaTramitador->tipo_licencia == 'Recategorizar'): ?>
+                                                    <tr>
+                                                        <td><?php echo e($licenciaTramitador->categoria); ?></td>
+                                                        <td><?php echo e($licenciaTramitador->precio); ?></td>
+                                                        <?php if($licenciaTramitador->updated_at == null): ?>
+                                                            <td>No hay actualización</td>
+                                                        <?php else: ?>
+                                                            <td><?php echo e($licenciaTramitador->updated_at->format('l jS \\of F Y h:i:s A')); ?></td>
+                                                        <?php endif; ?>
+                                                        <td class="text-center">
+                                                            <button data-target="#modalLicenciaEditar" data-toggle="modal"
+                                                                    id="<?php echo e($licenciaTramitador->id); ?>"
+                                                                    categoria="<?php echo e($licenciaTramitador->categoria); ?>"
+                                                                    tipoLicencia = "<?php echo e($licenciaTramitador->tipo_licencia); ?>"
+                                                                    precio="<?php echo e($licenciaTramitador->precio); ?>"
+                                                                    update="<?php echo e($licenciaTramitador->updated_at); ?>"
+                                                                    class="btn btn-dark btn-danger btnEditarLicencia" data-toggle="modal"><i class="fa fa-pencil"></i></button>
+
+
+                                                        </td>
+                                                    </tr>
+                                                <?php endif; ?>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                </div>
+                                <!-- /.tab-content -->
+                            </div>
+                            <!-- nav-tabs-custom -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EDITAR LICENCIA -->
+    <div class="modal fade" id="modalLicenciaEditar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #056F00;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true"
+                                style="color: #FFFFFF;">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel" style="color: #FFFFFF"><i
+                                class="fa fa-pencil"></i> Administrar Licencia</h4>
+                </div>
+                <form method="post" id="form_actualizar_licencia" action="" class="action_form_actualizar_licencia">
+                    <?php echo csrf_field(); ?> <?php echo e(method_field('PUT')); ?>
+
+                    <div class="modal-body">
+                        <div class="box-body">
+                            <div class="form-group <?php echo e($errors->has('categoria')? 'has-error':''); ?>">
+                                <label for="">Categoria</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-gear"></i></span>
+                                    <input id="admin_categoria_licencia" type="text" name="categoria" value="<?php echo e(old('categoria')); ?>" class="form-control" placeholder="" readonly>
+                                    <?php echo $errors->first('categoria','<span class="help-block">*:message</span>'); ?>
+
+                                </div>
+                            </div>
+                            <div class="form-group <?php echo e($errors->has('tipoLicencia')? 'has-error':''); ?>">
+                                <label for="">Tipo Licencia</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-gear"></i></span>
+                                    <input id="admin_tipoLicencia_licencia" type="text" name="tipoLicencia" value="<?php echo e(old('tipoLicencia')); ?>" class="form-control" placeholder="" readonly>
+                                    <?php echo $errors->first('tipoLicencia','<span class="help-block">*:message</span>'); ?>
+
+                                </div>
+                            </div>
+                            <div class="form-group <?php echo e($errors->has('precio')? 'has-error':''); ?>">
+                                <label for="">Precio</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                    <input id="admin_precio_licencia" type="text" name="precio" value="<?php echo e(old('precio')); ?>" class="form-control"
+                                           placeholder="">
+                                    <?php echo $errors->first('precio','<span class="help-block">*:message</span>'); ?>
+
+                                </div>
+                            </div>
+                            <div class="form-group <?php echo e($errors->has('ultima_actualizacion')? 'has-error':''); ?>">
+                                <label for="">Ultima Actualizacion</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input id="admin_update_licencia" type="text" name="ultima_actualizacion" value="<?php echo e(old('ultima_actualizacion')); ?>" class="form-control" placeholder="" readonly>
+                                    <?php echo $errors->first('ultima_actualizacion','<span class="help-block">*:message</span>'); ?>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="" class="btn btn-primary btn_actualizar_licencia">Actualizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

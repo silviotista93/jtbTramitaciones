@@ -181,7 +181,6 @@
                             <!-- ACTUALIZAR SI HA REALIZADO EL EXAMEN MEDICO -->
                                 <form id="frmUpdateMedico" method="post" class="actualizarMedico inline">
                                     @csrf {{method_field('PUT')}}
-
                                     <label>
                                         <input id="checkProcesosMedico" class="checkLicenciaMedico checkProcesosMedico"
                                                type="checkbox"

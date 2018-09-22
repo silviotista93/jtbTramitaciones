@@ -1,0 +1,62 @@
+<ul class="sidebar-menu">
+    <li class="header">NAVEGACIÓN</li>
+    <!-- Optionally, you can add icons to the links -->
+    <li class="<?php echo e(request()->is('/') ? 'active' : ''); ?>"><a href="<?php echo e(route('dashboard')); ?>"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
+
+    
+    <li class="treeview <?php echo e(request()->is('admin/tramite*') ? 'active' : ''); ?>">
+        <a href="#"><i class="fa fa-link "></i> <span>Crear Tramite de</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li <?php echo e(request()->is('admin/tramite/licencia') ? 'class=active' : ''); ?>><a href="<?php echo e(route('tramitar-licencia')); ?>">Licencias</a></li>
+            <li <?php echo e(request()->is('admin/tramite/seguro') ? 'class=active' : ''); ?>><a href="<?php echo e(route('tramitar-seguro')); ?>">Seguro Obligatorio</a></li>
+            <li><a href="<?php echo e(route('tramitar-matricula')); ?>">Matricula</a></li>
+            <li><a href="#">Traspasos</a></li>
+            <li><a href="#">Otros</a></li>
+        </ul>
+    </li>
+    <li class="treeview <?php echo e(request()->is('admin/administrar-ventas') ? 'active' : ''); ?>">
+        <a href="#"><i class="fa fa-dollar"></i> <span>Ventas</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li <?php echo e(request()->is('admin/administrar-ventas') ? 'class=active' : ''); ?>><a href="<?php echo e(route('adminVentas')); ?>"><i class="fa fa-circle-o"></i>Administrar Tramites</a></li>
+            <li><a href=""><i class="fa fa-circle-o"></i>Reporte de Ventas</a></li>
+        </ul>
+    </li>
+    <?php if(auth()->user()->hasRole('Administrador')): ?>
+    <li class="treeview ">
+        <a href="#"><i class="fa fa-list-ul"></i> <span>Administrar Tramites</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="<?php echo e(route('administrarLicencia')); ?>"><i class="fa fa-circle-o"></i>Licencias</a></li>
+            <li><a href="<?php echo e(route('administrarSeguro')); ?>"><i class="fa fa-circle-o"></i>Seguro Obligatorio</a></li>
+            <li><a href=""><i class="fa fa-circle-o"></i>Matricula</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i>Traspasos</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i>Otros</a></li>
+        </ul>
+    </li>
+    <?php endif; ?>
+    <li class="treeview ">
+        <a href="#"><i class="fa fa-user"></i> <span>Usuarios</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li class=""><a href="<?php echo e(route('usuarios')); ?>"><i class="fa fa-user"></i><span>Usuarios Sistema</span></a></li>
+            <li class=""><a href="<?php echo e(route('clientes')); ?>"><i class="fa fa-user"></i><span>Clientes</span></a></li>
+            <li class=""><a href="<?php echo e(route('tramitadores')); ?>"><i class="fa fa-user"></i><span>Tramitadores</span></a></li>
+
+        </ul>
+    </li>
+
+</ul>

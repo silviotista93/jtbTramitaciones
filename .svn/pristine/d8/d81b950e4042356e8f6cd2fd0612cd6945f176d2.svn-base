@@ -1,0 +1,15 @@
+function success(start, end){
+    fechaInicio = start;
+    fechaFin = end;
+    cargarTabla();
+}
+
+function cancel (){
+    console.log("cancelo fecha");
+}
+
+$(function (){
+    startRangoFecha("#dpFecha", success, cancel);
+});
+
+console.log("niddd");

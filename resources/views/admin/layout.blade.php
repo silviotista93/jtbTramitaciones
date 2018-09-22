@@ -24,6 +24,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="/adminlte/css/paginacion.css">
     <link rel="stylesheet" href="/adminlte/css/checkbox.css">
     <link rel="stylesheet" href="/adminlte/css/toogle_button.css">
+    <!-- Morris chart -->
+    <link rel="stylesheet" href="/adminlte/plugins/morris/morris.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
     <!-- iCheck -->
     <link rel="stylesheet" href="/adminlte/plugins/iCheck/square/blue.css">
@@ -345,6 +347,9 @@ desired effect
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="/adminlte/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="/adminlte/js/toogle_button.js"></script>
+<!-- Morris.js charts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="/adminlte/plugins/morris/morris.min.js"></script>
 
 <!-- Bootstrap 3.3.6 -->
 <script src="/adminlte/bootstrap/js/bootstrap.min.js"></script>
@@ -374,6 +379,7 @@ desired effect
 <script src="/adminlte/js/cupon-descuento.js"></script>
 <script src="/adminlte/js/roles-usuarios.js"></script>
 <script src="/adminlte/js/jqueryNumber.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 
 
@@ -410,6 +416,7 @@ desired effect
             "info": true,
             "autoWidth": false
         });
+
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-blue',
             radioClass: 'iradio_square-blue',
@@ -460,6 +467,9 @@ desired effect
 
 @show
 @section('dropzoneProfile')
+
+@show
+@section('grafica')
 
 @show
 
