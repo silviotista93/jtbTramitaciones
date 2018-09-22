@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class OtrosController extends Controller
 {
     public function index(){
-        $valor_medico = Medico::all()->first();
+        $valor_medico = Medico::first();
         return view('admin.otros.otros',compact('valor_medico'));
     }
 
