@@ -30,12 +30,12 @@ class LicenciaController extends Controller
     }
 
     public function actaulizarPrecioLicencia(Request $request, Licencia $licencia){
-
         $data = $request->validate([
 
             'categoria' => 'required',
             'tipoLicencia' => 'required',
             'precio' => 'required',
+            'descuento' => 'required'
         ]);
 
         $licencia->update($data);

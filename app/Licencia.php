@@ -15,7 +15,7 @@ class Licencia extends Model
         'published_at',
     ];
 
-    protected $fillable = ['categoria','precio','updated_at','tipo_licencia'];
+    protected $fillable = ['categoria','precio','descuento','updated_at','tipo_licencia'];
 
     public function tipoTramite(){
 

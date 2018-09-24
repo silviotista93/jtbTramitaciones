@@ -38,6 +38,7 @@
 
                                                 <th>Categoria</th>
                                                 <th>Precio</th>
+                                                <th>Máximo</th>
                                                 <th>Ultima Actualización</th>
                                                 <th>Editar</th>
                                             </tr>
@@ -48,6 +49,7 @@
                                                     <tr>
                                                         <td>{{$licenciaPublico->categoria}}</td>
                                                         <td>{{$licenciaPublico->precio}}</td>
+                                                        <td>{{$licenciaPublico->descuento}}</td>
                                                         @if($licenciaPublico->updated_at == null)
                                                             <td>No hay actualización</td>
                                                         @else
@@ -80,6 +82,7 @@
 
                                                 <th>Categoria</th>
                                                 <th>Precio</th>
+                                                <th>Máximo</th>
                                                 <th>Ultima Actualización</th>
                                                 <th>Editar</th>
                                             </tr>
@@ -90,6 +93,7 @@
                                                     <tr>
                                                         <td>{{$licenciaPublico->categoria}}</td>
                                                         <td>{{$licenciaPublico->precio}}</td>
+                                                        <td>{{$licenciaPublico->descuento}}</td>
                                                         @if($licenciaPublico->updated_at == null)
                                                             <td>No hay actualización</td>
                                                         @else
@@ -122,6 +126,7 @@
 
                                                 <th>Categoria</th>
                                                 <th>Precio</th>
+                                                <th>Máximo</th>
                                                 <th>Ultima Actualización</th>
                                                 <th>Editar</th>
                                             </tr>
@@ -132,6 +137,7 @@
                                                     <tr>
                                                         <td>{{$licenciaPublico->categoria}}</td>
                                                         <td>{{$licenciaPublico->precio}}</td>
+                                                        <td>{{$licenciaPublico->descuento}}</td>
                                                         @if($licenciaPublico->updated_at == null)
                                                             <td>No hay actualización</td>
                                                         @else
@@ -192,6 +198,7 @@
 
                                                 <th>Categoria</th>
                                                 <th>Precio</th>
+                                                <th>Máximo</th>
                                                 <th>Ultima Actualización</th>
                                                 <th>Editar</th>
                                             </tr>
@@ -202,6 +209,7 @@
                                                     <tr>
                                                         <td>{{$licenciaTramitador->categoria}}</td>
                                                         <td>{{$licenciaTramitador->precio}}</td>
+                                                        <td>{{$licenciaTramitador->descuento}}</td>
                                                         @if($licenciaTramitador->updated_at == null)
                                                             <td>No hay actualización</td>
                                                         @else
@@ -234,6 +242,7 @@
 
                                                 <th>Categoria</th>
                                                 <th>Precio</th>
+                                                <th>Máximo</th>
                                                 <th>Ultima Actualización</th>
                                                 <th>Editar</th>
                                             </tr>
@@ -244,6 +253,7 @@
                                                     <tr>
                                                         <td>{{$licenciaTramitador->categoria}}</td>
                                                         <td>{{$licenciaTramitador->precio}}</td>
+                                                        <td>{{$licenciaTramitador->descuento}}</td>
                                                         @if($licenciaTramitador->updated_at == null)
                                                             <td>No hay actualización</td>
                                                         @else
@@ -276,6 +286,7 @@
 
                                                 <th>Categoria</th>
                                                 <th>Precio</th>
+                                                <th>Máximo</th>
                                                 <th>Ultima Actualización</th>
                                                 <th>Editar</th>
                                             </tr>
@@ -286,6 +297,7 @@
                                                     <tr>
                                                         <td>{{$licenciaTramitador->categoria}}</td>
                                                         <td>{{$licenciaTramitador->precio}}</td>
+                                                        <td>{{$licenciaTramitador->descuento}}</td>
                                                         @if($licenciaTramitador->updated_at == null)
                                                             <td>No hay actualización</td>
                                                         @else
@@ -365,13 +377,13 @@
                                     {!! $errors->first('precio','<span class="help-block">*:message</span>')!!}
                                 </div>
                             </div>
-                            <div class="form-group {{$errors->has('precio')? 'has-error':''}}">
+                            <div class="form-group {{$errors->has('descuento')? 'has-error':''}}">
                                 <label for="">Máximo Descuento</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-money"></i></span>
                                     <input id="admin_descuento_licencia" type="text" name="descuento" value="{{old('descuento')}}" class="form-control"
                                            placeholder="">
-                                    {!! $errors->first('precio','<span class="help-block">*:message</span>')!!}
+                                    {!! $errors->first('descuento','<span class="help-block">*:message</span>')!!}
                                 </div>
                             </div>
                             <div class="form-group {{$errors->has('ultima_actualizacion')? 'has-error':''}}">
