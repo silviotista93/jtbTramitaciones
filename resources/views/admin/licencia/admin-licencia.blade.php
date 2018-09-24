@@ -59,6 +59,7 @@
                                                                     categoria="{{$licenciaPublico->categoria}}"
                                                                     tipoLicencia = "{{$licenciaPublico->tipo_licencia}}"
                                                                     precio="{{$licenciaPublico->precio}}"
+                                                                    descuento="{{$licenciaPublico->descuento}}"
                                                                     update="{{$licenciaPublico->updated_at}}"
                                                                     class="btn btn-dark btn-danger btnEditarLicencia" data-toggle="modal"><i class="fa fa-pencil"></i></button>
 
@@ -100,6 +101,7 @@
                                                                     categoria="{{$licenciaPublico->categoria}}"
                                                                     tipoLicencia = "{{$licenciaPublico->tipo_licencia}}"
                                                                     precio="{{$licenciaPublico->precio}}"
+                                                                    descuento="{{$licenciaPublico->descuento}}"
                                                                     update="{{$licenciaPublico->updated_at}}"
                                                                     class="btn btn-dark btn-danger btnEditarLicencia" data-toggle="modal"><i class="fa fa-pencil"></i></button>
 
@@ -141,6 +143,7 @@
                                                                     categoria="{{$licenciaPublico->categoria}}"
                                                                     tipoLicencia = "{{$licenciaPublico->tipo_licencia}}"
                                                                     precio="{{$licenciaPublico->precio}}"
+                                                                    descuento="{{$licenciaPublico->descuento}}"
                                                                     update="{{$licenciaPublico->updated_at}}"
                                                                     class="btn btn-dark btn-danger btnEditarLicencia" data-toggle="modal"><i class="fa fa-pencil"></i></button>
 
@@ -210,6 +213,7 @@
                                                                     categoria="{{$licenciaTramitador->categoria}}"
                                                                     tipoLicencia = "{{$licenciaTramitador->tipo_licencia}}"
                                                                     precio="{{$licenciaTramitador->precio}}"
+                                                                    descuento="{{$licenciaTramitador->descuento}}"
                                                                     update="{{$licenciaTramitador->updated_at}}"
                                                                     class="btn btn-dark btn-danger btnEditarLicencia" data-toggle="modal"><i class="fa fa-pencil"></i></button>
 
@@ -250,6 +254,7 @@
                                                                     id="{{$licenciaTramitador->id}}"
                                                                     categoria="{{$licenciaTramitador->categoria}}"
                                                                     precio="{{$licenciaTramitador->precio}}"
+                                                                    descuento="{{$licenciaTramitador->descuento}}"
                                                                     tipoLicencia = "{{$licenciaTramitador->tipo_licencia}}"
                                                                     update="{{$licenciaTramitador->updated_at}}"
                                                                     class="btn btn-dark btn-danger btnEditarLicencia" data-toggle="modal"><i class="fa fa-pencil"></i></button>
@@ -292,6 +297,7 @@
                                                                     categoria="{{$licenciaTramitador->categoria}}"
                                                                     tipoLicencia = "{{$licenciaTramitador->tipo_licencia}}"
                                                                     precio="{{$licenciaTramitador->precio}}"
+                                                                    descuento="{{$licenciaTramitador->descuento}}"
                                                                     update="{{$licenciaTramitador->updated_at}}"
                                                                     class="btn btn-dark btn-danger btnEditarLicencia" data-toggle="modal"><i class="fa fa-pencil"></i></button>
 
@@ -355,6 +361,15 @@
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-money"></i></span>
                                     <input id="admin_precio_licencia" type="text" name="precio" value="{{old('precio')}}" class="form-control"
+                                           placeholder="">
+                                    {!! $errors->first('precio','<span class="help-block">*:message</span>')!!}
+                                </div>
+                            </div>
+                            <div class="form-group {{$errors->has('precio')? 'has-error':''}}">
+                                <label for="">Máximo Descuento</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                    <input id="admin_descuento_licencia" type="text" name="descuento" value="{{old('descuento')}}" class="form-control"
                                            placeholder="">
                                     {!! $errors->first('precio','<span class="help-block">*:message</span>')!!}
                                 </div>
