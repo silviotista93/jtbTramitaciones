@@ -30,7 +30,7 @@
                     <th>Apellidos</th>
                     <th>Telefono</th>
                     <th>Email</th>
-                    <th>Tramitador</th>
+                    <th>Fecha Registro</th>
                 </tr>
                 </thead>
 
@@ -53,7 +53,7 @@
                 {data: 'apellidos'},
                 {data: 'telefono'},
                 {data: 'email'},
-                {data: 'created_at'},
+                {data: 'created_at'}
             ],
             "language":{
                 "sProcessing":     "Procesando...",

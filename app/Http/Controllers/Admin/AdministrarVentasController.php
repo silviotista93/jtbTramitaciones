@@ -39,8 +39,31 @@ class AdministrarVentasController extends Controller
         return view('admin.tramitadores.info-ventas-tramitador',compact('infoTramitador'));
     }
 
+    //TRAMITES PENDIENTES
+
+    public function indexTramitesPendientes(){
+
+        return view('admin.ventas.tramites-pendientes');
+    }
+
+    //REPORTES DE VENTAS
     public function reporteVentas (Request $request){
         $resumenTramite = \App\ResumenTramite::with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono');
+        if ($request->get('fechaInicio') && $request->get('fechaFin')) {
+            $fi = \Carbon\Carbon::parse($request->get('fechaInicio'))->toDateString();
+            $ff = \Carbon\Carbon::parse($request->get('fechaFin'))->toDateString();
+            if ($fi !== $ff){
+                $resumenTramite = $resumenTramite->whereBetween("created_at",[$fi,$ff])->orWhereDate("created_at","=",$ff);
+            } else {
+                $resumenTramite = $resumenTramite->whereDate("created_at","=",$fi);
+            }
+        }
+        $data = $resumenTramite->get();
+
+        return datatables()->of($data)->toJson();
+    }
+    public function tramitesPentientes (Request $request){
+        $resumenTramite = \App\ResumenTramite::with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono')->where('estado','=','En Tramite');
         if ($request->get('fechaInicio') && $request->get('fechaFin')) {
             $fi = \Carbon\Carbon::parse($request->get('fechaInicio'))->toDateString();
             $ff = \Carbon\Carbon::parse($request->get('fechaFin'))->toDateString();

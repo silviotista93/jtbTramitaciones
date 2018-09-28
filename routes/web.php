@@ -59,7 +59,13 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     //Clientes
     Route::get('/clientes','ClienteController@indexClientes')->name('clientes');
     Route::get('/api/clientes',function (){
-        return datatables()->of(\App\User::role(['Cliente'])->get())->toJson();
+        //TABLA CLIENTES CON SUS FECHAS DE REGISTRO CON FORMATO
+            $clientes = \App\User::role(['Cliente'])->get();
+        return \Yajra\DataTables\DataTables::of($clientes)
+            ->editColumn('created_at', function ($user) {
+                return $user->created_at ? with(new \Illuminate\Support\Carbon($user->created_at))->toFormattedDateString() : '';
+            })
+            ->make(true);
     });
     Route::post('/agregar-cliente','UserController@AgregarCliente')->name('clienteAgregado');
     Route::put('/actualizar-cliente/{user}','UserController@actualizarCliente')->name('clienteActualizado');
@@ -103,6 +109,9 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     Route::get('/info-venta/{id}','AdministrarVentasController@infoVenta')->name('infoVentas');
     Route::get('/info-venta-licencia/{id}','AdministrarVentasController@infoVentaLicencia')->name('infoVentasLicencia');
     Route::get('/api/admin-ventas','AdministrarVentasController@reporteVentas');
+    Route::get('/adminVentas/tramites-pendientes','AdministrarVentasController@indexTramitesPendientes')->name('tramitesPendientes');
+    Route::get('/api/tramites-pendientes','AdministrarVentasController@tramitesPentientes');
+
 
     //Tramites de cada tramitador
     Route::get('/tramitador-ventas/{idTramitador}','AdministrarVentasController@tramitesTramitador')->name('tramitadorVentas');
@@ -163,7 +172,12 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => ['login
     Route::get('/administrar-licencias','LicenciaController@administrarLicencia')->name('administrarLicencia');
     Route::put('/actualizar-licencia/{licencia}','LicenciaController@actaulizarPrecioLicencia')->name('actualizarLicencia');
 
+    //Actualizar Usuarios
     Route::get('/usuario-actualizar-perfil/{id}','UserController@indexUpdateUser')->name('userUpdatePerfil');
+
+    //Precio examen medico
+    Route::get('/admi-tramites/otros','OtrosController@index')->name('admin-otros');
+    Route::put('precio-examen-medico-actualizado/{medico}','OtrosController@update')->name('examen-medico-actualizado');
 });
 
 //RUTAS PARA LA DOCUMENACION

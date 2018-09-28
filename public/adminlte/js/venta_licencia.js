@@ -543,16 +543,9 @@ $('#nuevoMetodoPagoLicencia').change(function () {
         $(this).parent().parent().addClass('col-xs-4');
 
         $(this).parent().parent().parent().children('.cajasMetodoPagoLicencia').html(
-            '<div class="col-xs-4">' +
+            '<div class="col-xs-6 pull-right">' +
             '   <div class="input-group">' +
-            '       <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
-            '           <input type="text" class="form-control nuevoValorEfectivoLicencia" name="nuevoValorEfectivo" placeholder="000000" required>' +
-            '   </div>' +
-            '</div>' +
-            '<div class="col-xs-4 capturarCambioEfectivo" style="padding-left:0px">' +
-            '   <div class="input-group">' +
-            '       <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
-            '           <input type="text" class="form-control nuevoCambioEfectivoLicencia" name="nuevoCambioEfectivo" placeholder="000000" required readonly >' +
+            '           <label for="">Metodo de Pago Efectivo</label>' +
             '   </div>' +
             '</div>'
 

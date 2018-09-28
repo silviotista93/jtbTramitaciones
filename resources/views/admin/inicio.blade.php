@@ -55,7 +55,7 @@
                 <div class="icon">
                     <i class="fa fa-hourglass-2"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="{{route('tramitesPendientes')}}" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->

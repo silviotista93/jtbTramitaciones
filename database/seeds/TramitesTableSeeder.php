@@ -12,6 +12,7 @@ class TramitesTableSeeder extends Seeder
      */
     public function run()
     {
+
         Tramite::truncate();
 
         $tramites = new Tramite;
