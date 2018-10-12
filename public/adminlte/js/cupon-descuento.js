@@ -1,8 +1,7 @@
-/*
 var t = null;
-/!*=============================================
+/*=============================================
 BUSCAR SI EXISTE EL CLIENTE
-=============================================*!/
+=============================================*/
 $(document).ready(function () {
 
     setInterval(function () {
@@ -35,7 +34,9 @@ function validarCliente() {
     $.get(url, null, function (r) {
         console.log(r);
         if (r.length !== 0) {
-
+            =============================================
+                EDITAR EL CLIENTE
+            =============================================
             $("#tablaMostrarClienteCupon").show();
             $('#nombreClienteCupon').val(r[0].name + " " + r[0].apellidos);
             $('#identificacionClienteCupon').val(r[0].identificacion);
@@ -74,4 +75,3 @@ $('.btn-generar-cupon').click(function () {
 
     $('#mostrar-cupon').show();
 });
-*/

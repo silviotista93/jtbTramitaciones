@@ -103,9 +103,16 @@
                                                 class="fa fa-clock-o"></i> {{$tramites->created_at->diffForHumans()}}
                                     </small>
                                 </td>
-                                <td class="text-center"><a href="/admin/info-venta/{{$tramites->id}}"
-                                                           class="btn btn-md btn-default "><i class="fa fa-eye"></i></a>
-                                </td>
+                                @if($tramites->id_tipoTramite == 1)
+                                    <td class="text-center"><a href="/admin/info-venta/{{$tramites->id}}"
+                                                               class="btn btn-md btn-default "><i class="fa fa-eye"></i></a>
+                                    </td>
+                                @else
+                                    <td class="text-center"><a href="/admin/info-venta-licencia/{{$tramites->id}}"
+                                                               class="btn btn-md btn-default "><i class="fa fa-eye"></i></a>
+                                    </td>
+                                @endif
+
 
                             </tr>
                         @endforeach

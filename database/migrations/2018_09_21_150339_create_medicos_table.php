@@ -15,7 +15,7 @@ class CreateMedicosTable extends Migration
     {
         Schema::create('medicos', function (Blueprint $table) {
             $table->increments('id');
-            $table->double('valor');
+            $table->double('valor')->nullable();
             $table->timestamps();
         });
     }

@@ -20,9 +20,7 @@ class ResumenTramite extends Model
         'published_at',
     ];
 
-    protected $fillable = [
-        'idTramitador','idUsuario','metodo_pago','idVendedor','total','id_tipoTramite','estado','nota'
-    ];
+    protected $guarded = [];
 
         public function idcliente(){
 

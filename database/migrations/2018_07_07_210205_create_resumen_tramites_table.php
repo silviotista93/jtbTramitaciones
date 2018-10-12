@@ -21,6 +21,7 @@ class CreateResumenTramitesTable extends Migration
             $table->unsignedInteger('idUsuario');
             $table->unsignedInteger('idVendedor');
             $table->unsignedInteger('id_tipoTramite');
+            $table->unsignedInteger('descuento');
             $table->enum('estado',['Recibido','En tramite','Entregado'])->default('Recibido');
             $table->enum('examen_medico',['Realizado','Pendiente'])->default('Pendiente');
             $table->enum('escuela_conduccion',['Realizado','Pendiente'])->default('Pendiente');

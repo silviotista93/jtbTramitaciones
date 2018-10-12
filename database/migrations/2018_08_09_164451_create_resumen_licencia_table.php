@@ -17,6 +17,7 @@ class CreateResumenLicenciaTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('id_licencia');
             $table->unsignedInteger('id_resumen_tramite');
+            $table->unsignedInteger('validar_curso')->nullable();
             $table->unsignedInteger('cantidad');
             $table->double('precio_venta');
             $table->timestamps();

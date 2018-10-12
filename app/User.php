@@ -4,6 +4,7 @@ namespace App;
 
 use App\Notifications\ResetPasswordNotification;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Traits\HasRoles;
 use Jenssegers\Date\Date;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -18,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name','apellidos','id_tipoIdentificacion','identificacion','email','telefono','telefono_2','foto' ,'password','estado','genero','fecha_nacimiento'
+        'name','apellidos','id_tipoIdentificacion','identificacion','email','telefono','telefono_2','foto' ,'password','estado','genero','fecha_nacimiento','id_vendedor'
     ];
 
     /**
@@ -49,6 +50,10 @@ class User extends Authenticatable
     public function tipoDocumento(){
 
         return $this->belongsTo(TipoDocumento::class,'id_tipoIdentificacion');
+    }
+
+    public function idVendedor(){
+        return $this->belongsTo(User::class,'id_vendedor');
     }
 
     //FUNCION QUE PERMITE PONER FECHAS CARBON EN ESPAÑOL

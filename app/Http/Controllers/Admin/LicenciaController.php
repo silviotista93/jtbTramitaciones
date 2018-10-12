@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Escuela;
 use App\Licencia;
 use App\ResumenTramite;
 use App\TipoDocumento;
@@ -18,7 +19,8 @@ class LicenciaController extends Controller
         $tramitadores = User::role(['Tramitador'])->orderBy('id','DESC')->get();
         $roles = Role::where("name", "=", "Cliente")->first();
         $codigoFactura = ResumenTramite::select('id')->orderby('created_at','DESC')->first();
-        return view('admin.licencia.licencia',compact('tipoDocumento','clientes','codigoFactura','tramitadores','roles'));
+        $escuela = Escuela::first();
+        return view('admin.licencia.licencia',compact('tipoDocumento','clientes','codigoFactura','tramitadores','roles','escuela'));
     }
 
     //ADMINISTRAR LICENCIA........................................

@@ -671,6 +671,7 @@
                         </div>
 
                     </div>
+                    <input type="hidden" name="id_vendedor" value="{{auth()->user()->id}}">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                         <button type="submit" class="btn btn-warning ">Agregar Rol Cliente</button>

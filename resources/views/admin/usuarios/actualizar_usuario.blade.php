@@ -75,12 +75,9 @@
 
                     </div>
                 </div>
-                <div class="form-group mostrarBtnUpdateFoto" style="display: none">
-                    <button type="submit" class="btn btn-primary btn-block boton-actualizar">Actualizar Foto de Perfil</button>
-                </div>
             </form>
         </div>
-            <!-- general form elements -->
+            <!-- ACTUALIZARO ROLES -->
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">Agregar y quitar roles al Usuario</h3>
@@ -91,21 +88,29 @@
                     @csrf {{method_field('PUT')}}
                     <div class="box-body">
                         <input type="hidden" name="idUsuario" value="{{$datosUsuario->id}}">
-                        @foreach($editRoles as $id => $name)
+                        @if($datosUsuario->hasRole('Secretari@'))
                             <div class="checkbox">
                                 <label for="">
-                                    <input name="roles[]" class="checkUpdateRoles" type="checkbox" value="{{$name}}" {{$datosUsuario->roles->contains($id) ? 'checked':''}}>
-                                    {{$name}}
+                                    <input name="rol" class="checkUpdateRoles" type="checkbox" value="{{$adminRoles->name}}" {{$datosUsuario->roles->contains($adminRoles->id) ? 'checked':''}}>
+                                     {{$adminRoles->name}}
                                 </label>
-
                             </div>
-                        @endforeach
+                        @endif
+                        @if($datosUsuario->hasRole('Administrador'))
+                        <div class="checkbox">
+                            <label for="">
+                                <input name="rol" class="checkUpdateRoles" type="checkbox" value="{{$secreRoles->name}}" {{$datosUsuario->roles->contains($secreRoles->id) ? 'checked':''}}>
+                                 {{$secreRoles->name}}
+                            </label>
+
+                        </div>
+                        @endif
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-block boton-actualizar">Actualizar Roles
                             </button>
                         </div>
                     </div>
-
+                    <input type="hidden" name="id_vendedor" value="{{auth()->user()->id}}">
                 </form>
             </div>
     </div>

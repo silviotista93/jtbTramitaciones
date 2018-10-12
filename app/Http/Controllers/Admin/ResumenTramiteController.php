@@ -125,16 +125,18 @@ class ResumenTramiteController extends Controller
             'idVendedor' => $request->get('idVendedor'),
             'total' => $request->get('total'),
             'estado' => $request->get('estado'),
-            'idTramitador' => $request->get('seleccionarTramitador'),
+            'descuento' => $request->get('descuento'),
+            'idTramitador' => $request->get('seleccionarTramitador')
 
 
         ]);
         $licencias = $request->idLicencia;
         $cantidad = $request->nuevaCantidadLicencia;
+        $validar_curso = $request->validar_curso;
         $sumaPrecio = $request->nuevoPrecioLicencia;
         for ($i=0; $i<count($licencias); $i++){
             $cliente->licenciaTramite()->attach([
-                $licencias[$i] => ['cantidad' => $cantidad[$i],'precio_venta' => $sumaPrecio[$i]]
+                $licencias[$i] => ['cantidad' => $cantidad[$i],'validar_curso' => $validar_curso[$i],'precio_venta' => $sumaPrecio[$i]]
 
             ]);
         }

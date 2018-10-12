@@ -14,11 +14,11 @@ class UserController extends Controller
     public function index()
     {
 
-        $usuarios = User::role(['Administrador','Secretari@'])->get();
+        $usuarios = User::role(['Administrador', 'Secretari@'])->get();
         $roles = Role::where("name", "=", "Administrador")->orWhere("name", "=", "Secretari@")->get()->sortBy('id');
-        $editRoles = Role::pluck('name','id');
+        $editRoles = Role::pluck('name', 'id');
 
-        return view('admin.usuarios', compact('usuarios', 'roles','editRoles'));
+        return view('admin.usuarios', compact('usuarios', 'roles', 'editRoles'));
     }
 
     public function store(Request $request)
@@ -38,19 +38,19 @@ class UserController extends Controller
 
 
         //Contraseña Aletoria
-        $password  =  str_random(8);
+        $password = str_random(8);
         $data['password'] = bcrypt($password);
         $user = User::create($data);
         $user->assignRole($request->rol);
 
         UserWasCreated::dispatch($user, $password);
 
-        $latestUser = User::select('name','apellidos')->orderby('created_at','DESC')->take(1)->first();
+        $latestUser = User::select('name', 'apellidos')->orderby('created_at', 'DESC')->take(1)->first();
 
         $nombre = $latestUser->name;
         $apellidos = $latestUser->apellidos;
 
-        return back()->withFlash('Creado Existosamente. Hemos enviado un correo electronico a '.$nombre.' '.$apellidos.' con las credenciales para iniciar en el sistema');
+        return back()->withFlash('Creado Existosamente. Hemos enviado un correo electronico a ' . $nombre . ' ' . $apellidos . ' con las credenciales para iniciar en el sistema');
 
     }
 
@@ -63,35 +63,39 @@ class UserController extends Controller
         return back()->with('eliminar', 'Empleado Eliminado Correctamente');
     }
 
-    public function actualizarEstado(Request $request, User $usuario,$estado){
+    public function actualizarEstado(Request $request, User $usuario, $estado)
+    {
 
-        if ($estado === "activo"){
+        if ($estado === "activo") {
             $usuario->estado = "activo";
-        }else if ($estado == "inactivo"){
+        } else if ($estado == "inactivo") {
             $usuario->estado = "inactivo";
-        }else{
+        } else {
             return false;
         }
         return json_encode($usuario->update());
     }
 
     //ACTUALIZAR  USUARIOS
-    public function indexUpdateUser($id){
+    public function indexUpdateUser($id)
+    {
         $datosUsuario = User::find($id);
-        $editRoles = Role::pluck('name','id');
+        $adminRoles = Role::where("name", "=", "Administrador")->first();
+        $secreRoles = Role::where("name", "=", "Secretari@")->first();
 
-        return view('admin.usuarios.actualizar_usuario',compact('datosUsuario','editRoles'));
+        return view('admin.usuarios.actualizar_usuario', compact('datosUsuario', 'adminRoles', 'secreRoles'));
     }
 
 
-    public function actualizarUsuarios(Request $request, User $user){
+    public function actualizarUsuarios(Request $request, User $user)
+    {
 
         $data = $request->validate([
             'name' => 'required',
             'apellidos' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
             'telefono' => 'required',
-            'telefono_2' => ''
+            'telefono_2' => '',
         ]);
         $user->update($data);
 
@@ -99,38 +103,38 @@ class UserController extends Controller
     }
 
     //CAMBIAR ROLES DEL USUARIO
-    public function updateRoles(Request $request, User $user){
-        $idUsuario= $request->get('idUsuario');
-        $traerDatosUsuario = User::select('*')->where('id','=',$idUsuario)->first();
+    public function updateRoles(Request $request, User $user)
+    {
+        $idUsuario = $request->get('idUsuario');
+        $traerDatosUsuario = User::select('*')->where('id', '=', $idUsuario)->first();
         $prueba = $request->get('roles');
 
-        if ($traerDatosUsuario['password'] == null){
+        if ($traerDatosUsuario['password'] == null) {
 
 
-            if (in_array('Administrador',$prueba) or in_array('Secretari@',$prueba)){
-                $password  =  str_random(8);
-                $data['password'] = bcrypt($password);
-                $user->update($data);
+            $password = str_random(8);
+            $data['password'] = bcrypt($password);
+            $user->update($data);
 
-                $user->syncRoles($request->roles);
-
-                UserWasCreated::dispatch($user, $password);
-                return back()->with('flash','Roles actualizados, Hemos enviado un correo electronico con las credenciales para iniciar en el sistema');
-
+            $user->assignRole($request->get('rol'));
+            if ($request->get('rol') == 'Administrador'){
+                $user->removeRole('Secretari@');
             }else{
-                $user->syncRoles($request->roles);
-                return back()->with('flash','Roles actualizados');
-            }
-        }else{
-            if (in_array('Administrador',$prueba) or in_array('Secretari@',$prueba)){
-
-                $user->syncRoles($request->roles);
-                return back()->with('flash','Roles actualizados, ya puede iniciar en el sistema.Si no recuerda su contraseña, vaya a Login, y luego a "Olvidé mi contraseña"');
-            }else{
-                $user->syncRoles($request->roles);
-                return back()->with('flash','Roles actualizados');
+                $user->removeRole('Administrador');
             }
 
+            UserWasCreated::dispatch($user, $password);
+            return back()->with('flash', 'Roles actualizados, Hemos enviado un correo electronico con las credenciales para iniciar en el sistema');
+
+
+        } else {
+            $user->assignRole($request->get('rol'));
+            if ($request->get('rol') == 'Administrador'){
+                $user->removeRole('Secretari@');
+            }else{
+                $user->removeRole('Administrador');
+            }
+            return back()->with('flash', 'Roles actualizados, ya puede iniciar en el sistema. Si no recuerda su contraseña, vaya a Login, y luego a "Olvidé mi contraseña"');
 
         }
 
@@ -138,18 +142,20 @@ class UserController extends Controller
 
     //EDITAR PERFIL DE LOS USUARIOS
 
-    public function editarPerfil(){
+    public function editarPerfil()
+    {
 
         return view('admin.usuarios.perfil');
     }
 
-    public function updatePassword(Request $request, User $user){
+    public function updatePassword(Request $request, User $user)
+    {
 
-        if ($request->filled('password')){
+        if ($request->filled('password')) {
 
-            $this->validate($request,[
+            $this->validate($request, [
 
-                'password' => 'confirmed|min:6'
+                'password' => 'confirmed|min:6',
 
             ]);
             $password = $request->get('password');
@@ -158,7 +164,7 @@ class UserController extends Controller
             $user->update();
 
             return back()->with('flash', 'Contraseña actualizada');
-        }else{
+        } else {
 
             return back()->with('eliminar', 'Ningún Cambio');
         }
@@ -173,14 +179,16 @@ class UserController extends Controller
         return $urlFinal = Storage::url($fotoUrl);
 
     }
-    public function guardarFoto(Request $request, User $user){
 
-        if ($request->filled('foto')){
+    public function guardarFoto(Request $request, User $user)
+    {
+
+        if ($request->filled('foto')) {
 
             $user->foto = $request->get('foto');
             $user->save();
             return back()->with('flash', 'Foto de perfil actualizada');
-        }else{
+        } else {
 
             return back()->with('eliminar', 'Ningún Cambio');
         }
@@ -188,7 +196,8 @@ class UserController extends Controller
 
 
     //AGREGAR CLIENTES
-    public function AgregarCliente(Request $request){
+    public function AgregarCliente(Request $request)
+    {
 
 
         $rule = [
@@ -198,7 +207,8 @@ class UserController extends Controller
             'id_tipoIdentificacion' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
             'telefono' => 'required',
-            'telefono_2' => ''
+            'telefono_2' => '',
+            'id_vendedor' => '',
 
         ];
 
@@ -212,28 +222,34 @@ class UserController extends Controller
     }
 
     //ACTUALIZAR CLIENTES
-    public function actualizarCliente( Request $request, User $user){
+    public function actualizarCliente(Request $request, User $user)
+    {
 
-            $data = $request->validate([
-                'name' => 'required',
-                'apellidos' => 'required',
-                'identificacion' => 'required',
-                'id_tipoIdentificacion' => 'required',
-                'email' => 'required',
-                'telefono' => 'required',
-                'telefono_2' => ''
-            ]);
+        $data = $request->validate([
+            'name' => 'required',
+            'apellidos' => 'required',
+            'identificacion' => 'required',
+            'id_tipoIdentificacion' => 'required',
+            'email' => 'required',
+            'telefono' => 'required',
+            'telefono_2' => '',
+        ]);
 
-            $user->update($data);
+        $user->update($data);
 
-            return back()->withFlash('Cliente Actualizado');
+        return back()->withFlash('Cliente Actualizado');
 
     }
 
     //ACTUALIZAR ROLES DEL CLIENTE
-    public function updateRolCliente(Request $request, User $user){
+    public function updateRolCliente(Request $request, User $user)
+    {
+        $id_vendedor = $request->validate([
+            'id_vendedor' => '',
+        ]);
+        $user->update($id_vendedor);
         $user->assignRole($request->roles);
-        return back()->with('flash','Roles actualizados');
+        return back()->with('flash', 'Roles actualizados');
     }
 
     //TRAMITADORES
@@ -244,14 +260,15 @@ class UserController extends Controller
         return view('admin.tramitadores', compact('usuarios'));
     }
 
-    public function agregarTramitador(Request $request){
+    public function agregarTramitador(Request $request)
+    {
         $rule = [
 
             'name' => 'required|string|max:255',
             'apellidos' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
             'telefono' => 'required',
-            'telefono_2' => ''
+            'telefono_2' => '',
 
         ];
 
@@ -262,21 +279,24 @@ class UserController extends Controller
         return back()->withFlash('Tramitador Creado Existosamente');
     }
 
-    public function editarTramitador(Request $request, User $user){
+    public function editarTramitador(Request $request, User $user)
+    {
 
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'apellidos' => 'required',
             'email' => 'required',
             'telefono' => 'required',
-            'telefono_2' => ''
+            'telefono_2' => '',
         ]);
 
         $user->update($data);
 
         return back()->withFlash('Cambios realizados Correctamente');
     }
-    public function eliminarTramitador($id){
+
+    public function eliminarTramitador($id)
+    {
 
         $tramitador = User::findOrFail($id);
         $tramitador->delete();

@@ -60,7 +60,7 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     Route::get('/clientes','ClienteController@indexClientes')->name('clientes');
     Route::get('/api/clientes',function (){
         //TABLA CLIENTES CON SUS FECHAS DE REGISTRO CON FORMATO
-            $clientes = \App\User::role(['Cliente'])->get();
+            $clientes = \App\User::with('idVendedor')->role(['Cliente'])->get();
         return \Yajra\DataTables\DataTables::of($clientes)
             ->editColumn('created_at', function ($user) {
                 return $user->created_at ? with(new \Illuminate\Support\Carbon($user->created_at))->toFormattedDateString() : '';
@@ -156,9 +156,12 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
 
     //ADMINISTRAR PRECIOS
     //Otros
-    //Precio examen medico
     Route::get('/admi-tramites/otros','OtrosController@index')->name('admin-otros');
-    Route::put('precio-examen-medico-actualizado/{medico}','OtrosController@update')->name('examen-medico-actualizado');
+    //Precio examen medico
+
+    Route::put('precio-examen-medico-actualizado/{medico}','OtrosController@updateMedico')->name('examen-medico-actualizado');
+    //Precio escuela de conduccion
+    Route::put('precio-escuela-conduccion-actualizado/{escuela}','OtrosController@updateEscuela')->name('escuela-conduccion-actualizado');
 
 
 });

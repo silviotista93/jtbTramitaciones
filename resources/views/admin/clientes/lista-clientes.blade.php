@@ -30,6 +30,7 @@
                     <th>Apellidos</th>
                     <th>Telefono</th>
                     <th>Email</th>
+                    <th>Atendido por</th>
                     <th>Fecha Registro</th>
                 </tr>
                 </thead>
@@ -53,6 +54,7 @@
                 {data: 'apellidos'},
                 {data: 'telefono'},
                 {data: 'email'},
+                {data: 'id_vendedor.name'},
                 {data: 'created_at'}
             ],
             "language":{
