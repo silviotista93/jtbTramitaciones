@@ -335,7 +335,7 @@ SUMAR TODOS LOS PRECIOS
 function sumarTotalPrecios() {
 
     $('#nuevoTotalVenta').attr('disabled',true);
-    max=$('#totalVentaDB').val();
+    
     console.log(max);
  var precioCadaLicencia = $(".nuevoPrecioLicencia");
  var arraySumaPrecio = [];
@@ -471,6 +471,9 @@ $(".crearVentaLicencia").click(function (e) {
 
 
     }else{
+        if(max==0 || min==0){
+            max=$('#totalVentaDB').val();
+        }
 
         if($('#nuevoTotalVenta').val() > max || $('#nuevoTotalVenta').val() < min ){
 
@@ -695,7 +698,7 @@ $(".inputAbono").keyup(function () {
     }
 
 
-    console.log(cambio);
+   
     // var nuevoCambioEfectivo = $(this).parent().parent().parent().children('#camposSaldos').children().children('#saldoVentaAbono');
 
     // nuevoCambioEfectivo.val(cambio);
@@ -733,26 +736,25 @@ $("#btn-descuento").click(function (e) {
     for (var i = 0; i < pre.length; i++){
         precioDescuento.push({
             "descuento":$(pre[i]).val()
-            /*"maximo":$(max[i]).val()*/
+           
         })
     };
 
 
     var td=0;
     
-    /*var maxi=0;*/
+    
     for (var i = 0; i < precioDescuento.length; i++){
 
        td=td + parseInt(precioDescuento[i].descuento);
-       /* maxi=maxi + parseInt(precioDescuento[i].maximo);*/
+      
 
-       console.log(precioDescuento);
+       
    };
 
 
    min=max-td;
-
- console.log(min);
+ 
 
 });
 $("#btn-descuento-cancelar").click(function (e) {
@@ -761,6 +763,7 @@ $("#btn-descuento-cancelar").click(function (e) {
     $('#nuevoTotalVenta').attr('disabled',true);
     $('#mostrar-btn-cancelar-descu').hide('blid');
     $('.validar_descuento').val('0');
+    sumarTotalPrecios();
 });
 
 
