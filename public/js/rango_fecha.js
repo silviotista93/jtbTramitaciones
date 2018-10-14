@@ -30,7 +30,7 @@ function startRangoFecha(selectorFecha, fnSucess, fnCancel){
     },
     function(start, end){
         let span = fecha.find("span");
-        span.html(start.format("MMMM D, YYYY")+"-"+end.format("MMMM D, YYYY"))
+        span.html(start.format("MMMM D, YYYY")+"-"+end.format("MMMM D, YYYY"));
         let fechaInicial = start.format("YYYY-M-D");
         let fechaFinal = end.format("YYYY-M-D");
         setStorage(storageFechaInicio, start);
@@ -92,4 +92,4 @@ idioma = {
         "Diciembre"
     ],
     "firstDay": 1
-}
+};

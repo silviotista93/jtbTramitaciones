@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.5-10.1.26-MariaDB)
 # Database: jtb
-# Generation Time: 2018-09-29 16:54:38 +0000
+# Generation Time: 2018-10-14 03:04:41 +0000
 # ************************************************************
 
 
@@ -62,7 +62,9 @@ VALUES
 	(17,100000,250000,'Debe','Efectivo',NULL,16,'2018-09-27 16:11:16','2018-09-27 16:11:16'),
 	(18,250000,0,'Cancelado','Efectivo',NULL,16,'2018-09-27 16:12:23','2018-09-27 16:12:23'),
 	(19,0,0,'Cancelado',NULL,NULL,17,'2018-09-27 16:16:12','2018-09-27 16:16:12'),
-	(20,0,0,'Cancelado',NULL,NULL,18,'2018-09-29 11:20:01','2018-09-29 11:20:01');
+	(20,0,0,'Cancelado',NULL,NULL,18,'2018-09-29 11:20:01','2018-09-29 11:20:01'),
+	(21,0,0,'Cancelado',NULL,NULL,19,'2018-10-01 16:28:46','2018-10-01 16:28:46'),
+	(22,0,0,'Cancelado',NULL,NULL,20,'2018-10-12 10:46:08','2018-10-12 10:46:08');
 
 /*!40000 ALTER TABLE `abonos` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -117,7 +119,7 @@ LOCK TABLES `escuelas` WRITE;
 
 INSERT INTO `escuelas` (`id`, `valor`, `created_at`, `updated_at`)
 VALUES
-	(1,50000,'2018-09-15 10:13:39','2018-09-29 10:54:46');
+	(1,50000,'2018-09-15 10:13:39','2018-10-12 10:00:30');
 
 /*!40000 ALTER TABLE `escuelas` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -220,24 +222,24 @@ LOCK TABLES `migrations` WRITE;
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`)
 VALUES
-	(1,'2014_10_12_000000_create_users_table',1),
-	(2,'2014_10_12_100000_create_password_resets_table',1),
-	(3,'2018_07_03_214850_create_seguros_table',1),
-	(4,'2018_07_03_221355_create_tramites_table',1),
-	(5,'2018_07_03_221430_create_tipo_vehiculos_table',1),
-	(6,'2018_07_07_210205_create_resumen_tramites_table',1),
-	(7,'2018_07_07_211523_create_resumen_tramite_seguro_table',1),
-	(8,'2018_07_25_104416_create_tipo_documentos_table',1),
-	(9,'2018_07_31_204557_create_abonos_table',1),
-	(10,'2018_08_03_144940_resumen_tramite_abonos',1),
-	(11,'2018_08_09_155526_create_licencias_table',1),
-	(12,'2018_08_09_164451_create_resumen_licencia_table',1),
-	(13,'2018_08_24_132942_create_permission_tables',1),
-	(14,'2018_09_15_091914_create_agendas_table',1),
-	(15,'2018_09_21_150339_create_medicos_table',1),
-	(16,'2018_09_28_154456_add_id_vendedor_to_users_table',1),
 	(17,'2018_09_29_101316_create_escuela_table',1),
-	(18,'2018_09_29_104709_create_escuelas_table',2);
+	(53,'2014_10_12_000000_create_users_table',2),
+	(54,'2014_10_12_100000_create_password_resets_table',2),
+	(55,'2018_07_03_214850_create_seguros_table',2),
+	(56,'2018_07_03_221355_create_tramites_table',2),
+	(57,'2018_07_03_221430_create_tipo_vehiculos_table',2),
+	(58,'2018_07_07_210205_create_resumen_tramites_table',2),
+	(59,'2018_07_07_211523_create_resumen_tramite_seguro_table',2),
+	(60,'2018_07_25_104416_create_tipo_documentos_table',2),
+	(61,'2018_07_31_204557_create_abonos_table',2),
+	(62,'2018_08_03_144940_resumen_tramite_abonos',2),
+	(63,'2018_08_09_155526_create_licencias_table',2),
+	(64,'2018_08_09_164451_create_resumen_licencia_table',2),
+	(65,'2018_08_24_132942_create_permission_tables',2),
+	(66,'2018_09_15_091914_create_agendas_table',2),
+	(67,'2018_09_21_150339_create_medicos_table',2),
+	(68,'2018_09_28_154456_add_id_vendedor_to_users_table',2),
+	(69,'2018_09_29_104709_create_escuelas_table',2);
 
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -332,6 +334,7 @@ CREATE TABLE `resumen_licencia` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_licencia` int(10) unsigned NOT NULL,
   `id_resumen_tramite` int(10) unsigned NOT NULL,
+  `validar_curso` int(10) unsigned DEFAULT NULL,
   `cantidad` int(10) unsigned NOT NULL,
   `precio_venta` double NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -342,20 +345,23 @@ CREATE TABLE `resumen_licencia` (
 LOCK TABLES `resumen_licencia` WRITE;
 /*!40000 ALTER TABLE `resumen_licencia` DISABLE KEYS */;
 
-INSERT INTO `resumen_licencia` (`id`, `id_licencia`, `id_resumen_tramite`, `cantidad`, `precio_venta`, `created_at`, `updated_at`)
+INSERT INTO `resumen_licencia` (`id`, `id_licencia`, `id_resumen_tramite`, `validar_curso`, `cantidad`, `precio_venta`, `created_at`, `updated_at`)
 VALUES
-	(1,9,1,1,230000,NULL,NULL),
-	(2,1,1,1,750000,NULL,NULL),
-	(3,1,4,1,750000,NULL,NULL),
-	(4,1,8,1,750000,NULL,NULL),
-	(5,2,8,1,1100000,NULL,NULL),
-	(6,1,9,1,750000,NULL,NULL),
-	(7,1,10,1,750000,NULL,NULL),
-	(8,1,12,1,750000,NULL,NULL),
-	(9,1,14,1,750000,NULL,NULL),
-	(10,6,14,1,200000,NULL,NULL),
-	(11,1,16,1,750000,NULL,NULL),
-	(12,1,18,1,750000,NULL,NULL);
+	(1,9,1,NULL,1,230000,NULL,NULL),
+	(2,1,1,NULL,1,750000,NULL,NULL),
+	(3,1,4,NULL,1,750000,NULL,NULL),
+	(4,1,8,NULL,1,750000,NULL,NULL),
+	(5,2,8,NULL,1,1100000,NULL,NULL),
+	(6,1,9,NULL,1,750000,NULL,NULL),
+	(7,1,10,NULL,1,750000,NULL,NULL),
+	(8,1,12,NULL,1,750000,NULL,NULL),
+	(9,1,14,NULL,1,750000,NULL,NULL),
+	(10,6,14,NULL,1,200000,NULL,NULL),
+	(11,1,16,NULL,1,750000,NULL,NULL),
+	(12,1,18,NULL,1,750000,NULL,NULL),
+	(13,2,19,1,1,1050000,NULL,NULL),
+	(14,7,19,1,1,210000,NULL,NULL),
+	(15,1,20,NULL,1,750000,NULL,NULL);
 
 /*!40000 ALTER TABLE `resumen_licencia` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -374,6 +380,7 @@ CREATE TABLE `resumen_tramites` (
   `idUsuario` int(10) unsigned NOT NULL,
   `idVendedor` int(10) unsigned NOT NULL,
   `id_tipoTramite` int(10) unsigned NOT NULL,
+  `descuento` int(10) unsigned NOT NULL,
   `estado` enum('Recibido','En tramite','Entregado') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Recibido',
   `examen_medico` enum('Realizado','Pendiente') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Pendiente',
   `escuela_conduccion` enum('Realizado','Pendiente') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Pendiente',
@@ -387,26 +394,28 @@ CREATE TABLE `resumen_tramites` (
 LOCK TABLES `resumen_tramites` WRITE;
 /*!40000 ALTER TABLE `resumen_tramites` DISABLE KEYS */;
 
-INSERT INTO `resumen_tramites` (`id`, `metodo_pago`, `total`, `idTramitador`, `idUsuario`, `idVendedor`, `id_tipoTramite`, `estado`, `examen_medico`, `escuela_conduccion`, `derechos_transito`, `nota`, `created_at`, `updated_at`)
+INSERT INTO `resumen_tramites` (`id`, `metodo_pago`, `total`, `idTramitador`, `idUsuario`, `idVendedor`, `id_tipoTramite`, `descuento`, `estado`, `examen_medico`, `escuela_conduccion`, `derechos_transito`, `nota`, `created_at`, `updated_at`)
 VALUES
-	(1,'Efectivo',980000,2,1,1,2,'En tramite','Pendiente','Pendiente','Pendiente',NULL,'2018-09-14 23:47:41','2018-09-14 23:47:41'),
-	(2,'TC-31231231',461850,NULL,4,1,1,'Entregado','Pendiente','Pendiente','Pendiente',NULL,'2018-09-15 00:03:07','2018-09-15 00:03:07'),
-	(3,'Efectivo',300150,NULL,5,1,1,'Entregado','Pendiente','Pendiente','Pendiente',NULL,'2018-09-15 00:04:50','2018-09-15 00:04:50'),
-	(4,'TC-1111111',750000,2,4,1,2,'En tramite','Pendiente','Pendiente','Pendiente',NULL,'2018-09-15 00:27:05','2018-09-15 00:27:05'),
-	(5,'TC-312312312',595800,NULL,1,1,1,'Entregado','Pendiente','Pendiente','Pendiente',NULL,'2018-09-15 08:51:17','2018-09-15 08:51:17'),
-	(6,'TC-0000000',371700,NULL,4,1,1,'Entregado','Pendiente','Pendiente','Pendiente',NULL,'2018-09-15 08:51:33','2018-09-15 08:51:33'),
-	(7,'TC-123123',1057650,NULL,5,1,1,'Entregado','Pendiente','Pendiente','Pendiente',NULL,'2018-09-15 08:52:08','2018-09-15 08:52:08'),
-	(8,'TC-12312312',1850000,3,4,1,2,'Entregado','Realizado','Realizado','Realizado',NULL,'2018-09-15 08:52:41','2018-09-20 13:43:37'),
-	(9,'Efectivo',750000,3,5,1,2,'En tramite','Pendiente','Pendiente','Pendiente',NULL,'2018-09-15 08:53:01','2018-09-15 08:53:01'),
-	(10,'TC-12312',750000,NULL,4,1,2,'En tramite','Pendiente','Pendiente','Pendiente',NULL,'2018-09-18 08:26:04','2018-09-18 08:26:04'),
-	(11,'TC-3122',595800,NULL,4,1,1,'Entregado','Pendiente','Pendiente','Pendiente',NULL,'2018-09-18 08:37:27','2018-09-18 08:37:27'),
-	(12,'TC-3123',750000,NULL,4,1,2,'En tramite','Pendiente','Pendiente','Pendiente',NULL,'2018-09-19 11:06:59','2018-09-19 11:06:59'),
-	(13,'TC-wow',3577200,NULL,4,1,1,'Entregado','Pendiente','Pendiente','Pendiente',NULL,'2018-09-19 11:09:56','2018-09-19 11:09:56'),
-	(14,'TC-212312',-50000,NULL,4,1,2,'En tramite','Pendiente','Pendiente','Pendiente',NULL,'2018-09-21 16:11:55','2018-09-21 16:11:55'),
-	(15,'TC-212312',967500,NULL,4,1,1,'Entregado','Pendiente','Pendiente','Pendiente',NULL,'2018-09-21 16:12:24','2018-09-21 16:12:24'),
-	(16,'Efectivo',750000,3,7,1,2,'Entregado','Realizado','Realizado','Realizado',NULL,'2018-09-27 16:10:32','2018-09-27 16:12:43'),
-	(17,'TD-12213',905700,NULL,1,1,1,'Entregado','Pendiente','Pendiente','Pendiente',NULL,'2018-09-27 16:16:12','2018-09-27 16:16:12'),
-	(18,'Efectivo',750000,NULL,1,1,2,'En tramite','Pendiente','Pendiente','Pendiente',NULL,'2018-09-29 11:20:01','2018-09-29 11:20:01');
+	(1,'Efectivo',980000,2,1,1,2,0,'En tramite','Pendiente','Pendiente','Pendiente',NULL,'2018-09-14 23:47:41','2018-09-14 23:47:41'),
+	(2,'TC-31231231',461850,NULL,4,1,1,0,'Entregado','Pendiente','Pendiente','Pendiente',NULL,'2018-09-15 00:03:07','2018-09-15 00:03:07'),
+	(3,'Efectivo',300150,NULL,5,1,1,0,'Entregado','Pendiente','Pendiente','Pendiente',NULL,'2018-09-15 00:04:50','2018-09-15 00:04:50'),
+	(4,'TC-1111111',750000,2,4,1,2,0,'En tramite','Pendiente','Pendiente','Pendiente',NULL,'2018-09-15 00:27:05','2018-09-15 00:27:05'),
+	(5,'TC-312312312',595800,NULL,1,1,1,0,'Entregado','Pendiente','Pendiente','Pendiente',NULL,'2018-09-15 08:51:17','2018-09-15 08:51:17'),
+	(6,'TC-0000000',371700,NULL,4,1,1,0,'Entregado','Pendiente','Pendiente','Pendiente',NULL,'2018-09-15 08:51:33','2018-09-15 08:51:33'),
+	(7,'TC-123123',1057650,NULL,5,1,1,0,'Entregado','Pendiente','Pendiente','Pendiente',NULL,'2018-09-15 08:52:08','2018-09-15 08:52:08'),
+	(8,'TC-12312312',1850000,3,4,1,2,0,'Entregado','Realizado','Realizado','Realizado',NULL,'2018-09-15 08:52:41','2018-09-20 13:43:37'),
+	(9,'Efectivo',750000,3,5,1,2,0,'En tramite','Pendiente','Pendiente','Pendiente',NULL,'2018-09-15 08:53:01','2018-09-15 08:53:01'),
+	(10,'TC-12312',750000,NULL,4,1,2,0,'En tramite','Pendiente','Pendiente','Pendiente',NULL,'2018-09-18 08:26:04','2018-09-18 08:26:04'),
+	(11,'TC-3122',595800,NULL,4,1,1,0,'Entregado','Pendiente','Pendiente','Pendiente',NULL,'2018-09-18 08:37:27','2018-09-18 08:37:27'),
+	(12,'TC-3123',750000,NULL,4,1,2,0,'En tramite','Pendiente','Pendiente','Pendiente',NULL,'2018-09-19 11:06:59','2018-09-19 11:06:59'),
+	(13,'TC-wow',3577200,NULL,4,1,1,0,'Entregado','Pendiente','Pendiente','Pendiente',NULL,'2018-09-19 11:09:56','2018-09-19 11:09:56'),
+	(14,'TC-212312',-50000,NULL,4,1,2,0,'En tramite','Pendiente','Pendiente','Pendiente',NULL,'2018-09-21 16:11:55','2018-09-21 16:11:55'),
+	(15,'TC-212312',967500,NULL,4,1,1,0,'Entregado','Pendiente','Pendiente','Pendiente',NULL,'2018-09-21 16:12:24','2018-09-21 16:12:24'),
+	(16,'Efectivo',750000,3,7,1,2,0,'Entregado','Realizado','Realizado','Realizado',NULL,'2018-09-27 16:10:32','2018-09-27 16:12:43'),
+	(17,'TD-12213',905700,NULL,1,1,1,0,'Entregado','Pendiente','Pendiente','Pendiente',NULL,'2018-09-27 16:16:12','2018-09-27 16:16:12'),
+	(18,'Efectivo',750000,NULL,1,1,2,0,'En tramite','Pendiente','Pendiente','Pendiente',NULL,'2018-09-29 11:20:01','2018-09-29 11:20:01'),
+	(19,'Efectivo',1190000,NULL,4,1,2,0,'En tramite','Pendiente','Pendiente','Pendiente',NULL,'2018-10-01 16:28:46','2018-10-01 16:28:46'),
+	(20,'Efectivo',710000,NULL,4,1,2,1,'En tramite','Pendiente','Pendiente','Pendiente',NULL,'2018-10-12 10:46:08','2018-10-12 10:46:08');
 
 /*!40000 ALTER TABLE `resumen_tramites` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -683,13 +692,13 @@ LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` (`id`, `identificacion`, `id_tipoIdentificacion`, `name`, `apellidos`, `email`, `password`, `id_vendedor`, `telefono`, `telefono_2`, `foto`, `estado`, `genero`, `fecha_nacimiento`, `remember_token`, `created_at`, `updated_at`)
 VALUES
-	(1,'1061759221',1,'Silvio Mauricio','Gutierrez Quiñones','silviotista93@gmail.com','$2y$10$C2FPTFS.pn8QK2r1DHo/K.4zB6hpKK8Is0z2GJiGvhH8Bu7Cd1EKW',6,'318564382',NULL,'','activo',NULL,NULL,'iAJePOgcyMWKN6okZuhzB63nmMSE1MkthCYqcxy7LxnGxz1x5B7glNVCNITz','2018-09-11 10:19:01','2018-09-28 16:31:17'),
+	(1,'1061759221',1,'Silvio Mauricio','Gutierrez Quiñones','silviotista93@gmail.com','$2y$10$C2FPTFS.pn8QK2r1DHo/K.4zB6hpKK8Is0z2GJiGvhH8Bu7Cd1EKW',6,'318564382',NULL,'','activo',NULL,NULL,'EUR1lt1j7sjzEWZqSJU0CbFqhdMjPPkvBDdhB2AqUKtb68M9ICJDhZkWPCQk','2018-09-11 10:19:01','2018-09-28 16:31:17'),
 	(2,NULL,NULL,'Ramulfo','Chamorro','ramulfo@gmail.com',NULL,NULL,'(312) 312-3131',NULL,NULL,'activo',NULL,NULL,NULL,'2018-09-14 22:13:22','2018-09-14 22:13:22'),
 	(3,NULL,NULL,'Fernando','Puchana Dagua','fernando.28899@gmail.com','$2y$10$DGJkQjWzWYFTIogoYcMmY.VZAt8QBZ7s/g35jE9yWRvrSOQHog6ae',NULL,'(300) 219-5160',NULL,'/adminlte/img/perfil.jpg','activo',NULL,NULL,NULL,'2018-09-14 23:49:09','2018-09-14 23:49:09'),
 	(4,'123',1,'Jorge','Martinez','jorge@gmail.com',NULL,6,'(313) 123-1231',NULL,NULL,'activo',NULL,NULL,NULL,'2018-09-15 00:02:52','2018-09-15 00:02:52'),
 	(5,'12345',2,'Daniela','Perez','dani@gmail.com',NULL,6,'(312) 312-3123',NULL,NULL,'activo',NULL,NULL,NULL,'2018-09-15 00:03:42','2018-09-15 00:03:42'),
 	(6,NULL,NULL,'Catalina','Alvarez','cata@gmail.com','$2y$10$e9HkrDX4LzAhRjYO9JxiuuYaQyUOffEdmeLv.qPwuI1vAk31qWS5e',NULL,'(312) 312-3123',NULL,'/adminlte/img/perfil.jpg','activo',NULL,NULL,NULL,'2018-09-22 11:50:56','2018-09-27 16:17:59'),
-	(7,'1061808439',1,'Zully','Maigual','zully@gmail.com',NULL,1,'(313) 736-0760',NULL,NULL,'activo',NULL,NULL,NULL,'2018-09-27 16:09:45','2018-09-27 16:09:45'),
+	(7,'1061808439',1,'Zully','Maigual','zully@gmail.com',NULL,1,'(313) 736-0760',NULL,NULL,'activo',NULL,NULL,NULL,'2018-01-27 16:09:45','2018-09-27 16:09:45'),
 	(8,'2310',1,'Carlos','Montoya','carlos@gmail.com',NULL,1,'(312) 312-3123',NULL,NULL,'activo',NULL,NULL,NULL,'2018-09-28 16:03:02','2018-09-28 16:03:02'),
 	(9,NULL,NULL,'','','',NULL,NULL,'',NULL,NULL,'activo',NULL,NULL,NULL,NULL,NULL);
 
