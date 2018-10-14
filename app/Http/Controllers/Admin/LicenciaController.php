@@ -31,6 +31,12 @@ class LicenciaController extends Controller
         return view('admin.licencia.admin-licencia',compact('licenciasPublico','licenciasTramitador'));
     }
 
+      public function ventasDescuento(){
+       
+        
+        return view('admin.ventas.ventas-descuento');
+    }
+
     public function actaulizarPrecioLicencia(Request $request, Licencia $licencia){
         $data = $request->validate([
 

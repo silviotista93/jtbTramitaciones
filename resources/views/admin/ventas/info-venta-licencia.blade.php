@@ -28,7 +28,9 @@
                             <div class="page-header">
 
                                 <img src="/adminlte/img/logo.png" width="7%" alt=""> Tramitaciones John Bolaños
-                                <span class="label label-success float-right pull-right" style="font-size: 12px">Con descuento especial</span>
+                            @if($infoVentaDatos->descuento == 1)
+                                 <span class="label label-success float-right pull-right" style="font-size: 12px">Con descuento especial </span> 
+                            @endif                                
 
                                 <h3 class="pull-right"><strong>Codigo Venta</strong> <span
                                             style="color: red !important;"><strong>TR-{{$infoVentaDatos->id}}

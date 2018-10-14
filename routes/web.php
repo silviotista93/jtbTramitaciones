@@ -126,6 +126,11 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
 
     //Administrar Licencia
     Route::get('/administrar-licencias','LicenciaController@administrarLicencia')->name('administrarLicencia');
+    Route::get('/ventas-descuento','LicenciaController@ventasDescuento')->name('ventasDescuento');
+    Route::get('/api/ventas-descuento/',function (){
+        return datatables()->of(\App\ResumenTramite::where('descuento',1)->with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono')->get())->toJson();
+    })->name('tablaTramitesDescuento');
+
     Route::put('/actualizar-licencia/{licencia}','LicenciaController@actaulizarPrecioLicencia')->name('actualizarLicencia');
 
 
