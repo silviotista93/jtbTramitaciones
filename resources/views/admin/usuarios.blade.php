@@ -100,7 +100,7 @@
                         <div class="box-body">
                             <form action="">
                             <div class="form-group {{$errors->has('name')? 'has-error':''}}">
-                                <label for="">Nombres</label>
+                                <label for=""><span class="text-danger">*</span> Nombres</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                     <input type="text" name="name" value="{{old('name')}}" class="form-control" placeholder="Ingrese Nombres">
@@ -108,7 +108,7 @@
                                 </div>
                             </div>
                             <div class="form-group {{$errors->has('apellidos')? 'has-error':''}}">
-                                <label for="">Apellidos</label>
+                                <label for=""><span class="text-danger">*</span> Apellidos</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                     <input type="text" name="apellidos" value="{{old('apellidos')}}" class="form-control"
@@ -117,7 +117,7 @@
                                 </div>
                             </div>
                             <div class="form-group {{$errors->has('email')? 'has-error':''}}">
-                                <label for="">Email</label>
+                                <label for=""><span class="text-danger">*</span> Email</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                                     <input type="email" name="email" value="{{old('email')}}" class="form-control emailAgregarUsuario" placeholder="Ingrese Email">
@@ -125,7 +125,7 @@
                                 </div>
                             </div>
                             <div class="form-group {{$errors->has('telefono')? 'has-error':''}}">
-                                <label for="">Telefono</label>
+                                <label for=""><span class="text-danger">*</span> Telefono</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-phone"></i>
@@ -137,7 +137,7 @@
                                 </div>
                             </div>
                             <div class="form-group {{$errors->has('rol')? 'has-error':''}}">
-                                <label for="">Seleccione Perfil</label>
+                                <label for=""><span class="text-danger">*</span> Seleccione Perfil</label>
                                 <select name="rol" id="" class="form-control" required>
                                     <option value="">Seleccione Perfil</option>
                                     @foreach($roles as $rol)
