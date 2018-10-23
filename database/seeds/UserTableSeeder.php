@@ -24,8 +24,8 @@ class UserTableSeeder extends Seeder
         $admin = new User;
         $admin->identificacion = '1061759221';
         $admin->id_tipoIdentificacion = 1;
-        $admin->name = 'Silvio Mauricio';
-        $admin->apellidos = 'Gutierrez Quiñones';
+        $admin->name = strtoupper('Silvio Mauricio');
+        $admin->apellidos = strtoupper('Gutierrez Quiñones');
         $admin->email = 'silviotista93@gmail.com';
         $admin->password = bcrypt('cantare.de.2310');
         $admin->telefono = '318564382';
@@ -36,8 +36,8 @@ class UserTableSeeder extends Seeder
         $admin = new User;
         $admin->identificacion = '100101010';
         $admin->id_tipoIdentificacion = 1;
-        $admin->name = 'Fernando';
-        $admin->apellidos = 'Puchana Dagua';
+        $admin->name = strtoupper('Fernando');
+        $admin->apellidos = strtoupper('Puchana Dagua');
         $admin->email = 'fernando.2889@gmail.com';
         $admin->password = bcrypt('qwerty');
         $admin->telefono = '3002195160';

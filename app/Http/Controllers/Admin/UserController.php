@@ -274,18 +274,22 @@ class UserController extends Controller
 
     public function agregarTramitador(Request $request)
     {
-        $rule = [
-
+        $this->validate($request,[
             'name' => 'required|string|max:255',
             'apellidos' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
             'telefono' => 'required',
             'telefono_2' => '',
+        ]);
 
-        ];
-
-        $data = $request->validate($rule);
-        $user = User::create($data);
+        $data = User::create([
+            'name'=>strtoupper($request->get('name')),
+            'apellidos'=>strtoupper($request->get('apellidos')),
+            'email'=>$request->get('email'),
+            'telefono'=>$request->get('telefono'),
+            'telefono_2'=>$request->get('telefono_2'),
+        ]);
+        $user = $data;
         $user->assignRole($request->rol);
 
         return back()->withFlash('Tramitador Creado Existosamente');
@@ -294,7 +298,7 @@ class UserController extends Controller
     public function editarTramitador(Request $request, User $user)
     {
 
-        $data = $request->validate([
+        $this->validate($request,[
             'name' => 'required|string|max:255',
             'apellidos' => 'required',
             'email' => 'required',
@@ -302,7 +306,13 @@ class UserController extends Controller
             'telefono_2' => '',
         ]);
 
-        $user->update($data);
+        $user->update([
+            'name' => strtoupper($request->get('name')),
+            'apellidos' => strtoupper($request->get('apellidos')),
+            'email' => $request->get('email'),
+            'telefono' => $request->get('telefono'),
+            'telefono_2' => $request->get('telefono_2'),
+        ]);
 
         return back()->withFlash('Cambios realizados Correctamente');
     }

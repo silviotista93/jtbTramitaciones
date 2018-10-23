@@ -15,39 +15,39 @@ class TipoVehiculoTableSeeder extends Seeder
         TipoVehiculo::truncate();
 
         $tipoVehiculo = new TipoVehiculo;
-        $tipoVehiculo->nombre = 'Motos';
+        $tipoVehiculo->nombre = 'MOTOS';
         $tipoVehiculo->save();
 
         $tipoVehiculo = new TipoVehiculo;
-        $tipoVehiculo->nombre = 'Camperos y Camionetas';
+        $tipoVehiculo->nombre = 'CAMPEROS Y CAMIONETAS';
         $tipoVehiculo->save();
 
         $tipoVehiculo = new TipoVehiculo;
-        $tipoVehiculo->nombre = 'Carga o Mixto';
+        $tipoVehiculo->nombre = 'CARGAR O MIXTO';
         $tipoVehiculo->save();
 
         $tipoVehiculo = new TipoVehiculo;
-        $tipoVehiculo->nombre = 'Ofi Especiales Ambulancias Transporte Valores';
+        $tipoVehiculo->nombre = 'OFI ESPECIALES AMBULANCIAS TRANSPORTE VALORES';
         $tipoVehiculo->save();
 
         $tipoVehiculo = new TipoVehiculo;
-        $tipoVehiculo->nombre = 'Autos Familiares';
+        $tipoVehiculo->nombre = 'AUTOS FAMILIARES';
         $tipoVehiculo->save();
 
         $tipoVehiculo = new TipoVehiculo;
-        $tipoVehiculo->nombre = 'Vehiculos con capacidad de 6 o mas personas';
+        $tipoVehiculo->nombre = 'VEHICULOS CON CAPACIDAD DE 6 O MAS PERSONAS';
         $tipoVehiculo->save();
 
         $tipoVehiculo = new TipoVehiculo;
-        $tipoVehiculo->nombre = 'Autos de alquiler enseñanza funebres taxis microbuses';
+        $tipoVehiculo->nombre = 'AUTOS DE ALQUILER ENSEÑANZA FUNEBRES TAXIS MICROBUSES';
         $tipoVehiculo->save();
 
         $tipoVehiculo = new TipoVehiculo;
-        $tipoVehiculo->nombre = 'Buses y Busetas';
+        $tipoVehiculo->nombre = 'BUSES Y BUSETAS';
         $tipoVehiculo->save();
 
         $tipoVehiculo = new TipoVehiculo;
-        $tipoVehiculo->nombre = 'Servicio publico intermunicipal';
+        $tipoVehiculo->nombre = 'SERVICIOS PUBLICO INTERMUNICIPAL';
         $tipoVehiculo->save();
     }
 

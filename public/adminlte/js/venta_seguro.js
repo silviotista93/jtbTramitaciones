@@ -324,93 +324,91 @@ var fila = "";
     };
 
     $('.formularioVentaSeguro').attr('action',url);
-    $.confirm({
-        animation: 'top',
-        closeAnimation: 'scale',
-        content: '<h4>Cliente</h4>' +
-        '<div>' +
-        '   <div class="row">' +
-        '           <div class="col-sm-6">' +
-        '              <label>Nombre:</label> '+nombreCliente+''+
-        '           </div>' +
-        '           <div class="col-sm-6">' +
-        '               <label>Identificacion:</label> '+identificacionCliente+''+
-        '           </div>' +
-        '           <div class="col-sm-6">'+
-        '                   <label>Tipo Identificacion:</label> '+nombreIdentificacion+'' +
-        '           </div>' +
-        '           <div class="col-sm-6">' +
-        '                   <label>Email:</label> '+emailCliente+'' +
-        '           </div>' +
-        '           <div class="col-sm-6">' +
-        '                   <label>Telefono:</label> '+telefonoCliente+'' +
-        '            </div>' +
-        '            <div class="col-sm-6">' +
-        '                    <label>Telefono 2:</label> '+telefono_2+'' +
-        '              </div>' +
-        '   </div>' +
-        '   <h4>Venta</h4>' +
-        '   <div class="row">' +
-        '       <div class="col-sm-12">' +
-        '<table class="table table-bordered" id="tabla-licencias-venta">\n' +
-            '                <tr>\n' +
-            '                  <th style="width: 10px;">Cantidad</th>\n' +
-            '                  <th>Tipo</th>\n' +
-            '                  <th>Cilindraje</th>\n' +
-            '                  <th>Precio</th>\n' +
-            '                </tr>\n' +
-            '                 <tbody> '+                                
-            '                    '+fila+'     '+
-            '                </tbody>  '+
-            '                </table> '+
-        '       </div>' +
-        '   </div>' +
-        '</div>',
-        columnClass: 'col-md-7 col-md-offset-3',
-        icon: '',
-        title: 'Datos de Venta',
-        typeAnimated: true,
-        buttons: {
-            tryAgain: {
-                text: 'Esta bien!',
-                btnClass: 'btn-green',
-                action: function(){
-                    //VALIDACIONES
-                    if ($('#idCliente').val() === '' & $('#nuevoMetodoPago').val() === ''  & $('#totalVentaDB').val() === '')  {
-                        toastr.error('Cliente Requerido');
-                        toastr.error('Metodo de Pago Requerido');
-                        toastr.error('Total Venta Requerido');
+    //VALIDACIONES
+    if ($('#idCliente').val() === '' & $('#nuevoMetodoPago').val() === ''  & $('#totalVentaDB').val() === '')  {
+        toastr.error('Cliente Requerido');
+        toastr.error('Metodo de Pago Requerido');
+        toastr.error('Total Venta Requerido');
 
-                    }else if($('#nuevoMetodoPago').val() === '' & $('#totalVentaDB').val() === '') {
-                        toastr.error('Metodo de Pago Requerido');
-                        toastr.error('Total de Venta Requerido');
+    }else if($('#nuevoMetodoPago').val() === '' & $('#totalVentaDB').val() === '') {
+        toastr.error('Metodo de Pago Requerido');
+        toastr.error('Total de Venta Requerido');
 
-                    }else if($('#idCliente').val() === '' & $('#totalVentaDB').val() === '') {
-                        toastr.error('Cliente Requerido');
-                        toastr.error('Total Venta Requerido');
+    }else if($('#idCliente').val() === '' & $('#totalVentaDB').val() === '') {
+        toastr.error('Cliente Requerido');
+        toastr.error('Total Venta Requerido');
 
-                    }else if($('#idCliente').val() === '' & $('#nuevoMetodoPago').val() === '') {
-                        toastr.error('Cliente Requerido');
-                        toastr.error('Metodo de Pago Requerido');
-                    }else if ($('#idCliente').val() === ''){
-                        toastr.error('Cliente Requerido');
-                    }else if ($('#nuevoMetodoPago').val() === ''){
-                        toastr.error('Metodo de Pago Requerido');
-                    }else if ($('#totalVentaDB').val() === ''){
-                        toastr.error('Total Venta Requerido');
-                    }
-                    else{
+    }else if($('#idCliente').val() === '' & $('#nuevoMetodoPago').val() === '') {
+        toastr.error('Cliente Requerido');
+        toastr.error('Metodo de Pago Requerido');
+    }else if ($('#idCliente').val() === ''){
+        toastr.error('Cliente Requerido');
+    }else if ($('#nuevoMetodoPago').val() === ''){
+        toastr.error('Metodo de Pago Requerido');
+    }else if ($('#totalVentaDB').val() === ''){
+        toastr.error('Total Venta Requerido');
+    }
+    else {
+
+        $.confirm({
+            animation: 'top',
+            closeAnimation: 'scale',
+            content: '<h4>Cliente</h4>' +
+                '<div>' +
+                '   <div class="row">' +
+                '           <div class="col-sm-6">' +
+                '              <label>Nombre:</label> ' + nombreCliente + '' +
+                '           </div>' +
+                '           <div class="col-sm-6">' +
+                '               <label>Identificacion:</label> ' + identificacionCliente + '' +
+                '           </div>' +
+                '           <div class="col-sm-6">' +
+                '                   <label>Tipo Identificacion:</label> ' + nombreIdentificacion + '' +
+                '           </div>' +
+                '           <div class="col-sm-6">' +
+                '                   <label>Email:</label> ' + emailCliente + '' +
+                '           </div>' +
+                '           <div class="col-sm-6">' +
+                '                   <label>Telefono:</label> ' + telefonoCliente + '' +
+                '            </div>' +
+                '            <div class="col-sm-6">' +
+                '                    <label>Telefono 2:</label> ' + telefono_2 + '' +
+                '              </div>' +
+                '   </div>' +
+                '   <h4>Venta</h4>' +
+                '   <div class="row">' +
+                '       <div class="col-sm-12">' +
+                '<table class="table table-bordered" id="tabla-licencias-venta">\n' +
+                '                <tr>\n' +
+                '                  <th style="width: 10px;">Cantidad</th>\n' +
+                '                  <th>Tipo</th>\n' +
+                '                  <th>Cilindraje</th>\n' +
+                '                  <th>Precio</th>\n' +
+                '                </tr>\n' +
+                '                 <tbody> ' +
+                '                    ' + fila + '     ' +
+                '                </tbody>  ' +
+                '                </table> ' +
+                '       </div>' +
+                '   </div>' +
+                '</div>',
+            columnClass: 'col-md-7 col-md-offset-3',
+            icon: '',
+            title: 'Datos de Venta',
+            typeAnimated: true,
+            buttons: {
+                tryAgain: {
+                    text: 'Esta bien!',
+                    btnClass: 'btn-green',
+                    action: function () {
                         $(".formularioVentaSeguro").submit();
                     }
-
-
+                },
+                cerrar: function () {
                 }
-            },
-
-            cerrar: function () {
             }
-        }
-    });
+        });
+    }
 });
 
 /*=============================================
@@ -423,16 +421,9 @@ $('#nuevoMetodoPago').change(function () {
         $(this).parent().parent().addClass('col-xs-4');
 
         $(this).parent().parent().parent().children('.cajasMetodoPago').html(
-            '<div class="col-xs-4">' +
+            '<div class="col-xs-6 pull-right">' +
             '   <div class="input-group">' +
-            '       <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
-            '           <input type="text" class="form-control nuevoValorEfectivo" name="nuevoValorEfectivo" placeholder="000000" required>' +
-            '   </div>' +
-            '</div>' +
-            '<div class="col-xs-4 capturarCambioEfectivo" style="padding-left:0px">' +
-            '   <div class="input-group">' +
-            '       <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
-            '           <input type="text" class="form-control nuevoCambioEfectivo" name="nuevoCambioEfectivo" placeholder="000000" required readonly >' +
+            '           <label for="">Metodo de Pago Efectivo</label>' +
             '   </div>' +
             '</div>'
 

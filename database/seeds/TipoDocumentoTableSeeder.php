@@ -15,19 +15,19 @@ class TipoDocumentoTableSeeder extends Seeder
         TipoDocumento::truncate();
 
         $tipoDocumento = new TipoDocumento;
-        $tipoDocumento->documento = 'Cédula Ciudadania';
+        $tipoDocumento->documento = 'CÉDULA DE CIUDADANIA';
         $tipoDocumento->save();
 
         $tipoDocumento = new TipoDocumento;
-        $tipoDocumento->documento = 'Tarjeta de Identidad';
+        $tipoDocumento->documento = 'TARJETA DE IDENTIDAD';
         $tipoDocumento->save();
 
         $tipoDocumento = new TipoDocumento;
-        $tipoDocumento->documento = 'Cédula de Extranjeria';
+        $tipoDocumento->documento = 'CÉDULA DE EXTRANJERIA';
         $tipoDocumento->save();
 
         $tipoDocumento = new TipoDocumento;
-        $tipoDocumento->documento = 'Pasaporte';
+        $tipoDocumento->documento = 'PASAPORTE';
         $tipoDocumento->save();
     }
 }

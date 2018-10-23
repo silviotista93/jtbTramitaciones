@@ -26,8 +26,8 @@
         </a>
         <ul class="treeview-menu">
             <li {{request()->is('admin/administrar-ventas') ? 'class=active' : '' }}><a href="{{route('adminVentas')}}"><i class="fa fa-circle-o"></i>Administrar Tramites</a></li>
+            <li><a href="{{route('ventasDescuento')}}"><i class="fa fa-circle-o"></i>Ventas con Descuento</a></li>
             <li><a href="{{route('reportes')}}"><i class="fa fa-circle-o"></i>Reporte de Ventas</a></li>
-            <li><a href="{{route('ventasDescuento')}}"><i class="fa fa-circle-o"></i>Ventas con descuento</a></li>
         </ul>
     </li>
     @if(auth()->user()->hasRole('Administrador'))

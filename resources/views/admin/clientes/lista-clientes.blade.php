@@ -29,6 +29,7 @@
                     <th>Nombre</th>
                     <th>Apellidos</th>
                     <th>Telefono</th>
+                    <th>Telefono 2</th>
                     <th>Email</th>
                     <th>Atendido por</th>
                     <th>Fecha Registro</th>
@@ -53,6 +54,7 @@
                 {data: 'name'},
                 {data: 'apellidos'},
                 {data: 'telefono'},
+                {data: 'telefono_2',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
                 {data: 'email'},
                 {data: 'id_vendedor.name'},
                 {data: 'created_at'}

@@ -399,7 +399,7 @@
                     <div class="modal-body">
                         <div class="box-body">
                             <div class="form-group {{$errors->has('name')? 'has-error':''}}">
-                                <label for="">Nombres</label>
+                                <label for=""><span class="text-danger">*</span> Nombres</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                     <input value="{{old('name')}}" type="text" name="name" class="form-control"
@@ -408,7 +408,7 @@
                                 </div>
                             </div>
                             <div class="form-group {{$errors->has('apellidos')? 'has-error':''}}">
-                                <label for="">Apellidos</label>
+                                <label for=""><span class="text-danger">*</span> Apellidos</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                     <input value="{{old('apellidos')}}" type="text" name="apellidos"
@@ -419,7 +419,7 @@
                             </div>
 
                             <div class="form-group {{$errors->has('id_tipoIdentificacion')? 'has-error':''}}">
-                                <label for="">Tipo de Documento</label>
+                                <label for=""><span class="text-danger">*</span> Tipo de Documento</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-th"></i></span>
                                     <select name="id_tipoIdentificacion" id="id_tipoIdentificacion"
@@ -437,7 +437,7 @@
                             </div>
 
                             <div class="form-group {{$errors->has('identificacion')? 'has-error':''}}">
-                                <label for="">Documento</label>
+                                <label for=""><span class="text-danger">*</span> Documento</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-key"></i></span>
                                     <input value="{{old('identificacion')}}" id="txtIdentificacionCliente" type="number"
@@ -447,7 +447,7 @@
                                 </div>
                             </div>
                             <div class="form-group {{$errors->has('email')? 'has-error':''}}">
-                                <label for="">Email</label>
+                                <label for=""><span class="text-danger">*</span> Email</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                                     <input value="{{old('email')}}" type="email" name="email"
@@ -457,7 +457,7 @@
                                 </div>
                             </div>
                             <div class="form-group {{$errors->has('telefono')? 'has-error':''}}">
-                                <label for="">Teléfono</label>
+                                <label for=""><span class="text-danger">*</span> Teléfono</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-phone"></i>

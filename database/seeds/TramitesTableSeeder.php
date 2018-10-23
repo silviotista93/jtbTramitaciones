@@ -16,15 +16,15 @@ class TramitesTableSeeder extends Seeder
         Tramite::truncate();
 
         $tramites = new Tramite;
-        $tramites->nombre = 'Seguro';
+        $tramites->nombre = 'SEGURO';
         $tramites->save();
 
         $tramites = new Tramite;
-        $tramites->nombre = 'Licencia';
+        $tramites->nombre = 'LICENCIA';
         $tramites->save();
 
         $tramites = new Tramite;
-        $tramites->nombre = 'Matricula';
+        $tramites->nombre = 'MATRICULA';
         $tramites->save();
     }
 }

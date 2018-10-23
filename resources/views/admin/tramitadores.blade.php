@@ -64,7 +64,7 @@
                         <div class="box-body">
                             <form action="">
                                 <div class="form-group {{$errors->has('name')? 'has-error':''}}">
-                                    <label for="">Nombres</label>
+                                    <label for=""><span class="text-danger">*</span> Nombres</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                         <input type="text" name="name" value="{{old('name')}}" class="form-control" placeholder="Ingrese Nombres">
@@ -72,7 +72,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group {{$errors->has('apellidos')? 'has-error':''}}">
-                                    <label for="">Apellidos</label>
+                                    <label for=""><span class="text-danger">*</span> Apellidos</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                         <input type="text" name="apellidos" value="{{old('apellidos')}}" class="form-control"
@@ -81,7 +81,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group {{$errors->has('email')? 'has-error':''}}">
-                                    <label for="">Email</label>
+                                    <label for=""><span class="text-danger">*</span> Email</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                                         <input type="email" name="email" value="{{old('email')}}" class="form-control" placeholder="Ingrese Email">
@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group {{$errors->has('telefono')? 'has-error':''}}">
-                                    <label for="">Teléfono</label>
+                                    <label for=""><span class="text-danger">*</span> Teléfono</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-phone"></i>
@@ -269,7 +269,7 @@
                 {data: 'apellidos'},
                 {data: 'email'},
                 {data: 'telefono'},
-                {data: 'telefono_2'},
+                {data: 'telefono_2',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
                     @if(auth()->user()->hasRole('Administrador'))
                 {
                     render:function (data,type, JsonResultRow,meta) {

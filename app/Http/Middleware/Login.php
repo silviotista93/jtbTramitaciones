@@ -33,8 +33,10 @@ class Login
                 }
 
             }
+        }else{
+            return redirect('/login');
         }
-        return redirect('/login');
+
     }
 
 }

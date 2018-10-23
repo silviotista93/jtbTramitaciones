@@ -433,15 +433,8 @@ $(".crearVentaLicencia").click(function (e) {
      " <td>"+listarLicencias[i].tipo_licencia+"</td>" +
      " <td>"+listarLicencias[i].categoria+"</td>" +
      " <td>"+listarLicencias[i].precio+"</td>" +
-     " </tr>"; 
+     " </tr>";
  };
-
-
-
-
-
-
-
 
  $('.formularioVentaLicencia').attr('action', url);
 
@@ -480,9 +473,9 @@ $(".crearVentaLicencia").click(function (e) {
              toastr.error(' la cantidad propuesta esta fuera del rango permitido');
             $('#nuevoTotalVenta').val(max);
 
-            return false; 
+            return false;
         }else{
-             $("#totalVentaDB").val($('#nuevoTotalVenta').val()); 
+             $("#totalVentaDB").val($('#nuevoTotalVenta').val());
         }
         $.confirm({
             animation: 'top',
@@ -519,7 +512,7 @@ $(".crearVentaLicencia").click(function (e) {
             '                  <th>Categoria</th>\n' +
             '                  <th>Precio</th>\n' +
             '                </tr>\n' +
-            '                 <tbody> '+                                
+            '                 <tbody> '+
             '                    '+fila+'     '+
             '                </tbody>  '+
             '                </table> '+
@@ -765,6 +758,9 @@ $("#btn-descuento-cancelar").click(function (e) {
     $('.validar_descuento').val('0');
     sumarTotalPrecios();
 });
+
+//VALIDAR SI EXISTE VALOR DENTRO DEL DIV
+
 
 
 
