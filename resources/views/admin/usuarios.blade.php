@@ -52,11 +52,13 @@
                             <button href="#" class="btn btn-xs btn-default "><i class="fa fa-eye"></i></button>
                             @if(auth()->user()->hasRole('Administrador'))
                             <a href="{{route('userUpdatePerfil',$usuario->id)}}" class="btn btn-xs btn-info btnEditarUsuario"><i class="fa fa-pencil"></i></a>
+                            @if($usuario->id !== auth()->user()->id)
                             <form class="form_eliminar_usuario" action="" method="POST" style="display: inline;">
                                 @csrf
                                 {{method_field('DELETE')}}
                                 <a idUsuario="{{$usuario->id}}" class="btn btn-xs btn-danger eliminarUsuario"><i class="fa fa-times"></i></a>
                             </form>
+                                @endif
                             @endif
                         </td>
 
@@ -112,7 +114,7 @@
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                     <input type="text" name="apellidos" value="{{old('apellidos')}}" class="form-control"
-                                           placeholder="Ingrese Apellidos">
+                                           placeholder="Ingrese Apellidos" >
                                     {!! $errors->first('apellidos','<span class="help-block">*:message</span>')!!}
                                 </div>
                             </div>
@@ -120,7 +122,7 @@
                                 <label for=""><span class="text-danger">*</span> Email</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                    <input type="email" name="email" value="{{old('email')}}" class="form-control emailAgregarUsuario" placeholder="Ingrese Email">
+                                    <input type="email" name="email" value="{{old('email')}}" class="form-control emailAgregarUsuario" placeholder="INGRESE EMAIL">
                                     {!! $errors->first('email','<span class="help-block">*:message</span>')!!}
                                 </div>
                             </div>

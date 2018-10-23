@@ -23,24 +23,29 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+            $this->validate($request,[
+                'name' => 'required|string|max:255',
+                'apellidos' => 'required',
+                'email' => 'required|string|email|max:255|unique:users',
+                'telefono' => 'required',
+                'foto' => 'required',
 
-        $rule = [
+            ]);
 
-            'name' => 'required|string|max:255',
-            'apellidos' => 'required',
-            'email' => 'required|string|email|max:255|unique:users',
-            'telefono' => 'required',
-            'foto' => 'required',
+        $data = User::create([
+            'name' => strtoupper($request->get('name')),
+            'apellidos' => strtoupper($request->get('apellidos')),
+            'email' => $request->get('email'),
+            'telefono' => $request->get('telefono'),
+            'foto' => $request->get('foto'),
+            'password' => bcrypt($request->get('password'))
 
-        ];
-
-        $data = $request->validate($rule);
+        ]);
 
 
         //Contraseña Aletoria
         $password = str_random(8);
-        $data['password'] = bcrypt($password);
-        $user = User::create($data);
+        $user = $data;
         $user->assignRole($request->rol);
 
         UserWasCreated::dispatch($user, $password);
@@ -90,14 +95,21 @@ class UserController extends Controller
     public function actualizarUsuarios(Request $request, User $user)
     {
 
-        $data = $request->validate([
+        $this->validate($request,[
             'name' => 'required',
             'apellidos' => 'required',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'string|email|max:255',
             'telefono' => 'required',
             'telefono_2' => '',
         ]);
-        $user->update($data);
+
+        $user->update([
+            'name'=>strtoupper($request->get('name')),
+            'apellidos'=>strtoupper($request->get('apellidos')),
+            'email'=>$request->get('email'),
+            'telefono'=>$request->get('telefono'),
+            'telefono_2'=>$request->get('telefono_2')
+        ]);
 
         return back()->withFlash('Usuario Actualizado');
     }

@@ -143,24 +143,26 @@
                     <div class="form-group {{$errors->has('email')? 'has-error':''}}">
                         <label for="">Email</label>
                         <input type="text" name="email" class="form-control" id="exampleInputEmail1"
-                               placeholder="" value="{{$datosUsuario->email}}">
+                               placeholder="" value="{{$datosUsuario->email}}" readonly>
                         {!! $errors->first('email','<span class="help-block">:message</span>')!!}
                     </div>
                     <div class="form-group {{$errors->has('telefono')? 'has-error':''}}">
                         <label for="">Télefono</label>
-                        <input type="text" name="telefono" class="form-control" id="exampleInputEmail1"
-                               placeholder=""value="{{$datosUsuario->telefono}}">
+
+                        <input type="text" name="telefono" class="form-control"
+                               data-inputmask='"mask": "(999) 999-9999"'
+                               data-mask value="{{old('telefono',$datosUsuario->telefono)}}">
                         {!! $errors->first('telefono','<span class="help-block">:message</span>')!!}
                     </div>
                     <div class="form-group {{$errors->has('telefono_2')? 'has-error':''}}">
                         <label for="">Télefono 2</label>
                         @if($datosUsuario->telefono_2 == null)
                             <input type="text" name="telefono_2" class="form-control" id="exampleInputEmail1"
-                                   placeholder="Ningún número registrado" value="">
+                                   placeholder="Ningún numero registrado" data-inputmask='"mask": "(999) 999-9999"' data-mask value="">
                             {!! $errors->first('telefono_2','<span class="help-block">:message</span>')!!}
                         @else
                         <input type="text" name="telefono_2" class="form-control" id="exampleInputEmail1"
-                               placeholder="" value="{{$datosUsuario->telefono_2}}">
+                               placeholder="" data-inputmask='"mask": "(999) 999-9999"' data-mask value="{{ old('telefono_2',$datosUsuario->telefono_2) }}">
                             {!! $errors->first('telefono_2','<span class="help-block">:message</span>')!!}
                         @endif
 
