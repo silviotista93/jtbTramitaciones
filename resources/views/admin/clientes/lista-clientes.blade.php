@@ -33,6 +33,9 @@
                     <th>Email</th>
                     <th>Atendido por</th>
                     <th>Fecha Registro</th>
+                    <th>Acciones</th>
+                    <th>Tramites</th>
+
                 </tr>
                 </thead>
 
@@ -57,7 +60,19 @@
                 {data: 'telefono_2',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
                 {data: 'email'},
                 {data: 'id_vendedor.name'},
-                {data: 'created_at'}
+                {data: 'created_at'},
+                {
+                    render:function (data,type, JsonResultRow,meta) {
+                        return '<button href="" idcliente="'+JsonResultRow.id+'" class="btn btn-sm btn-info btnEditarCliente"><i class="fa fa-pencil"></i></button>'
+
+                    }
+                },
+                {
+                    render:function (data,type, JsonResultRow,meta) {
+                        return '<a href="/admin/tramitador-ventas/'+JsonResultRow.id+'" class="btn btn-sm btn-warning "><i class="fa fa-eye"></i></a>'
+
+                    }
+                },
             ],
             "language":{
                 "sProcessing":     "Procesando...",

@@ -29,11 +29,15 @@ Route::get('/licenciaBuscar/{id}',function ($id){
 
     return \App\Licencia::where('id','=', $id)->get();
 });
-
+//Buscar Clientes
 Route::get('/encontrarCliente/{identificacion}',function ($identificacion){
 
     return \App\User::role(['Cliente'])->where('identificacion', '=', $identificacion)->with('tipoDocumento')->get();
 });
+Route::get('/encontrarClienteEditar/{id}',function ($id){
+    return \App\User::role(['Cliente'])->where('id', '=', $id)->first();
+});
+
 
 Route::get('/resumenTramite/{id}',function ($id){
 

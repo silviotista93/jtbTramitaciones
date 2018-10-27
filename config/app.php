@@ -150,6 +150,7 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
         Jenssegers\Date\DateServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
 
         /*
@@ -218,6 +219,7 @@ return [
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
         'Date' => Jenssegers\Date\Date::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 

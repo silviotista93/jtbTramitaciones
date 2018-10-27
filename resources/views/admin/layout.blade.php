@@ -374,6 +374,7 @@ desired effect
 <script src="/adminlte/js/venta_licencia.js"></script>
 <script src="/adminlte/js/tramitador.js"></script>
 <script src="/adminlte/js/agenda.js"></script>
+<script src="/adminlte/js/clientes.js"></script>
 <script src="/adminlte/js/administrar_ventas.js"></script>
 <script src="/adminlte/js/actualizar_procesos.js"></script>
 <script src="/adminlte/js/cupon-descuento.js"></script>
