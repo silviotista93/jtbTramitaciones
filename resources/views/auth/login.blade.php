@@ -33,7 +33,6 @@
 @endif
 <div class="login-box">
     <div class="login-logo">
-        <h1>cristian</h1>
         <a href="/"><b>TJB</b> Tramitaciones</a>
     </div>
     <!-- /.login-logo -->
