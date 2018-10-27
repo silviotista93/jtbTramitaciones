@@ -38,7 +38,7 @@ function validarCliente() {
         return;
     }
     $.get(url, null, function (r) {
-        console.log(r);
+       
         if (r.length !== 0) {
             /*=============================================
                 EDITAR EL CLIENTE
@@ -462,6 +462,11 @@ $(".crearVentaLicencia").click(function (e) {
     } else if ($('#totalVentaDB').val() === '') {
         toastr.error('Total Venta Requerido');
 
+    }else if($("#contenedorLicencia div").length==0){
+      toastr.error('Debe seleccionar al menos un tipo de licencia ');
+
+
+    
 
     }else{
         if(max==0 || min==0){
@@ -717,6 +722,7 @@ function listarMetodos() {
 
 $("#btn-descuento").click(function (e) {
     e.preventDefault();
+
     $('.validar_descuento').val('1');
     $('#mostrar-btn-cancelar-descu').show('blid');
     $('#mostrar-btn-descuento').hide('blid');

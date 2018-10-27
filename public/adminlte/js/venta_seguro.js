@@ -347,7 +347,9 @@ var fila = "";
         toastr.error('Metodo de Pago Requerido');
     }else if ($('#totalVentaDB').val() === ''){
         toastr.error('Total Venta Requerido');
-    }
+    }/*else if($("#contenedorLicencia div").length==0){
+      toastr.error('Debe seleccionar al menos un tipo de licencia ');*/
+      
     else {
 
         $.confirm({
