@@ -13,6 +13,7 @@
         <ul class="treeview-menu">
             <li {{request()->is('admin/tramite/licencia') ? 'class=active' : '' }}><a href="{{route('tramitar-licencia')}}">Licencias</a></li>
             <li {{request()->is('admin/tramite/seguro') ? 'class=active' : '' }}><a href="{{route('tramitar-seguro')}}">Seguro Obligatorio</a></li>
+            <li><a href="#">Examen Médico</a></li>
             <li><a href="{{route('tramitar-matricula')}}">Matricula</a></li>
             <li><a href="#">Traspasos</a></li>
             <li><a href="#">Otros</a></li>

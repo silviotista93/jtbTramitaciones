@@ -425,6 +425,10 @@
                                                             <option value="TC">Tarjeta Crédito</option>
                                                             <option value="TD">Tarjeta Débito</option>
                                                         </select>
+                                                        <input type="number" id="valor_a_pagar_financiacion"
+                                                               class="form-control inputMetodoPagoAbono"
+                                                               placeholder="Código de transacción" style="margin-top: 9px; display: none">
+                                                        <input type="hidden" id="listaMetodoPagoLicenciaAbono" name="listaMetodoPagoAbono">
                                                     </td>
                                                     <td class="text-center"><textarea name="nota" id="" cols="30"
                                                                                       rows="2"></textarea></td>

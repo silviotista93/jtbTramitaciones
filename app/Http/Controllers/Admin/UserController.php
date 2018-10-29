@@ -267,9 +267,9 @@ class UserController extends Controller
     //TRAMITADORES
     public function indexTramitadores()
     {
-
+        $rolesTramitador = Role::where("name", "=", "Tramitador")->first();
         $usuarios = User::role(['Tramitador'])->get();
-        return view('admin.tramitadores', compact('usuarios'));
+        return view('admin.tramitadores', compact('usuarios','rolesTramitador'));
     }
 
     public function agregarTramitador(Request $request)

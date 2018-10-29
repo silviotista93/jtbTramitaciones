@@ -69,7 +69,7 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     });
     Route::post('/agregar-cliente','UserController@AgregarCliente')->name('clienteAgregado');
     Route::put('/actualizar-cliente/{user}','UserController@actualizarCliente')->name('clienteActualizado');
-    Route::put('cliente-update-roles/{user}','UserController@updateRolCliente')->name('clienteRoles');
+    Route::put('/update-roles/{user}','UserController@updateRolCliente')->name('clienteRoles');
 
     //Tramitadores
     Route::get('/tramitadores','UserController@indexTramitadores')->name('tramitadores');

@@ -58,7 +58,7 @@
                     <h4 class="modal-title" id="myModalLabel" style="color: #FFFFFF">Crear Tramitador <i
                                 class="fa fa-plus"></i></h4>
                 </div>
-                <form method="post" action="{{route ('tramitadorCreado')}}">
+                <form class="form_agregar_tramitador" method="post" action="{{route ('tramitadorCreado')}}">
                     @csrf
                     <div class="modal-body">
                         <div class="box-body">
@@ -84,7 +84,7 @@
                                     <label for=""><span class="text-danger">*</span> Email</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                        <input type="email" name="email" value="{{old('email')}}" class="form-control" placeholder="Ingrese Email">
+                                        <input type="email" name="email" value="{{old('email')}}" class="form-control inputEmailAgregarTramitador" placeholder="Ingrese Email">
                                         {!! $errors->first('email','<span class="help-block">*:message</span>')!!}
                                     </div>
                                 </div>
@@ -257,6 +257,47 @@
             </div>
         </div>
     </div>
+    <!-- MODAL RORLES AGREGAR TRAMITADOR-->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false"
+         id="modalRolesTramitador" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #FFFFFF;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true"
+                                style="color: #404040;">&times;</span>
+                    </button>
+                    <h4 class="modal-title inline" id="myModalLabel" style="color: #000000">Actualizar Roles para </h4>
+                    <h4 class="nombreTramitadorRolTra inline"></h4><h4 class="apellidosTramitadorRolTra inline">&nbsp</h4>
+                </div>
+                <form class="form-update-rol-tramitador-tra" method="POST" action="">
+                    @csrf {{method_field('PUT')}}
+                    <div class="modal-body">
+                        <div class="box-body">
+
+                            <div class="checkbox">
+                                <label for="">
+                                    <input name="roles" class="checkUpdateRoles" type="checkbox"
+                                           value="{{$rolesTramitador->name}}"
+                                           style="font-size: 14px; font-weight: bold">
+                                    {{$rolesTramitador->name}}
+                                </label>
+
+                            </div>
+
+                        </div>
+                        <input type="hidden" name="id_vendedor" value="{{auth()->user()->id}}">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-warning ">Agregar Rol Cliente</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @section('dataTablesTramitadores')
     <script>
         $('.table_tramitadores').DataTable({

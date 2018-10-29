@@ -112,11 +112,9 @@
 
                             if (ultimo == 'Debe'){
                                 return '<span class="label label-danger text-center" style="font-size: 16px;">'+ultimo+'</span>\n'
-                            }else if (ultimo == 'Cancelado'){
+                            }else{
                                 return '<span class="label label-success" style="font-size: 11px;">'+ultimo+'</span>\n'
 
-                            }else{
-                                return '<span class="label label-success" style="font-size: 11px;">Ningún valor</span>\n'
                             }
 
 

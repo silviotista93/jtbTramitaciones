@@ -18,9 +18,10 @@ class LicenciaController extends Controller
         $clientes = User::role(['Cliente'])->orderBy('id','DESC')->get();
         $tramitadores = User::role(['Tramitador'])->orderBy('id','DESC')->get();
         $roles = Role::where("name", "=", "Cliente")->first();
+        $rolesTramitador = Role::where("name", "=", "Tramitador")->first();
         $codigoFactura = ResumenTramite::select('id')->orderby('created_at','DESC')->first();
         $escuela = Escuela::first();
-        return view('admin.licencia.licencia',compact('tipoDocumento','clientes','codigoFactura','tramitadores','roles','escuela'));
+        return view('admin.licencia.licencia',compact('tipoDocumento','clientes','codigoFactura','tramitadores','roles','rolesTramitador','escuela'));
     }
 
     //ADMINISTRAR LICENCIA........................................

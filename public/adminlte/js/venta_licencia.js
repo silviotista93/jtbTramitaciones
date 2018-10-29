@@ -619,7 +619,21 @@ $(".formularioVentaLicencia").on("change", "#nuevoCodigoTransaccionLicencia", fu
 
     listarMetodos();
 });
+/*=============================================
+LISTAR METODO PAGO
+=============================================*/
 
+function listarMetodos() {
+
+    var listaMetodos = "";
+    if ($('#nuevoMetodoPagoLicencia').val() == 'Efectivo'){
+
+        $('#listaMetodoPagoLicencia').val('Efectivo');
+    }else {
+        $('#listaMetodoPagoLicencia').val($('#nuevoMetodoPagoLicencia').val()+'-'+$('#nuevoCodigoTransaccionLicencia').val());
+    }
+
+}
 /*=============================================
     APARECER CAMPOS ABONOS
     =============================================*/
@@ -703,21 +717,7 @@ $(".inputAbono").keyup(function () {
 
 });
 
-/*=============================================
-LISTAR METODO PAGO
-=============================================*/
 
-function listarMetodos() {
-
-    var listaMetodos = "";
-    if ($('#nuevoMetodoPagoLicencia').val() == 'Efectivo'){
-
-        $('#listaMetodoPagoLicencia').val('Efectivo');
-    }else {
-        $('#listaMetodoPagoLicencia').val($('#nuevoMetodoPagoLicencia').val()+'-'+$('#nuevoCodigoTransaccionLicencia').val());
-    }
-
-}
 
 
 $("#btn-descuento").click(function (e) {

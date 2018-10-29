@@ -69,3 +69,8 @@ Route::get('/usuarioEmailBuscar/{email}',function ($email){
 
     return \App\User::where('email','=',$email)->with('roles')->first();
 });
+//BUSCAR TRAMITADOR POR EMAIL
+Route::get('/tramitadorEmailBuscar/{email}',function ($email){
+
+    return \App\User::where('email','=',$email)->with('roles')->first();
+});
