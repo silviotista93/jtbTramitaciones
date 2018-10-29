@@ -368,7 +368,7 @@
                 },
                 {
                     render:function (data,type, JsonResultRow,meta) {
-                        return '<a href="/admin/tramitador-ventas/'+JsonResultRow.id+'" class="btn btn-sm btn-warning "><i class="fa fa-eye"></i></a>'
+                        return '<a href="/admin/ventas_by_cliente/'+JsonResultRow.id+'" class="btn btn-sm btn-warning "><i class="fa fa-eye"></i></a>'
 
                     }
                 },

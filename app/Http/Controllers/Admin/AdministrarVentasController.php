@@ -39,6 +39,13 @@ class AdministrarVentasController extends Controller
         return view('admin.tramitadores.info-ventas-tramitador',compact('infoTramitador'));
     }
 
+      // tramites por cliente 
+
+    public function tramitesCliente($idUsuario){
+        $infoCliente = ResumenTramite::where('idUsuario' ,$idUsuario)->with('licenciaTramite','idcliente','idVendedor','tipoTramite','idTramitador')->first();
+        return view('admin.clientes.info-ventas-cliente',compact('infoCliente'));
+    }    
+
     //TRAMITES PENDIENTES
 
     public function indexTramitesPendientes(){

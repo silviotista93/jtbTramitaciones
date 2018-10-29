@@ -158,7 +158,7 @@
                             ENTRADA PARA AGREGAR PRODUCTO
                             ======================================-->
 
-                            <div class="form-group row nuevoSeguro">
+                            <div class="form-group row nuevoSeguro" id="contenedorSeguro">
 
 
                             </div>

@@ -67,6 +67,13 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
             })
             ->make(true);
     });
+    // ventas por cliente 
+     Route::get('/api/admin-tramites/{idCliente}',function ($idUsuario){
+        return datatables()->of(\App\ResumenTramite::where('idUsuario',$idUsuario)->with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono')->get())->toJson();
+    })->name('tablaTramitesCliente');  
+
+    Route::get('/ventas_by_cliente/{idCliente}','AdministrarVentasController@tramitesCliente')->name('ventas_by_cliente');
+    
     Route::post('/agregar-cliente','UserController@AgregarCliente')->name('clienteAgregado');
     Route::put('/actualizar-cliente/{user}','UserController@actualizarCliente')->name('clienteActualizado');
     Route::put('/update-roles/{user}','UserController@updateRolCliente')->name('clienteRoles');
