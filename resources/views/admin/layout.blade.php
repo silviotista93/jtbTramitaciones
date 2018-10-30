@@ -466,6 +466,9 @@ desired effect
 @section('dataTablesAgenda')
 
 @show
+@section('dataTablesGastos')
+
+@show
 
 @section('validacionAgregarClientes')
 

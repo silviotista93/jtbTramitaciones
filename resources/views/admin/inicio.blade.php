@@ -70,7 +70,7 @@
                 <div class="icon">
                     <i class="ion ion-pie-graph"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="{{route('gastos')}}" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div><!-- ./col -->
     </div>
@@ -137,7 +137,6 @@
                         <tr class="text-center">
                             <th>Nombre</th>
                             <th>Telefono</th>
-                            <th>Descripción</th>
                             <th>Más Info</th>
                         </tr>
                         </thead>
@@ -336,13 +335,15 @@
             "columns":[
                 {data: 'nombre',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
                 {data: 'telefono',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
-                {data: 'descripcion',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
                 {
                     render:function (data,type, JsonResultRow,meta) {
-                        return '<button class="btn btn-block btn-default btnInfoContacto" idContacto="'+JsonResultRow.id+'" data-toggle="modal" data-target="#modalInfoAgendaContacto"><i class="fa fa-eye"></i></button>'
+                        return '<button class="btn btn-sm btn-default btnInfoContacto" idContacto="'+JsonResultRow.id+'" data-toggle="modal" data-target="#modalInfoAgendaContacto" style="margin-right: 5px"><i class="fa fa-eye"></i></button>' +
+                            '<button class="btn btn-sm btn-info btnInfoContacto" idContacto="'+JsonResultRow.id+'" data-toggle="modal" data-target="#modalInfoAgendaContacto"><i class="fa fa-pencil"></i></button>'
 
                     }
-                    ,defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'}
+                    ,defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'
+                },
+
 
             ],
             "language":{
