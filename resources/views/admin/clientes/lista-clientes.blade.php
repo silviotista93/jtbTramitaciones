@@ -398,7 +398,9 @@
                 }
             }
         });
-
+        @if (count($errors) > 0)
+        $('#modalAgregarCliente').modal('show');
+        @endif
     </script>
 
 @endsection

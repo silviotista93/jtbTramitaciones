@@ -34,9 +34,7 @@
                     <th>Email</th>
                     <th>Teléfono</th>
                     <th>Teléfono 2</th>
-                    @if(auth()->user()->hasRole('Administrador'))
                     <th>Acciones</th>
-                    @endif
                     <th>Tramitaciones</th>
 
                 </tr>
@@ -311,21 +309,23 @@
                 {data: 'email',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
                 {data: 'telefono',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
                 {data: 'telefono_2',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
-                    @if(auth()->user()->hasRole('Administrador'))
+
                 {
                     render:function (data,type, JsonResultRow,meta) {
                         return '<div class="text-center">' +
                             '<button class="btn btn-sm btn-info btnEditarTramitador" idTramitador="'+JsonResultRow.id+'" data-target="#modalEditarTramitador" data-toggle="modal"><i class="fa fa-pencil"></i></button>' +
+                                @if(auth()->user()->hasRole('Administrador'))
                             ' <form method="post" class="formDeleteTramita inline" action="">' +
                             '@csrf
                                 <input type="hidden" name="_method" value="DELETE">' +
                             '<a idTramitador="'+JsonResultRow.id+'" class="btn btn-sm btn-danger btnEliminarTramitador"><i class="fa fa-times"></i></a>' +
                             '</form>' +
+                                @endif
                             '</div>'
 
                     }
                 },
-                @endif
+
                 {
                     render:function (data,type, JsonResultRow,meta) {
                         return '<a href="/admin/tramitador-ventas/'+JsonResultRow.id+'" class="btn btn-block btn-warning "><i class="fa fa-eye"></i></a>'

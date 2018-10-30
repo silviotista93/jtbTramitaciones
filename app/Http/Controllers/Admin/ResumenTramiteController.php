@@ -126,7 +126,8 @@ class ResumenTramiteController extends Controller
             'total' => $request->get('total'),
             'estado' => $request->get('estado'),
             'descuento' => $request->get('descuento'),
-            'idTramitador' => $request->get('seleccionarTramitador')
+            'idTramitador' => $request->get('seleccionarTramitador'),
+            'descuento_medico' => $request->get('descuento_medico')
 
 
         ]);
@@ -152,7 +153,7 @@ class ResumenTramiteController extends Controller
 
 
 
-        return  back()->withFlash('Venta Realizada Correctamente');
+        return  back()->withFlash('Tramite Realizado Correctamente');
     }
 
     //ACTUALIZAR EL ESTADO DEL TRAMITE DE LAS LICENCIAS

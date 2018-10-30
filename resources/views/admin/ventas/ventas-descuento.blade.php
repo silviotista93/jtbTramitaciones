@@ -3,7 +3,7 @@
 @section('header')
     <h1>
 
-        <strong>Administrar Tramites</strong>
+        <strong>Administrar Tramites con Descuento</strong>
         <small>Tramites con descuento</small>
     </h1>
     <ol class="breadcrumb">
@@ -67,7 +67,7 @@
                 table = $('.table_admiVentas').DataTable({
                 "processing": true,
                 "serverSide": true,
-                "stateSave": true,
+                    "order": [[ 0, "desc" ]],
                 "data": null,
                 "ajax": {
                     url: "/admin/api/ventas-descuento",

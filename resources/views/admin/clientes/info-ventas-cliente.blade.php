@@ -59,7 +59,7 @@
         var table = $('.table_admiVentas').DataTable({
             "processing": true,
             "serverSide": true,
-            "stateSave": true,
+            "order": [[ 0, "desc" ]],
             "data": null,
             "ajax": "{{route('tablaTramitesCliente',$infoCliente->idcliente->id)}}",
             "columns":[

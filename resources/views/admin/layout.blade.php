@@ -440,7 +440,9 @@ desired effect
     @if (count($errors) > 0)
     $('#modalAgregarContacto').modal('show');
     @endif
-
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 
 </script>
 
