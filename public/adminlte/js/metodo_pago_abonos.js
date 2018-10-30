@@ -1,34 +1,68 @@
-$(function () {
-    $('#nuevoMetodoPagoAbono').on('change', function () {
-        if (this.value == 'TC')
-        {
+/*==========================================================================================
+METODO DE PAGO PARA ABONOS DE LICENCIA
+==========================================================================================*/
+$('#nuevoMetodoPagoAbono').on('change', function () {
+    if (this.value == 'TC') {
         $('.inputMetodoPagoAbono').show('blind');
+    } else if (this.value == 'TD') {
+        $('.inputMetodoPagoAbono').show('blind');
+    } else {
+        $('.inputMetodoPagoAbono').hide('blind');
+        listarMetodosAbono();
+    }
+});
 
-        } else if (this.value == 'TD') {
-            $('.inputMetodoPagoAbono').show('blind');
-        }else{
-            $('.inputMetodoPagoAbono').hide('blind');
-        }
-    });
+/*=============================================
+CAMBIO EN TRANSACCION
+=============================================*/
+$(".form-pagar-abono").on("change", ".inputMetodoPagoAbono", function () {
 
-    /*=============================================
-    CAMBIO EN TRANSACCION
-    =============================================*/
-    $(".form-pagar-abono").on("change", "#nuevoCodigoTransaccionLicencia", function() {
+    listarMetodosAbono();
+});
 
-        listarMetodos();
-    });
+function listarMetodosAbono() {
 
-    function listarMetodos() {
+    var listaMetodos = "";
+    if ($('#nuevoMetodoPagoAbono').val() == 'Efectivo') {
 
-        var listaMetodos = "";
-        if ($('#nuevoMetodoPagoAbono').val() == 'Efectivo'){
-
-            $('#listaMetodoPagoLicenciaAbono').val('Efectivo');
-        }else {
-            $('#listaMetodoPagoLicenciaAbono').val($('#nuevoMetodoPagoAbono').val()+'-'+$('#inputMetodoPagoAbono').val());
-        }
-
+        $('#listaMetodoPagoLicenciaAbono').val('Efectivo');
+    } else {
+        $('#listaMetodoPagoLicenciaAbono').val($('#nuevoMetodoPagoAbono').val() + '-' + $('.inputMetodoPagoAbono').val());
     }
 
+}
+/*==========================================================================================
+METODO DE PAGO PARA ABONOS DE SEGURO
+==========================================================================================*/
+$('#nuevoMetodoPagoAbonoSeguro').on('change', function () {
+    if (this.value == 'TC') {
+        $('.inputMetodoPagoAbonoSeguro').show('blind');
+    } else if (this.value == 'TD') {
+        $('.inputMetodoPagoAbonoSeguro').show('blind');
+    } else {
+        $('.inputMetodoPagoAbonoSeguro').hide('blind');
+        listarMetodosAbonoSeguro();
+    }
 });
+
+/*=============================================
+CAMBIO EN TRANSACCION
+=============================================*/
+$(".form-pagar-abono-seguro").on("change", ".inputMetodoPagoAbonoSeguro", function () {
+
+    listarMetodosAbonoSeguro();
+});
+
+function listarMetodosAbonoSeguro() {
+
+    var listaMetodos = "";
+    if ($('#nuevoMetodoPagoAbonoSeguro').val() == 'Efectivo') {
+
+        $('#listaMetodoPagoSeguroAbono').val('Efectivo');
+    } else {
+        $('#listaMetodoPagoSeguroAbono').val($('#nuevoMetodoPagoAbonoSeguro').val() + '-' + $('.inputMetodoPagoAbonoSeguro').val());
+    }
+
+}
+
+

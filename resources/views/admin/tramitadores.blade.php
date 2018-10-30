@@ -306,10 +306,10 @@
             "data": null,
             "ajax": "/admin/api/tramitadores",
             "columns":[
-                {data: 'name'},
-                {data: 'apellidos'},
-                {data: 'email'},
-                {data: 'telefono'},
+                {data: 'name',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
+                {data: 'apellidos',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
+                {data: 'email',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
+                {data: 'telefono',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
                 {data: 'telefono_2',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
                     @if(auth()->user()->hasRole('Administrador'))
                 {

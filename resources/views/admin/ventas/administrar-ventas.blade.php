@@ -69,8 +69,8 @@
                 table = $('.table_admiVentas').DataTable({
                 "processing": true,
                 "serverSide": true,
-                "stateSave": true,
                 "data": null,
+                    "order": [[ 0, "desc" ]],
                 "ajax": {
                     url: "/admin/api/admin-ventas",
                     data: {

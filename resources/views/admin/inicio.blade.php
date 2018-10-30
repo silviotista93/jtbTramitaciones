@@ -334,15 +334,15 @@
             "ajax": "/admin/api/agenda",
             "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "Todos"]],
             "columns":[
-                {data: 'nombre'},
-                {data: 'telefono'},
-                {data: 'descripcion'},
+                {data: 'nombre',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
+                {data: 'telefono',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
+                {data: 'descripcion',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
                 {
                     render:function (data,type, JsonResultRow,meta) {
                         return '<button class="btn btn-block btn-default btnInfoContacto" idContacto="'+JsonResultRow.id+'" data-toggle="modal" data-target="#modalInfoAgendaContacto"><i class="fa fa-eye"></i></button>'
 
                     }
-                }
+                    ,defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'}
 
             ],
             "language":{

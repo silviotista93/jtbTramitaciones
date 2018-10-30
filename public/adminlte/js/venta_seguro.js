@@ -348,7 +348,7 @@ var fila = "";
     }else if ($('#totalVentaDB').val() === ''){
         toastr.error('Total Venta Requerido');
     }else if($("#contenedorSeguro div").length==0){
-      toastr.error('Debe seleccionar al menos un producto ');
+      toastr.error('Debe seleccionar al menos un seguro ');
       
     }else {
 

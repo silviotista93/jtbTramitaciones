@@ -192,7 +192,7 @@
         </div>
         <!-- /.content -->
         <div class="clearfix"></div>
-        <form class="form-pagar-abono"  method="post" action="{{route('agregarAbono')}}">
+        <form class="form-pagar-abono-seguro"  method="post" action="{{route('agregarAbono')}}">
             @csrf
             <div id="historial_abonos" style="display: none;">
                 <div class="box-header">
@@ -238,13 +238,17 @@
                                                                        placeholder="$" ></td>
                                         <input type="hidden" name="abono" class="valorPagar" value="" id="valor_a_pagar_financiacion">
                                         <td class="text-center">
-                                            <select class="form-control" id="nuevoMetodoPagoAbono" name="metodo_pago"
+                                            <select class="form-control" id="nuevoMetodoPagoAbonoSeguro" name=""
                                                     required>
                                                 <option value="">Seleccione método de pago</option>
                                                 <option value="efectivo">Efectivo</option>
                                                 <option value="TC">Tarjeta Crédito</option>
                                                 <option value="TD">Tarjeta Débito</option>
                                             </select>
+                                            <input type="number" id=""
+                                                   class="form-control inputMetodoPagoAbonoSeguro"
+                                                   placeholder="Código de transacción" style="margin-top: 9px; display: none">
+                                            <input type="hidden" id="listaMetodoPagoSeguroAbono" name="listaMetodoPagoAbono">
                                         </td>
                                         <td class="text-center"><textarea name="nota" id="" cols="30"
                                                                           rows="2"></textarea></td>
@@ -253,7 +257,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <button class="btn btn-block btn-success btn-pagar-abono">Pagar</button>
+                                <button class="btn btn-block btn-success btn-pagar-abono-seguro">Pagar</button>
                             </div>
                         </div>
                     </div>

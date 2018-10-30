@@ -58,11 +58,46 @@ $(".valor_a_pagar_financiacion").keyup(function () {
     // nuevoCambioEfectivo.val(cambio);
 });
 
-$('.btn-pagar-abono').click(function (e) {
+$('.btn-pagar-abono-seguro').click(function (e) {
     //VALIDACIONES
     e.preventDefault();
    if ($('#valor_a_pagar_financiacion').val()  === '' || $('#valor_a_pagar_financiacion').val() === '0') {
-        toastr.error('Valora a Pagar Requerido');
+        toastr.error('Valor a Pagar Requerido');
+
+    } else if ($('#nuevoMetodoPagoAbonoSeguro').val() === '') {
+        toastr.error('Metodo de Pago Requerido');
+
+    } else {
+
+        $.confirm({
+            animationBounce: 1.5,
+            closeAnimation: 'scale',
+            title: '¿Realizar Abono?',
+            content: '',
+            typeAnimated: true,
+            buttons: {
+                tryAgain: {
+                    text: 'Esta bien!',
+                    btnClass: 'btn-green',
+                    action: function () {
+
+                        $(".form-pagar-abono-seguro").submit();
+
+                    }
+                },
+
+                cerrar: function () {
+                }
+            }
+        });
+    }
+});
+
+$('.btn-pagar-abono').click(function (e) {
+    //VALIDACIONES
+    e.preventDefault();
+    if ($('#valor_a_pagar_financiacion').val()  === '' || $('#valor_a_pagar_financiacion').val() === '0') {
+        toastr.error('Valor a Pagar Requerido');
 
     } else if ($('#nuevoMetodoPagoAbono').val() === '') {
         toastr.error('Metodo de Pago Requerido');

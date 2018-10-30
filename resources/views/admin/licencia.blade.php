@@ -647,8 +647,8 @@
             "data": null,
             "ajax": "/admin/api/seguros",
             "columns":[
-                {data: 'tipo_vehiculo.nombre'},
-                {data: 'cilindraje'},
+                {data: 'tipo_vehiculo.nombre',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
+                {data: 'cilindraje',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
                 {
                     render: function (data, type, JsonResultRow, meta) {
                         if (JsonResultRow.modelo.length > 0) {
@@ -656,9 +656,9 @@
                         } else {
                             return '';
                         }
-                    }
+                    ,defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'}
                 },
-                {data: 'precio'},
+                {data: 'precio',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
                 {
                     render: function (data, type, JsonResultRow, meta) {
                         return '<button id="btnAgregarVentaSeguro'+JsonResultRow.id+'" class="btn btn-dark '+obtenerClase(JsonResultRow.id)+' recuperarBoton agregarVentaSeguro" idSeguro>Agregar</button>\n'

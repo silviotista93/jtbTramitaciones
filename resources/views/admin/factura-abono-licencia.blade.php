@@ -34,7 +34,6 @@
 </head>
 <body>
 <header>
-
     <p class="nombreEmpresa letra-tamaño letra-tipo">Tramitaciones John Bolaños</p>
     <p class="letra-tipo" style="margin-top: -7px; text-align: center;">NIT:76326410-3</p>
     <p class="letra-tipo" style="margin-top: -7px; text-align: center;">cra. 20 # 5-52 tel 8396673</p>

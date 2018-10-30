@@ -18,7 +18,7 @@ Route::get('tramites', function (){
     return \App\ResumenTramite::with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono')->orderby('created_at','DESC')->take(5)->get();
 });
 Route::get('/ventas/{id}',function ($id){
-    return \App\ResumenTramite::where('id' ,$id)->with('segurosTramite','idcliente','tipoTramite')->first();
+    return \App\ResumenTramite::where('idTramitador' ,$id)->with('segurosTramite','idcliente','tipoTramite')->get();
 });
 
 Route::get('/ruta-consultas/{id}',function ($idTramitador){
@@ -68,7 +68,7 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
             ->make(true);
     });
     // ventas por cliente 
-     Route::get('/api/admin-tramites/{idCliente}',function ($idUsuario){
+     Route::get('/api/admin-tramites-cliente/{idCliente}',function ($idUsuario){
         return datatables()->of(\App\ResumenTramite::where('idUsuario',$idUsuario)->with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono')->get())->toJson();
     })->name('tablaTramitesCliente');  
 

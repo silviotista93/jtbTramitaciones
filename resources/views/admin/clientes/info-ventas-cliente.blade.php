@@ -63,8 +63,8 @@
             "data": null,
             "ajax": "{{route('tablaTramitesCliente',$infoCliente->idcliente->id)}}",
             "columns":[
-                {data: 'id'},
-                {data: 'idcliente.identificacion'},
+                {data: 'id',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
+                {data: 'idcliente.identificacion',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
                 {"width": "20%",
                     render:function (data,type, JsonResultRow,meta) {
                         return '<p>'+JsonResultRow.idcliente.name+' '+JsonResultRow.idcliente.apellidos+'</p>'
@@ -75,7 +75,7 @@
                         return '<p>'+JsonResultRow.id_vendedor.name+' '+JsonResultRow.id_vendedor.apellidos+'</p>'
                     }
                 },
-                {data: 'tipo_tramite.nombre'},
+                {data: 'tipo_tramite.nombre',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
 
                 {
                     render:function (data,type, JsonResultRow,meta) {
@@ -105,7 +105,7 @@
                     }
                 },
 
-                { "width": "15%", data: 'created_at'},
+                { "width": "15%", data: 'created_at',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
                 {render: function (data, type, JsonResultRow, meta) {
                         if (JsonResultRow.id_tipoTramite == 1){
                             return '<a href="/admin/factura/'+JsonResultRow.id+'" target="_blank" class="btn btn-xs btn-success btnEditarUsuario" ><i class="fa fa-print"></i></a>\n' +

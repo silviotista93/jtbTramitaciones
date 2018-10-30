@@ -425,7 +425,7 @@
                                                             <option value="TC">Tarjeta Crédito</option>
                                                             <option value="TD">Tarjeta Débito</option>
                                                         </select>
-                                                        <input type="number" id="valor_a_pagar_financiacion"
+                                                        <input type="number" id=""
                                                                class="form-control inputMetodoPagoAbono"
                                                                placeholder="Código de transacción" style="margin-top: 9px; display: none">
                                                         <input type="hidden" id="listaMetodoPagoLicenciaAbono" name="listaMetodoPagoAbono">

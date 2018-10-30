@@ -23,31 +23,27 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-            $this->validate($request,[
-                'name' => 'required|string|max:255',
-                'apellidos' => 'required',
-                'email' => 'required|string|email|max:255|unique:users',
-                'telefono' => 'required',
-                'foto' => 'required',
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'apellidos' => 'required',
+            'email' => 'required|string|email|max:255|unique:users',
+            'telefono' => 'required',
+            'foto' => 'required',
 
-            ]);
-
+        ]);
+        $password = str_random(8);
+        $pass = bcrypt($password);
         $data = User::create([
             'name' => strtoupper($request->get('name')),
             'apellidos' => strtoupper($request->get('apellidos')),
             'email' => $request->get('email'),
             'telefono' => $request->get('telefono'),
             'foto' => $request->get('foto'),
-            'password' => bcrypt($request->get('password'))
-
+            'password' => $pass,
         ]);
 
-
-        //Contraseña Aletoria
-        $password = str_random(8);
         $user = $data;
         $user->assignRole($request->rol);
-
         UserWasCreated::dispatch($user, $password);
 
         $latestUser = User::select('name', 'apellidos')->orderby('created_at', 'DESC')->take(1)->first();
@@ -95,7 +91,7 @@ class UserController extends Controller
     public function actualizarUsuarios(Request $request, User $user)
     {
 
-        $this->validate($request,[
+        $this->validate($request, [
             'name' => 'required',
             'apellidos' => 'required',
             'email' => 'string|email|max:255',
@@ -104,11 +100,11 @@ class UserController extends Controller
         ]);
 
         $user->update([
-            'name'=>strtoupper($request->get('name')),
-            'apellidos'=>strtoupper($request->get('apellidos')),
-            'email'=>$request->get('email'),
-            'telefono'=>$request->get('telefono'),
-            'telefono_2'=>$request->get('telefono_2')
+            'name' => strtoupper($request->get('name')),
+            'apellidos' => strtoupper($request->get('apellidos')),
+            'email' => $request->get('email'),
+            'telefono' => $request->get('telefono'),
+            'telefono_2' => $request->get('telefono_2'),
         ]);
 
         return back()->withFlash('Usuario Actualizado');
@@ -129,9 +125,9 @@ class UserController extends Controller
             $user->update($data);
 
             $user->assignRole($request->get('rol'));
-            if ($request->get('rol') == 'Administrador'){
+            if ($request->get('rol') == 'Administrador') {
                 $user->removeRole('Secretari@');
-            }else{
+            } else {
                 $user->removeRole('Administrador');
             }
 
@@ -141,9 +137,9 @@ class UserController extends Controller
 
         } else {
             $user->assignRole($request->get('rol'));
-            if ($request->get('rol') == 'Administrador'){
+            if ($request->get('rol') == 'Administrador') {
                 $user->removeRole('Secretari@');
-            }else{
+            } else {
                 $user->removeRole('Administrador');
             }
             return back()->with('flash', 'Roles actualizados, ya puede iniciar en el sistema. Si no recuerda su contraseña, vaya a Login, y luego a "Olvidé mi contraseña"');
@@ -269,12 +265,12 @@ class UserController extends Controller
     {
         $rolesTramitador = Role::where("name", "=", "Tramitador")->first();
         $usuarios = User::role(['Tramitador'])->get();
-        return view('admin.tramitadores', compact('usuarios','rolesTramitador'));
+        return view('admin.tramitadores', compact('usuarios', 'rolesTramitador'));
     }
 
     public function agregarTramitador(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'name' => 'required|string|max:255',
             'apellidos' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
@@ -283,11 +279,11 @@ class UserController extends Controller
         ]);
 
         $data = User::create([
-            'name'=>strtoupper($request->get('name')),
-            'apellidos'=>strtoupper($request->get('apellidos')),
-            'email'=>$request->get('email'),
-            'telefono'=>$request->get('telefono'),
-            'telefono_2'=>$request->get('telefono_2'),
+            'name' => strtoupper($request->get('name')),
+            'apellidos' => strtoupper($request->get('apellidos')),
+            'email' => $request->get('email'),
+            'telefono' => $request->get('telefono'),
+            'telefono_2' => $request->get('telefono_2'),
         ]);
         $user = $data;
         $user->assignRole($request->rol);
@@ -298,7 +294,7 @@ class UserController extends Controller
     public function editarTramitador(Request $request, User $user)
     {
 
-        $this->validate($request,[
+        $this->validate($request, [
             'name' => 'required|string|max:255',
             'apellidos' => 'required',
             'email' => 'required',
