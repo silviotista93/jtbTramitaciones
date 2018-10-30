@@ -9,6 +9,7 @@
         {{--<li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>--}}
         {{--<li class="active">Ini</li>--}}
     </ol>
+    
 @stop
 
 @section('contenido')
@@ -144,22 +145,7 @@
                                     {!! $errors->first('telefono_2','<span class="help-block">*:message</span>')!!}
                                 </div>
                             </div>
-                            {{--<div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8 text-center">
-
-                                        <div class="text-center dropzone dz-clickable" id="f_foto"
-                                             style="width: 100%; margin: auto;">
-                                            <div class="text-center dz-default dz-message" data-dz-message=""
-                                                 style="margin-top: -13px !important;">
-                                                <span><img width="100%" src="/adminlte/img/fondo_perfil.png"></span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>--}}
+                          
                             <input type="hidden" id="rol_cliente_seguro" value="4" name="rol">
                             <input type="hidden" name="id_vendedor" value="{{auth()->user()->id}}">
                         </div>
@@ -181,7 +167,7 @@
                                 aria-hidden="true"
                                 style="color: #FFFFFF;">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel" style="color: #FFFFFF"><i class=""></i>Informacion Cliente
+                    <h4 class="modal-title" id="myModalLabel" style="color: #FFFFFF"><i class=""></i>Editar Cliente
                     </h4>
                 </div>
                 <form id="form_actualizar_cliente" class="actualizarClienteForm" method="post" action="">
@@ -362,7 +348,7 @@
                 {data: 'created_at'},
                 {
                     render:function (data,type, JsonResultRow,meta) {
-                        return '<button href="" idcliente="'+JsonResultRow.id+'" class="btn btn-sm btn-info btnEditarCliente"><i class="fa fa-pencil"></i></button>'
+                        return '<button href="" idcliente="'+JsonResultRow.id+'" class="btn btn-sm btn-info btnEditarCliente" data-toggle="modal" data-target="#modalEditarCliente"><i class="fa fa-pencil"></i></button>'
 
                     }
                 },
@@ -402,7 +388,7 @@
         $('#modalAgregarCliente').modal('show');
         @endif
     </script>
-
+<script src="/adminlte/js/clientes.js"></script>
 @endsection
 
 @stop
