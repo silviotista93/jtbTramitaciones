@@ -134,8 +134,18 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     //Administrar Licencia
     Route::get('/administrar-licencias','LicenciaController@administrarLicencia')->name('administrarLicencia');
     Route::get('/ventas-descuento','LicenciaController@ventasDescuento')->name('ventasDescuento');
-    Route::get('/api/ventas-descuento/',function (){
-        return datatables()->of(\App\ResumenTramite::where('descuento',1)->with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono')->get())->toJson();
+    Route::get('/api/ventas-descuento/',function (Illuminate\Http\Request $request){
+        $info = \App\ResumenTramite::where('descuento',1);
+        if ($request->get('fechaInicio') && $request->get('fechaFin')) {
+            $fi = \Carbon\Carbon::parse($request->get('fechaInicio'))->toDateString();
+            $ff = \Carbon\Carbon::parse($request->get('fechaFin'))->toDateString();
+            if ($fi !== $ff){
+                $info = $info->whereBetween("created_at",[$fi,$ff])->orWhereDate("created_at","=",$ff);
+            } else {
+                $info = $info->whereDate("created_at","=",$fi);
+            }
+        }
+        return datatables()->of($info->with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono')->get())->toJson();
     })->name('tablaTramitesDescuento');
 
     Route::put('/actualizar-licencia/{licencia}','LicenciaController@actaulizarPrecioLicencia')->name('actualizarLicencia');

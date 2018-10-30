@@ -1,16 +1,20 @@
 var t = null;
 var max=0;
 var min=0;
+var descuentoExamen = false;
 /*=============================================
 BUSCAR SI EXISTE EL CLIENTE
 =============================================*/
 $(document).ready(function () {
-
     setInterval(function () {
         if ($(".inputBuscarCliente").val() !== t) {
             $("#tablaMostrarCliente").hide();
             $("#nombreCliente").hide();
             $("#identificacionCliente").hide();
+        }else if (!isNaN(t)){
+            $("#tablaMostrarCliente").show();
+            $("#nombreCliente").show();
+            $("#identificacionCliente").show();
         }
     }, 250);
 
@@ -23,7 +27,7 @@ $(document).ready(function () {
     });
 
     $('#btnAgregarCliente').click(function (e) {
-        validarCliente()
+        validarCliente();
     });
 
 });
@@ -182,11 +186,10 @@ $(function () {
                 '</div>');
 
             $(".contenedor_input:not(.new)").click(function () {
-
                 var check = $(this).parent().find(".icheckbox_square-blue").toggleClass("checked");
                 if (!check.hasClass("checked")) {
                     precio = respuesta[0].precio
-                    $('.validarEscuela').val('')
+                    $('.validarEscuela').val('');
                 } else {
                     precio = respuesta[0].precio - $('.descuento_escuela').val();
                     $('.validarEscuela').val('1');
@@ -199,11 +202,11 @@ $(function () {
             //SUMAR EL TOTAL DE PRECIOS
             sumarTotalPrecios();
             $(function () {
-                $('input').iCheck({
+                $('.checkLicencia:not(.new)').iCheck({
                     checkboxClass: 'icheckbox_square-blue',
                     radioClass: 'iradio_square-blue',
                     increaseArea: '10%' // optional
-                });
+                }).addClass("new");
 
             });
 
@@ -356,9 +359,12 @@ console.log(tipoLicencia.length);
 var desc_examen_medico;
 $.get('/api/examen-medico/1', function (respuesta) {
     desc_examen_medico = respuesta.valor;
-    if( tipoLicencia.length == 2){
+    if( tipoLicencia.length > 1 && !descuentoExamen){
         sumaTotalPrecio=sumaTotalPrecio-desc_examen_medico;
         toastr.warning('Se aplico descuento, por examen medico de $'+desc_examen_medico);
+        descuentoExamen = true;
+    }else if (tipoLicencia.length < 2){
+        descuentoExamen = false;
     }
 
     $("#nuevoTotalVenta").val(sumaTotalPrecio);
@@ -756,6 +762,7 @@ $("#btn-descuento").click(function (e) {
  
 
 });
+
 $("#btn-descuento-cancelar").click(function (e) {
     e.preventDefault();
     $('#mostrar-btn-descuento').show('blid');

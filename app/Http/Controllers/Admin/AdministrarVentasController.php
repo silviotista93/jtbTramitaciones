@@ -10,9 +10,18 @@ use App\Http\Controllers\Controller;
 
 class AdministrarVentasController extends Controller
 {
-    public function index(){
-        $obtenerDatos = ResumenTramite::with('segurosTramite','idcliente','idVendedor','tipoTramite')->orderby('id','DESC')->get();
-
+    public function index(Request $request){
+        $obtenerDatos = ResumenTramite::with('segurosTramite','idcliente','idVendedor','tipoTramite');
+        if ($request->get('fechaInicio') && $request->get('fechaFin')) {
+            $fi = \Carbon\Carbon::parse($request->get('fechaInicio'))->toDateString();
+            $ff = \Carbon\Carbon::parse($request->get('fechaFin'))->toDateString();
+            if ($fi !== $ff){
+                $obtenerDatos = $obtenerDatos->whereBetween("created_at",[$fi,$ff])->orWhereDate("created_at","=",$ff);
+            } else {
+                $obtenerDatos = $obtenerDatos->whereDate("created_at","=",$fi);
+            }
+        }
+        $obtenerDatos = $obtenerDatos->orderby('id','DESC')->get();
         return view('admin.ventas.administrar-ventas',compact('obtenerDatos'));
     }
 

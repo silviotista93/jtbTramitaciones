@@ -12,4 +12,5 @@ function cancel (){
 
 $(function (){
     startRangoFecha("#dpFecha", success, cancel);
+    cargarTabla();
 });

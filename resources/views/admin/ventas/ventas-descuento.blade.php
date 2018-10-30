@@ -59,8 +59,6 @@
         <script src="/js/rango_fecha.js"></script>
         <script src="/js/administrar_ventas_admin.js"></script>
         <script>
-            fechaInicio = getStorage("fechaInicio");
-            fechaFin = getStorage("fechaFin");
             var table = null;
             function cargarTabla (){
                 if (table !== null){
@@ -164,7 +162,6 @@
                 }
             });
             }
-                cargarTabla();
 
 
     </script>
