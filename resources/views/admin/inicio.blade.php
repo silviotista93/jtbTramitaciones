@@ -170,13 +170,13 @@
                     <div class="modal-body">
                         <div class="box-body">
 
-                            <div class="form-group {{$errors->has('nombresApellidos')? 'has-error':''}}">
+                            <div class="form-group {{$errors->has('nombre')? 'has-error':''}}">
                                 <label for="">Nombres y Apellidos *</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input type="text" name="nombresApellidos" value="{{old('nombresApellidos')}}" class="form-control"
+                                    <input type="text" name="nombre" value="{{old('nombresApellidos')}}" class="form-control"
                                     placeholder="Ingrese nombre completo">
-                                    {!! $errors->first('nombresApellidos','<span class="help-block">*:message</span>')!!}
+                                    {!! $errors->first('nombre','<span class="help-block">*:message</span>')!!}
                                 </div>
                             </div>
                             <div class="form-group {{$errors->has('telefono')? 'has-error':''}}">
@@ -261,13 +261,13 @@
                         <div class="modal-body">
                             <div class="box-body">
 
-                                <div class="form-group {{$errors->has('nombresApellidos')? 'has-error':''}}">
+                                <div class="form-group {{$errors->has('nombre')? 'has-error':''}}">
                                     <label for="">Nombres y Apellidos *</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                        <input id="nombresContacto" type="text" name="nombresApellidos" value="{{old('nombresApellidos')}}" class="form-control"
+                                        <input id="nombresContacto" type="text" name="nombre" value="{{old('nombresApellidos')}}" class="form-control"
                                         placeholder="Ingrese nombre completo" disabled>
-                                        {!! $errors->first('nombresApellidos','<span class="help-block">*:message</span>')!!}
+                                        {!! $errors->first('nombre','<span class="help-block">*:message</span>')!!}
                                     </div>
                                 </div>
                                 <div class="form-group {{$errors->has('telefono')? 'has-error':''}}">

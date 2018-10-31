@@ -12,7 +12,7 @@ class AgendaController extends Controller
 
         $this->validate($request,[
 
-            'nombresApellidos' => 'required',
+            'nombre' => 'required',
             'telefono' => 'required',
             'descripcion' => 'required'
 
@@ -20,7 +20,7 @@ class AgendaController extends Controller
 
         $contacto = new Agenda;
 
-        $contacto->nombre = $request->get('nombresApellidos');
+        $contacto->nombre = $request->get('nombre');
         $contacto->telefono = $request->get('telefono');
         $contacto->telefono_2 = $request->get('telefono_2');
         $contacto->email = $request->get('email');
@@ -38,7 +38,7 @@ class AgendaController extends Controller
 
         $data = $request->validate([
 
-            'nombresApellidos' => 'required',
+            'nombre' => 'required',
             'telefono' => 'required',
             'descripcion' => 'required',
 
@@ -46,7 +46,7 @@ class AgendaController extends Controller
 
         $agenda->update($data);
 
-        return $data;/*back()->withFlash('Contacto Actualizado');*/
+        return back()->with('flash','Contacto agregado');
 
     }
 }
