@@ -207,8 +207,7 @@ class UserController extends Controller
     public function AgregarCliente(Request $request)
     {
 
-
-        $rule = [
+        $this->validate($request,[
             'name' => 'required',
             'apellidos' => 'required',
             'identificacion' => 'required|unique:users',
@@ -217,23 +216,29 @@ class UserController extends Controller
             'telefono' => 'required',
             'telefono_2' => '',
             'id_vendedor' => '',
+        ]);
 
-        ];
 
-        $data = $request->validate($rule);
-
-        $user = User::create($data);
+        $user = User::create([
+            'name' => strtoupper($request->get('name')),
+            'apellidos' => strtoupper($request->get('apellidos')),
+            'identificacion' => $request->get('identificacion'),
+            'id_tipoIdentificacion' => $request->get('id_tipoIdentificacion'),
+            'email' => $request->get('email'),
+            'telefono' => $request->get('telefono'),
+            'telefono_2' => $request->get('telefono_2'),
+            'id_vendedor' => $request->get('id_vendedor')
+        ]);
         $user->assignRole($request->rol);
 
-        return back()->withFlash('Cliente Creado Existosamente');;
+        return back()->withFlash('Cliente Creado Existosamente');
 
     }
 
     //ACTUALIZAR CLIENTES
     public function actualizarCliente(Request $request, User $user)
     {
-
-        $data = $request->validate([
+        $this->validate($request,[
             'name' => 'required',
             'apellidos' => 'required',
             'identificacion' => 'required',
@@ -243,7 +248,16 @@ class UserController extends Controller
             'telefono_2' => '',
         ]);
 
-        $user->update($data);
+
+        $user->update([
+            'name'=>strtoupper($request->get('name')),
+            'apellidos'=> strtoupper($request->get('apellidos')),
+            'identificacion'=> $request->get('identificacion'),
+            'id_tipoIdentificacion'=> $request->get('id_tipoIdentificacion'),
+            'email'=> $request->get('email'),
+            'telefono'=> $request->get('telefono'),
+            'telefono_2'=> $request->get('telefono_2'),
+        ]);
 
         return back()->withFlash('Cliente Actualizado');
 
@@ -290,6 +304,7 @@ class UserController extends Controller
 
     public function agregarTramitador(Request $request)
     {
+        session(['type' => 'tramitador']);
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'apellidos' => 'required',
@@ -307,7 +322,6 @@ class UserController extends Controller
         ]);
         $user = $data;
         $user->assignRole($request->rol);
-
         return back()->withFlash('Tramitador Creado Existosamente');
     }
 

@@ -192,6 +192,7 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
 
     //GASTOS
     Route::get('/gastos','GastosController@index')->name('gastos');
+    Route::post('/gasto-creado','GastosController@store')->name('gasto-creado');
     Route::get('/api/gastos-table',function (){
        return datatables()->of(\App\Gasto::all())->toJson();
     })->name('tabla_gastos');

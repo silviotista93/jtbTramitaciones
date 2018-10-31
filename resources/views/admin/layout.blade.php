@@ -380,6 +380,7 @@ desired effect
 <script src="/adminlte/js/cupon-descuento.js"></script>
 <script src="/adminlte/js/roles-usuarios.js"></script>
 <script src="/adminlte/js/metodo_pago_abonos.js"></script>
+<script src="/adminlte/js/gastos.js"></script>
 <script src="/adminlte/js/jqueryNumber.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
