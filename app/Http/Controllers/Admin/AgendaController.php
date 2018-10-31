@@ -31,4 +31,22 @@ class AgendaController extends Controller
 
         return back()->with('flash','Contacto creado exitosamente');
     }
+
+    // actualizar agenda contacto 
+     public function actualizarAgenda(Request $request, Agenda $agenda)
+    {
+
+        $data = $request->validate([
+
+            'nombresApellidos' => 'required',
+            'telefono' => 'required',
+            'descripcion' => 'required',
+
+        ]);
+
+        $agenda->update($data);
+
+        return $data;/*back()->withFlash('Contacto Actualizado');*/
+
+    }
 }

@@ -78,6 +78,8 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     Route::put('/actualizar-cliente/{user}','UserController@actualizarCliente')->name('clienteActualizado');
     Route::put('/update-roles/{user}','UserController@updateRolCliente')->name('clienteRoles');
 
+   
+
     //Tramitadores
     Route::get('/tramitadores','UserController@indexTramitadores')->name('tramitadores');
     Route::post('/tramitador-creado', 'UserController@agregarTramitador')->name('tramitadorCreado');
@@ -175,6 +177,9 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     Route::get('/api/agenda',function (){
         return datatables()->of(\App\Agenda::all())->toJson();
     });
+
+     //actualizar contacto de agenda
+    Route::put('/actualizar-Agenda/{agenda}','AgendaController@actualizarAgenda')->name('contactoActualizado');
 
     //ADMINISTRAR PRECIOS
     //Otros
