@@ -374,12 +374,13 @@ desired effect
 <script src="/adminlte/js/venta_licencia.js"></script>
 <script src="/adminlte/js/tramitador.js"></script>
 <script src="/adminlte/js/agenda.js"></script>
-<script src="/adminlte/js/clientes.js"></script>
+
 <script src="/adminlte/js/administrar_ventas.js"></script>
 <script src="/adminlte/js/actualizar_procesos.js"></script>
 <script src="/adminlte/js/cupon-descuento.js"></script>
 <script src="/adminlte/js/roles-usuarios.js"></script>
 <script src="/adminlte/js/metodo_pago_abonos.js"></script>
+<script src="/adminlte/js/gastos.js"></script>
 <script src="/adminlte/js/jqueryNumber.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
@@ -440,7 +441,9 @@ desired effect
     @if (count($errors) > 0)
     $('#modalAgregarContacto').modal('show');
     @endif
-
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 
 </script>
 
@@ -462,6 +465,9 @@ desired effect
 
 @show
 @section('dataTablesAgenda')
+
+@show
+@section('dataTablesGastos')
 
 @show
 

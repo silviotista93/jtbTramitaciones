@@ -6,9 +6,11 @@
         <strong> Trámite de Licencia de Conducción</strong>
         <small>Licencia</small>
     </h1>
-    <ol class="breadcrumb">
-        {{--<li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>--}}
-        {{--<li class="active">Ini</li>--}}
+    <ol class="breadcrumb text-center">
+        <span class="label label-info inline"
+              style="font-size: 14px">Descuento Examen Medico ${{$precioMedico->valor}}</span>
+        <span class="label label-danger inline"
+              style="font-size: 14px">Descuento Escuela de Conducción ${{$escuela->valor}}</span>
     </ol>
 @stop
 
@@ -389,6 +391,7 @@
                     <div class="box-footer">
                         <input type="hidden" class="descuento_escuela" value="{{ $escuela->valor }}">
                         <input type="hidden" name="descuento" class="validar_descuento" value="0">
+                        <input type="hidden" name="descuento_medico" class="descuento_medico_licencia" value="0">
                         <button type="submit" class="btn btn-primary pull-right crearVentaLicencia">Crear Venta</button>
 
                     </div>

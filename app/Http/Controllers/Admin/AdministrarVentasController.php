@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Abono;
+use App\Medico;
 use App\ResumenTramite;
 use App\User;
 use Illuminate\Http\Request;
@@ -39,7 +40,8 @@ class AdministrarVentasController extends Controller
         $historialAbonos = Abono::select('*')->where('resumen_tramite_id','=',$id)->get();
         $abono = Abono::select('*')->where('resumen_tramite_id','=',$id)->orderby('created_at','DESC')->first();
         $tipoIdentificacion = User::with('tipoDocumento')->first();
-        return view('admin.ventas.info-venta-licencia',compact('infoVentaDatos','tipoIdentificacion','historialAbonos','abono'));
+        $precioMedico = Medico::first();
+        return view('admin.ventas.info-venta-licencia',compact('infoVentaDatos','tipoIdentificacion','historialAbonos','abono','precioMedico'));
     }
 
     //TRAMITES DE TRAMITADOR ESPECIFICO

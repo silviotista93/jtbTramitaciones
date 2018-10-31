@@ -28,9 +28,6 @@
                             <div class="page-header">
 
                                 <img src="/adminlte/img/logo.png" width="7%" alt=""> Tramitaciones John Bolaños
-                            @if($infoVentaDatos->descuento == 1)
-                                 <span class="label label-success float-right pull-right" style="font-size: 12px">Con descuento especial </span> 
-                            @endif                                
 
                                 <h3 class="pull-right"><strong>Codigo Venta</strong> <span
                                             style="color: red !important;"><strong>TR-{{$infoVentaDatos->id}}
@@ -136,7 +133,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-
+                                @php($totalLicencia = 0)
                                 @foreach($infoVentaDatos->licenciaTramite as $infoVentaDato)
                                     <tr id="info">
                                         <td class="text-center">{{$infoVentaDatos->cantidadLicencia($infoVentaDato->id)[0]->cantidad}}</td>
@@ -149,6 +146,7 @@
                                                      value="{{$infoVentaDatos->cantidadLicencia($infoVentaDato->id)[0]->precio_venta}}"
                                                      style="width: 125px; border: 0; background: border-box;"></td>
                                     </tr>
+                                    @php($totalLicencia += $infoVentaDatos->cantidadLicencia($infoVentaDato->id)[0]->precio_venta ++)
                                 @endforeach
                                 </tbody>
                             </table>
@@ -326,6 +324,7 @@
 
                             <div class="table-responsive">
                                 <table class="table">
+                                    @if($abono->valor_abono > 0)
                                     <tr>
                                         <th style="width:50%">Ultimo Abono:</th>
                                         <td>$<input disabled type="text" class="infoVentaAbono" id=""
@@ -333,6 +332,8 @@
                                                     style="width: 125px; border: 0; background: border-box;"></td>
                                         </td>
                                     </tr>
+                                    @endif
+                                    @if($abono->saldo > 0)
                                     <tr>
                                         <th>Saldo:</th>
                                         <td>$<input disabled type="text" class="infoVentaSaldo" id=""
@@ -340,13 +341,42 @@
                                                     style="width: 125px; border: 0; background: border-box;"></td>
                                         </td>
                                     </tr>
+                                        @endif
                                     <tr>
-                                        <th>Total:</th>
+                                        <th>Costo:</th>
+                                        <td>$<input disabled type="text" class="infoVentaSaldo" id=""
+                                                    value="{{$totalLicencia}}"
+                                                    style="width: 125px; border: 0; background: border-box;"></td>
+                                        </td>
+                                    </tr>
+                                    @if($infoVentaDatos->descuento_medico == 1)
+                                    <tr>
+                                        <th><span class="label label-info" style="font-size: 12px">Descuento Medico:</span></th>
+                                        <td>$<input disabled type="text" class="infoVentaSaldo" id=""
+                                                    value="{{$precioMedico->valor}}"
+                                                    style="width: 125px; border: 0; background: border-box;"></td>
+                                        </td>
+                                    </tr>
+                                    @endif
+                                    @if($infoVentaDatos->descuento == 1)
+                                        <tr>
+                                            <th><span class="label label-success" style="font-size: 12px">Descuento Especial:</span></th>
+                                            <td>$<input disabled type="text" class="infoVentaSaldo" id=""
+                                                        value="revisar"
+                                                        style="width: 125px; border: 0; background: border-box;"></td>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                    <tr>
+                                        <th>Total Tramite:</th>
                                         <td>$ <input disabled type="text" class="infoVentaTotal" id=""
                                                      value="{{$infoVentaDatos->total}}"
                                                      style="width: 125px; border: 0; background: border-box;"></td>
+
                                     </tr>
+
                                 </table>
+
                             </div>
                         </div>
                         <!-- /.col -->

@@ -2,7 +2,7 @@
 
 @section('header')
     <h1>
-        Tramite de Licencia de Conducción
+        <strong>Tramite de Licencia de Conducción</strong>
         <small>Licencia</small>
     </h1>
     <ol class="breadcrumb">

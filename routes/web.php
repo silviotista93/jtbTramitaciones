@@ -185,7 +185,12 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     //Precio escuela de conduccion
     Route::put('precio-escuela-conduccion-actualizado/{escuela}','OtrosController@updateEscuela')->name('escuela-conduccion-actualizado');
 
-
+    //GASTOS
+    Route::get('/gastos','GastosController@index')->name('gastos');
+    Route::post('/gasto-creado','GastosController@store')->name('gasto-creado');
+    Route::get('/api/gastos-table',function (){
+       return datatables()->of(\App\Gasto::all())->toJson();
+    })->name('tabla_gastos');
 });
 
 //RUTAS CON PERMISOS ESPECIFICOS
@@ -203,6 +208,8 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => ['login
     //Precio examen medico
     Route::get('/admi-tramites/otros','OtrosController@index')->name('admin-otros');
     Route::put('precio-examen-medico-actualizado/{medico}','OtrosController@update')->name('examen-medico-actualizado');
+
+
 });
 
 //RUTAS PARA LA DOCUMENACION

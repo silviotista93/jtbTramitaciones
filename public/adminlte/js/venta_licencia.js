@@ -363,8 +363,10 @@ $.get('/api/examen-medico/1', function (respuesta) {
         sumaTotalPrecio=sumaTotalPrecio-desc_examen_medico;
         toastr.warning('Se aplico descuento, por examen medico de $'+desc_examen_medico);
         descuentoExamen = true;
+        $('.descuento_medico_licencia').val(1);
     }else if (tipoLicencia.length < 2){
         descuentoExamen = false;
+        $('.descuento_medico_licencia').val(0);
     }
 
     $("#nuevoTotalVenta").val(sumaTotalPrecio);
