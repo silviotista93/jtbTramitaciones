@@ -63,9 +63,13 @@
             <!-- small box -->
             <div class="small-box bg-red">
                 <div class="inner">
-                    <h3>12</h3>
+                    <h3>{{ $cantidadGastos }}</h3>
+                    @php($fechaActual = \Carbon\Carbon::today())
+                    <div>
+                        <p style="margin-top: -15px">Gastos del dia</p>
+                        <p style="margin-top: -13px">{{ $fechaActual->toFormattedDateString() }}</p>
+                    </div>
 
-                    <p>Gastos del dia</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-pie-graph"></i>
