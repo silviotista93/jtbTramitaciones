@@ -270,6 +270,7 @@ class UserController extends Controller
 
     public function agregarTramitador(Request $request)
     {
+        session(['type' => 'tramitador']);
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'apellidos' => 'required',
@@ -287,7 +288,6 @@ class UserController extends Controller
         ]);
         $user = $data;
         $user->assignRole($request->rol);
-
         return back()->withFlash('Tramitador Creado Existosamente');
     }
 

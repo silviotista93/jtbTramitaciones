@@ -6,16 +6,13 @@ $(document).ready(function(){
 
     setInterval(function () {
         if ($(".inputBuscarCliente").val() !== t) {
-            $("#tablaMostrarCliente").hide();
-            $("#nombreCliente").hide();
-            $("#identificacionCliente").hide();
+            ocultarInfoCliente();
         }
     }, 250);
 
     $(".inputBuscarCliente").keypress(function (e) {
         if (e.charCode === 13){
             e.preventDefault();
-            t = $(this).val();
             $("#btnAgregarCliente").click();
         }
     });
@@ -26,18 +23,24 @@ $(document).ready(function(){
 
 });
 
+function ocultarInfoCliente(){
+    $("#tablaMostrarCliente").hide();
+    $("#nombreCliente").hide();
+    $("#identificacionCliente").hide();
+    t=null;
+}
+
 function validarCliente () {
     var url = '/api/encontrarCliente/'+document.querySelector(".inputBuscarCliente").value;
     if (document.querySelector(".inputBuscarCliente").value.trim().length === 0){
-        $("#tablaMostrarCliente").hide();
-        $("#nombreCliente").hide();
-        $("#identificacionCliente").hide();
+        ocultarInfoCliente();
         $('#modalAgregarCliente').modal('show');
         return;
     }
     $.get(url, null, function (r) {
         console.log(r);
         if (r.length !== 0){
+            t = r[0].identificacion;
             /*=============================================
                 EDITAR EL CLIENTE
             =============================================*/
@@ -105,10 +108,7 @@ function validarCliente () {
             })
 
         }else {
-            $("#tablaMostrarCliente").hide();
-            $("#nombreCliente").hide();
-            $("#identificacionCliente").hide();
-
+            ocultarInfoCliente();
             //AGREGAR CLIENTE
             document.getElementById('txtIdentificacionCliente').value = document.querySelector(".inputBuscarCliente").value;
             $('#modalAgregarCliente').modal('show');

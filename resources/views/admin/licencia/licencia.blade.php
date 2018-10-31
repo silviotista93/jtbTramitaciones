@@ -1033,8 +1033,13 @@
 @section('validacionAgregarClientes')
     <script>
 
-        @if (count($errors) > 0)
+        @if (count($errors) > 0 && session()->get('type') === "tramitador")
+        $('#modalAgregarTramitadorVenta').modal('show');
+        @php(session()->forget('type'))
+        @elseif(count($errors) > 0)
         $('#modalAgregarCliente').modal('show');
+        @else
+        @php(session()->forget('type'))
         @endif
 
     </script>
