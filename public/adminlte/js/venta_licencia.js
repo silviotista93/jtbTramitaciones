@@ -98,6 +98,7 @@ var licencias = {
     },
     refreshView : function (){
         $("#nuevoTotalVenta").val(this.total);
+        $("#totalVentaDB").val(this.total);
     }
 }
 
@@ -279,72 +280,6 @@ $(".formularioVentaLicencia").on("click", ".quitarLicencia", function () {
 
 });
 
-/*=============================================
-CAMBIAR LA CANTIDAD
-=============================================*/
-/*
-$(".formularioVentaLicencia").on("change", ".nuevaCantidadLicencia", function () {
-
-    var precio = $(this).parent().parent().children(".ingresoPrecio").children().children(".nuevoPrecioLicencia");
-
-    var precioFinal = $(this).val() * precio.attr("precioReal");
-
-    precio.val(precioFinal);
-
-    //SUMAR EL TOTAL DE PRECIOS
-    sumarTotalPrecios()
-
-
-});
-*/
-/*=============================================
-SUMAR TODOS LOS PRECIOS
-=============================================*/
-/*
-function sumarTotalPrecios() {
-
-    $('#nuevoTotalVenta').attr('disabled', true);
-
-    console.log(max);
-    var precioCadaLicencia = $(".nuevoPrecioLicencia");
-    var arraySumaPrecio = [];
-
-    for (var i = 0; i < precioCadaLicencia.length; i++) {
-        arraySumaPrecio.push(Number($(precioCadaLicencia[i]).val()));
-
-    }
-
-    function sumarArrayPrecios(total, numero) {
-
-        return total + numero;
-    }
-
-    var sumaTotalPrecio = arraySumaPrecio.reduce(sumarArrayPrecios);
-    var tipoLicencia = $('.nuevaDescripcionLicencia');
-    console.log(tipoLicencia.length);
-    var desc_examen_medico;
-    $.get('/api/examen-medico/1', function (respuesta) {
-        desc_examen_medico = respuesta.valor;
-        if (tipoLicencia.length > 1 && !descuentoExamen) {
-            sumaTotalPrecio = sumaTotalPrecio - desc_examen_medico;
-            descuentoExamen = true;
-            $('.descuento_medico_licencia').val(1);
-        } else if (tipoLicencia.length < 2) {
-            descuentoExamen = false;
-            $('.descuento_medico_licencia').val(0);
-        }
-
-        $("#nuevoTotalVenta").val(sumaTotalPrecio);
-        $("#totalVentaDB").val(sumaTotalPrecio);
-        $("#saldoVentaAbonoLicencia").val(sumaTotalPrecio);
-
-        //PONER FORMATO AL PRECIO DE LOS SEGUROS
-        $("#nuevoTotalVenta").number(true, 2);
-    });
-
-}
-*/
-
 $(".crearVentaLicencia").click(function (e) {
 
     e.preventDefault();
@@ -398,7 +333,7 @@ $(".crearVentaLicencia").click(function (e) {
             "precio": $(precio[i]).val()
         })
     }
-    ;
+
     console.log(listarLicencias);
     var fila = "";
     for (var i = 0; i < listarLicencias.length; i++) {
@@ -410,7 +345,7 @@ $(".crearVentaLicencia").click(function (e) {
             " <td>" + listarLicencias[i].precio + "</td>" +
             " </tr>";
     }
-    ;
+    
 
     $('.formularioVentaLicencia').attr('action', url);
 
@@ -593,8 +528,8 @@ $(".formularioVentaLicencia").on("change", "#nuevoCodigoTransaccionLicencia", fu
 });
 
 /*=============================================
-    APARECER CAMPOS ABONOS
-    =============================================*/
+APARECER CAMPOS ABONOS
+=============================================*/
 
 $(function () {
     $('#btn-mostrarAbono').click(function (e) {
