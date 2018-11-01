@@ -1034,8 +1034,8 @@
 
 @endsection
 @section('validacionAgregarClientes')
+    <script src="/adminlte/js/licencia/users.js"></script>
     <script>
-
         @if (count($errors) > 0 && session()->get('type') === "tramitador")
         $('#modalAgregarTramitadorVenta').modal('show');
         @php(session()->forget('type'))
