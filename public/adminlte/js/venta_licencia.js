@@ -99,6 +99,16 @@ var licencias = {
     refreshView : function (){
         $("#nuevoTotalVenta").val(this.total);
         $("#totalVentaDB").val(this.total);
+    },
+    changeTotal:function (input){
+        let licen = this;
+        input.change(function (){
+            if ($(this).val() < licen.maxDescuento){
+                $(this).val(licen.maxDescuento);
+                toastr.warning('Solo puede tener un precio minimo de $'+licen.maxDescuento);
+            }
+            $("#totalVentaDB").val($(this).val());
+        });
     }
 }
 
@@ -636,13 +646,7 @@ $("#btn-descuento").click(function (e) {
 
 });
 
-$('#nuevoTotalVenta').change(function (){
-    if (parseInt($(this).val())< licencias.maxDescuento){
-        licencias.total = licencias.maxDescuento;
-        licencias.refreshView();
-    }
-});
-
+licencias.changeTotal($('#nuevoTotalVenta'));
 
 $("#btn-descuento-cancelar").click(function (e) {
     e.preventDefault();
