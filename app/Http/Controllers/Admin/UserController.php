@@ -263,25 +263,6 @@ class UserController extends Controller
 
     }
 
-// actualizar agenda contacto 
-     public function actualizarAgenda(Request $request, Agenda $agenda)
-    {
-
-        $data = $request->validate([
-            'name' => 'required',
-            'apellidos' => 'required',
-            'identificacion' => 'required',
-            'id_tipoIdentificacion' => 'required',
-            'email' => 'required',
-            'telefono' => 'required',
-            'telefono_2' => '',
-        ]);
-
-        $agenda->update($data);
-
-        return back()->withFlash('Contacto Actualizado');
-
-    }
 
     //ACTUALIZAR ROLES DEL CLIENTE
     public function updateRolCliente(Request $request, User $user)

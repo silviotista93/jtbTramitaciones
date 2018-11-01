@@ -41,12 +41,15 @@ class AgendaController extends Controller
             'nombre' => 'required',
             'telefono' => 'required',
             'descripcion' => 'required',
+            'telefono_2'=>'',
+            'email'=>' ',
+            'direccion'=>' '
 
         ]);
 
         $agenda->update($data);
 
-        return back()->with('flash','Contacto agregado');
+        return back()->with('flash','Contacto actualizado correctamente');
 
     }
 }
