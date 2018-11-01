@@ -1,225 +1,198 @@
 var t = null;
-var max=0;
-var min=0;
+var max = 0;
+var min = 0;
 var descuentoExamen = false;
-/*=============================================
-BUSCAR SI EXISTE EL CLIENTE
-=============================================*/
-$(document).ready(function () {
-    setInterval(function () {
-        if ($(".inputBuscarCliente").val() !== t) {
-            $("#tablaMostrarCliente").hide();
-            $("#nombreCliente").hide();
-            $("#identificacionCliente").hide();
-        }else if (!isNaN(t)){
-            $("#tablaMostrarCliente").show();
-            $("#nombreCliente").show();
-            $("#identificacionCliente").show();
+var desc_examen_medico;
+
+function iterationCopy(src) {
+    let target = {};
+    for (let prop in src) {
+        if (src.hasOwnProperty(prop)) {
+            target[prop] = src[prop];
         }
-    }, 250);
-
-    $(".inputBuscarCliente").keypress(function (e) {
-        if (e.charCode === 13) {
-            e.preventDefault();
-            t = $(this).val();
-            $("#btnAgregarCliente").click();
-        }
-    });
-
-    $('#btnAgregarCliente').click(function (e) {
-        validarCliente();
-    });
-
-});
-
-function validarCliente() {
-    var url = '/api/encontrarCliente/' + document.querySelector(".inputBuscarCliente").value;
-    if (document.querySelector(".inputBuscarCliente").value.trim().length === 0) {
-        $("#tablaMostrarCliente").hide();
-        $("#nombreCliente").hide();
-        $("#identificacionCliente").hide();
-        $('#modalAgregarCliente').modal('show');
-        return;
     }
-    $.get(url, null, function (r) {
-       
-        if (r.length !== 0) {
-            /*=============================================
-                EDITAR EL CLIENTE
-                =============================================*/
-                $("#tablaMostrarCliente").show();
-                $('#nombreCliente').val(r[0].name + " " + r[0].apellidos);
-                $('#identificacionCliente').val(r[0].identificacion);
-                $('#idCliente').val(r[0].id);
+    return target;
+}
 
-                $("#nombreCliente").show();
-                $("#identificacionCliente").show();
+var licencia = {
+    id: "",
+    precio: "",
+    descuento: "",
+    tipo: "",
+    sinCurso: false,
+    new: function (id, precio, descuento, tipo) {
+        let licencia = iterationCopy(this);
+        licencia.id = id;
+        licencia.precio = precio;
+        licencia.descuento = descuento;
+        licencia.tipo = tipo;
+        return licencia;
+    }
+}
 
-            //EDITAR CLIENTE
-            $("#txtEditarNombreCliente").val(r[0].name);
-            $("#txtEditarApellidosCliente").val(r[0].apellidos);
-            $("#txtEditartipoIdentificacionCliente").val(r[0].tipo_documento.id);
-            $("#txtEditarIdentificacionCliente").val(r[0].identificacion);
-            $("#txtEditarEmailCliente").val(r[0].email);
-            $("#txtEditarTelefonoCliente").val(r[0].telefono);
-            $("#txtEditarTelefono_2Cliente").val(r[0].telefono_2);
-
-
-            $("#btnActualizarCliente").hide();
-            $("#btnCancelarEditarCliente").hide();
-
-            $(document).on('click', '#btnEditarCliente', function (e) {
-                e.preventDefault();
-                console.log(r[0]);
-                $("#txtEditarNombreCliente").prop("disabled", false);
-                $("#txtEditarApellidosCliente").prop("disabled", false);
-                $("#txtEditartipoIdentificacionCliente").prop("disabled", false);
-                $("#txtEditarIdentificacionCliente").prop("disabled", false);
-                $("#txtEditarEmailCliente").prop("disabled", false);
-                $("#txtEditarTelefonoCliente").prop("disabled", false);
-                $("#txtEditarTelefono_2Cliente").prop("disabled", false);
-
-                $("#btnCancelarEditarCliente").show();
-                $("#btnActualizarCliente").show();
-                $("#btnEditarCliente").hide();
-            });
-            $(document).on('click', '#btnCancelarEditarCliente', function (e) {
-                e.preventDefault();
-                $("#txtEditarNombreCliente").prop("disabled", true);
-                $("#txtEditarApellidosCliente").prop("disabled", true);
-                $("#txtEditartipoIdentificacionCliente").prop("disabled", true);
-                $("#txtEditarIdentificacionCliente").prop("disabled", true);
-                $("#txtEditarEmailCliente").prop("disabled", true);
-                $("#txtEditarTelefonoCliente").prop("disabled", true);
-                $("#txtEditarTelefono_2Cliente").prop("disabled", true);
-
-                $("#btnEditarCliente").show();
-                $("#btnActualizarCliente").hide();
-                $("#btnCancelarEditarCliente").hide();
-            });
-
-            //ACTUALIZAR CLIENTE
-            var urlActualizarCliente = '/admin/actualizar-cliente/' + r[0].id;
-
-            console.log(urlActualizarCliente, 'urlActualizarCliente');
-
-            $('#form_actualizar_cliente').attr('action', urlActualizarCliente);
-
-            $('#btnActualizarCliente').click(function () {
-
-                $(".actualizarClienteForm").submit();
-            })
-
-        } else {
-            $("#tablaMostrarCliente").hide();
-            $("#nombreCliente").hide();
-            $("#identificacionCliente").hide();
-
-            //AGREGAR CLIENTE
-            document.getElementById('txtIdentificacionCliente').value = document.querySelector(".inputBuscarCliente").value;
-            $('#modalAgregarCliente').modal('show');
+var licencias = {
+    data: [],
+    descuentoExamen : 0,
+    total : 0,
+    maxDescuento: 0,
+    add: function (licencia) {
+        if (this.data.length >= 2 && this.data[0].tipo === 1) {
+            toastr.warning('Solo se pueden agregar dos licencias');
+            return false;
         }
-
-
-    });
-    return false;
+        this.data.push(licencia);
+        this.checkDescuentoExamen();
+        return true;
+    },
+    remove: function (id){
+        for (var i = 0; i<this.data.length; i++){
+            if (this.data[i].id == id){
+                this.data.splice(i, 1);
+                checkDescuentoExamen();
+                break;
+            }
+        }
+    },
+    checkDescuentoExamen : function (){
+        if (this.data.length >= 2 && this.data[0].tipo === 1 && descuentoExamen === false) {
+            descuentoExamen = true;
+            toastr.warning('Se aplico descuento, por examen medico de $' + desc_examen_medico);
+        } else {
+            descuentoExamen = false;
+        }
+        this.refreshValues();
+    },
+    tramiteSinCurso: function (id, container){
+        for (var i = 0; i<this.data.length; i++){
+            if (this.data[i].id == id){
+                this.data[i].sinCurso = !this.data[i].sinCurso;
+                if (this.data[i].sinCurso){
+                    this.total -= this.data[i].precio;
+                    this.total += this.data[i].descuento;
+                    container.find();
+                } else {
+                    this.total += this.data[i].precio;
+                    this.total -= this.data[i].descuento;
+                }
+                return this.data[i];
+            }
+        }
+    },
+    refreshValues : function (){
+        let total = 0;
+        let maxDescuento = 0;
+        this.data.forEach(function (licencia){
+            if (licencia.sinCurso){
+                total += licencia.descuento;
+            }else{
+                total += licencia.precio;
+            }
+            maxDescuento += licencia.descuento;
+        });
+        this.total = total;
+        this.maxDescuento = maxDescuento;
+    }
 }
 
 
 $(function () {
     $('#tablaLicencias tbody').on('click', '.agregarVentaLicencia', function (e) {
+
         if ($(this).hasClass('btn-default')) {
             return;
         }
+
         var data = table.row($(this).parents('tr')).data();
 
-        var el = e.target;
-        var classL = el.classList;
-        classL.remove("btn-danger");
-        classL.add('btn-default');
-
-
         $.get('/api/licenciaBuscar/' + data.id + '', function (respuesta) {
-
             var id = respuesta[0].id;
             var categoria = respuesta[0].categoria;
             var tipo_lencia = respuesta[0].tipo_licencia;
             var precio = respuesta[0].precio;
             var descuento = respuesta[0].descuento;
 
+            let newLicencia = licencia.new(id, precio, descuento, 1);
+            if (licencias.add(newLicencia)) {
 
-            $(".nuevaLicencia").append(
-                '<div class="row" style="padding:5px 15px">' +
-                '<!-- Descripción del producto -->' +
-                '<div class="col-xs-3" style="padding-right:0px">' +
-                '<div class="input-group">' +
-                '<input type="hidden" name="idLicencia[]" value="' + id + '">' +
-                '<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs quitarLicencia" value="' + id + '"><i class="fa fa-times"></i></button></span>' +
-                '<input type="text" class="form-control nuevaDescripcionLicencia" idLicencia="' + id + '" name="agregarLicencia" value="' + categoria + '" readonly required>' +
-                '</div>' +
-                '</div>' +
-                '<!-- Cantidad del producto -->' +
-                '<div class="col-xs-3">' +
-                '<input type="text" class="form-control tipoLicencia" name="" min="1" value="' + tipo_lencia + '" required readonly>' +
-                '</div>' +
-                '<!-- Precio del producto -->' +
-                '<div class="col-xs-3 ingresoPrecio" style="padding-left:0px">' +
-                '<div class="input-group">' +
-                '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
-                '<input type="text" class="form-control nuevoPrecioLicencia" precioReal="' + precio + '" name="nuevoPrecioLicencia[]" value="' + precio + '" readonly required>' +
-                '<input type="hidden" class="form-control nuevoDescuentoLicencia" precioReal="'+descuento+'" name="nuevoDescuentoLicencia[]" value="'+descuento+'" readonly required>' +
-                '<input type="hidden" name="totalPrecioCantidad[]">' +
-                '</div>' +
-                '</div>' +
-                '<!-- Aplicar Descuento -->' +
-                '<div class="col-xs-3">' +
-                '<div style="position:relative"><div id="checkLic" class="checkbox icheck" style="margin-top: 4px;margin-left: -20px">\n' +
-                '                        <label>' +
-                '                            <input class="checkLicencia" type="checkbox" name="remember">&nbsp <span class="label label-danger" style="font-size: 11px"><i class="fa fa-car"></i> Tramite sin curso</span> ' +
-                '                        </label>' +
-                '                    </div>' +
-                '<div class="contenedor_input" style="position:absolute;top: -1px;cursor:pointer;left: -20px;width: 100%;height: 3rem;padding: .5rem;"></div></div></div>' +
-                '<div class="" style="padding-left: 0px">' +
-                '<input type="hidden" class="form-control nuevaCantidadLicencia" name="nuevaCantidadLicencia[]" min="1" value="1" required>' +
-                '</div>' +
-                '<input type="hidden" name="validar_curso[]" class="validarEscuela">' +
-                '</div>');
+                var el = e.target;
+                var classL = el.classList;
+                classL.remove("btn-danger");
+                classL.add('btn-default');
 
-            $(".contenedor_input:not(.new)").click(function () {
-                var check = $(this).parent().find(".icheckbox_square-blue").toggleClass("checked");
-                if (!check.hasClass("checked")) {
-                    precio = respuesta[0].precio
-                    $('.validarEscuela').val('');
-                } else {
-                    precio = respuesta[0].precio - $('.descuento_escuela').val();
-                    $('.validarEscuela').val('1');
-                }
-                $(this).parent().parent().parent().find('.nuevoPrecioLicencia').val(precio);
-                sumarTotalPrecios();
-            }).addClass("new");
+                $(".nuevaLicencia").append(
+                    '<div class="row" style="padding:5px 15px" data-id='+id+'>' +
+                    '<!-- Descripción del producto -->' +
+                    '<div class="col-xs-3" style="padding-right:0px">' +
+                    '<div class="input-group">' +
+                    '<input type="hidden" name="idLicencia[]" value="' + id + '">' +
+                    '<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs quitarLicencia" value="' + id + '"><i class="fa fa-times"></i></button></span>' +
+                    '<input type="text" class="form-control nuevaDescripcionLicencia" idLicencia="' + id + '" name="agregarLicencia" value="' + categoria + '" readonly required>' +
+                    '</div>' +
+                    '</div>' +
+                    '<!-- Cantidad del producto -->' +
+                    '<div class="col-xs-3">' +
+                    '<input type="text" class="form-control tipoLicencia" name="" min="1" value="' + tipo_lencia + '" required readonly>' +
+                    '</div>' +
+                    '<!-- Precio del producto -->' +
+                    '<div class="col-xs-3 ingresoPrecio" style="padding-left:0px">' +
+                    '<div class="input-group">' +
+                    '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
+                    '<input type="text" class="form-control nuevoPrecioLicencia" precioReal="' + precio + '" name="nuevoPrecioLicencia[]" value="' + precio + '" readonly required>' +
+                    '<input type="hidden" class="form-control nuevoDescuentoLicencia" precioReal="' + descuento + '" name="nuevoDescuentoLicencia[]" value="' + descuento + '" readonly required>' +
+                    '<input type="hidden" name="totalPrecioCantidad[]">' +
+                    '</div>' +
+                    '</div>' +
+                    '<!-- Aplicar Descuento -->' +
+                    '<div class="col-xs-3">' +
+                    '<div style="position:relative"><div id="checkLic" class="checkbox icheck" style="margin-top: 4px;margin-left: -20px">\n' +
+                    '                        <label>' +
+                    '                            <input class="checkLicencia" type="checkbox" name="remember">&nbsp <span class="label label-danger" style="font-size: 11px"><i class="fa fa-car"></i> Tramite sin curso</span> ' +
+                    '                        </label>' +
+                    '                    </div>' +
+                    '<div class="contenedor_input" style="position:absolute;top: -1px;cursor:pointer;left: -20px;width: 100%;height: 3rem;padding: .5rem;"></div></div></div>' +
+                    '<div class="" style="padding-left: 0px">' +
+                    '<input type="hidden" class="form-control nuevaCantidadLicencia" name="nuevaCantidadLicencia[]" min="1" value="1" required>' +
+                    '</div>' +
+                    '<input type="hidden" name="validar_curso[]" class="validarEscuela">' +
+                    '</div>');
 
+                $(".contenedor_input:not(.new)").click(function () {
+                    var check = $(this).parent().find(".icheckbox_square-blue").toggleClass("checked");
+                    let container = $(this).parent().parent().parent();
+                    licencias.tramiteSinCurso(container.attr("data-id"));
+                    if (!check.hasClass("checked")) {
+                        precio = respuesta[0].precio
+                        $('.validarEscuela').val('');
+                    } else {
+                        precio = respuesta[0].precio - $('.descuento_escuela').val();
+                        $('.validarEscuela').val('1');
+                    }
 
-            //SUMAR EL TOTAL DE PRECIOS
-            sumarTotalPrecios();
-            $(function () {
-                $('.checkLicencia:not(.new)').iCheck({
-                    checkboxClass: 'icheckbox_square-blue',
-                    radioClass: 'iradio_square-blue',
-                    increaseArea: '10%' // optional
+                    container.find('.nuevoPrecioLicencia').val(precio);
+                    //sumarTotalPrecios();
                 }).addClass("new");
 
-            });
+                //SUMAR EL TOTAL DE PRECIOS
+                //sumarTotalPrecios();
+                $(function () {
+                    $('.checkLicencia:not(.new)').iCheck({
+                        checkboxClass: 'icheckbox_square-blue',
+                        radioClass: 'iradio_square-blue',
+                        increaseArea: '10%' // optional
+                    }).addClass("new");
+                });
 
-
+            }
         });
 
-});
+
+    });
 
     /**
      * tabla licencias tramitador
      */
 
-     $('#tablaLicenciasTramitador tbody').on('click', '.agregarVentaLicencia', function (e) {
+    $('#tablaLicenciasTramitador tbody').on('click', '.agregarVentaLicencia', function (e) {
         if ($(this).hasClass('btn-default')) {
             return;
         }
@@ -256,7 +229,7 @@ $(function () {
                 '<div class="input-group">' +
                 '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
                 '<input type="text" class="form-control nuevoPrecioLicencia" precioReal="' + precio + '" name="nuevoPrecioLicencia[]" value="' + precio + '" readonly required>' +
-                '<input type="hidden" class="form-control nuevoDescuentoLicencia" precioReal="'+descuento+'" name="nuevoDescuentoLicencia[]" value="'+descuento+'" readonly required>' +
+                '<input type="hidden" class="form-control nuevoDescuentoLicencia" precioReal="' + descuento + '" name="nuevoDescuentoLicencia[]" value="' + descuento + '" readonly required>' +
                 '<input type="hidden" name="totalPrecioCantidad[]">' +
                 '</div>' +
                 '</div>' +
@@ -279,7 +252,8 @@ $(function () {
 
     });
 
- });
+});
+
 /*=============================================
 QUITAR PRODUCTOS DE LA VENTA Y RECUPERAR BOTÓN
 =============================================*/
@@ -297,19 +271,9 @@ $(".formularioVentaLicencia").on("click", ".quitarLicencia", function () {
         if (classL) {
             classL.add("btn-danger");
             classL.remove('btn-default');
+            licencias.remove(idLicencia);
         }
     }
-    if ($(".nuevaLicencia").children().length == 0) {
-
-        $("#nuevoTotalVenta").val(0);
-        $("#totalVentaDB").val(0);
-        $("#saldoVentaAbonoLicencia").val(0);
-
-    } else {
-        //SUMAR EL TOTAL DE PRECIOS
-        sumarTotalPrecios()
-    }
-
 
 });
 
@@ -337,41 +301,40 @@ SUMAR TODOS LOS PRECIOS
 
 function sumarTotalPrecios() {
 
-    $('#nuevoTotalVenta').attr('disabled',true);
-    
+    $('#nuevoTotalVenta').attr('disabled', true);
+
     console.log(max);
- var precioCadaLicencia = $(".nuevoPrecioLicencia");
- var arraySumaPrecio = [];
+    var precioCadaLicencia = $(".nuevoPrecioLicencia");
+    var arraySumaPrecio = [];
 
- for (var i = 0; i < precioCadaLicencia.length; i++) {
-    arraySumaPrecio.push(Number($(precioCadaLicencia[i]).val()));
+    for (var i = 0; i < precioCadaLicencia.length; i++) {
+        arraySumaPrecio.push(Number($(precioCadaLicencia[i]).val()));
 
-}
-
-function sumarArrayPrecios(total, numero) {
-
-    return total + numero;
-}
-
-var sumaTotalPrecio = arraySumaPrecio.reduce(sumarArrayPrecios);
-var tipoLicencia = $('.nuevaDescripcionLicencia');
-console.log(tipoLicencia.length);
-var desc_examen_medico;
-$.get('/api/examen-medico/1', function (respuesta) {
-    desc_examen_medico = respuesta.valor;
-    if( tipoLicencia.length > 1 && !descuentoExamen){
-        sumaTotalPrecio=sumaTotalPrecio-desc_examen_medico;
-        toastr.warning('Se aplico descuento, por examen medico de $'+desc_examen_medico);
-        descuentoExamen = true;
-        $('.descuento_medico_licencia').val(1);
-    }else if (tipoLicencia.length < 2){
-        descuentoExamen = false;
-        $('.descuento_medico_licencia').val(0);
     }
 
-    $("#nuevoTotalVenta").val(sumaTotalPrecio);
-    $("#totalVentaDB").val(sumaTotalPrecio);
-    $("#saldoVentaAbonoLicencia").val(sumaTotalPrecio);
+    function sumarArrayPrecios(total, numero) {
+
+        return total + numero;
+    }
+
+    var sumaTotalPrecio = arraySumaPrecio.reduce(sumarArrayPrecios);
+    var tipoLicencia = $('.nuevaDescripcionLicencia');
+    console.log(tipoLicencia.length);
+    var desc_examen_medico;
+    $.get('/api/examen-medico/1', function (respuesta) {
+        desc_examen_medico = respuesta.valor;
+        if (tipoLicencia.length > 1 && !descuentoExamen) {
+            sumaTotalPrecio = sumaTotalPrecio - desc_examen_medico;
+            descuentoExamen = true;
+            $('.descuento_medico_licencia').val(1);
+        } else if (tipoLicencia.length < 2) {
+            descuentoExamen = false;
+            $('.descuento_medico_licencia').val(0);
+        }
+
+        $("#nuevoTotalVenta").val(sumaTotalPrecio);
+        $("#totalVentaDB").val(sumaTotalPrecio);
+        $("#saldoVentaAbonoLicencia").val(sumaTotalPrecio);
 
         //PONER FORMATO AL PRECIO DE LOS SEGUROS
         $("#nuevoTotalVenta").number(true, 2);
@@ -421,30 +384,33 @@ $(".crearVentaLicencia").click(function (e) {
 
     var descripcion = $('.nuevaDescripcionLicencia');
     var cantidad = $('.nuevaCantidadLicencia');
-    var precio =   $('.nuevoPrecioLicencia');
+    var precio = $('.nuevoPrecioLicencia');
     var tipoLicencia = $('.tipoLicencia');
 
 
-    for (var i = 0; i < descripcion.length; i++){
+    for (var i = 0; i < descripcion.length; i++) {
         listarLicencias.push({
-            "categoria":$(descripcion[i]).val(),
-            "cantidad":$(cantidad[i]).val(),
-            "tipo_licencia":$(tipoLicencia[i]).val(),
-            "precio":$(precio[i]).val()})
-    };
+            "categoria": $(descripcion[i]).val(),
+            "cantidad": $(cantidad[i]).val(),
+            "tipo_licencia": $(tipoLicencia[i]).val(),
+            "precio": $(precio[i]).val()
+        })
+    }
+    ;
     console.log(listarLicencias);
     var fila = "";
-    for (var i = 0; i <listarLicencias.length; i++){
+    for (var i = 0; i < listarLicencias.length; i++) {
 
-     fila+="<tr>"+
-     " <td>"+listarLicencias[i].cantidad+"</td>" +
-     " <td>"+listarLicencias[i].tipo_licencia+"</td>" +
-     " <td>"+listarLicencias[i].categoria+"</td>" +
-     " <td>"+listarLicencias[i].precio+"</td>" +
-     " </tr>";
- };
+        fila += "<tr>" +
+            " <td>" + listarLicencias[i].cantidad + "</td>" +
+            " <td>" + listarLicencias[i].tipo_licencia + "</td>" +
+            " <td>" + listarLicencias[i].categoria + "</td>" +
+            " <td>" + listarLicencias[i].precio + "</td>" +
+            " </tr>";
+    }
+    ;
 
- $('.formularioVentaLicencia').attr('action', url);
+    $('.formularioVentaLicencia').attr('action', url);
 
     //VALIDACIONES
     if ($('#idCliente').val() === '' & $('#nuevoMetodoPagoLicencia').val() === '' & $('#totalVentaDB').val() === '') {
@@ -470,25 +436,23 @@ $(".crearVentaLicencia").click(function (e) {
     } else if ($('#totalVentaDB').val() === '') {
         toastr.error('Total Venta Requerido');
 
-    }else if($("#contenedorLicencia div").length==0){
-      toastr.error('Debe seleccionar al menos un tipo de licencia ');
+    } else if ($("#contenedorLicencia div").length == 0) {
+        toastr.error('Debe seleccionar al menos un tipo de licencia ');
 
 
-    
-
-    }else{
-        if(max==0 || min==0){
-            max=$('#totalVentaDB').val();
+    } else {
+        if (max == 0 || min == 0) {
+            max = $('#totalVentaDB').val();
         }
 
-        if($('#nuevoTotalVenta').val() > max || $('#nuevoTotalVenta').val() < min ){
+        if ($('#nuevoTotalVenta').val() > max || $('#nuevoTotalVenta').val() < min) {
 
-             toastr.error(' la cantidad propuesta esta fuera del rango permitido');
+            toastr.error(' la cantidad propuesta esta fuera del rango permitido');
             $('#nuevoTotalVenta').val(max);
 
             return false;
-        }else{
-             $("#totalVentaDB").val($('#nuevoTotalVenta').val());
+        } else {
+            $("#totalVentaDB").val($('#nuevoTotalVenta').val());
         }
         $.confirm({
             animation: 'top',
@@ -497,22 +461,22 @@ $(".crearVentaLicencia").click(function (e) {
             '<div>' +
             '   <div class="row">' +
             '           <div class="col-sm-6">' +
-            '              <label>Nombre:</label> '+nombreCliente+'' +
+            '              <label>Nombre:</label> ' + nombreCliente + '' +
             '           </div>' +
             '           <div class="col-sm-6">' +
-            '               <label>Identificacion:</label>'+identificacionCliente+'' +
+            '               <label>Identificacion:</label>' + identificacionCliente + '' +
             '           </div>' +
             '           <div class="col-sm-6">' +
-            '                   <label>Tipo Identificacion:</label> '+nombreIdentificacion+'' +
+            '                   <label>Tipo Identificacion:</label> ' + nombreIdentificacion + '' +
             '           </div>' +
             '           <div class="col-sm-6">' +
-            '                   <label>Email:</label> '+emailCliente+'' +
+            '                   <label>Email:</label> ' + emailCliente + '' +
             '           </div>' +
             '           <div class="col-sm-6">' +
-            '                   <label>Telefono:</label> '+telefonoCliente+'' +
+            '                   <label>Telefono:</label> ' + telefonoCliente + '' +
             '            </div>' +
             '            <div class="col-sm-6">' +
-            '                    <label>Telefono 2:</label> '+telefono_2+'' +
+            '                    <label>Telefono 2:</label> ' + telefono_2 + '' +
             '              </div>' +
             '   </div>' +
             '   <h4>Venta</h4>' +
@@ -525,10 +489,10 @@ $(".crearVentaLicencia").click(function (e) {
             '                  <th>Categoria</th>\n' +
             '                  <th>Precio</th>\n' +
             '                </tr>\n' +
-            '                 <tbody> '+
-            '                    '+fila+'     '+
-            '                </tbody>  '+
-            '                </table> '+
+            '                 <tbody> ' +
+            '                    ' + fila + '     ' +
+            '                </tbody>  ' +
+            '                </table> ' +
             '       </div>' +
             '   </div>' +
             '</div>',
@@ -552,14 +516,13 @@ $(".crearVentaLicencia").click(function (e) {
             }
         });
     }
-    $.each(listarLicencias,function (index, value) {
+    $.each(listarLicencias, function (index, value) {
         $("#tabla-licencias-venta").append($('<tr>')
             .append($('<td>').html(value.cantidad))
             .append($('<td>').html(value.tipo_licencia))
             .append($('<td>').html(value.categoria))
             .append($('<td>').html(value.precio)),
-
-            );
+        );
 
     });
 });
@@ -569,7 +532,7 @@ SELECCIONAR METODO DE PAGO
 =============================================*/
 $('#nuevoMetodoPagoLicencia').change(function () {
     var metodo = $(this).val();
-    if(metodo == "Efectivo"){
+    if (metodo == "Efectivo") {
         $(this).parent().parent().removeClass('col-xs-6');
         $(this).parent().parent().addClass('col-xs-4');
 
@@ -579,14 +542,13 @@ $('#nuevoMetodoPagoLicencia').change(function () {
             '           <label for="">Metodo de Pago Efectivo</label>' +
             '   </div>' +
             '</div>'
-
-            );
+        );
         //AGREGAR FORMATO AL PRECIO
-        $('.nuevoValorEfectivoLicencia').number(true,2);
-        $('.nuevoCambioEfectivoLicencia').number(true,2);
+        $('.nuevoValorEfectivoLicencia').number(true, 2);
+        $('.nuevoCambioEfectivoLicencia').number(true, 2);
         //LISTAR METODO EN LA ENTRADA
         listarMetodos();
-    }else{
+    } else {
         $(this).parent().parent().removeClass('col-xs-4');
         $(this).parent().parent().addClass('col-xs-6');
 
@@ -603,7 +565,7 @@ $('#nuevoMetodoPagoLicencia').change(function () {
             '                                    </div>\n' +
             '\n' +
             '                                </div>'
-            )
+        )
 
     }
 });
@@ -611,7 +573,7 @@ $('#nuevoMetodoPagoLicencia').change(function () {
 /*=============================================
 CAMBIO EN EFECTIVO
 =============================================*/
-$(".formularioVentaLicencia").on("change", ".nuevoValorEfectivoLicencia", function() {
+$(".formularioVentaLicencia").on("change", ".nuevoValorEfectivoLicencia", function () {
 
     var efectivo = $(this).val();
     var cambio = Number(efectivo) - Number($('#totalVentaDB').val());
@@ -623,7 +585,7 @@ $(".formularioVentaLicencia").on("change", ".nuevoValorEfectivoLicencia", functi
 /*=============================================
 CAMBIO EN TRANSACCION
 =============================================*/
-$(".formularioVentaLicencia").on("change", "#nuevoCodigoTransaccionLicencia", function() {
+$(".formularioVentaLicencia").on("change", "#nuevoCodigoTransaccionLicencia", function () {
 
     listarMetodos();
 });
@@ -632,41 +594,41 @@ $(".formularioVentaLicencia").on("change", "#nuevoCodigoTransaccionLicencia", fu
     APARECER CAMPOS ABONOS
     =============================================*/
 
-    $(function () {
-        $('#btn-mostrarAbono').click(function (e) {
-            e.preventDefault();
-            $('#titulo-tabla-abono').show('blind');
-            $('#campo-ingresar-abono').show('blind');
-            $('#btn-mostrarAbono').hide('blid');
-            $('#btn-cancelarAbono').show('blid');
-        })
-        $('#btn-cancelarAbono').click(function (e) {
-            e.preventDefault();
+$(function () {
+    $('#btn-mostrarAbono').click(function (e) {
+        e.preventDefault();
+        $('#titulo-tabla-abono').show('blind');
+        $('#campo-ingresar-abono').show('blind');
+        $('#btn-mostrarAbono').hide('blid');
+        $('#btn-cancelarAbono').show('blid');
+    })
+    $('#btn-cancelarAbono').click(function (e) {
+        e.preventDefault();
 
-            $('#btn-mostrarAbono').show('blid');
-            $('#titulo-tabla-abono').hide('blind');
-            $('#campo-ingresar-abono').hide('blind');
-            $('#btn-cancelarAbono').hide('blind');
+        $('#btn-mostrarAbono').show('blid');
+        $('#titulo-tabla-abono').hide('blind');
+        $('#campo-ingresar-abono').hide('blind');
+        $('#btn-cancelarAbono').hide('blind');
 
-        })
-        $('#btn-mostrarAbono').click(function (e) {
-            e.preventDefault();
+    })
+    $('#btn-mostrarAbono').click(function (e) {
+        e.preventDefault();
 
-            $('#saldoVentaPrincipalLicencia').remove();
-            $("#camposSaldosLicencia").append(
-                '<input type="hidden" name="saldo" id="saldoVentaAbonoLicencia" value="">'
-                )
+        $('#saldoVentaPrincipalLicencia').remove();
+        $("#camposSaldosLicencia").append(
+            '<input type="hidden" name="saldo" id="saldoVentaAbonoLicencia" value="">'
+        )
 
-        })
-        $('#btn-cancelarAbono').click(function (e) {
-            e.preventDefault();
-            $('#saldoVentaAbonoLicencia').remove();
-            $("#camposSaldosLicencia").append(
-                '<input type="hidden" name="saldo" id="saldoVentaPrincipalLicencia" value="0">'
-                )
-            $("#estadoSaldoLicencia").val('Cancelado');
-        })
-    });
+    })
+    $('#btn-cancelarAbono').click(function (e) {
+        e.preventDefault();
+        $('#saldoVentaAbonoLicencia').remove();
+        $("#camposSaldosLicencia").append(
+            '<input type="hidden" name="saldo" id="saldoVentaPrincipalLicencia" value="0">'
+        )
+        $("#estadoSaldoLicencia").val('Cancelado');
+    })
+});
 
 /*=============================================
 RESTAR EL VALOR DEL ABONO
@@ -704,7 +666,6 @@ $(".inputAbono").keyup(function () {
     }
 
 
-   
     // var nuevoCambioEfectivo = $(this).parent().parent().parent().children('#camposSaldos').children().children('#saldoVentaAbono');
 
     // nuevoCambioEfectivo.val(cambio);
@@ -718,11 +679,11 @@ LISTAR METODO PAGO
 function listarMetodos() {
 
     var listaMetodos = "";
-    if ($('#nuevoMetodoPagoLicencia').val() == 'Efectivo'){
+    if ($('#nuevoMetodoPagoLicencia').val() == 'Efectivo') {
 
         $('#listaMetodoPagoLicencia').val('Efectivo');
-    }else {
-        $('#listaMetodoPagoLicencia').val($('#nuevoMetodoPagoLicencia').val()+'-'+$('#nuevoCodigoTransaccionLicencia').val());
+    } else {
+        $('#listaMetodoPagoLicencia').val($('#nuevoMetodoPagoLicencia').val() + '-' + $('#nuevoCodigoTransaccionLicencia').val());
     }
 
 }
@@ -737,38 +698,39 @@ $("#btn-descuento").click(function (e) {
     $('#nuevoTotalVenta').removeAttr('disabled');
 
     var precioDescuento = [];
-    var pre=$(".nuevoDescuentoLicencia");
-    max=$("#totalVentaDB").val();
+    var pre = $(".nuevoDescuentoLicencia");
+    max = $("#totalVentaDB").val();
 
-    for (var i = 0; i < pre.length; i++){
+    for (var i = 0; i < pre.length; i++) {
         precioDescuento.push({
-            "descuento":$(pre[i]).val()
-           
+            "descuento": $(pre[i]).val()
+
         })
-    };
+    }
+    ;
 
 
-    var td=0;
-    
-    
-    for (var i = 0; i < precioDescuento.length; i++){
-
-       td=td + parseInt(precioDescuento[i].descuento);
-      
-
-       
-   };
+    var td = 0;
 
 
-   min=max-td;
- 
+    for (var i = 0; i < precioDescuento.length; i++) {
+
+        td = td + parseInt(precioDescuento[i].descuento);
+
+
+    }
+    ;
+
+
+    min = max - td;
+
 
 });
 
 $("#btn-descuento-cancelar").click(function (e) {
     e.preventDefault();
     $('#mostrar-btn-descuento').show('blid');
-    $('#nuevoTotalVenta').attr('disabled',true);
+    $('#nuevoTotalVenta').attr('disabled', true);
     $('#mostrar-btn-cancelar-descu').hide('blid');
     $('.validar_descuento').val('0');
     sumarTotalPrecios();
@@ -781,4 +743,7 @@ $("#btn-descuento-cancelar").click(function (e) {
 
 
 
-
+//Descuento examen medico
+$.get('/api/examen-medico/1', function (respuesta) {
+    desc_examen_medico = respuesta.valor;
+});
