@@ -24,6 +24,12 @@
             <div class="form-group">
                 <h3 class="box-title">Listado de Tramites</h3>
             </div>
+            <button type="button" class="btn btn-default pull-right" id="dpFechaCliente">
+                <span>
+                    <i class="fa fa-calendar"></i> Rango fecha
+                </span>
+                <i class="fa fa-caret-down"></i>
+            </button>
         </div>
 
         <div class="box-body table-responsive ">
@@ -42,7 +48,7 @@
                 </tr>
 
                 </thead>
-
+                <tbody></tbody>
             </table>
 
         </div>
@@ -54,97 +60,112 @@
     <!-- TABLA DINAMICA Clientes-->
 @section('dataTablesTramitesTramitador')
     @if(isset($infoCliente->idcliente->id))
+    <script src="/adminlte/plugins/daterangepicker/moment_spa.js"></script>
+    <script src="/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="/adminlte/plugins/daterangepicker/daterangepicker.css" />
+    <script src="/js/rango_fecha.js"></script>
     <script>
-
-        var table = $('.table_admiVentas').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "order": [[ 0, "desc" ]],
-            "data": null,
-            "ajax": "{{route('tablaTramitesCliente',$infoCliente->idcliente->id)}}",
-            "columns":[
-                {data: 'id',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
-                {data: 'idcliente.identificacion',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
-                {"width": "20%",
-                    render:function (data,type, JsonResultRow,meta) {
-                        return '<p>'+JsonResultRow.idcliente.name+' '+JsonResultRow.idcliente.apellidos+'</p>'
-                    }
-                },
-                {"width": "20%",
-                    render:function (data,type, JsonResultRow,meta) {
-                        return '<p>'+JsonResultRow.id_vendedor.name+' '+JsonResultRow.id_vendedor.apellidos+'</p>'
-                    }
-                },
-                {data: 'tipo_tramite.nombre',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
-
-                {
-                    render:function (data,type, JsonResultRow,meta) {
-                        if (JsonResultRow.estado == 'En tramite'){
-                            return '<span class="label label-warning"  style="font-size: 16px;">'+JsonResultRow.estado+'</span>\n'
-                        }else{
-                            return '<span class="label label-success"  style="font-size: 11px;">'+JsonResultRow.estado+'</span>\n'
-                        }
-
-
-                    }
-                },
-                {
-                    render:function (data,type, JsonResultRow,meta) {
-                        var datos = JsonResultRow.tramites_abono;
-                        console.log(datos);
-                        var ultimo = datos[datos.length-1].estado;
-
-                        if (ultimo == 'Debe'){
-                            return '<span class="label label-danger text-center" style="font-size: 16px;">'+ultimo+'</span>\n'
-                        }else{
-                            return '<span class="label label-success" style="font-size: 11px;">'+ultimo+'</span>\n'
-
-                        }
-
-
-                    }
-                },
-
-                { "width": "15%", data: 'created_at',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
-                {render: function (data, type, JsonResultRow, meta) {
-                        if (JsonResultRow.id_tipoTramite == 1){
-                            return '<a href="/admin/factura/'+JsonResultRow.id+'" target="_blank" class="btn btn-xs btn-success btnEditarUsuario" ><i class="fa fa-print"></i></a>\n' +
-
-                                '<a href="/admin/info-venta/'+JsonResultRow.id+'" class="btn btn-xs btn-info btnInfoUsuario"><i class="fa fa-eye"></i></a>'
-                        }else{
-                            return '<a href="/admin/factura-licencia/'+JsonResultRow.id+'" target="_blank" class="btn btn-xs btn-success btnEditarUsuario" ><i class="fa fa-print"></i></a>\n' +
-                                '<a href="/admin/info-venta-licencia/'+JsonResultRow.id+'" class="btn btn-xs btn-info btnInfoUsuario"><i class="fa fa-eye"></i></a>'
-                        }
-
-
-                    }},
-
-            ],
-            "language":{
-                "sProcessing":     "Procesando...",
-                "sLengthMenu":     "Mostrar _MENU_ registros",
-                "sZeroRecords":    "No se encontraron resultados",
-                "sEmptyTable":     "Ningún dato disponible en esta tabla",
-                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix":    "",
-                "sSearch":         "Buscar:",
-                "sUrl":            "",
-                "sInfoThousands":  ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst":    "Primero",
-                    "sLast":     "Último",
-                    "sNext":     "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "oAria": {
-                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }
+    var table = null;
+        function cargarTabla (){
+            if (table !== null){
+                table.destroy();
             }
-        });
+            table = $('.table_admiVentas').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "order": [[ 0, "desc" ]],
+                "data": null,
+                "ajax": {
+                    url: "{{route('tablaTramitesCliente',$infoCliente->idcliente->id)}}",
+                    data: {
+                        fechaInicio: fechaInicio,
+                        fechaFin: fechaFin
+                    }
+                },
+                "columns":[
+                    {data: 'id',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
+                    {data: 'idcliente.identificacion',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
+                    {"width": "20%",
+                        render:function (data,type, JsonResultRow,meta) {
+                            return '<p>'+JsonResultRow.idcliente.name+' '+JsonResultRow.idcliente.apellidos+'</p>'
+                        }
+                    },
+                    {"width": "20%",
+                        render:function (data,type, JsonResultRow,meta) {
+                            return '<p>'+JsonResultRow.id_vendedor.name+' '+JsonResultRow.id_vendedor.apellidos+'</p>'
+                        }
+                    },
+                    {data: 'tipo_tramite.nombre',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
+
+                    {
+                        render:function (data,type, JsonResultRow,meta) {
+                            if (JsonResultRow.estado == 'En tramite'){
+                                return '<span class="label label-warning"  style="font-size: 16px;">'+JsonResultRow.estado+'</span>\n'
+                            }else{
+                                return '<span class="label label-success"  style="font-size: 11px;">'+JsonResultRow.estado+'</span>\n'
+                            }
+
+
+                        }
+                    },
+                    {
+                        render:function (data,type, JsonResultRow,meta) {
+                            var datos = JsonResultRow.tramites_abono;
+                            console.log(datos);
+                            var ultimo = datos[datos.length-1].estado;
+
+                            if (ultimo == 'Debe'){
+                                return '<span class="label label-danger text-center" style="font-size: 16px;">'+ultimo+'</span>\n'
+                            }else{
+                                return '<span class="label label-success" style="font-size: 11px;">'+ultimo+'</span>\n'
+
+                            }
+
+
+                        }
+                    },
+
+                    { "width": "15%", data: 'created_at',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
+                    {render: function (data, type, JsonResultRow, meta) {
+                            if (JsonResultRow.id_tipoTramite == 1){
+                                return '<a href="/admin/factura/'+JsonResultRow.id+'" target="_blank" class="btn btn-xs btn-success btnEditarUsuario" ><i class="fa fa-print"></i></a>\n' +
+
+                                    '<a href="/admin/info-venta/'+JsonResultRow.id+'" class="btn btn-xs btn-info btnInfoUsuario"><i class="fa fa-eye"></i></a>'
+                            }else{
+                                return '<a href="/admin/factura-licencia/'+JsonResultRow.id+'" target="_blank" class="btn btn-xs btn-success btnEditarUsuario" ><i class="fa fa-print"></i></a>\n' +
+                                    '<a href="/admin/info-venta-licencia/'+JsonResultRow.id+'" class="btn btn-xs btn-info btnInfoUsuario"><i class="fa fa-eye"></i></a>'
+                            }
+
+
+                        }},
+
+                ],
+                "language":{
+                    "sProcessing":     "Procesando...",
+                    "sLengthMenu":     "Mostrar _MENU_ registros",
+                    "sZeroRecords":    "No se encontraron resultados",
+                    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix":    "",
+                    "sSearch":         "Buscar:",
+                    "sUrl":            "",
+                    "sInfoThousands":  ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst":    "Primero",
+                        "sLast":     "Último",
+                        "sNext":     "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+            });
+        }
 
         //INFORMACION DE LA VENTA
         $('.table_admiVentas tbody').on('click','.btnInfoUsuario',function () {
@@ -166,6 +187,7 @@
         });
 
     </script>
+    <script src="/adminlte/js/ventas/cliente.js" ></script>
     @endif
 
 @endsection

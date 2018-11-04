@@ -68,8 +68,15 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
             ->make(true);
     });
     // ventas por cliente 
-     Route::get('/api/admin-tramites-cliente/{idCliente}',function ($idUsuario){
-        return datatables()->of(\App\ResumenTramite::where('idUsuario',$idUsuario)->with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono')->get())->toJson();
+     Route::get('/api/admin-tramites-cliente/{idCliente}',function (Illuminate\Http\Request $request, $idUsuario){
+        $tramiteCliente = \App\ResumenTramite::with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono');
+        if ($request->get('fechaInicio') && $request->get('fechaFin')) {
+            $fi = \Carbon\Carbon::parse($request->get('fechaInicio'))->toDateString();
+            $ff = \Carbon\Carbon::parse($request->get('fechaFin'))->toDateString();
+            $tramiteCliente = $tramiteCliente->whereDate("created_at",">=",$fi." 00:00:00")->whereDate("created_at", "<=", $ff." 11:59:59");
+        }
+        $tramiteCliente = $tramiteCliente->where('idUsuario',$idUsuario)->get();
+        return datatables()->of($tramiteCliente)->toJson();
     })->name('tablaTramitesCliente');  
 
     Route::get('/ventas_by_cliente/{idCliente}','AdministrarVentasController@tramitesCliente')->name('ventas_by_cliente');
@@ -125,7 +132,14 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     //Tramites de cada tramitador
     Route::get('/tramitador-ventas/{idTramitador}','AdministrarVentasController@tramitesTramitador')->name('tramitadorVentas');
     Route::get('/api/admin-tramites/{idTramitador}',function ($idTramitador){
-        return datatables()->of(\App\ResumenTramite::where('idTramitador',$idTramitador)->with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono')->get())->toJson();
+        $tramiteTramitador = \App\ResumenTramite::with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono');
+        if ($request->get('fechaInicio') && $request->get('fechaFin')) {
+            $fi = \Carbon\Carbon::parse($request->get('fechaInicio'))->toDateString();
+            $ff = \Carbon\Carbon::parse($request->get('fechaFin'))->toDateString();
+            $tramiteTramitador = $tramiteTramitador->whereDate("created_at",">=",$fi." 00:00:00")->whereDate("created_at", "<=", $ff." 11:59:59");
+        }
+        $tramiteTramitador = $tramiteTramitador->where('idTramitador',$idTramitador)->get();
+        return datatables()->of($tramiteTramitador)->toJson();
     })->name('tablaTramitesTramitadores');
 
 
