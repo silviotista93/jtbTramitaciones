@@ -186,6 +186,7 @@
         });
 
     </script>
+    <script src="/adminlte/js/ventas/tramitador.js"></script>
     @endif
 
 @endsection
