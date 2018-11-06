@@ -104,14 +104,25 @@ var licencias = {
         let licen = this;
         input.change(function (){
             let maxDes = licen.total-licen.maxDescuento;
-            if ($(this).val() < maxDes){
-                toastr.warning('Solo puede tener un precio minimo de $'+licen.maxDescuento);
+            if (parseInt($(this).val()) < maxDes){
+                toastr.error('Solo puede tener un precio minimo de $'+maxDes);
                 $(this).val(maxDes);
+                $(this).select();
             }else if ($(this).val() > licen.total){
                 $(this).val(licen.total);
-                toastr.warning('Solo puede tener un precio maximo de $'+licen.total);
+                $(this).select();
+                toastr.error('Solo puede tener un precio maximo de $'+licen.total);
             }
             $("#totalVentaDB").val($(this).val());
+        });
+        let change = null;
+        input.keypress(function (e){
+            let letras = ",.eE-+";
+            clearTimeout(change);
+            change = setTimeout(function (){input.change()}, 2000);
+            if (letras.indexOf(e.key)!== -1){
+                e.preventDefault();
+            }
         });
     }
 }
@@ -348,7 +359,6 @@ $(".crearVentaLicencia").click(function (e) {
         })
     }
 
-    console.log(listarLicencias);
     var fila = "";
     for (var i = 0; i < listarLicencias.length; i++) {
 

@@ -298,7 +298,7 @@
                                                             <span class="input-group-addon"><i
                                                                         class="ion ion-social-usd"></i></span>
 
-                                                    <input type="text" class="form-control input-lg"
+                                                    <input type="number" class="form-control input-lg"
                                                            id="nuevoTotalVenta" name=""
                                                            placeholder="0" disabled="true" required>
 
@@ -915,7 +915,14 @@
             </div>
         </div>
     </div>
-
+<style>
+#nuevoTotalVenta::-webkit-inner-spin-button, 
+#nuevoTotalVenta::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+#nuevoTotalVenta { -moz-appearance:textfield; }
+</style>
 
 
 @section('dataTablesSeguros')
