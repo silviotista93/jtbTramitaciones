@@ -920,6 +920,7 @@
 
 @section('dataTablesSeguros')
     <script>
+        const descuentoCurso = {{$escuela->valor}};
         function obtenerClase(id) {
             var info = 'btn-danger';
             var all = document.querySelectorAll('.quitarLicencia');

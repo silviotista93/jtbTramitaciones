@@ -69,7 +69,7 @@ var licencias = {
             if (this.data[i].id == id){
                 this.data[i].sinCurso = !this.data[i].sinCurso;
                 if (this.data[i].sinCurso){
-                    container.find(".nuevoPrecioLicencia").val(this.data[i].descuento);
+                    container.find(".nuevoPrecioLicencia").val(this.data[i].precio - descuentoCurso);
                 } else {
                     container.find(".nuevoPrecioLicencia").val(this.data[i].precio);
                 }
@@ -83,7 +83,7 @@ var licencias = {
         let maxDescuento = 0;
         this.data.forEach(function (licencia){
             if (licencia.sinCurso){
-                total += licencia.descuento;
+                total += licencia.precio - descuentoCurso;
             }else{
                 total += licencia.precio;
             }
@@ -103,9 +103,13 @@ var licencias = {
     changeTotal:function (input){
         let licen = this;
         input.change(function (){
-            if ($(this).val() < licen.maxDescuento){
-                $(this).val(licen.maxDescuento);
+            let maxDes = licen.total-licen.maxDescuento;
+            if ($(this).val() < maxDes){
                 toastr.warning('Solo puede tener un precio minimo de $'+licen.maxDescuento);
+                $(this).val(maxDes);
+            }else if ($(this).val() > licen.total){
+                $(this).val(licen.total);
+                toastr.warning('Solo puede tener un precio maximo de $'+licen.total);
             }
             $("#totalVentaDB").val($(this).val());
         });
