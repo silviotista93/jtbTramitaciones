@@ -56,7 +56,7 @@ $(document).on('click','.btnEditContacto',function(){
             $('#btn_actualizar_contacto').click(function () {
 
                 $(".FormActualizarContacto").submit();
-            
-            }); 
 
+
+            });
 });

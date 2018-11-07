@@ -38,7 +38,7 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
 
     Route::get('/tramite/licencia','LicenciaController@index')->name('tramitar-licencia');
     Route::get('/tramite/seguro','SeguroController@index')->name('tramitar-seguro');
-    Route::get('/tramite/matricula','MatriculaController@index')->name('tramitar-matricula');
+    Route::get('/tramite/trami-transito','TramiTransitoController@index')->name('tramitar-tramiTransito');
 
 
     //Usuarios...

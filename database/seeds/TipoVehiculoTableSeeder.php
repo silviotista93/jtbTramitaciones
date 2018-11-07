@@ -15,7 +15,7 @@ class TipoVehiculoTableSeeder extends Seeder
         TipoVehiculo::truncate();
 
         $tipoVehiculo = new TipoVehiculo;
-        $tipoVehiculo->nombre = 'MOTOS';
+        $tipoVehiculo->nombre = 'MOTO';
         $tipoVehiculo->save();
 
         $tipoVehiculo = new TipoVehiculo;
@@ -48,6 +48,10 @@ class TipoVehiculoTableSeeder extends Seeder
 
         $tipoVehiculo = new TipoVehiculo;
         $tipoVehiculo->nombre = 'SERVICIOS PUBLICO INTERMUNICIPAL';
+        $tipoVehiculo->save();
+
+        $tipoVehiculo = new TipoVehiculo;
+        $tipoVehiculo->nombre = 'CARRO';
         $tipoVehiculo->save();
     }
 

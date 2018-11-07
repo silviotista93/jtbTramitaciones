@@ -24,7 +24,7 @@ class TramitesTableSeeder extends Seeder
         $tramites->save();
 
         $tramites = new Tramite;
-        $tramites->nombre = 'MATRICULA';
+        $tramites->nombre = 'TRA DE TRANSITO';
         $tramites->save();
     }
 }

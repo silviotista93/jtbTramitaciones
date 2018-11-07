@@ -17,9 +17,12 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoVehiculoTableSeeder::class);
         $this->call(TipoDocumentoTableSeeder::class);
         $this->call(SeguroTableSeeder::class);
+        $this->call(TipoTraTransitoTableSeeder::class);
         $this->call(LicenciaTableSeeder::class);
         $this->call(PrecioMedicoTableSeeder::class);
         $this->call(PrecioEscuelaTableSeeder::class);
+        $this->call(TransitosTableSeeder::class);
+        $this->call(ServicioVehiTableSeeder::class);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
