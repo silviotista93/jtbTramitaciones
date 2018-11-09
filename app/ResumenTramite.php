@@ -84,6 +84,32 @@ class ResumenTramite extends Model
                 ->where('id','=',$id)
                 ->first();
         }
+
+        public function ciudadTransito($id){
+            return DB::table('transitos')
+                ->select('ciudad')
+                ->where('id',$id)
+                ->first();
+        }
+
+        public function vehiculoTrans($id){
+            return DB::table('tipo_vehiculos')
+                ->select('*')
+                ->where('id','=',$id)
+                ->first();
+        }
+    public function servicioVehicuilar($id){
+        return DB::table('servicio_vehiculars')
+            ->select('*')
+            ->where('id','=',$id)
+            ->first();
+    }
+    public function tramites($id){
+            return DB::table('tipoTramiTransi_tramite')
+                ->select('*')
+                ->where('id','=',$id)
+                ->get();
+    }
         /*public function obtenerAbonos($id){
             return DB::table('abonos')
                 ->select('*')

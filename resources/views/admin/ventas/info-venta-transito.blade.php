@@ -127,28 +127,33 @@
                                 <tr>
                                     <th>Placa</th>
                                     <th>Ciudad</th>
+                                    <th>Vehiculo</th>
                                     <th>Detalle</th>
                                     <th>Precio</th>
                                     <th>Total</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @php($ciudad = $infoVentaDatos->tramiTransito[0]->id_transito)
+                                @php($tramite = $infoVentaDatos->tramiTransito[0]->id)
+                                @php($vehiculo = $infoVentaDatos->tramiTransito[0]->id_vehiculo)
+                                @php($servicio = $infoVentaDatos->tramiTransito[0]->id_servicio)
                                 @php($totalLicencia = 0)
-                                @dd($infoVentaDatos)
-                                @foreach($infoVentaDatos as $infoVentaDato)
-                                    <tr id="info">
-                                        <td class="text-center">{{$infoVentaDato->tramiTransito->placa}}</td>
-                                        <td>{{$infoVentaDato->id_tipoTramite}}</td>
-                                        <td>{{$infoVentaDato->tramiTransito->id_transito}}</td>
-                                        <td>$ <input disabled type="text" class="infoVentaPrecio" id=""
-                                                     value="{{$infoVentaDatos->cantidadLicencia($infoVentaDato->id)[0]->precio_venta}}"
-                                                     style="width: 125px; border: 0; background: border-box;"></td>
-                                        <td>$ <input disabled type="text" class="infoVentaPrecioTotal" id=""
-                                                     value="{{$infoVentaDatos->cantidadLicencia($infoVentaDato->id)[0]->precio_venta}}"
-                                                     style="width: 125px; border: 0; background: border-box;"></td>
-                                    </tr>
-                                    @php($totalLicencia += $infoVentaDatos->cantidadLicencia($infoVentaDato->id)[0]->precio_venta ++)
-                                @endforeach
+
+                                <tr id="info">
+                                    <td class=""><span class="label label-warning"
+                                                       style="font-size: 15px; color: #000000">{{$infoVentaDatos->tramiTransito[0]->placa}}</span>
+                                    </td>
+                                    <td>{{ $infoVentaDatos->ciudadTransito($ciudad)->ciudad }}</td>
+                                    <td>{{ $infoVentaDatos->vehiculoTrans($vehiculo)->nombre }}  {{ $infoVentaDatos->servicioVehicuilar($servicio)->servicio }}</td>
+                                    <td></td>
+                                    <td>$ <input disabled type="text" class="infoVentaPrecio" id=""
+                                                 value=""
+                                                 style="width: 125px; border: 0; background: border-box;"></td>
+                                    <td>$ <input disabled type="text" class="infoVentaPrecioTotal" id=""
+                                                 value=""
+                                                 style="width: 125px; border: 0; background: border-box;"></td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -179,141 +184,9 @@
                                             @endforeach
                                         </ul>
                                     </div><br/>
-                            @endif
-                            <!-- ACTUALIZAR SI HA REALIZADO EL EXAMEN MEDICO -->
-                                <form id="frmUpdateMedico" method="post" class="actualizarMedico inline">
-                                    @csrf {{method_field('PUT')}}
-                                    <label>
-                                        <input id="checkProcesosMedico" class="checkLicenciaMedico checkProcesosMedico"
-                                               type="checkbox"
-                                               name="examen_medico" idResumen="{{ $infoVentaDatos->id }}"
-                                                {{ $infoVentaDatos->examen_medico === 'Realizado' ? 'checked':''}}>&nbsp
-                                        <span
-                                                class="label label-info" style="font-size: 12px"><i
-                                                    class="fa fa-medkit"></i> Examen Médico</span>
-                                    </label>
+                                @endif
 
-                                    <!-- MODAL CAPTCHA -->
-                                    <div class="modal fade" data-backdrop="static" data-keyboard="false"
-                                         id="modalCaptchaMedico" tabindex="-1" role="dialog"
-                                         aria-labelledby="myModalLabel">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header" style="background-color: #FFFFFF;">
-
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="box-body">
-                                                        <label for="ReCaptcha">Por favor valide si el Usuario ha hecho
-                                                            el examen médico:</label>
-                                                        {!! NoCaptcha::renderJs() !!}
-                                                        {!! NoCaptcha::display() !!}
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <a href="/admin/info-venta-licencia/{{$infoVentaDatos->id}}"
-                                                           class="btn btn-default">
-                                                            Cerrar
-                                                        </a>
-                                                        <button type="submit"
-                                                                class="btn btn-info btn-actualizarExamenMedico"><i
-                                                                    class="fa fa-medkit"></i> Validar
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-
-
-                                <form id="frmUpdateConducción"  method="post" action="" class="inline">
-                                    @csrf {{method_field('PUT')}}
-                                    <label>
-                                        <input id="checkProcesosConduccion" idResumen="{{ $infoVentaDatos->id }}"
-                                               class="checkLicencia checkProcesosConduccion" type="checkbox"
-                                               name="escuela_conduccion"
-                                                {{ $infoVentaDatos->escuela_conduccion === 'Realizado' ? 'checked':''}}>&nbsp
-                                        <span class="label label-danger" style="font-size: 12px"><i
-                                                    class="fa fa-car"></i> Escuela de Conducción</span>
-                                    </label>
-
-
-                                    <!-- MODAL CAPTCHA -->
-                                    <div class="modal fade" data-backdrop="static" data-keyboard="false"
-                                         id="modalCaptchaConduccion" tabindex="-1" role="dialog"
-                                         aria-labelledby="myModalLabel">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header" style="background-color: #FFFFFF;">
-
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="box-body">
-                                                        <label for="ReCaptcha">Por favor valide si el Usuario ha
-                                                            realizado Escuela de Conduccion:</label>
-                                                        {!! NoCaptcha::renderJs() !!}
-                                                        {!! NoCaptcha::display() !!}
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <a href="/admin/info-venta-licencia/{{$infoVentaDatos->id}}"
-                                                           class="btn btn-default">
-                                                            Cerrar
-                                                        </a>
-                                                        <button type="submit" class="btn btn-danger "><i
-                                                                    class="fa fa-car"></i> Validar
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </form>
-
-
-                                <form id="frmUpdateDerechos" action="" class="inline" method="post">
-                                    @csrf {{method_field('PUT')}}
-                                    <label>
-                                        <input id="checkProcesosRecibos" idResumen="{{ $infoVentaDatos->id }}"
-                                               class="checkLicencia checkProcesosRecibos" type="checkbox"
-                                               name="derechos_transito"
-                                                {{ $infoVentaDatos->derechos_transito === 'Realizado' ? 'checked':''}}>&nbsp
-                                        <span class="label label-warning" style="font-size: 12px"><i
-                                                    class="fa fa-newspaper-o"></i> Derechos Transito</span>
-                                    </label>
-
-
-                                    <!-- MODAL CAPTCHA -->
-                                    <div class="modal fade" data-backdrop="static" data-keyboard="false"
-                                         id="modalCaptchaDerechos" tabindex="-1" role="dialog"
-                                         aria-labelledby="myModalLabel">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header" style="background-color: #FFFFFF;">
-
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="box-body">
-                                                        <label for="ReCaptcha">Por favor valide si el Usuario ha
-                                                            recibido los Recibos de Transito:</label>
-                                                        {!! NoCaptcha::renderJs() !!}
-                                                        {!! NoCaptcha::display() !!}
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <a href="/admin/info-venta-licencia/{{$infoVentaDatos->id}}"
-                                                           class="btn btn-default">
-                                                            Cerrar
-                                                        </a>
-                                                        <button type="submit" class="btn btn-warning "><i
-                                                                    class="fa fa-newspaper-o"></i> Validar
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-
+                                
                             </div>
 
 
@@ -352,7 +225,8 @@
                                     </tr>
                                     @if($infoVentaDatos->descuento_medico == 1)
                                         <tr>
-                                            <th><span class="label label-info" style="font-size: 12px">Descuento Medico:</span></th>
+                                            <th><span class="label label-info"
+                                                      style="font-size: 12px">Descuento Medico:</span></th>
                                             <td>$<input disabled type="text" class="infoVentaSaldo" id=""
                                                         value="{{$precioMedico->valor}}"
                                                         style="width: 125px; border: 0; background: border-box;"></td>
@@ -361,7 +235,8 @@
                                     @endif
                                     @if($infoVentaDatos->descuento == 1)
                                         <tr>
-                                            <th><span class="label label-success" style="font-size: 12px">Descuento Especial:</span></th>
+                                            <th><span class="label label-success" style="font-size: 12px">Descuento Especial:</span>
+                                            </th>
                                             <td>$<input disabled type="text" class="infoVentaSaldo" id=""
                                                         value="revisar"
                                                         style="width: 125px; border: 0; background: border-box;"></td>
@@ -443,10 +318,12 @@
                                                                                     value="{{$abono->saldo}}"
                                                                                     style="width: 125px; border: 0; background: border-box;">
                                                     </td>
-                                                    <td class="text-center"><input type="text" id="valor_a_pagar_financiacion"
+                                                    <td class="text-center"><input type="text"
+                                                                                   id="valor_a_pagar_financiacion"
                                                                                    class="form-control valor_a_pagar_financiacion"
                                                                                    placeholder="$"></td>
-                                                    <input type="hidden" name="abono" class="valorPagar" value="" id="valor_a_pagar_financiacion">
+                                                    <input type="hidden" name="abono" class="valorPagar" value=""
+                                                           id="valor_a_pagar_financiacion">
                                                     <td class="text-center">
                                                         <select class="form-control" id="nuevoMetodoPagoAbono"
                                                                 name="metodo_pago"
@@ -458,8 +335,10 @@
                                                         </select>
                                                         <input type="number" id=""
                                                                class="form-control inputMetodoPagoAbono"
-                                                               placeholder="Código de transacción" style="margin-top: 9px; display: none">
-                                                        <input type="hidden" id="listaMetodoPagoLicenciaAbono" name="listaMetodoPagoAbono">
+                                                               placeholder="Código de transacción"
+                                                               style="margin-top: 9px; display: none">
+                                                        <input type="hidden" id="listaMetodoPagoLicenciaAbono"
+                                                               name="listaMetodoPagoAbono">
                                                     </td>
                                                     <td class="text-center"><textarea name="nota" id="" cols="30"
                                                                                       rows="2"></textarea></td>
@@ -517,8 +396,12 @@
 
                                                             <td class="text-center">{{$abono->created_at}}</td>
                                                             <td class="text-center">
-                                                                <a href="/admin/factura-abono-licencia/{{$abono->id}}" class="btn btn-success" target="_blank"><i class="fa fa-file"></i></a>
-                                                                <a href="/admin/recibo-abono-licencia/{{$abono->id}}" target="-_blank" class="btn btn-danger"><i class="fa fa-print"></i></a>
+                                                                <a href="/admin/factura-abono-licencia/{{$abono->id}}"
+                                                                   class="btn btn-success" target="_blank"><i
+                                                                            class="fa fa-file"></i></a>
+                                                                <a href="/admin/recibo-abono-licencia/{{$abono->id}}"
+                                                                   target="-_blank" class="btn btn-danger"><i
+                                                                            class="fa fa-print"></i></a>
                                                             </td>
                                                         </tr>
                                                     @endforeach
