@@ -15,11 +15,11 @@ class ServicioVehiTableSeeder extends Seeder
         ServicioVehicular::truncate();
 
         $servicio = new ServicioVehicular;
-        $servicio->servicio = 'Particular';
+        $servicio->servicio = 'PARTICULAR';
         $servicio->save();
 
         $servicio = new ServicioVehicular;
-        $servicio->servicio = 'Publico';
+        $servicio->servicio = 'PÚBLICO';
         $servicio->save();
     }
 }

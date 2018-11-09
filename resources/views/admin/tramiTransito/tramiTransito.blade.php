@@ -378,7 +378,7 @@
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-th"></i></span>
                                     <select name="id_tipoIdentificacion" id="id_tipoIdentificacion"
-                                            class="form-control">
+                                            class="form-control select2" style="width: 100%">
                                         <option value="">Seleccione</option>
                                         @foreach($transitos as $transito)
                                             <option class="text-uppercase"
@@ -757,7 +757,9 @@
 
 @section('validacionAgregarClientes')
     <script>
-
+        $(function () {
+            $(".select2").select2();
+        });
         @if (count($errors) > 0)
         $('#modalAgregarCliente').modal('show');
         @endif

@@ -15,6 +15,11 @@ class CreateTransitosTable extends Migration
     {
         Schema::create('transitos', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('departamento');
+            $table->mediumText('telefono')->nullable();
+            $table->mediumText('telefono_2')->nullable();
+            $table->string('email')->nullable();
+            $table->mediumText('direccion')->nullable();
             $table->string('ciudad');
             $table->timestamps();
         });

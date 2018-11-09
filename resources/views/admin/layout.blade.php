@@ -21,6 +21,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="/adminlte/plugins/datatables/dataTables.bootstrap.css">
     <link rel="stylesheet" href="/adminlte/plugins/iCheck/all.css">
     <link rel="stylesheet" href="/adminlte/plugins/datepicker/datepicker3.css">
+    <link rel="stylesheet" href="/adminlte/plugins/select2/select2.min.css">
     <link rel="stylesheet" href="/adminlte/css/paginacion.css">
     <link rel="stylesheet" href="/adminlte/css/checkbox.css">
     <link rel="stylesheet" href="/adminlte/css/toogle_button.css">
@@ -358,6 +359,7 @@ desired effect
 <script src="/adminlte/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <script src="/adminlte/plugins/iCheck/icheck.min.js"></script>
 <script src="/adminlte/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="/adminlte/plugins/select2/select2.full.min.js"></script>
 <script src="/adminlte/js/select_tramite_licencia.js"></script>
 <script src="/adminlte/js/mostrar_botones_seguro.js"></script>
 <script src="/adminlte/js/mostrar_botones_licencia.js"></script>
