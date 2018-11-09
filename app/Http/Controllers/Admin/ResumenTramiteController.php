@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Abono;
 use App\ResumenTramite;
+use App\TramiteTransito;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -155,6 +156,49 @@ class ResumenTramiteController extends Controller
 
         return  back()->withFlash('Tramite Realizado Correctamente');
     }
+
+    //VENTAS TRAMITE DE TRANSITO
+    public function agregarTramiteTransito(Request $request){
+
+        $resumenTramite = ResumenTramite::create([
+
+            'idUsuario' => $request->get('idCliente'),
+            'id_tipoTramite' => $request->get('id_tipoTramite'),
+            'metodo_pago' => $request->get('listaMetodoPago'),
+            'idVendedor' => $request->get('idVendedor'),
+            'total' => $request->get('total'),
+            'estado' => $request->get('estado'),
+            'idTramitador' => $request->get('seleccionarTramitador'),
+
+
+        ]);
+
+        $tramiTransito = TramiteTransito::create([
+            'placa' => $request->get('placa'),
+            'id_transito' => $request->get('id_transito'),
+            'id_vehiculo' => $request->get('id_vehiculo'),
+            'id_servicio' => $request->get('id_servicio')
+        ]);
+
+        $resumenTramite->tramiTransito()->attach([$tramiTransito->id]);
+        $tramiTransito->tramiteTransito()->sync($request->get('tipoTramiteTransi'));
+
+        $abono = Abono::create([
+            'valor_abono' => $request->get('abono'),
+            'saldo' => $request->get('saldo'),
+            'nota' => $request->get('nota'),
+            'estado' => $request->get('estadoSaldo'),
+            'resumen_tramite_id' => $resumenTramite->id
+        ]);
+
+
+
+
+        return  back()->withFlash('Tramite Realizado Correctamente');
+    }
+
+
+
 
     //ACTUALIZAR EL ESTADO DEL TRAMITE DE LAS LICENCIAS
 

@@ -40,6 +40,11 @@ class ResumenTramite extends Model
         return $this->belongsToMany(Licencia::class,'resumen_licencia','id_resumen_tramite','id_licencia');
     }
 
+    public function tramiTransito(){
+
+        return $this->belongsToMany(TramiteTransito::class,'resumen_transito','id_resumenTramite','id_tramite');
+    }
+
     public function tramitesAbono(){
 
         return $this->hasMany(Abono::class);

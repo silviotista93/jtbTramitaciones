@@ -33,6 +33,10 @@ Route::get('/usuario', function (){
    return App\User::select('name','apellidos')->orderby('created_at','DESC')->take(1)->first();
 });
 
+Route::get('/tramitesTransi/{id}',function ($id){
+   return \App\ResumenTramite::where('id' ,$id)->with('tramiTransito','idcliente','idVendedor','tipoTramite')->first();
+});
+
 Route::get('/', 'Admin\AdminController@dashboard')->name('dashboard')->middleware('loginVerifEstado');
 Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginVerifEstado'], function (){
 
@@ -111,6 +115,8 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     Route::put('/update-estado-conduccion/{id}','ResumenTramiteController@actualizarEstadoConduccion')->name('actualizarEstadoConduccion');
     Route::put('/update-estado-derechos/{id}','ResumenTramiteController@actualizarEstadoDerechos')->name('actualizarEstadoDerechos');
 
+    //Crear tramite de tramites de transito
+    Route::post('/tramite-transito-creado','ResumenTramiteController@agregarTramiteTransito')->name('ventaTramiTransito');
 
 
     Route::get('/api/licencias-publico',function (){
@@ -124,6 +130,7 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     Route::get('/administrar-ventas','AdministrarVentasController@index')->name('adminVentas');
     Route::get('/info-venta/{id}','AdministrarVentasController@infoVenta')->name('infoVentas');
     Route::get('/info-venta-licencia/{id}','AdministrarVentasController@infoVentaLicencia')->name('infoVentasLicencia');
+    Route::get('/info-venta-transito/{id}','AdministrarVentasController@infoVentaTramitesTransi')->name('infoVentasTransito');
     Route::get('/api/admin-ventas','AdministrarVentasController@reporteVentas');
     Route::get('/adminVentas/tramites-pendientes','AdministrarVentasController@indexTramitesPendientes')->name('tramitesPendientes');
     Route::get('/api/tramites-pendientes','AdministrarVentasController@tramitesPentientes');

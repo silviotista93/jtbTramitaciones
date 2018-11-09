@@ -44,6 +44,16 @@ class AdministrarVentasController extends Controller
         return view('admin.ventas.info-venta-licencia',compact('infoVentaDatos','tipoIdentificacion','historialAbonos','abono','precioMedico'));
     }
 
+    public function infoVentaTramitesTransi($id){
+
+        $infoVentaDatos = ResumenTramite::where('id' ,$id)->with('tramiTransito','idcliente','idVendedor','tipoTramite','idTramitador')->first();
+        $historialAbonos = Abono::select('*')->where('resumen_tramite_id','=',$id)->get();
+        $abono = Abono::select('*')->where('resumen_tramite_id','=',$id)->orderby('created_at','DESC')->first();
+        $tipoIdentificacion = User::with('tipoDocumento')->first();
+        $precioMedico = Medico::first();
+        return view('admin.ventas.info-venta-transito',compact('infoVentaDatos','tipoIdentificacion','historialAbonos','abono','precioMedico'));
+    }
+
     //TRAMITES DE TRAMITADOR ESPECIFICO
     public function tramitesTramitador($idTramitador){
         $infoTramitador = ResumenTramite::where('idTramitador' ,$idTramitador)->with('licenciaTramite','idcliente','idVendedor','tipoTramite','idTramitador')->first();

@@ -127,9 +127,12 @@
                             return '<a href="/admin/factura/'+JsonResultRow.id+'" target="_blank" class="btn btn-xs btn-success btnEditarUsuario" ><i class="fa fa-print"></i></a>\n' +
 
                             '<a href="/admin/info-venta/'+JsonResultRow.id+'" class="btn btn-xs btn-info btnInfoUsuario"><i class="fa fa-eye"></i></a>'
-                        }else{
+                        }else if (JsonResultRow.id_tipoTramite == 2) {
                             return '<a href="/admin/factura-licencia/'+JsonResultRow.id+'" target="_blank" class="btn btn-xs btn-success btnEditarUsuario" ><i class="fa fa-print"></i></a>\n' +
                             '<a href="/admin/info-venta-licencia/'+JsonResultRow.id+'" class="btn btn-xs btn-info btnInfoUsuario"><i class="fa fa-eye"></i></a>'
+                        }else{
+                            return '<a href="/admin/factura-licencia/'+JsonResultRow.id+'" target="_blank" class="btn btn-xs btn-success btnEditarUsuario" ><i class="fa fa-print"></i></a>\n' +
+                                '<a href="/admin/info-venta-transito/'+JsonResultRow.id+'" class="btn btn-xs btn-info btnInfoUsuario"><i class="fa fa-eye"></i></a>'
                         }
 
 

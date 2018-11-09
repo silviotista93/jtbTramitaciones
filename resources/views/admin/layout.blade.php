@@ -372,6 +372,7 @@ desired effect
 <script src="/adminlte/js/guardar_cliente.js"></script>
 <script src="/adminlte/js/administrar_seguros.js"></script>
 <script src="/adminlte/js/administrar_licencias.js"></script>
+<script src="/adminlte/js/tramites_transito.js"></script>
 <script src="/adminlte/js/venta_seguro.js"></script>
 <script src="/adminlte/js/venta_licencia.js"></script>
 <script src="/adminlte/js/tramitador.js"></script>

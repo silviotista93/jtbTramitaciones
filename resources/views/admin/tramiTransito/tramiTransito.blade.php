@@ -19,22 +19,20 @@
         <!--=====================================
         EL FORMULARIO
         ======================================-->
+        <form role="form" method="post" class="formularioVentaTramTrans" action="{{route( 'ventaTramiTransito') }}">
+            @csrf
+            <div class="col-lg-6 col-xs-12">
 
-        <div class="col-lg-6 col-xs-12">
+                <div class="box box-success">
 
-            <div class="box box-success">
-
-                <div class="box-header">
-                    <div class="form-group">
-                        <h3 class="box-title">Venta</h3>
+                    <div class="box-header">
+                        <div class="form-group">
+                            <h3 class="box-title">Venta</h3>
+                        </div>
+                        <a href="{{route('adminVentas')}}" class="btn btn-primary pull-right" data-toggle="modal">
+                            <i class="fa fa-dollar"></i> Administrar Tramites
+                        </a>
                     </div>
-                    <a href="{{route('adminVentas')}}" class="btn btn-primary pull-right" data-toggle="modal">
-                        <i class="fa fa-dollar"></i> Administrar Tramites
-                    </a>
-                </div>
-
-                <form role="form" method="post" class="formularioVentaSeguro" action="">
-                    @csrf
                     <div class="box-body">
 
                         <div class="box">
@@ -145,7 +143,7 @@
                                                 </td>
                                             </tr>
                                             <input type="hidden" id="idCliente" name="idCliente" value="">
-                                            <input type="hidden" name="id_tipoTramite" value="1">
+                                            <input type="hidden" name="id_tipoTramite" value="3">
 
 
                                         </table>
@@ -259,11 +257,13 @@
                                                     <span class="input-group-addon"><i
                                                                 class="ion ion-social-usd"></i></span>
 
-                                                    <input type="text" class="form-control input-lg"
-                                                           id="nuevoTotalVentaSeguro" name=""
-                                                           placeholder="00000" readonly required>
+                                                    <input type="text"
+                                                           class="form-control nuevoTotalVentaTramiTra input-lg"
+                                                           id="nuevoTotalVentaTramiTra" name=""
+                                                           placeholder="" required>
 
-                                                    <input type="hidden" name="total" id="totalVentaDB">
+                                                    <input type="hidden" class="totalVentaDBTransi" name="total"
+                                                           id="totalVentaDBTransi">
                                                     <input type="hidden" name="estado" value="Entregado">
                                                     <div id="camposSaldosSeguro">
                                                         <input type="hidden" name="saldo" id="saldoVentaPrincipalSeguro"
@@ -326,130 +326,129 @@
 
                     <div class="box-footer">
 
-                        <button type="submit" class="btn btn-primary pull-right crearVentaSeguro">Crear Venta</button>
+                        <button type="submit" class="btn btn-primary pull-right crearVentaTrans">Crear Venta</button>
 
                     </div>
 
-                </form>
 
-            </div>
-
-        </div>
-
-        <!--=====================================
-        LA TABLA DE PRODUCTOS
-        ======================================-->
-
-        <div class="col-lg-6 hidden-md hidden-sm hidden-xs">
-
-            <div class="box box-warning">
-
-                <div class="box-header">
-                    <div class="form-group">
-                        <h3 class="box-title">Información del Tramite</h3>
-                    </div>
-                </div>
-
-
-                <div class="box-body">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group {{$errors->has('id_tipoIdentificacion')? 'has-error':''}}">
-                                <label for=""><span class="text-danger">*</span> Tipo de Vehiculo</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                                    <select name="id_tipoIdentificacion" id="id_tipoIdentificacion"
-                                            class="form-control">
-                                        <option value="">Seleccione</option>
-                                        @foreach($tipoVehiculos as $tipoVehiculo)
-                                            <option class="text-uppercase"
-                                                    {{old('id_tipoIdentificacion')==$tipoVehiculo->id ? 'selected':''}} value="{{$tipoVehiculo->id}}">{{$tipoVehiculo->nombre}}</option>
-
-                                        @endforeach
-
-                                    </select>
-                                    {!! $errors->first('id_documento','<span class="help-block">Seleccione Tipo</span>')!!}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group {{$errors->has('id_tipoIdentificacion')? 'has-error':''}}">
-                                <label for=""><span class="text-danger">*</span> Ciudad</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                                    <select name="id_tipoIdentificacion" id="id_tipoIdentificacion"
-                                            class="form-control select2" style="width: 100%">
-                                        <option value="">Seleccione</option>
-                                        @foreach($transitos as $transito)
-                                            <option class="text-uppercase"
-                                                    {{old('id_tipoIdentificacion')==$transito->id ? 'selected':''}} value="{{$transito->id}}">{{$transito->ciudad}}</option>
-
-                                        @endforeach
-
-                                    </select>
-                                    {!! $errors->first('id_documento','<span class="help-block">Seleccione Tipo</span>')!!}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group {{$errors->has('apellidos')? 'has-error':''}}">
-                                <label for=""><span class="text-danger">*</span> Número de Placa</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input value="{{old('apellidos')}}" type="text" name="apellidos"
-                                           class="form-control"
-                                           placeholder="Ingrese placa">
-                                    {!! $errors->first('apellidos','<span class="help-block">*:message</span>')!!}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group {{$errors->has('id_tipoIdentificacion')? 'has-error':''}}">
-                                <label for=""><span class="text-danger">*</span> Tipo de Servicio</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                                    <select name="id_tipoIdentificacion" id="id_tipoIdentificacion"
-                                            class="form-control">
-                                        <option value="">Seleccione</option>
-                                        @foreach($tipoServicios as $tipoServicio)
-                                            <option class="text-uppercase"
-                                                    {{old('id_tipoIdentificacion')==$tipoServicio->id ? 'selected':''}} value="{{$tipoServicio->id}}">{{$tipoServicio->servicio}}</option>
-
-                                        @endforeach
-
-                                    </select>
-                                    {!! $errors->first('id_documento','<span class="help-block">Seleccione Tipo</span>')!!}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12">
-                            <div class="form-group">
-                                <label>Observación</label>
-                                <textarea class="form-control" name="nota" cols="10" rows="4"
-                                          placeholder="Si es necesario, escriba observación"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <h4><strong>Seleccione los tramites a realizar</strong></h4>
-                    <div class="row">
-                        @foreach($tipoTrTransitos as $tipoTrTransito)
-                        <div class="col-xs-4">
-                            <div class="checkbox icheck">
-                                <label>
-                                    <input value="{{ $tipoTrTransito->id }}" type="checkbox" name="remember"><span> {{ $tipoTrTransito->nombre }}</span>
-                                </label>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
                 </div>
 
             </div>
 
+            <!--=====================================
+            LA TABLA DE PRODUCTOS
+            ======================================-->
 
-        </div>
+            <div class="col-lg-6 hidden-md hidden-sm hidden-xs">
 
+                <div class="box box-warning">
+
+                    <div class="box-header">
+                        <div class="form-group">
+                            <h3 class="box-title">Información del Tramite</h3>
+                        </div>
+                    </div>
+
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group {{$errors->has('id_vehiculo')? 'has-error':''}}">
+                                    <label for=""><span class="text-danger">*</span> Tipo de Vehiculo</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                        <select name="id_vehiculo" id="id_vehiculo"
+                                                class="form-control">
+                                            <option value="">Seleccione</option>
+                                            @foreach($tipoVehiculos as $tipoVehiculo)
+                                                <option class="text-uppercase"
+                                                        {{old('id_vehiculo')==$tipoVehiculo->id ? 'selected':''}} value="{{$tipoVehiculo->id}}">{{$tipoVehiculo->nombre}}</option>
+
+                                            @endforeach
+
+                                        </select>
+                                        {!! $errors->first('id_vehiculo','<span class="help-block">Seleccione Tipo</span>')!!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group {{$errors->has('id_transito')? 'has-error':''}}">
+                                    <label for=""><span class="text-danger">*</span> Ciudad</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa  fa-compass"></i></span>
+                                        <select name="id_transito" id="id_transito"
+                                                class="form-control select2" style="width: 100%">
+                                            <option value="">Seleccione</option>
+                                            @foreach($transitos as $transito)
+                                                <option class="text-uppercase"
+                                                        {{old('id_transito')==$transito->id ? 'selected':''}} value="{{$transito->id}}">{{$transito->ciudad}}</option>
+
+                                            @endforeach
+
+                                        </select>
+                                        {!! $errors->first('id_transito','<span class="help-block">Seleccione Tipo</span>')!!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group {{$errors->has('placa')? 'has-error':''}}">
+                                    <label for=""><span class="text-danger">*</span> Número de Placa</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-slack"></i></span>
+                                        <input value="{{old('placaCarro')}}" id="placaCarro" type="text" name="placa"
+                                               class="form-control"
+                                               placeholder="Ingrese placa">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group {{$errors->has('id_servicio')? 'has-error':''}}">
+                                    <label for=""><span class="text-danger">*</span> Tipo de Servicio</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                        <select name="id_servicio" id="id_servicio"
+                                                class="form-control">
+                                            <option value="">Seleccione</option>
+                                            @foreach($tipoServicios as $tipoServicio)
+                                                <option class="text-uppercase"
+                                                        {{old('id_servicio')==$tipoServicio->id ? 'selected':''}} value="{{$tipoServicio->id}}">{{$tipoServicio->servicio}}</option>
+
+                                            @endforeach
+
+                                        </select>
+                                        {!! $errors->first('id_documento','<span class="help-block">Seleccione Tipo</span>')!!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Observación</label>
+                                    <textarea class="form-control" name="nota" cols="10" rows="4"
+                                              placeholder="Si es necesario, escriba observación"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <h4><strong>Seleccione los tramites a realizar</strong></h4>
+                        <div class="row">
+                            @foreach($tipoTrTransitos as $tipoTrTransito)
+                                <div class="col-xs-4">
+                                    <div class="checkbox icheck">
+                                        <label>
+                                            <input value="{{ $tipoTrTransito->id }}" type="checkbox"
+                                                   name="tipoTramiteTransi[]"><span> {{ $tipoTrTransito->nombre }}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
     </div>
 
     <!-- MODAL AGREGAR CLIENTE -->
@@ -733,7 +732,8 @@
 
                             <div class="checkbox">
                                 <label for="">
-                                    <input name="roles" class="checkUpdateRoles" type="checkbox" value="{{$roles->name}}"
+                                    <input name="roles" class="checkUpdateRoles" type="checkbox"
+                                           value="{{$roles->name}}"
                                            style="font-size: 14px; font-weight: bold">
                                     {{$roles->name}}
                                 </label>
@@ -759,6 +759,21 @@
     <script>
         $(function () {
             $(".select2").select2();
+            $("#placaCarro").inputmask({mask: 'AAA-999'});
+            $("#placaMoto").inputmask({mask: 'AAA-99A'});
+
+            $('#id_tipoVehiculo').on('change', function () {
+                if (this.value == '10') {
+                    //
+                    $("#placaCarro").show('blind');
+                    $("#placaMoto").hide('blind');
+
+                } else {
+                    $("#placaMoto").show('blind');
+                    $("#placaCarro").hide('blind');
+
+                }
+            });
         });
         @if (count($errors) > 0)
         $('#modalAgregarCliente').modal('show');
