@@ -140,7 +140,7 @@
                                         <td>{{$infoVentaDato->tipo_licencia}}</td>
                                         <td>{{$infoVentaDato->categoria}}</td>
                                         <td>$ <input disabled type="text" class="infoVentaPrecio" id=""
-                                                     value="{{$infoVentaDatos->cantidadLicencia($infoVentaDato->id)[0]->precio_venta}}"
+                                                     value="{{ $infoVentaDato->precio }}"
                                                      style="width: 125px; border: 0; background: border-box;"></td>
                                         <td>$ <input disabled type="text" class="infoVentaPrecioTotal" id=""
                                                      value="{{$infoVentaDatos->cantidadLicencia($infoVentaDato->id)[0]->precio_venta}}"
@@ -359,14 +359,26 @@
                                     </tr>
                                     @endif
                                     @if($infoVentaDatos->descuento == 1)
+                                        {{$totalDescuento=$totalLicencia-$precioMedico->valor-$infoVentaDatos->total }}
                                         <tr>
                                             <th><span class="label label-success" style="font-size: 12px">Descuento Especial:</span></th>
                                             <td>$<input disabled type="text" class="infoVentaSaldo" id=""
-                                                        value="revisar"
+                                                        value="{{ $totalDescuento }}"
                                                         style="width: 125px; border: 0; background: border-box;"></td>
                                             </td>
                                         </tr>
                                     @endif
+
+                                         @if($infoVentaDatos->descuento_escuela == 1)
+                                        <tr>
+                                            <th><span class="label label-danger" style="font-size: 12px">Descuento Escuela:</span></th>
+                                            <td>$<input disabled type="text" class="infoVentaSaldo" id=""
+                                                        value="{{$precioEscuela->valor}}"
+                                                        style="width: 125px; border: 0; background: border-box;"></td>
+                                            </td>
+                                        </tr>
+                                    @endif
+
                                     <tr>
                                         <th>Total Tramite:</th>
                                         <td>$ <input disabled type="text" class="infoVentaTotal" id=""
