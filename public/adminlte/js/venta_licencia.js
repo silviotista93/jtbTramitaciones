@@ -58,8 +58,15 @@ var licencias = {
     checkDescuentoExamen : function (){
         if (this.data.length >= 2 && this.data[0].tipo === 1 && this.descuentoExamen === false) {
             this.descuentoExamen = true;
+            $(".descuento_medico_licencia").val(1);
+            /*
+            <input type="hidden" class="descuento_escuela" value="{{ $escuela->valor }}"></input>
+            <input type="hidden" name="descuento" class="validar_descuento" value="0">
+            <input type="hidden" name="descuento_medico" class="descuento_medico_licencia" value="0">
+            */
             toastr.warning('Se aplico descuento, por examen medico de $' + desc_examen_medico);
         } else if (this.data.length < 2){
+            $(".descuento_medico_licencia").val(0);
             this.descuentoExamen = false;
         }
         this.refreshValues();
@@ -99,6 +106,19 @@ var licencias = {
     refreshView : function (){
         $("#nuevoTotalVenta").val(this.total);
         $("#totalVentaDB").val(this.total);
+        this.validarDescuento();
+    },
+    validarDescuento(){
+        if(parseInt(this.total) !== parseInt($("#nuevoTotalVenta").val()) ){
+            $(".validar_descuento").val("1");
+        }else{
+            $(".validar_descuento").val("0");
+        }
+        if ($(".icheckbox_square-blue.checked").length<1){
+            $(".descuento_escuela").val("0");
+        }else{
+            $(".descuento_escuela").val("1");
+        }
     },
     changeTotal:function (input){
         let licen = this;
@@ -114,6 +134,7 @@ var licencias = {
                 toastr.error('Solo puede tener un precio maximo de $'+licen.total);
             }
             $("#totalVentaDB").val($(this).val());
+            licen.validarDescuento();
         });
         let change = null;
         input.keypress(function (e){
