@@ -344,7 +344,7 @@
                 {data: 'telefono'},
                 {data: 'telefono_2',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
                 {data: 'email'},
-                {data: 'id_vendedor.name'},
+                {data: 'id_vendedor.name',defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>'},
                 {data: 'created_at'},
                 {
                     render:function (data,type, JsonResultRow,meta) {

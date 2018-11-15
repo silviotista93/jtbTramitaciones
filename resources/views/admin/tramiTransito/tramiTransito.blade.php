@@ -118,7 +118,7 @@
                                     <div class="box-body no-padding">
                                         <table class="table table-striped">
                                             <tr>
-                                                <th style="width: 50px">Nombre</th>
+                                                <th style="width: 70px">Nombre</th>
                                                 <th style="width: 30px">Identificacion</th>
                                                 <th style="width: 50px">Más Info</th>
                                             </tr>
@@ -127,7 +127,7 @@
                                             <tr>
                                                 <td>
                                                     <input disabled id="nombreCliente" class=""
-                                                           style="width: 145px; border: 0; background: border-box;">
+                                                           style="width: 190px; border: 0; background: border-box;">
                                                 </td>
 
                                                 </td>
@@ -569,6 +569,7 @@
                             <input type="hidden" id="rol_cliente_seguro" value="4" name="rol">
                         </div>
                     </div>
+                    <input type="hidden" value="{{auth()->user()->id}}" name="id_vendedor">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                         <button type="submit" class="btn btn-primary">Agregar Cliente</button>

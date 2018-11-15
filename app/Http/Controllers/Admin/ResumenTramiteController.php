@@ -111,7 +111,7 @@ class ResumenTramiteController extends Controller
             'metodo_pago' => $request->get('listaMetodoPagoAbono'),
             'resumen_tramite_id' => $request->get('id_resumen_tramite')
         ]);
-        alert()->success('.','Abono Creado ')->autoClose(3000);;
+        alert()->success('.','Abono Creado ')->autoClose(3000);
         return back();
     }
 
