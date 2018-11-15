@@ -128,8 +128,8 @@ class ResumenTramiteController extends Controller
             'estado' => $request->get('estado'),
             'descuento' => $request->get('descuento'),
             'idTramitador' => $request->get('seleccionarTramitador'),
-            'descuento_medico' => $request->get('descuento_medico')
-
+            'descuento_medico' => $request->get('descuento_medico'),
+            'descuento_escuela' => $request->get('descuento_escuela')
 
         ]);
         $licencias = $request->idLicencia;

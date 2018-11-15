@@ -389,7 +389,7 @@
                     </div>
 
                     <div class="box-footer">
-                        <input type="hidden" class="descuento_escuela" value="{{ $escuela->valor }}">
+                        <input type="hidden" name="descuento_escuela" class="descuento_escuela" value="{{ $escuela->valor }}">
                         <input type="hidden" name="descuento" class="validar_descuento" value="0">
                         <input type="hidden" name="descuento_medico" class="descuento_medico_licencia" value="0">
                         <button type="submit" class="btn btn-primary pull-right crearVentaLicencia">Crear Venta</button>
