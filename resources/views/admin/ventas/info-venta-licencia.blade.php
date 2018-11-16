@@ -134,17 +134,25 @@
                                 </thead>
                                 <tbody>
                                 @php($totalLicencia = 0)
+                                @php($escuela = $infoVentaDatos->sinEscuela($infoVentaDatos->id)[0]->validar_curso)
                                 @foreach($infoVentaDatos->licenciaTramite as $infoVentaDato)
                                     <tr id="info">
                                         <td class="text-center">{{$infoVentaDatos->cantidadLicencia($infoVentaDato->id)[0]->cantidad}}</td>
                                         <td>{{$infoVentaDato->tipo_licencia}}</td>
-                                        <td>{{$infoVentaDato->categoria}}</td>
+                                        <td>{{$infoVentaDato->categoria}}
+                                        </td>
                                         <td>$ <input disabled type="text" class="infoVentaPrecio" id=""
                                                      value="{{ $infoVentaDato->precio }}"
                                                      style="width: 125px; border: 0; background: border-box;"></td>
                                         <td>$ <input disabled type="text" class="infoVentaPrecioTotal" id=""
                                                      value="{{$infoVentaDatos->cantidadLicencia($infoVentaDato->id)[0]->precio_venta}}"
-                                                     style="width: 125px; border: 0; background: border-box;"></td>
+                                                     style="width: 125px; border: 0; background: border-box;">
+                                            @if($escuela != null)
+                                                <span class="label label-danger" style="font-size: 10px">
+                                                <i class="fa fa-car"></i> Sin Escuela
+                                            </span>
+                                            @endif
+                                        </td>
                                     </tr>
                                     @php($totalLicencia += $infoVentaDatos->cantidadLicencia($infoVentaDato->id)[0]->precio_venta ++)
                                 @endforeach
@@ -223,8 +231,8 @@
                                         </div>
                                     </div>
                                 </form>
-
-
+                                @php($totalEscuela = $infoVentaDatos->sinEscuela($infoVentaDatos->id)[0]->validar_curso + isset($infoVentaDatos->sinEscuela($infoVentaDatos->id)[1]->validar_curso) )
+                                @if($totalEscuela == 0)
                                 <form id="frmUpdateConducción"  method="post" action="" class="inline">
                                     @csrf {{method_field('PUT')}}
                                     <label>
@@ -266,9 +274,8 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </form>
-
+                                @endif
 
                                 <form id="frmUpdateDerechos" action="" class="inline" method="post">
                                     @csrf {{method_field('PUT')}}
@@ -327,7 +334,7 @@
                                     @if($abono->valor_abono > 0)
                                     <tr>
                                         <th style="width:50%">Ultimo Abono:</th>
-                                        <td>$<input disabled type="text" class="infoVentaAbono" id=""
+                                        <td>$ <input disabled type="text" class="infoVentaAbono" id=""
                                                     value="{{$abono->valor_abono}}"
                                                     style="width: 125px; border: 0; background: border-box;"></td>
                                         </td>
@@ -336,7 +343,7 @@
                                     @if($abono->saldo > 0)
                                     <tr>
                                         <th>Saldo:</th>
-                                        <td>$<input disabled type="text" class="infoVentaSaldo" id=""
+                                        <td>$ <input disabled type="text" class="infoVentaSaldo" id=""
                                                     value="{{$abono->saldo}}"
                                                     style="width: 125px; border: 0; background: border-box;"></td>
                                         </td>
@@ -344,7 +351,7 @@
                                         @endif
                                     <tr>
                                         <th>Costo:</th>
-                                        <td>$<input disabled type="text" class="infoVentaSaldo" id=""
+                                        <td>$ <input disabled type="text" class="infoVentaSaldo" id=""
                                                     value="{{$totalLicencia}}"
                                                     style="width: 125px; border: 0; background: border-box;"></td>
                                         </td>
@@ -352,7 +359,7 @@
                                     @if($infoVentaDatos->descuento_medico == 1)
                                     <tr>
                                         <th><span class="label label-info" style="font-size: 12px">Descuento Medico:</span></th>
-                                        <td>$<input disabled type="text" class="infoVentaSaldo" id=""
+                                        <td>$ <input disabled type="text" class="infoVentaSaldo" id=""
                                                     value="{{$precioMedico->valor}}"
                                                     style="width: 125px; border: 0; background: border-box;"></td>
                                         </td>
@@ -362,7 +369,7 @@
                                         {{$totalDescuento=$totalLicencia-$precioMedico->valor-$infoVentaDatos->total }}
                                         <tr>
                                             <th><span class="label label-success" style="font-size: 12px">Descuento Especial:</span></th>
-                                            <td>$<input disabled type="text" class="infoVentaSaldo" id=""
+                                            <td>$ <input disabled type="text" class="infoVentaSaldo" id=""
                                                         value="{{ $totalDescuento }}"
                                                         style="width: 125px; border: 0; background: border-box;"></td>
                                             </td>
@@ -372,9 +379,15 @@
                                          @if($infoVentaDatos->descuento_escuela == 1)
                                         <tr>
                                             <th><span class="label label-danger" style="font-size: 12px">Descuento Escuela:</span></th>
-                                            <td>$<input disabled type="text" class="infoVentaSaldo" id=""
+                                            <td>@if($totalEscuela == 1)
+                                                $ <input disabled type="text" class="infoVentaSaldo" id=""
                                                         value="{{$precioEscuela->valor}}"
-                                                        style="width: 125px; border: 0; background: border-box;"></td>
+                                                        style="width: 125px; border: 0; background: border-box;">
+                                                    @else
+                                                    $<input disabled type="text" class="infoVentaSaldo" id=""
+                                                            value="{{$precioEscuela->valor + $precioEscuela->valor }}"
+                                                            style="width: 125px; border: 0; background: border-box;">
+                                                    @endif
                                             </td>
                                         </tr>
                                     @endif
