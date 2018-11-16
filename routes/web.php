@@ -211,6 +211,10 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     //Precio escuela de conduccion
     Route::put('precio-escuela-conduccion-actualizado/{escuela}','OtrosController@updateEscuela')->name('escuela-conduccion-actualizado');
 
+    //precio derechos de transito 
+    Route::put('precio-derechos-transito/{transito}','OtrosController@updateRecibo')->name('precio-derechos-transito');
+
+
     //GASTOS
     Route::get('/gastos','GastosController@index')->name('gastos');
     Route::post('/gasto-creado','GastosController@store')->name('gasto-creado');
