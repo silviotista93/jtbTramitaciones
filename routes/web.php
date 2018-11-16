@@ -54,7 +54,7 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
 
     Route::post('usuario-imagen','UserController@fotoPerfil')->name('admin.usuarioImagen');
     Route::put('imagen-actualizada/{user}','UserController@guardarFoto')->name('actualizarFotoPerfil');
-    Route::put('password-actualizada/{user}','UserController@updatePasswordupdatePassword')->name('actualizarContraseña');
+    Route::put('password-actualizada/{user}','UserController@updatePassword')->name('actualizarContraseña');
     Route::put('/actualizar-usuario/{user}','UserController@actualizarUsuarios')->name('UsuarioActualizado');
 
     Route::get('/usuario-actualizar-perfil/{id}','UserController@indexUpdateUser')->name('userUpdatePerfil');
