@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRecibos extends Migration
+class CreateRecibosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateRecibos extends Migration
      */
     public function up()
     {
-        Schema::create('Recibos', function (Blueprint $table) {
-            $table->increments('id');            
-            $table->double('valor')->nullable();            
+        Schema::create('recibos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->double('valor')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateRecibos extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Recibos');
+        Schema::dropIfExists('recibos');
     }
 }

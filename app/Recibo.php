@@ -13,5 +13,6 @@ class Recibo extends Model
         'updated_at',
         'published_at',
     ];
+
     protected $fillable = ['valor'];
 }

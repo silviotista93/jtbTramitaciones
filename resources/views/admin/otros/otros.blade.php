@@ -25,7 +25,7 @@
                 <!-- /.box-header -->
                 <!-- form start -->
                 <form method="POST" action="{{route('examen-medico-actualizado',$valor_medico->id)}}">
-                    @csrf {{method_field('PUT')}}
+                    @csrf {{ method_field('PUT') }}
                     <div class="box-body">
                         <!-- Contraseña-->
                         <div class="form-group {{$errors->has('valor')? 'has-error':''}}">
@@ -53,7 +53,7 @@
                 <!-- /.box-header -->
                 <!-- form start -->
                 <form method="POST" action="{{route('escuela-conduccion-actualizado',$valor_escuela->id)}}">
-                    @csrf {{method_field('PUT')}}
+                    @csrf {{ method_field('PUT') }}
                     <div class="box-body">
                         <!-- Contraseña-->
                         <div class="form-group {{$errors->has('valor')? 'has-error':''}}">
@@ -80,7 +80,7 @@
                 <!-- /.box-header -->
                 <!-- form start -->
                 <form method="POST" action="{{route('precio-derechos-transito',$valor_derechos->id)}}">
-                    @csrf {{method_field('PUT')}}
+                    @csrf {{ method_field('PUT') }}
                     <div class="box-body">
                         <!-- Contraseña-->
                         <div class="form-group {{$errors->has('valor')? 'has-error':''}}">

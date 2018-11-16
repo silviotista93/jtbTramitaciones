@@ -207,7 +207,7 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     Route::get('/admi-tramites/otros','OtrosController@index')->name('admin-otros');
     //Precio examen medico
 
-    Route::put('precio-examen-medico-actualizado/{medico}','OtrosController@updateMedico')->name('examen-medico-actualizado');
+    Route::put('precio-examen-medico-actualizado/{medico}','OtrosController@update')->name('examen-medico-actualizado');
     //Precio escuela de conduccion
     Route::put('precio-escuela-conduccion-actualizado/{escuela}','OtrosController@updateEscuela')->name('escuela-conduccion-actualizado');
 

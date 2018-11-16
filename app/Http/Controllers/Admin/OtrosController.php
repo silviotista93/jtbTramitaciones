@@ -13,11 +13,11 @@ class OtrosController extends Controller
     public function index(){
         $valor_medico = Medico::first();
         $valor_escuela = Escuela::first();
-        $valor_derechos=Recibo::first();
+        $valor_derechos= Recibo::first();
         return view('admin.otros.otros',compact('valor_medico','valor_escuela','valor_derechos'));
     }
 
-    public function updateMedico(Request $request, Medico $medico){
+    public function update(Request $request, Medico $medico){
 
         $data = $request->validate([
             'valor' => 'required'
@@ -39,12 +39,13 @@ class OtrosController extends Controller
 
      public function updateRecibo(Request $request, Recibo $recibo){
 
-        $data = $request->validate([
+        $this->validate($request,[
             'valor' => 'required'
         ]);
 
-        $recibo->update($data);
-       /* return $request;*/
-        return back()->with('flash','Valor de los derechos de transito Actualizado');
-    }
+       Recibo::where('id',1)->update(['valor' => $request->get('valor')]);
+
+       return back()->with('flash','Descuento recibos de transito actualizado');
+
+     }
 }
