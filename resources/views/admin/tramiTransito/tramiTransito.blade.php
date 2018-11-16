@@ -264,6 +264,9 @@
 
                                                     <input type="hidden" class="totalVentaDBTransi" name="total"
                                                            id="totalVentaDBTransi">
+                                                           <input type="hidden" name="descuento" class="validar_descuento" value="0">
+                                                           <input type="hidden" name="descuento_escuela" class="descuento_escuela" value="0">
+                                                           <input type="hidden" name="descuento_medico" class="descuento_medico_licencia" value="0">
                                                     <input type="hidden" name="estado" value="Entregado">
                                                     <div id="camposSaldosSeguro">
                                                         <input type="hidden" name="saldo" id="saldoVentaPrincipalSeguro"
