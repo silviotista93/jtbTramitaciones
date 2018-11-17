@@ -81,7 +81,7 @@ $(".crearVentaTrans").click(function (e) {
     }else if ($('#id_vehiculo').val()===''){
     	toastr.error('Tipo vehiculo requerido');   
 
-    }else if ($('#placaCarro').val()===''){
+    }else if ($('').val()===''){
     	toastr.error('Placa requerida');
     }else if ($('#id_servicio').val()===''){
     	toastr.error('Servicio requerido');	 	 

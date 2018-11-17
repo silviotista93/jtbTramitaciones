@@ -75,9 +75,17 @@ class ResumenTramite extends Model
     public function sinEscuela($id){
             return DB::table('resumen_licencia')
                 ->select('*')
-                ->where('id_resumen_tramite', $id)
+                ->where('id_resumen_tramite',$id)
                 ->get();
     }
+
+    public function sinEscuelaResumen($id){
+        return DB::table('resumen_licencia')
+            ->select('*')
+            ->where([['id_resumen_tramite','=',$this->id],['id_licencia','=',$id]])
+            ->get();
+    }
+
         public function tipoIdentificacion($id){
             return DB::table('tipo_documentos')
                 ->select('*')

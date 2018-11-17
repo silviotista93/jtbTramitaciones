@@ -104,9 +104,9 @@
                             {{$infoVentaDatos->created_at->format('l jS \\of F Y h:i:s A')}}
                             <br>
                             @if(isset($infoVentaDatos->idtramitador->name) & isset($infoVentaDatos->idtramitador->apellidos))
-                            <b>Tramidor: </b>
-                            {{$infoVentaDatos->idtramitador->name}}  {{$infoVentaDatos->idtramitador->apellidos}}
-                            <br>
+                                <b>Tramidor: </b>
+                                {{$infoVentaDatos->idtramitador->name}}  {{$infoVentaDatos->idtramitador->apellidos}}
+                                <br>
                             @else
                                 <b>Tramidor: </b>
                                 Ningún Tramitador
@@ -134,8 +134,8 @@
                                 </thead>
                                 <tbody>
                                 @php($totalLicencia = 0)
-                                @php($escuela = $infoVentaDatos->sinEscuela($infoVentaDatos->id)[0]->validar_curso)
                                 @foreach($infoVentaDatos->licenciaTramite as $infoVentaDato)
+                                    @php($escuela = $infoVentaDatos->sinEscuelaResumen($infoVentaDato->id)[0]->validar_curso)
                                     <tr id="info">
                                         <td class="text-center">{{$infoVentaDatos->cantidadLicencia($infoVentaDato->id)[0]->cantidad}}</td>
                                         <td>{{$infoVentaDato->tipo_licencia}}</td>
@@ -149,9 +149,10 @@
                                                      style="width: 125px; border: 0; background: border-box;">
                                             @if($escuela != null)
                                                 <span class="label label-danger" style="font-size: 10px">
-                                                <i class="fa fa-car"></i> Sin Escuela
-                                            </span>
+                                                <i class="fa fa-car"></i> Sin Curso
+                                             </span>
                                             @endif
+
                                         </td>
                                     </tr>
                                     @php($totalLicencia += $infoVentaDatos->cantidadLicencia($infoVentaDato->id)[0]->precio_venta ++)
@@ -186,7 +187,7 @@
                                             @endforeach
                                         </ul>
                                     </div><br/>
-                            @endif
+                                @endif
                             <!-- ACTUALIZAR SI HA REALIZADO EL EXAMEN MEDICO -->
                                 <form id="frmUpdateMedico" method="post" class="actualizarMedico inline">
                                     @csrf {{method_field('PUT')}}
@@ -231,50 +232,98 @@
                                         </div>
                                     </div>
                                 </form>
-                                @php($totalEscuela = $infoVentaDatos->sinEscuela($infoVentaDatos->id)[0]->validar_curso + isset($infoVentaDatos->sinEscuela($infoVentaDatos->id)[1]->validar_curso) )
-                                @if($totalEscuela == 0)
-                                <form id="frmUpdateConducción"  method="post" action="" class="inline">
-                                    @csrf {{method_field('PUT')}}
-                                    <label>
-                                        <input id="checkProcesosConduccion" idResumen="{{ $infoVentaDatos->id }}"
-                                               class="checkLicencia checkProcesosConduccion" type="checkbox"
-                                               name="escuela_conduccion"
-                                                {{ $infoVentaDatos->escuela_conduccion === 'Realizado' ? 'checked':''}}>&nbsp
-                                        <span class="label label-danger" style="font-size: 12px"><i
-                                                    class="fa fa-car"></i> Escuela de Conducción</span>
-                                    </label>
+                                @if( isset($infoVentaDatos->sinEscuela($infoVentaDatos->id)[1]->validar_curso))
+                                @php($totalEscuela = ($infoVentaDatos->sinEscuela($infoVentaDatos->id)[0]->validar_curso) + $infoVentaDatos->sinEscuela($infoVentaDatos->id)[1]->validar_curso)
+                                    @if($totalEscuela == 1  or $totalEscuela == 0 )
+                                        <form id="frmUpdateConducción" method="post" action="" class="inline">
+                                            @csrf {{method_field('PUT')}}
+                                            <label>
+                                                <input id="checkProcesosConduccion" idResumen="{{ $infoVentaDatos->id }}"
+                                                       class="checkLicencia checkProcesosConduccion" type="checkbox"
+                                                       name="escuela_conduccion"
+                                                        {{ $infoVentaDatos->escuela_conduccion === 'Realizado' ? 'checked':''}}>&nbsp
+                                                <span class="label label-danger" style="font-size: 12px"><i
+                                                            class="fa fa-car"></i> Escuela de Conducción</span>
+                                            </label>
 
 
-                                    <!-- MODAL CAPTCHA -->
-                                    <div class="modal fade" data-backdrop="static" data-keyboard="false"
-                                         id="modalCaptchaConduccion" tabindex="-1" role="dialog"
-                                         aria-labelledby="myModalLabel">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header" style="background-color: #FFFFFF;">
+                                            <!-- MODAL CAPTCHA -->
+                                            <div class="modal fade" data-backdrop="static" data-keyboard="false"
+                                                 id="modalCaptchaConduccion" tabindex="-1" role="dialog"
+                                                 aria-labelledby="myModalLabel">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="background-color: #FFFFFF;">
 
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="box-body">
-                                                        <label for="ReCaptcha">Por favor valide si el Usuario ha
-                                                            realizado Escuela de Conduccion:</label>
-                                                        {!! NoCaptcha::renderJs() !!}
-                                                        {!! NoCaptcha::display() !!}
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <a href="/admin/info-venta-licencia/{{$infoVentaDatos->id}}"
-                                                           class="btn btn-default">
-                                                            Cerrar
-                                                        </a>
-                                                        <button type="submit" class="btn btn-danger "><i
-                                                                    class="fa fa-car"></i> Validar
-                                                        </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="box-body">
+                                                                <label for="ReCaptcha">Por favor valide si el Usuario ha
+                                                                    realizado Escuela de Conduccion:</label>
+                                                                {!! NoCaptcha::renderJs() !!}
+                                                                {!! NoCaptcha::display() !!}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <a href="/admin/info-venta-licencia/{{$infoVentaDatos->id}}"
+                                                                   class="btn btn-default">
+                                                                    Cerrar
+                                                                </a>
+                                                                <button type="submit" class="btn btn-danger "><i
+                                                                            class="fa fa-car"></i> Validar
+                                                                </button>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </form>
+                                        </form>
+                                    @endif
+                                @else
+                                    @php($totalEscuela = ($infoVentaDatos->sinEscuela($infoVentaDatos->id)[0]->validar_curso))
+                                    @if($totalEscuela == 0)
+                                        <form id="frmUpdateConducción" method="post" action="" class="inline">
+                                            @csrf {{method_field('PUT')}}
+                                            <label>
+                                                <input id="checkProcesosConduccion" idResumen="{{ $infoVentaDatos->id }}"
+                                                       class="checkLicencia checkProcesosConduccion" type="checkbox"
+                                                       name="escuela_conduccion"
+                                                        {{ $infoVentaDatos->escuela_conduccion === 'Realizado' ? 'checked':''}}>&nbsp
+                                                <span class="label label-danger" style="font-size: 12px"><i
+                                                            class="fa fa-car"></i> Escuela de Conducción</span>
+                                            </label>
+
+
+                                            <!-- MODAL CAPTCHA -->
+                                            <div class="modal fade" data-backdrop="static" data-keyboard="false"
+                                                 id="modalCaptchaConduccion" tabindex="-1" role="dialog"
+                                                 aria-labelledby="myModalLabel">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="background-color: #FFFFFF;">
+
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="box-body">
+                                                                <label for="ReCaptcha">Por favor valide si el Usuario ha
+                                                                    realizado Escuela de Conduccion:</label>
+                                                                {!! NoCaptcha::renderJs() !!}
+                                                                {!! NoCaptcha::display() !!}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <a href="/admin/info-venta-licencia/{{$infoVentaDatos->id}}"
+                                                                   class="btn btn-default">
+                                                                    Cerrar
+                                                                </a>
+                                                                <button type="submit" class="btn btn-danger "><i
+                                                                            class="fa fa-car"></i> Validar
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    @endif
                                 @endif
 
                                 <form id="frmUpdateDerechos" action="" class="inline" method="post">
@@ -332,62 +381,65 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     @if($abono->valor_abono > 0)
-                                    <tr>
-                                        <th style="width:50%">Ultimo Abono:</th>
-                                        <td>$ <input disabled type="text" class="infoVentaAbono" id=""
-                                                    value="{{$abono->valor_abono}}"
-                                                    style="width: 125px; border: 0; background: border-box;"></td>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <th style="width:50%">Ultimo Abono:</th>
+                                            <td>$ <input disabled type="text" class="infoVentaAbono" id=""
+                                                         value="{{$abono->valor_abono}}"
+                                                         style="width: 125px; border: 0; background: border-box;"></td>
+                                            </td>
+                                        </tr>
                                     @endif
                                     @if($abono->saldo > 0)
-                                    <tr>
-                                        <th>Saldo:</th>
-                                        <td>$ <input disabled type="text" class="infoVentaSaldo" id=""
-                                                    value="{{$abono->saldo}}"
-                                                    style="width: 125px; border: 0; background: border-box;"></td>
-                                        </td>
-                                    </tr>
-                                        @endif
+                                        <tr>
+                                            <th>Saldo:</th>
+                                            <td>$ <input disabled type="text" class="infoVentaSaldo" id=""
+                                                         value="{{$abono->saldo}}"
+                                                         style="width: 125px; border: 0; background: border-box;"></td>
+                                            </td>
+                                        </tr>
+                                    @endif
                                     <tr>
                                         <th>Costo:</th>
                                         <td>$ <input disabled type="text" class="infoVentaSaldo" id=""
-                                                    value="{{$totalLicencia}}"
-                                                    style="width: 125px; border: 0; background: border-box;"></td>
+                                                     value="{{$totalLicencia}}"
+                                                     style="width: 125px; border: 0; background: border-box;"></td>
                                         </td>
                                     </tr>
                                     @if($infoVentaDatos->descuento_medico == 1)
-                                    <tr>
-                                        <th><span class="label label-info" style="font-size: 12px">Descuento Medico:</span></th>
-                                        <td>$ <input disabled type="text" class="infoVentaSaldo" id=""
-                                                    value="{{$precioMedico->valor}}"
-                                                    style="width: 125px; border: 0; background: border-box;"></td>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <th><span class="label label-info"
+                                                      style="font-size: 12px">Descuento Medico:</span></th>
+                                            <td>$ <input disabled type="text" class="infoVentaSaldo" id=""
+                                                         value="{{$precioMedico->valor}}"
+                                                         style="width: 125px; border: 0; background: border-box;"></td>
+                                            </td>
+                                        </tr>
                                     @endif
                                     @if($infoVentaDatos->descuento == 1)
                                         {{$totalDescuento=$totalLicencia-$precioMedico->valor-$infoVentaDatos->total }}
                                         <tr>
-                                            <th><span class="label label-success" style="font-size: 12px">Descuento Especial:</span></th>
+                                            <th><span class="label label-success" style="font-size: 12px">Descuento Especial:</span>
+                                            </th>
                                             <td>$ <input disabled type="text" class="infoVentaSaldo" id=""
-                                                        value="{{ $totalDescuento }}"
-                                                        style="width: 125px; border: 0; background: border-box;"></td>
+                                                         value="{{ $totalDescuento }}"
+                                                         style="width: 125px; border: 0; background: border-box;"></td>
                                             </td>
                                         </tr>
                                     @endif
 
-                                         @if($infoVentaDatos->descuento_escuela == 1)
+                                    @if($infoVentaDatos->descuento_escuela == 1)
                                         <tr>
-                                            <th><span class="label label-danger" style="font-size: 12px">Descuento Escuela:</span></th>
+                                            <th><span class="label label-danger" style="font-size: 12px">Descuento Escuela:</span>
+                                            </th>
                                             <td>@if($totalEscuela == 1)
-                                                $ <input disabled type="text" class="infoVentaSaldo" id=""
-                                                        value="{{$precioEscuela->valor}}"
-                                                        style="width: 125px; border: 0; background: border-box;">
-                                                    @else
+                                                    $ <input disabled type="text" class="infoVentaSaldo" id=""
+                                                             value="{{$precioEscuela->valor}}"
+                                                             style="width: 125px; border: 0; background: border-box;">
+                                                @else
                                                     $<input disabled type="text" class="infoVentaSaldo" id=""
                                                             value="{{$precioEscuela->valor + $precioEscuela->valor }}"
                                                             style="width: 125px; border: 0; background: border-box;">
-                                                    @endif
+                                                @endif
                                             </td>
                                         </tr>
                                     @endif
@@ -467,10 +519,12 @@
                                                                                     value="{{$abono->saldo}}"
                                                                                     style="width: 125px; border: 0; background: border-box;">
                                                     </td>
-                                                    <td class="text-center"><input type="text" id="valor_a_pagar_financiacion"
+                                                    <td class="text-center"><input type="text"
+                                                                                   id="valor_a_pagar_financiacion"
                                                                                    class="form-control valor_a_pagar_financiacion"
                                                                                    placeholder="$"></td>
-                                                    <input type="hidden" name="abono" class="valorPagar" value="" id="valor_a_pagar_financiacion">
+                                                    <input type="hidden" name="abono" class="valorPagar" value=""
+                                                           id="valor_a_pagar_financiacion">
                                                     <td class="text-center">
                                                         <select class="form-control" id="nuevoMetodoPagoAbono"
                                                                 name="metodo_pago"
@@ -482,8 +536,10 @@
                                                         </select>
                                                         <input type="number" id=""
                                                                class="form-control inputMetodoPagoAbono"
-                                                               placeholder="Código de transacción" style="margin-top: 9px; display: none">
-                                                        <input type="hidden" id="listaMetodoPagoLicenciaAbono" name="listaMetodoPagoAbono">
+                                                               placeholder="Código de transacción"
+                                                               style="margin-top: 9px; display: none">
+                                                        <input type="hidden" id="listaMetodoPagoLicenciaAbono"
+                                                               name="listaMetodoPagoAbono">
                                                     </td>
                                                     <td class="text-center"><textarea name="nota" id="" cols="30"
                                                                                       rows="2"></textarea></td>
@@ -541,8 +597,12 @@
 
                                                             <td class="text-center">{{$abono->created_at}}</td>
                                                             <td class="text-center">
-                                                                <a href="/admin/factura-abono-licencia/{{$abono->id}}" class="btn btn-success" target="_blank"><i class="fa fa-file"></i></a>
-                                                                <a href="/admin/recibo-abono-licencia/{{$abono->id}}" target="-_blank" class="btn btn-danger"><i class="fa fa-print"></i></a>
+                                                                <a href="/admin/factura-abono-licencia/{{$abono->id}}"
+                                                                   class="btn btn-success" target="_blank"><i
+                                                                            class="fa fa-file"></i></a>
+                                                                <a href="/admin/recibo-abono-licencia/{{$abono->id}}"
+                                                                   target="-_blank" class="btn btn-danger"><i
+                                                                            class="fa fa-print"></i></a>
                                                             </td>
                                                         </tr>
                                                     @endforeach

@@ -142,6 +142,27 @@ class ResumenTramiteController extends Controller
 
             ]);
         }
+        if (isset($validar_curso[1])){
+            $sinCurso = $validar_curso[0] + $validar_curso[1];
+
+            if ($sinCurso == 2){
+                ResumenTramite::where('id',$cliente->id)->update([
+                    'escuela_conduccion' => 'Realizado'
+                ]);
+            }
+        }else{
+            $sinCurso = $validar_curso[0];
+
+            if ($sinCurso > 0){
+                ResumenTramite::where('id',$cliente->id)->update([
+                    'escuela_conduccion' => 'Realizado'
+                ]);
+            }
+        }
+
+
+
+
 
         $abono=Abono::create([
             'valor_abono' => $request->get('abono'),
@@ -173,8 +194,17 @@ class ResumenTramiteController extends Controller
 
         ]);
 
+        $placaMoto = $request->get('placaMoto');
+        $placaCarro = $request->get('placaCarro');
+
+        if (isset($placaMoto)){
+            $placa = $placaMoto;
+        }else{
+            $placa = $placaCarro;
+        }
+
         $tramiTransito = TramiteTransito::create([
-            'placa' => $request->get('placa'),
+            'placa' =>  $placa,
             'id_transito' => $request->get('id_transito'),
             'id_vehiculo' => $request->get('id_vehiculo'),
             'id_servicio' => $request->get('id_servicio')
