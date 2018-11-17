@@ -24,6 +24,7 @@ class CreateResumenTramitesTable extends Migration
             $table->unsignedInteger('descuento')->nullalble();
             $table->unsignedInteger('descuento_medico')->default(0);
             $table->unsignedInteger('descuento_escuela')->default(0);
+            $table->unsignedInteger('descuento_recibos')->default(0);
             $table->enum('estado', ['Recibido', 'En tramite', 'Entregado'])->default('Recibido');
             $table->enum('examen_medico', ['Realizado', 'Pendiente'])->default('Pendiente');
             $table->enum('escuela_conduccion', ['Realizado', 'Pendiente'])->default('Pendiente');
