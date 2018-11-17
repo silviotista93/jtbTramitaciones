@@ -204,7 +204,7 @@ $(function () {
                     '<div class="" style="padding-left: 0px">' +
                     '<input type="hidden" class="form-control nuevaCantidadLicencia" name="nuevaCantidadLicencia[]" min="1" value="1" required>' +
                     '</div>' +
-                    '<input type="hidden" name="validar_curso[]" class="validarEscuela">' +
+                    '<input type="hidden" name="validar_curso[]" class="validarEscuela" value="0">' +
                     '</div>');
 
                 $(".contenedor_input:not(.new)").click(function () {
@@ -212,9 +212,9 @@ $(function () {
                     let container = $(this).parent().parent().parent();
                     licencias.tramiteSinCurso(container.attr("data-id"), container);
                     if (!check.hasClass("checked")) {
-                        $('.validarEscuela').val('');
+                        container.find('.validarEscuela').val('0');
                     } else {
-                        $('.validarEscuela').val('1');
+                        container.find('.validarEscuela').val('1');
                     }
                 }).addClass("new");
 
