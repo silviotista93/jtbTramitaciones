@@ -176,3 +176,82 @@ $(".crearVentaTrans").click(function (e) {
     
 });
 
+
+    $(function () {
+    $('#btn-mostrarAbono').click(function (e) {
+        e.preventDefault();
+        $('#titulo-tabla-abono').show('blind');
+        $('#campo-ingresar-abono').show('blind');
+        $('#btn-mostrarAbono').hide('blid');
+        $('#btn-cancelarAbono').show('blid');
+    })
+    $('#btn-cancelarAbono').click(function (e) {
+        e.preventDefault();
+
+        $('#btn-mostrarAbono').show('blid');
+        $('#titulo-tabla-abono').hide('blind');
+        $('#campo-ingresar-abono').hide('blind');
+        $('#btn-cancelarAbono').hide('blind');
+
+    })
+    $('#btn-mostrarAbono').click(function (e) {
+        e.preventDefault();
+
+        $('#saldoVentaPrincipalTransi').remove();
+        $("#camposSaldosTransi").append(
+            '<input type="hidden" name="saldo" id="saldoVentaAbonoTransi" value="">'
+        )
+
+    })
+    $('#btn-cancelarAbono').click(function (e) {
+        e.preventDefault();
+        $('#saldoVentaAbonoTransi').remove();
+        $("#camposSaldosTransi").append(
+            '<input type="hidden" name="saldo" id="saldoVentaPrincipalTransi" value="0">'
+        )
+        $("#estadoSaldoTransi").val('Cancelado');
+    })
+});
+
+
+
+/*=============================================
+RESTAR EL VALOR DEL ABONO
+=============================================*/
+
+$(".inputAbono").keyup(function(){
+    var efectivo=0;
+    var saldo=0;
+    var cambio=0;
+    efectivo = $(this).val();
+    saldo=$('#totalVentaDBTransi').val();
+    cambio =  Number(saldo-efectivo);
+    if(cambio < 0 ){
+         $(this).val(0);
+        $.confirm({
+            animationBounce: 1.5,
+            closeAnimation: 'scale',
+            icon: 'fa fa-warning',
+            title: 'El valor es mayor al Total',
+            content: '',
+            type: 'red',
+            typeAnimated: true,
+            buttons: {
+
+                cerrar: function () {
+
+                }
+            }
+        });
+    }else{
+        $("#estadoSaldoTransi").val('Debe');
+        $('#saldoVentaAbonoTransi').val(cambio);
+    }
+
+
+    console.log(cambio);
+    // var nuevoCambioEfectivo = $(this).parent().parent().parent().children('#camposSaldos').children().children('#saldoVentaAbono');
+
+    // nuevoCambioEfectivo.val(cambio);
+
+});
