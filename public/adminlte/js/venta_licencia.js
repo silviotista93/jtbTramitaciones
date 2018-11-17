@@ -36,7 +36,7 @@ var licencias = {
     maxDescuento: 0,
     add: function (licencia) {
         if (this.data.length > 0 && this.data[0].tipo !== licencia.tipo){
-            toastr.warning('No se pueden mesclar licencias de tramitador y publicas');
+            toastr.warning('No se pueden mezclar licencias de tramitador y publicas');
             return false;
         }else if (this.data.length >= 2 && this.data[0].tipo === 1) {
             toastr.warning('Solo se pueden agregar dos licencias');

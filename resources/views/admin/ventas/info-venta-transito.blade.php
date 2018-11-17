@@ -146,7 +146,7 @@
                                     </td>
                                     <td>{{ $infoVentaDatos->ciudadTransito($ciudad)->ciudad }}</td>
                                     <td>{{ $infoVentaDatos->vehiculoTrans($vehiculo)->nombre }}  {{ $infoVentaDatos->servicioVehicuilar($servicio)->servicio }}</td>
-                                    <td>{{ $infoVentaDatos->tramiTransito[0]->tramiteTransito->pluck('nombre')->implode(',') }}</td>
+                                    <td>{{ $infoVentaDatos->tramiTransito[0]->tramiteTransito->pluck('nombre')->implode(', ') }}</td>
                                     <td>{{ $infoVentaDatos->total }} <input disabled type="text" class="infoVentaPrecio" id=""
                                                  value=""
                                                  style="width: 125px; border: 0; background: border-box;"></td>
@@ -218,8 +218,8 @@
                                     @endif
                                     <tr>
                                         <th>Costo:</th>
-                                        <td>{{ $infoVentaDatos->total }}<input disabled type="text" class="infoVentaSaldo" id=""
-                                                    value="{{$totalLicencia}}"
+                                        <td>$ <input disabled type="text" class="infoVentaSaldo" id=""
+                                                    value="{{$infoVentaDatos->total}}"
                                                     style="width: 125px; border: 0; background: border-box;"></td>
                                         </td>
                                     </tr>
