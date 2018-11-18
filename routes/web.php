@@ -22,7 +22,6 @@ Route::get('/ventas/{id}',function ($id){
 });
 
 Route::get('/ruta-consultas/{id}',function ($idTramitador){
-    
 
     return \App\ResumenTramite::where('idTramitador',$idTramitador)->with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono')->get();
 });
@@ -191,9 +190,6 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     //Recibo Licencia
     Route::get('/recibo-licencia/{id}','ResumenTramiteController@reciboPdfLicencia')->name('generar.recibo-licencia');
     Route::get('/recibo-abono-licencia/{id}','ResumenTramiteController@reciboAbonoLicencia')->name('generar.recibo-abono-licencia');
-    //recibo abono transito
-    Route::get('/recibo-abono-transito/{id}','ResumenTramiteController@reciboAbonoTransito')->name('generar.recibo-abono-transito');
-
     Route::get('/factura-licencia/{id}','ResumenTramiteController@facturaPdfLicencia')->name('generar.factura-licencia');
     Route::get('/factura-abono-licencia/{id}','ResumenTramiteController@facturaAbonoLicenciaPdf')->name('generar.factura-abono-licencia');
 

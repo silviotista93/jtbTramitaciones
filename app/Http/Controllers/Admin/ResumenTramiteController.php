@@ -62,10 +62,6 @@ class ResumenTramiteController extends Controller
         return view('admin.recibo-abono-licencia',compact('datosAbonos'));
     }
 
-public function reciboAbonoTransito($id){
-        $datosAbonos = Abono::where('id' ,$id)->with('resumenTramite')->first();
-        return view('admin.recibo-abono-transito',compact('datosAbonos'));
-    }
     //VENTAS TRAMITE SEGURO
     public function agregarSeguro(Request $request){
 

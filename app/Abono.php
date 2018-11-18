@@ -47,20 +47,6 @@ class Abono extends Model
             ->groupBy('licencias.id')
             ->get();
     }
-
-      public function obtenerDatosTramiteTransito($id){
-
-        return DB::table('abonos')
-            ->select('abonos.*','resumen_tramites.*','resumen_transito.*','tipo_tram_transitos.*','tipotramitransi_tramite.*','tramite_transitos.*')
-            ->join('resumen_tramites', 'resumen_tramites.id', '=', 'abonos.resumen_tramite_id')
-            ->join('resumen_transito','resumen_transito.id_resumenTramite','=','resumen_tramites.id')
-            ->join('tramite_transitos','tramite_transitos.id','=','resumen_transito.id_tramite')
-            ->join('tipotramitransi_tramite','tipotramitransi_tramite.id_tramite','=','tramite_transitos.id')
-            ->join('tipo_tram_transitos','tipotramitransi_tramite.id_tipoTramTrans','=','tipo_tram_transitos.id')
-            ->where('abonos.resumen_tramite_id','=',$id)
-            ->groupBy('tipo_tram_transitos.id')
-            ->get();
-    }
     public function idcliente($idUsuario){
         return DB::table('users')
             ->select('*')
@@ -86,22 +72,6 @@ class Abono extends Model
             ->where('id','=',$id)
             ->get();
     }
-
-    public function transitos($id){
-        return DB::table('transitos')
-            ->select('*')
-            ->where('id','=',$id)
-            ->get();
-    }
-
-    public function servicios($id){
-        return DB::table('servicio_vehiculars')
-            ->select('*')
-            ->where('id','=',$id)
-            ->get();
-    }
-
-
 
     public function tipoIdentificacion($id){
         return DB::table('tipo_documentos')
