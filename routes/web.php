@@ -51,7 +51,7 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     Route::put('/update-estado/{usuario}/{estado}','UserController@actualizarEstado')->name('actualizarEstado');
     Route::delete('/usuario-eliminar/{usuario}','UserController@destroy')->name('usuarioEliminar');
     Route::get('/perfil','UserController@editarPerfil')->name('editarPerfil');
-
+ 
     Route::post('usuario-imagen','UserController@fotoPerfil')->name('admin.usuarioImagen');
     Route::put('imagen-actualizada/{user}','UserController@guardarFoto')->name('actualizarFotoPerfil');
     Route::put('password-actualizada/{user}','UserController@updatePassword')->name('actualizarContraseña');

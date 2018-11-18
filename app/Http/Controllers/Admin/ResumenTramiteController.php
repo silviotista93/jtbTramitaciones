@@ -63,7 +63,7 @@ class ResumenTramiteController extends Controller
     }
 
     //VENTAS TRAMITE SEGURO
-    public function agregarSeguro(Request $request){
+    public function agregarSeguro(Request $request){ 
 
         $cliente = ResumenTramite::create([
 

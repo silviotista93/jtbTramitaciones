@@ -48,7 +48,7 @@ class Abono extends Model
             ->get();
     }
     public function idcliente($idUsuario){
-        return DB::table('users')
+        return DB::table('users') 
             ->select('*')
             ->where('id','=',$idUsuario)
             ->first();

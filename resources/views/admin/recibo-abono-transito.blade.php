@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="col-right">
-                    <table class="table" style="width: 625px;"> 
+                    <table class="table" style="width: 625px;">
                         <tbody>
 
                         <tr>
@@ -67,30 +67,36 @@
                 <table class="table-main" style="margin-left: 10px">
                     <thead>
                     <tr class="tabletitle">
-                        <th>Cantidad</th>
-                        <th>Tipo</th>
-                        <th>Descripción</th>
-                        <th>Precio</th>
+                        <th>Placa</th>
+                        <th>Ciudad</th>
+                        <th>Vehiculo</th>
+                        <th>Detalle</th>
                         <th>Total</th>
                     </tr>
                     </thead>
-                    @php($resumen = $datosAbonos->obtenerDatosTramiteLicencia($datosAbonos->resumenTramite->id))
+                    @php($resumen = $datosAbonos->obtenerDatosTramiteTransito($datosAbonos->resumenTramite->id)) 
                     @php($indice = 0)
-                    @foreach( $resumen as $datosAbono)
+                   
+
                         <tr class="list-item">
-                            <td data-label="Type" class="tableitem">{{($datosAbono->cantidad)}}</td>
-                            <td data-label="Quantity" class="tableitem">{{$datosAbono->tipo_licencia}}</td>
+                            <td data-label="Type" class="tableitem">{{ $resumen[0]->placa }}</td>
+                            <td data-label="Quantity" class="tableitem">{{ $datosAbonos->transitos($resumen[0]->id_transito)[0]->ciudad  }}</td>
+                            <td data-label="Description" class="tableitem">{{ $datosAbonos->tipoVehiculo($resumen[0]->id_vehiculo)[0]->nombre  }} {{ $datosAbonos->servicios($resumen[0]->id_servicio)[0]->servicio }} </td>                  
                             <td data-label="Description" class="tableitem">
-                                {{$datosAbono->categoria}}
+                                
+                                
+                                @for( $i =0 ; $i <sizeof($resumen); $i++)
+                                  {{$resumen[$i]->nombre}},
+                                @endfor 
                             </td>
-                            <td data-label="Unit Price" class="tableitem">$ {{$datosAbono->precio_venta}} </td>
-                            <td data-label="Taxable Amount" class="tableitem">$ {{$datosAbono->precio_venta}} </td>
-                        </tr>
-                    @endforeach
+                            <td data-label="Taxable Amount" class="tableitem">{{$resumen[0]->total}}</td>
+                        </tr> 
+                       
+                    
 
                     <tr class="list-item total-row">
                         <th colspan="4" class="tableitem"> Total</th>
-                        <td data-label="Grand Total" class="tableitem">$ {{$datosAbonos->obtenerDatosTramiteLicencia($datosAbonos->resumenTramite->id)[0]->total}}</td>
+                        <td data-label="Grand Total" class="tableitem">$ {{$datosAbonos->obtenerDatosTramiteTransito($datosAbonos->resumenTramite->id)[0]->total}}</td>
                     </tr>
                 </table>
                 <div style="margin-left: 10px">

@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('header')
+@section('header') 
     <h1>
         <strong>Información del Trámite</strong>
         <small>Trámite</small>
