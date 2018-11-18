@@ -399,7 +399,7 @@
                                                                 <a href="/admin/factura-abono-licencia/{{$abono->id}}"
                                                                    class="btn btn-success" target="_blank"><i
                                                                             class="fa fa-file"></i></a>
-                                                                <a href="/admin/recibo-abono-licencia/{{$abono->id}}"
+                                                                <a href="/admin/recibo-abono-transito/{{$abono->id}}"
                                                                    target="-_blank" class="btn btn-danger"><i
                                                                             class="fa fa-print"></i></a>
                                                             </td>
