@@ -398,7 +398,10 @@
                                     <label for=""><span class="text-danger">*</span> Número de Placa</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-slack"></i></span>
-                                        <input value="{{old('placaCarro')}}" id="placaCarro" type="text" name="placa"
+                                        <input value="{{old('placaCarro')}}" id="placaCarro" type="text" name="placaCarro"
+                                               class="form-control"
+                                               placeholder="Ingrese placa">
+                                        <input style="display: none;" value="{{old('placaMoto')}}" id="placaMoto" type="text" name="placaMoto"
                                                class="form-control"
                                                placeholder="Ingrese placa">
 
@@ -766,15 +769,17 @@
             $("#placaCarro").inputmask({mask: 'AAA-999'});
             $("#placaMoto").inputmask({mask: 'AAA-99A'});
 
-            $('#id_tipoVehiculo').on('change', function () {
+            $('#id_vehiculo').on('change', function () {
                 if (this.value == '10') {
                     //
                     $("#placaCarro").show('blind');
                     $("#placaMoto").hide('blind');
+                    $("#placaMoto").val('');
 
                 } else {
                     $("#placaMoto").show('blind');
                     $("#placaCarro").hide('blind');
+                    $("#placaCarro").val('');
 
                 }
             });

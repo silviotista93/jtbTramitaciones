@@ -74,8 +74,8 @@
             <!-- general form elements -->
             <div class="box box-primary">
                 <div class="box-header">
-                    <h3 class="box-title" style="font-size: 16px;">Actualizar derechos de transito</h3>
-                    <span class="label label-success text-center pull-right" style="font-size: 16px;"><i class="fa fa-car"></i> Precio actual ${{$valor_derechos->valor}}</span>
+                    <h3 class="box-title">Actualizar derechos de transito</h3>
+                    <span class="label label-warning text-center pull-right" style="font-size: 16px;"><i class="fa fa-file-text-o"></i> Precio actual ${{$valor_derechos->valor}}</span>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
