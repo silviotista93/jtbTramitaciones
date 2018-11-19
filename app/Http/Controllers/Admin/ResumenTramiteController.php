@@ -133,40 +133,26 @@ class ResumenTramiteController extends Controller
             'descuento' => $request->get('descuento'),
             'idTramitador' => $request->get('seleccionarTramitador'),
             'descuento_medico' => $request->get('descuento_medico'),
-            'descuento_escuela' => $request->get('descuento_escuela')
+            'descuento_escuela' => $request->get('descuento_escuela'),
+            'descuento_recibos' => $request->get('descuento_recibos')
 
         ]);
         $licencias = $request->idLicencia;
         $cantidad = $request->nuevaCantidadLicencia;
         $validar_curso = $request->validar_curso;
+        $validar_medico = $request->validar_medico;
+        $validar_recibo = $request->validar_recibo;
         $sumaPrecio = $request->nuevoPrecioLicencia;
         for ($i=0; $i<count($licencias); $i++){
             $cliente->licenciaTramite()->attach([
-                $licencias[$i] => ['cantidad' => $cantidad[$i],'validar_curso' => $validar_curso[$i],'precio_venta' => $sumaPrecio[$i]]
-
+                $licencias[$i] => [
+                    'cantidad' => $cantidad[$i],
+                    'validar_curso' => $validar_curso[$i],
+                    'validar_examen' => $validar_medico[$i],
+                    'validar_recibo' => $validar_recibo[$i],
+                    'precio_venta' => $sumaPrecio[$i]]
             ]);
         }
-        if (isset($validar_curso[1])){
-            $sinCurso = $validar_curso[0] + $validar_curso[1];
-
-            if ($sinCurso == 2){
-                ResumenTramite::where('id',$cliente->id)->update([
-                    'escuela_conduccion' => 'Realizado'
-                ]);
-            }
-        }else{
-            $sinCurso = $validar_curso[0];
-
-            if ($sinCurso > 0){
-                ResumenTramite::where('id',$cliente->id)->update([
-                    'escuela_conduccion' => 'Realizado'
-                ]);
-            }
-        }
-
-
-
-
 
         $abono=Abono::create([
             'valor_abono' => $request->get('abono'),

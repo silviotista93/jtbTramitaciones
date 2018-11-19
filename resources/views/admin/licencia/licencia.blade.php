@@ -35,7 +35,7 @@
                     </a>
                 </div>
 
-                <form role="form" method="post" class="formularioVentaLicencia" action="">
+                <form role="form" method="post" class="formularioVentaLicencia" action="" id="formularioVenta">
                     @csrf
                     <div class="box-body">
 
@@ -191,7 +191,61 @@
                             ======================================-->
 
                             <div class="form-group row nuevaLicencia" id="contenedorLicencia">
-
+                                <div v-for="(licencia, key) in licencias" class="row" style="padding:5px 15px" :data-id="licencia.id">
+                                    <!-- Descripción del producto -->
+                                    <div class="col-xs-3" style="padding-right:0px">
+                                        <div class="input-group">
+                                            <input type="hidden" name="idLicencia[]" :value="licencia.id">
+                                            <span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs" @click="quitarLicencia(key)"
+                                                    :value="licencia.id"><i class="fa fa-times"></i></button></span>
+                                            <input type="text" class="form-control nuevaDescripcionLicencia" :idLicencia="licencia.id" name="agregarLicencia"
+                                                :value="licencia.categoria" readonly required>
+                                        </div>
+                                    </div>
+                                    <!-- Cantidad del producto -->
+                                    <div class="col-xs-3">
+                                        <input type="text" class="form-control tipoLicencia" name="" min="1" :value="licencia.tipo_licencia" required
+                                            readonly>
+                                    </div>
+                                    <!-- Precio del producto -->
+                                    <div class="col-xs-3 ingresoPrecio" style="padding-left:0px">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+                                            <input type="text" class="form-control nuevoPrecioLicencia" :precioReal="licencia.precio" name="nuevoPrecioLicencia[]"
+                                                :value="licencia.precio" readonly required>
+                                            <input type="hidden" class="form-control nuevoDescuentoLicencia" :precioReal="licencia.descuento" name="nuevoDescuentoLicencia[]"
+                                                :value="licencia.descuento" readonly required>
+                                            <input type="hidden" name="totalPrecioCantidad[]">
+                                        </div>
+                                    </div>
+                                    <!-- Aplicar Descuento -->
+                                    <div class="col-xs-3">
+                                        <div style="position:relative">
+                                            <div @click="toogleTramite(key, 'conduccion')" id="checkLic" class="checkbox icheck" style="margin-top: 4px; margin-left: -20px;">
+                                                <label class="">
+                                                    <div :class="'icheckbox_square-blue '+(licencia.conduccion!==0?'checked':'')" aria-checked="false" aria-disabled="false" style="position: relative;"><input
+                                                            type="checkbox" name="remember" class="checkLicencia new" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins
+                                                            class="iCheck-helper" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>&nbsp;
+                                                    <span class="label label-danger" style="font-size: 11px;"><i class="fa fa-car"></i> Tramite sin curso</span>
+                                                </label>
+                                            </div>
+                                            <!--
+                                            <div id="checkLic" class="checkbox icheck" style="margin-top: 4px;margin-left: -20px">\n
+                                                <label>
+                                                    <input class="checkLicencia" type="checkbox" name="remember">&nbsp <span class="label label-danger"
+                                                        style="font-size: 11px"><i class="fa fa-car"></i> Tramite sin curso</span>
+                                                </label>
+                                            </div>
+                                            <div class="contenedor_input" style="position:absolute;top: -1px;cursor:pointer;left: -20px;width: 100%;height: 3rem;padding: .5rem;"></div>
+                                            -->
+                                        </div>
+                                    </div>
+                                    <div class="" style="padding-left: 0px">
+                                        <input type="hidden" class="form-control nuevaCantidadLicencia" name="nuevaCantidadLicencia[]" min="1"
+                                            value="1" required>
+                                    </div>
+                                    <input type="hidden" name="validar_curso[]" class="validarEscuela" :value="licencia.conduccion">
+                                </div>
 
                             </div>
 
@@ -923,7 +977,6 @@
 }
 #nuevoTotalVenta { -moz-appearance:textfield; }
 </style>
-
 
 @section('dataTablesSeguros')
     <script>
