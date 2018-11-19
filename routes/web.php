@@ -271,3 +271,12 @@ Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
+
+
+Route::get('/api/costos',function (){
+    $data = new \stdClass();
+    $data->recibo = DB::table('recibos')->get()[0];
+    $data->medico = DB::table('medicos')->get()[0];
+    $data->escuela = DB::table('escuelas')->get()[0];
+    return json_encode($data);
+});

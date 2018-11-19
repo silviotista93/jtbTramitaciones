@@ -220,7 +220,7 @@
                                     </div>
                                     <!-- Aplicar Descuento -->
                                     <div class="col-xs-3">
-                                        <div style="position:relative">
+                                        <div style="position:relative" v-if="licencia.tipo_precio === 'PUBLICO'">
                                             <div @click="toogleTramite(key, 'conduccion')" id="checkLic" class="checkbox icheck" style="margin-top: 4px; margin-left: -20px;">
                                                 <label class="">
                                                     <div :class="'icheckbox_square-blue '+(licencia.conduccion!==0?'checked':'')" aria-checked="false" aria-disabled="false" style="position: relative;"><input
@@ -239,12 +239,49 @@
                                             <div class="contenedor_input" style="position:absolute;top: -1px;cursor:pointer;left: -20px;width: 100%;height: 3rem;padding: .5rem;"></div>
                                             -->
                                         </div>
+                                        <div style="position:relative" v-else>
+                                            <div @click="toogleTramite(key, 'conduccion')" id="checkLic" class="checkbox icheck" style="margin-top: 4px; margin-left: -20px;">
+                                                <label class="">
+                                                    <div :class="'icheckbox_square-blue '+(licencia.conduccion!==0?'checked':'')" aria-checked="false" aria-disabled="false" style="position: relative;"><input
+                                                            type="checkbox" name="remember" class="checkLicencia new" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins
+                                                            class="iCheck-helper" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>&nbsp;
+                                                    <span class="label label-danger" style="font-size: 11px;"><i class="fa fa-car"></i> Tramite sin curso</span>
+                                                </label>
+                                            </div>
+                                            <div @click="toogleTramite(key, 'medico')" id="checkLic" class="checkbox icheck" style="margin-top: 4px; margin-left: -20px;">
+                                                <label class="">
+                                                    <div :class="'icheckbox_square-blue '+(licencia.medico!==0?'checked':'')" aria-checked="false" aria-disabled="false" style="position: relative;"><input
+                                                            type="checkbox" name="remember" class="checkLicencia new" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins
+                                                            class="iCheck-helper" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>&nbsp;
+                                                    <span class="label label-danger" style="font-size: 11px;"><i class="fa fa-car"></i> Medico</span>
+                                                </label>
+                                            </div>
+                                            <div @click="toogleTramite(key, 'recibo')" id="checkLic" class="checkbox icheck" style="margin-top: 4px; margin-left: -20px;">
+                                                <label class="">
+                                                    <div :class="'icheckbox_square-blue '+(licencia.recibo!==0?'checked':'')" aria-checked="false" aria-disabled="false" style="position: relative;"><input
+                                                            type="checkbox" name="remember" class="checkLicencia new" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins
+                                                            class="iCheck-helper" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>&nbsp;
+                                                    <span class="label label-danger" style="font-size: 11px;"><i class="fa fa-car"></i> recibo</span>
+                                                </label>
+                                            </div>
+                                            <!--
+                                            <div id="checkLic" class="checkbox icheck" style="margin-top: 4px;margin-left: -20px">\n
+                                                <label>
+                                                    <input class="checkLicencia" type="checkbox" name="remember">&nbsp <span class="label label-danger"
+                                                        style="font-size: 11px"><i class="fa fa-car"></i> Tramite sin curso</span>
+                                                </label>
+                                            </div>
+                                            <div class="contenedor_input" style="position:absolute;top: -1px;cursor:pointer;left: -20px;width: 100%;height: 3rem;padding: .5rem;"></div>
+                                            -->
+                                        </div>
                                     </div>
                                     <div class="" style="padding-left: 0px">
                                         <input type="hidden" class="form-control nuevaCantidadLicencia" name="nuevaCantidadLicencia[]" min="1"
                                             value="1" required>
+                                        <input type="hidden" name="validar_curso[]" class="validarEscuela" :value="licencia.conduccion">
+                                        <input type="hidden" name="validar_examen[]" class="validar_examen" :value="licencia.medico">
+                                        <input type="hidden" name="validar_recibo[]" class="validar_recibo" :value="licencia.recibo">
                                     </div>
-                                    <input type="hidden" name="validar_curso[]" class="validarEscuela" :value="licencia.conduccion">
                                 </div>
 
                             </div>
@@ -352,11 +389,11 @@
                                                             <span class="input-group-addon"><i
                                                                         class="ion ion-social-usd"></i></span>
 
-                                                    <input type="number" class="form-control input-lg"
+                                                    <input type="number" class="form-control input-lg inputClassTotal"
                                                            id="nuevoTotalVenta" name=""
-                                                           placeholder="0" disabled="true" required>
+                                                           placeholder="0" disabled="true" required >
 
-                                                    <input type="hidden" name="total" id="totalVentaDB">
+                                                    <input type="hidden" name="total" id="totalVentaDB" class="inputClassTotal">
                                                     <input type="hidden" name="estado" value="En Tramite">
                                                     <div id="camposSaldosLicencia">
                                                         <input type="hidden" name="saldo"
