@@ -35,7 +35,7 @@
                     </a>
                 </div>
 
-                <form role="form" method="post" class="formularioVentaLicencia" action="" id="formularioVenta">
+            <form role="form" method="post" class="formularioVentaLicencia" action="{{ route('ventaLicencia')}}" id="formularioVenta">
                     @csrf
                     <div class="box-body">
 
@@ -391,7 +391,8 @@
 
                                                     <input type="number" class="form-control input-lg inputClassTotal"
                                                            id="nuevoTotalVenta" name=""
-                                                           placeholder="0" disabled="true" required >
+                                                           placeholder="0" disabled="true" :min="descuentoMax" 
+                                                           v-on:change="getTotal" :value="valorPrevio">
 
                                                     <input type="hidden" name="total" id="totalVentaDB" class="inputClassTotal">
                                                     <input type="hidden" name="estado" value="En Tramite">
@@ -428,11 +429,11 @@
 
                                     </table>
 
-                                    <div style="margin-left: 8px;display: block" id="mostrar-btn-descuento">
+                                    <div style="margin-left: 8px;display: block" id="mostrar-btn-descuento" @click.prevent="aplicarDescuento">
                                         <button id="btn-descuento" class="btn btn-block btn-info">Aplicar Descuento!
                                         </button>
                                     </div>
-                                    <div style="margin-left: 8px;display: none" id="mostrar-btn-cancelar-descu">
+                                    <div style="margin-left: 8px;display: none" id="mostrar-btn-cancelar-descu" @click.prevent="cancelarDescuento">
                                         <button id="btn-descuento-cancelar" class="btn btn-block btn-danger">Cancelar
                                             Descuento!
                                         </button>
@@ -480,13 +481,25 @@
                     </div>
 
                     <div class="box-footer">
-                        <input type="hidden" name="descuento_escuela" class="descuento_escuela" value="{{ $escuela->valor }}">
+                        <input type="hidden" name="descuento_escuela" :value="descuento_escuela">
                         <input type="hidden" name="descuento" class="validar_descuento" value="0">
-                        <input type="hidden" name="descuento_medico" class="descuento_medico_licencia" value="0">
+                        <input type="hidden" name="descuento_medico" :value="descuento_medico">
+                        <input type="hidden" name="descuento_recibos" :value="descuento_recibos">
                         <button type="submit" class="btn btn-primary pull-right crearVentaLicencia">Crear Venta</button>
 
                     </div>
-
+                    <pre
+                        style="
+                        position: fixed;
+                        top: 0;
+                        left: 40%;
+                        z-index: 9999;
+                        "
+                    >
+descuento_escuela: @{{$data.descuento_escuela}}
+descuento_medico: @{{$data.descuento_medico}}
+descuento_recibos: @{{$data.descuento_recibos}}
+                    </pre>
                 </form>
 
             </div>

@@ -140,7 +140,7 @@ class ResumenTramiteController extends Controller
         $licencias = $request->idLicencia;
         $cantidad = $request->nuevaCantidadLicencia;
         $validar_curso = $request->validar_curso;
-        $validar_medico = $request->validar_medico;
+        $validar_examen = $request->validar_examen;
         $validar_recibo = $request->validar_recibo;
         $sumaPrecio = $request->nuevoPrecioLicencia;
         for ($i=0; $i<count($licencias); $i++){
@@ -148,7 +148,7 @@ class ResumenTramiteController extends Controller
                 $licencias[$i] => [
                     'cantidad' => $cantidad[$i],
                     'validar_curso' => $validar_curso[$i],
-                    'validar_examen' => $validar_medico[$i],
+                    'validar_examen' => $validar_examen[$i],
                     'validar_recibo' => $validar_recibo[$i],
                     'precio_venta' => $sumaPrecio[$i]]
             ]);
