@@ -253,7 +253,7 @@
                                                     <div :class="'icheckbox_square-blue '+(licencia.medico!==0?'checked':'')" aria-checked="false" aria-disabled="false" style="position: relative;"><input
                                                             type="checkbox" name="remember" class="checkLicencia new" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins
                                                             class="iCheck-helper" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>&nbsp;
-                                                    <span class="label label-danger" style="font-size: 11px;"><i class="fa fa-car"></i> Medico</span>
+                                                    <span class="label label-info" style="font-size: 11px;"><i class="fa fa-medkit"></i> Medico</span>
                                                 </label>
                                             </div>
                                             <div @click="toogleTramite(key, 'recibo')" id="checkLic" class="checkbox icheck" style="margin-top: 4px; margin-left: -20px;">
@@ -261,7 +261,7 @@
                                                     <div :class="'icheckbox_square-blue '+(licencia.recibo!==0?'checked':'')" aria-checked="false" aria-disabled="false" style="position: relative;"><input
                                                             type="checkbox" name="remember" class="checkLicencia new" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins
                                                             class="iCheck-helper" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>&nbsp;
-                                                    <span class="label label-danger" style="font-size: 11px;"><i class="fa fa-car"></i> recibo</span>
+                                                    <span class="label label-warning" style="font-size: 11px;"><i class="fa fa-newspaper-o"></i> recibo</span>
                                                 </label>
                                             </div>
                                             <!--
@@ -391,8 +391,7 @@
 
                                                     <input type="number" class="form-control input-lg inputClassTotal"
                                                            id="nuevoTotalVenta" name=""
-                                                           placeholder="0" disabled="true" :min="descuentoMax" 
-                                                           v-on:change="getTotal" :value="valorPrevio">
+                                                           placeholder="0" disabled="true" v-on:change="getTotal(false)" value="0">
 
                                                     <input type="hidden" name="total" id="totalVentaDB" class="inputClassTotal">
                                                     <input type="hidden" name="estado" value="En Tramite">
@@ -488,18 +487,6 @@
                         <button type="submit" class="btn btn-primary pull-right crearVentaLicencia">Crear Venta</button>
 
                     </div>
-                    <pre
-                        style="
-                        position: fixed;
-                        top: 0;
-                        left: 40%;
-                        z-index: 9999;
-                        "
-                    >
-descuento_escuela: @{{$data.descuento_escuela}}
-descuento_medico: @{{$data.descuento_medico}}
-descuento_recibos: @{{$data.descuento_recibos}}
-                    </pre>
                 </form>
 
             </div>

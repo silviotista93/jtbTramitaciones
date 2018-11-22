@@ -405,7 +405,7 @@
                                                      style="width: 125px; border: 0; background: border-box;"></td>
                                         </td>
                                     </tr>
-                                    @if($infoVentaDatos->descuento_medico == 1)
+                                    @if($infoVentaDatos->descuento_medico !== 0)
                                         <tr>
                                             <th><span class="label label-info"
                                                       style="font-size: 12px">Descuento Medico:</span></th>
@@ -415,8 +415,8 @@
                                             </td>
                                         </tr>
                                     @endif
-                                    @if($infoVentaDatos->descuento == 1)
-                                        {{$totalDescuento=$totalLicencia-$precioMedico->valor-$infoVentaDatos->total }}
+                                    @if($infoVentaDatos->descuento !== 0)
+                                        @php($totalDescuento=$totalLicencia-$precioMedico->valor-$infoVentaDatos->total)
                                         <tr>
                                             <th><span class="label label-success" style="font-size: 12px">Descuento Especial:</span>
                                             </th>
@@ -427,7 +427,7 @@
                                         </tr>
                                     @endif
 
-                                    @if($infoVentaDatos->descuento_escuela == 1)
+                                    @if($infoVentaDatos->descuento_escuela !== 0)
                                         <tr>
                                             <th><span class="label label-danger" style="font-size: 12px">Descuento Escuela:</span>
                                             </th>

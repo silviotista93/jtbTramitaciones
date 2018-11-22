@@ -1,5 +1,4 @@
-
-//(function () {
+(function () {
 
     var t = null;
     var max = 0;
@@ -56,52 +55,55 @@
                 $('#nuevoTotalVenta').attr('disabled', true);
                 $('#mostrar-btn-cancelar-descu').hide('blid');
                 $(".inputClassTotal").val($(".inputClassTotal").attr("max"));
-                this.getTotal();
+                this.getTotal(true);
             },
-            validarPrecio(){
-                let max = $("#nuevoTotalVenta").attr("max");
-                let min = $("#nuevoTotalVenta").attr("min");
-                let actual = $("#nuevoTotalVenta").val();
+            validarPrecio(max, min){
+                let actual = parseInt($("#nuevoTotalVenta").val());
                 //console.log(max,min,actual);
                 if (min >= actual){
-                    $(".inputClassTotal").val(min);
+                    //console.log("<",min);
+                    actual = min;
                 }else if (max <= actual){
-                    $(".inputClassTotal").val(max);
+                    //console.log(">",max);
+                    actual = max;
                 }
-                //total -= this.valorDescuento;
+                //console.log(max,min,actual);
+                $(".inputClassTotal").each(function (el){
+                    $(this).val(actual);
+                });
             },
-            getTotal() {
+            getTotal(update) {
                 let total = 0;
                 let descuentoM = 0;
                 this.descuento_escuela=0;
                 this.descuento_recibos=0;
                 if (this.licencias[0].tipo_precio === "TRAMITADOR"){
                     this.descuento_medico=0;
+                }else if (this.descuento_medico===1){
+                    descuentoM -= precio.medico.valor;
+                    total -= precio.medico.valor;
                 }
                 this.licencias.forEach(licencia => {
                     total += licencia.precio;
                     if (licencia.tipo_precio === "PUBLICO") {
+                        //console.log(JSON.stringify(licencia));
                         total -= getPublico(licencia);
                     } else if (licencia.tipo_precio === "TRAMITADOR") {
                         total += getTramitador(licencia);
                     }
                     descuentoM += licencia.descuento;
-                    this.descuento_escuela +=licencia.conduccion;
+                    this.descuento_escuela += licencia.conduccion;
                     if (licencia.tipo_precio === "TRAMITADOR"){
-                        this.descuento_medico +=licencia.recibo;
-                        this.descuento_recibos +=licencia.medico;
+                        this.descuento_medico +=licencia.medico;
+                        this.descuento_recibos +=licencia.recibo;
                     }
                 });
-                $("#nuevoTotalVenta").attr("max", total);
-                this.descuentoMax = descuentoM;
-                this.valorPrevio = total;
-                this.validarPrecio();
-                /*
-                this.valorPrevio = total;
-                total -= this.valorDescuento;
-                this.descuentoMax = descuentoM;
-                $(".inputClassTotal").val(total);
-                */
+                if (update){
+                    $(".inputClassTotal").each(function (el){
+                        $(this).val(total);
+                    });
+                }
+                this.validarPrecio(total,descuentoM);
             },
             addLicencia(licencia) {
                 if (this.licencias.length === 1 && this.licencias[0].tipo_precio === "PUBLICO") {
@@ -111,7 +113,7 @@
                     return false;
                 }
                 this.licencias.push(licencia);
-                this.getTotal();
+                this.getTotal(true);
                 return true;
             },
             quitarLicencia(key) {
@@ -120,7 +122,7 @@
                 if (this.licencias.length === 1 && this.licencias[0].tipo_precio === "PUBLICO") {
                     this.descuento_medico = 0;
                 }
-                this.getTotal();
+                this.getTotal(true);
             },
             toogleTramite(key, tipo) {
                 let f = this;
@@ -150,7 +152,7 @@
                 } else if (tipo === "recibo") {
                     this.licencias[key].recibo = info;
                 }
-                this.getTotal();
+                this.getTotal(true);
             }
         }
     });
@@ -181,114 +183,6 @@
         }
     }
 
-    var licencias = {
-        data: [],
-        descuentoExamen: false,
-        total: 0,
-        maxDescuento: 0,
-        add: function (licencia) {
-            if (this.data.length > 0 && this.data[0].tipo !== licencia.tipo) {
-                toastr.warning('No se pueden mezclar licencias de tramitador y publicas');
-                return false;
-            } else if (this.data.length >= 2 && this.data[0].tipo === 1) {
-                toastr.warning('Solo se pueden agregar dos licencias');
-                return false;
-            }
-            this.data.push(licencia);
-            this.checkDescuentoExamen();
-            return true;
-        },
-        remove: function (id) {
-            for (var i = 0; i < this.data.length; i++) {
-                if (this.data[i].id == id) {
-                    this.data.splice(i, 1);
-                    this.checkDescuentoExamen();
-                    break;
-                }
-            }
-        },
-        checkDescuentoExamen: function () {
-            
-            this.refreshValues();
-        },
-        tramiteSinCurso: function (id, container) {
-            for (var i = 0; i < this.data.length; i++) {
-                if (this.data[i].id == id) {
-                    this.data[i].sinCurso = !this.data[i].sinCurso;
-                    if (this.data[i].sinCurso) {
-                        container.find(".nuevoPrecioLicencia").val(this.data[i].precio - descuentoCurso);
-                    } else {
-                        container.find(".nuevoPrecioLicencia").val(this.data[i].precio);
-                    }
-                    this.checkDescuentoExamen();
-                    return this.data[i];
-                }
-            }
-        },
-        refreshValues: function () {
-            let total = 0;
-            let maxDescuento = 0;
-            this.data.forEach(function (licencia) {
-                if (licencia.sinCurso) {
-                    total += licencia.precio - descuentoCurso;
-                } else {
-                    total += licencia.precio;
-                }
-                maxDescuento += licencia.descuento;
-            });
-            if (this.descuentoExamen) {
-                total -= desc_examen_medico;
-            }
-            this.total = total;
-            this.maxDescuento = maxDescuento;
-            this.refreshView();
-        },
-        refreshView: function () {
-            $("#nuevoTotalVenta").val(this.total);
-            $("#totalVentaDB").val(this.total);
-            this.validarDescuento();
-        },
-        validarDescuento() {
-            if (parseInt(this.total) !== parseInt($("#nuevoTotalVenta").val())) {
-                $(".validar_descuento").val("1");
-            } else {
-                $(".validar_descuento").val("0");
-            }
-            if ($(".icheckbox_square-blue.checked").length < 1) {
-                $(".descuento_escuela").val("0");
-            } else {
-                $(".descuento_escuela").val("1");
-            }
-        },
-        changeTotal: function (input) {
-            let licen = this;
-            input.change(function () {
-                let maxDes = licen.total - licen.maxDescuento;
-                if (parseInt($(this).val()) < maxDes) {
-                    toastr.error('Solo puede tener un precio minimo de $' + maxDes);
-                    $(this).val(maxDes);
-                    $(this).select();
-                } else if ($(this).val() > licen.total) {
-                    $(this).val(licen.total);
-                    $(this).select();
-                    toastr.error('Solo puede tener un precio maximo de $' + licen.total);
-                }
-                $("#totalVentaDB").val($(this).val());
-                licen.validarDescuento();
-            });
-            let change = null;
-            input.keypress(function (e) {
-                let letras = ",.eE-+";
-                clearTimeout(change);
-                change = setTimeout(function () {
-                    input.change()
-                }, 2000);
-                if (letras.indexOf(e.key) !== -1) {
-                    e.preventDefault();
-                }
-            });
-        }
-    }
 
     function getLicencia(respuesta) {
         let licencia = respuesta[0];
@@ -707,4 +601,4 @@
         desc_examen_medico = respuesta.valor;
     });
     //licencias.changeTotal($('#nuevoTotalVenta'));
-//})();
+})();

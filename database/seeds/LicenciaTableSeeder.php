@@ -168,9 +168,10 @@ class LicenciaTableSeeder extends Seeder
         $licencia->categoria = 'A2';
         $licencia->tipo_precio = 'TRAMITADOR';
         $licencia->tipo_licencia = 'PRIMERA VEZ';
-        $licencia->precio = 0;
+        $precio = rand(100000,200000);
+        $licencia->precio = $precio;
         $licencia->id_tipo_tramite = 2;
-        $licencia->descuento = 0;
+        $licencia->descuento = ($precio-rand(20000,50000));
         $licencia->save();
 
         $licencia = new Licencia;
@@ -178,9 +179,10 @@ class LicenciaTableSeeder extends Seeder
         $licencia->categoria = 'B1';
         $licencia->tipo_precio = 'TRAMITADOR';
         $licencia->tipo_licencia = 'PRIMERA VEZ';
-        $licencia->precio = 0;
+        $precio = rand(100000,200000);
+        $licencia->precio = $precio;
         $licencia->id_tipo_tramite = 2;
-        $licencia->descuento = 0;
+        $licencia->descuento = ($precio-rand(20000,50000));
         $licencia->save();
 
         $licencia = new Licencia;
@@ -188,9 +190,10 @@ class LicenciaTableSeeder extends Seeder
         $licencia->categoria = 'C1';
         $licencia->tipo_precio = 'TRAMITADOR';
         $licencia->tipo_licencia = 'PRIMERA VEZ';
-        $licencia->precio = 0;
+        $precio = rand(100000,200000);
+        $licencia->precio = $precio;
         $licencia->id_tipo_tramite = 2;
-        $licencia->descuento = 0;
+        $licencia->descuento = ($precio-rand(20000,50000));
         $licencia->save();
 
         $licencia = new Licencia;
@@ -198,9 +201,10 @@ class LicenciaTableSeeder extends Seeder
         $licencia->categoria = 'C2';
         $licencia->tipo_precio = 'TRAMITADOR';
         $licencia->tipo_licencia = 'PRIMERA VEZ';
-        $licencia->precio = 0;
+        $precio = rand(100000,200000);
+        $licencia->precio = $precio;
         $licencia->id_tipo_tramite = 2;
-        $licencia->descuento = 0;
+        $licencia->descuento = ($precio-rand(20000,50000));
         $licencia->save();
 
         $licencia = new Licencia;
@@ -208,9 +212,10 @@ class LicenciaTableSeeder extends Seeder
         $licencia->categoria = 'C3';
         $licencia->tipo_precio = 'TRAMITADOR';
         $licencia->tipo_licencia = 'PRIMERA VEZ';
-        $licencia->precio = 0;
+        $precio = rand(100000,200000);
+        $licencia->precio = $precio;
         $licencia->id_tipo_tramite = 2;
-        $licencia->descuento = 0;
+        $licencia->descuento = ($precio-rand(20000,50000));
         $licencia->save();
 
         //Refrendacion...............
@@ -220,9 +225,10 @@ class LicenciaTableSeeder extends Seeder
         $licencia->categoria = 'A2';
         $licencia->tipo_precio = 'TRAMITADOR';
         $licencia->tipo_licencia = 'REFRENDACIÓN';
-        $licencia->precio = 0;
+        $precio = rand(100000,200000);
+        $licencia->precio = $precio;
         $licencia->id_tipo_tramite = 2;
-        $licencia->descuento = 0;
+        $licencia->descuento = ($precio-rand(20000,50000));
         $licencia->save();
 
         $licencia = new Licencia;
@@ -230,9 +236,10 @@ class LicenciaTableSeeder extends Seeder
         $licencia->categoria = 'B1';
         $licencia->tipo_precio = 'TRAMITADOR';
         $licencia->tipo_licencia = 'REFRENDACIÓN';
-        $licencia->precio = 0;
+        $precio = rand(100000,200000);
+        $licencia->precio = $precio;
         $licencia->id_tipo_tramite = 2;
-        $licencia->descuento = 0;
+        $licencia->descuento = ($precio-rand(20000,50000));
         $licencia->save();
 
         $licencia = new Licencia;
@@ -240,9 +247,10 @@ class LicenciaTableSeeder extends Seeder
         $licencia->categoria = 'C1';
         $licencia->tipo_precio = 'TRAMITADOR';
         $licencia->tipo_licencia = 'REFRENDACIÓN';
-        $licencia->precio = 0;
+        $precio = rand(100000,200000);
+        $licencia->precio = $precio;
         $licencia->id_tipo_tramite = 2;
-        $licencia->descuento = 0;
+        $licencia->descuento = ($precio-rand(20000,50000));
         $licencia->save();
 
         $licencia = new Licencia;
@@ -250,9 +258,10 @@ class LicenciaTableSeeder extends Seeder
         $licencia->categoria = 'C2';
         $licencia->tipo_precio = 'TRAMITADOR';
         $licencia->tipo_licencia = 'REFRENDACIÓN';
-        $licencia->precio = 0;
+        $precio = rand(100000,200000);
+        $licencia->precio = $precio;
         $licencia->id_tipo_tramite = 2;
-        $licencia->descuento = 0;
+        $licencia->descuento = ($precio-rand(20000,50000));
         $licencia->save();
 
         $licencia = new Licencia;
@@ -260,9 +269,10 @@ class LicenciaTableSeeder extends Seeder
         $licencia->categoria = 'C3';
         $licencia->tipo_precio = 'TRAMITADOR';
         $licencia->tipo_licencia = 'REFRENDACIÓN';
-        $licencia->precio = 0;
+        $precio = rand(100000,200000);
+        $licencia->precio = $precio;
         $licencia->id_tipo_tramite = 2;
-        $licencia->descuento = 0;
+        $licencia->descuento = ($precio-rand(20000,50000));
         $licencia->save();
 
         //Recategorizar...............
@@ -272,9 +282,10 @@ class LicenciaTableSeeder extends Seeder
         $licencia->categoria = 'A2';
         $licencia->tipo_precio = 'TRAMITADOR';
         $licencia->tipo_licencia = 'RECATEGORIZAR';
-        $licencia->precio = 0;
+        $precio = rand(100000,200000);
+        $licencia->precio = $precio;
         $licencia->id_tipo_tramite = 2;
-        $licencia->descuento = 0;
+        $licencia->descuento = ($precio-rand(20000,50000));
         $licencia->save();
 
         $licencia = new Licencia;
@@ -282,9 +293,10 @@ class LicenciaTableSeeder extends Seeder
         $licencia->categoria = 'B1';
         $licencia->tipo_precio = 'TRAMITADOR';
         $licencia->tipo_licencia = 'RECATEGORIZAR';
-        $licencia->precio = 0;
+        $precio = rand(100000,200000);
+        $licencia->precio = $precio;
         $licencia->id_tipo_tramite = 2;
-        $licencia->descuento = 0;
+        $licencia->descuento = ($precio-rand(20000,50000));
         $licencia->save();
 
         $licencia = new Licencia;
@@ -292,9 +304,10 @@ class LicenciaTableSeeder extends Seeder
         $licencia->categoria = 'C1';
         $licencia->tipo_precio = 'TRAMITADOR';
         $licencia->tipo_licencia = 'RECATEGORIZAR';
-        $licencia->precio = 0;
+        $precio = rand(100000,200000);
+        $licencia->precio = $precio;
         $licencia->id_tipo_tramite = 2;
-        $licencia->descuento = 0;
+        $licencia->descuento = ($precio-rand(20000,50000));
         $licencia->save();
 
         $licencia = new Licencia;
@@ -302,9 +315,10 @@ class LicenciaTableSeeder extends Seeder
         $licencia->categoria = 'C2';
         $licencia->tipo_precio = 'TRAMITADOR';
         $licencia->tipo_licencia = 'RECATEGORIZAR';
-        $licencia->precio = 0;
+        $precio = rand(100000,200000);
+        $licencia->precio = $precio;
         $licencia->id_tipo_tramite = 2;
-        $licencia->descuento = 0;
+        $licencia->descuento = ($precio-rand(20000,50000));
         $licencia->save();
 
 
