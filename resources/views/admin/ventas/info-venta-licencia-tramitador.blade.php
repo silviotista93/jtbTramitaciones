@@ -139,9 +139,9 @@
                                 <tbody>
                                 @php($totalLicencia = 0)
                                 @foreach($infoVentaDatos->licenciaTramite as $infoVentaDato)
-                                    @php($escuela = $infoVentaDatos->sinEscuelaResumen($infoVentaDato->id)[0])
+                                    @php($tramite = $infoVentaDatos->sinEscuelaResumen($infoVentaDato->id)[0])
                                     <tr id="info">
-                                        <td class="text-center">{{$escuela->cantidad}}</td>
+                                        <td class="text-center">{{$tramite->cantidad}}</td>
                                         <td>{{$infoVentaDato->tipo_licencia}}</td>
                                         <td>{{$infoVentaDato->categoria}}
                                         </td>
@@ -149,9 +149,9 @@
                                                      value="{{ $infoVentaDato->precio }}"
                                                      style="width: 125px; border: 0; background: border-box;"></td>
                                         <td>$ <input disabled type="text" class="infoVentaPrecioTotal" id=""
-                                                     value="{{$escuela->precio_venta}}"
+                                                     value="{{$tramite->precio_venta}}"
                                                      style="width: 125px; border: 0; background: border-box;">
-                                            @if($escuela->validar_curso !== 0)
+                                            @if($tramite->validar_curso !== 0)
                                                 <span class="label label-danger" style="font-size: 10px">
                                                 <i class="fa fa-car"></i> con Curso
                                              </span>
@@ -159,7 +159,7 @@
 
                                         </td>
                                     </tr>
-                                    @php($totalLicencia += $escuela->precio_venta)
+                                    @php($totalLicencia += $tramite->precio_venta)
                                 @endforeach
                                 </tbody>
                             </table>
@@ -420,7 +420,7 @@
                                         </tr>
                                     @endif
                                     @if($infoVentaDatos->descuento !== 0)
-                                        @php($totalDescuento=$infoVentaDatos->total-$totalLicencia-$totalMedico-$totalRecibo-$valorEscuela)
+                                        @php($totalDescuento=$totalLicencia-$totalMedico-$totalRecibo-$valorEscuela-$infoVentaDatos->total)
                                         <tr>
                                             <th><span class="label label-success" style="font-size: 12px">Descuento Especial:</span>
                                             </th>

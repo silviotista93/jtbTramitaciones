@@ -34,6 +34,11 @@ Route::get('/encontrarCliente/{identificacion}',function ($identificacion){
 
     return \App\User::role(['Cliente'])->where('identificacion', '=', $identificacion)->with('tipoDocumento')->get();
 });
+//Buscar Usuario Cliente o Tramitador
+Route::get('/encontrarUsuario/{identificacion}',function ($identificacion){
+    return \App\User::role(['Cliente','Tramitador'])->where('identificacion', '=', $identificacion)->with('tipoDocumento')->get();
+});
+
 Route::get('/encontrarClienteEditar/{id}',function ($id){
     return \App\User::role(['Cliente'])->where('id', '=', $id)->first();
 });

@@ -30,7 +30,7 @@ $(document).ready(function () {
 
 
 function validarCliente() {
-    var url = '/api/encontrarCliente/' + document.querySelector(".inputBuscarCliente").value;
+    var url = '/api/encontrarUsuario/' + document.querySelector(".inputBuscarCliente").value;
     if (document.querySelector(".inputBuscarCliente").value.trim().length === 0) {
         $("#tablaMostrarCliente").hide();
         $("#nombreCliente").hide();
