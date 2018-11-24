@@ -139,9 +139,9 @@
                                 <tbody>
                                 @php($totalLicencia = 0)
                                 @foreach($infoVentaDatos->licenciaTramite as $infoVentaDato)
-                                    @php($escuela = $infoVentaDatos->sinEscuelaResumen($infoVentaDato->id)[0]->validar_curso)
+                                    @php($escuela = $infoVentaDatos->sinEscuelaResumen($infoVentaDato->id)[0])
                                     <tr id="info">
-                                        <td class="text-center">{{$infoVentaDatos->cantidadLicencia($infoVentaDato->id)[0]->cantidad}}</td>
+                                        <td class="text-center">{{$escuela->cantidad}}</td>
                                         <td>{{$infoVentaDato->tipo_licencia}}</td>
                                         <td>{{$infoVentaDato->categoria}}
                                         </td>
@@ -149,17 +149,17 @@
                                                      value="{{ $infoVentaDato->precio }}"
                                                      style="width: 125px; border: 0; background: border-box;"></td>
                                         <td>$ <input disabled type="text" class="infoVentaPrecioTotal" id=""
-                                                     value="{{$infoVentaDatos->cantidadLicencia($infoVentaDato->id)[0]->precio_venta}}"
+                                                     value="{{$escuela->precio_venta}}"
                                                      style="width: 125px; border: 0; background: border-box;">
-                                            @if($escuela != null)
+                                            @if($escuela->validar_curso !== 0)
                                                 <span class="label label-danger" style="font-size: 10px">
-                                                <i class="fa fa-car"></i> Sin Curso
+                                                <i class="fa fa-car"></i> con Curso
                                              </span>
                                             @endif
 
                                         </td>
                                     </tr>
-                                    @php($totalLicencia += $infoVentaDatos->cantidadLicencia($infoVentaDato->id)[0]->precio_venta ++)
+                                    @php($totalLicencia += $escuela->precio_venta)
                                 @endforeach
                                 </tbody>
                             </table>
@@ -420,7 +420,7 @@
                                         </tr>
                                     @endif
                                     @if($infoVentaDatos->descuento !== 0)
-                                        @php($totalDescuento=$totalLicencia-$precioMedico->valor-$infoVentaDatos->total)
+                                        @php($totalDescuento=$infoVentaDatos->total-$totalLicencia-$totalMedico-$totalRecibo-$valorEscuela)
                                         <tr>
                                             <th><span class="label label-success" style="font-size: 12px">Descuento Especial:</span>
                                             </th>
@@ -442,9 +442,9 @@
                                             </td>
                                         </tr>
                                     @endif
-                                    @if($infoVentaDatos->descuento_escuela !== 0)
+                                    @if($infoVentaDatos->descuento_recibos !== 0)
                                         <tr>
-                                            <th><span class="label label-warning" style="font-size: 12px"><i class="fa fa-newspaper-o"></i> Derechos Transito</span>
+                                            <th><span class="label label-warning" style="font-size: 12px">Derechos Transito</span>
                                             </th>
                                             <td>
                                                 $ <input disabled type="text" class="infoVentaSaldo" id=""
