@@ -1,0 +1,27 @@
+#nuevoTotalVenta::-webkit-inner-spin-button, 
+#nuevoTotalVenta::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+#nuevoTotalVenta { -moz-appearance:textfield; }
+
+
+
+#licencia-tramitador{
+    display: inline-block;
+    position: relative;
+    width: 15.4rem;
+    right: 2.4rem;
+    vertical-align: middle;
+}
+
+#licencia-tramitador #checkLic{
+    display: inline-block;
+    font-size: .5rem;
+    margin: 0;
+    padding: 0;
+}
+
+#licencia-tramitador span{
+    vertical-align: middle;
+}
