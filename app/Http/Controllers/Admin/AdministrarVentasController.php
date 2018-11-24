@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Abono;
 use App\Medico;
+use App\Recibo;
 use App\Escuela;
 use App\ResumenTramite;
 use App\TramiteTransito;
@@ -45,7 +46,12 @@ class AdministrarVentasController extends Controller
         $tipoIdentificacion = User::with('tipoDocumento')->first();
         $precioMedico = Medico::first();
         $precioEscuela = Escuela::first();
-        return view('admin.ventas.info-venta-licencia',compact('infoVentaDatos','tipoIdentificacion','historialAbonos','abono','precioMedico','precioEscuela'));
+        if ($infoVentaDatos->licenciaTramite[0]->tipo_precio==="TRAMITADOR"){
+            $recibo = Recibo::first();
+            return view('admin.ventas.info-venta-licencia-tramitador',compact('infoVentaDatos','tipoIdentificacion','historialAbonos','abono','precioMedico','precioEscuela','recibo'));
+        }else{
+            return view('admin.ventas.info-venta-licencia',compact('infoVentaDatos','tipoIdentificacion','historialAbonos','abono','precioMedico','precioEscuela'));
+        }
     }
 
     public function infoVentaTramitesTransi($id){

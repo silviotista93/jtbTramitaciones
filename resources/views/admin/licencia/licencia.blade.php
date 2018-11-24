@@ -239,29 +239,29 @@
                                             <div class="contenedor_input" style="position:absolute;top: -1px;cursor:pointer;left: -20px;width: 100%;height: 3rem;padding: .5rem;"></div>
                                             -->
                                         </div>
-                                        <div style="position:relative" v-else>
-                                            <div @click="toogleTramite(key, 'conduccion')" id="checkLic" class="checkbox icheck" style="margin-top: 4px; margin-left: -20px;">
-                                                <label class="">
+                                        <div style="position:relative" id="licencia-tramitador" v-else>
+                                            <div @click="toogleTramite(key, 'conduccion')" title="Escuela" id="checkLic" class="checkbox icheck">
+                                                <label>
                                                     <div :class="'icheckbox_square-blue '+(licencia.conduccion!==0?'checked':'')" aria-checked="false" aria-disabled="false" style="position: relative;"><input
                                                             type="checkbox" name="remember" class="checkLicencia new" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins
                                                             class="iCheck-helper" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>&nbsp;
-                                                    <span class="label label-danger" style="font-size: 11px;"><i class="fa fa-car"></i> Tramite sin curso</span>
+                                                    <span class="label label-danger" style="font-size: 11px;"><i class="fa fa-car"></i></span>
                                                 </label>
                                             </div>
-                                            <div @click="toogleTramite(key, 'medico')" id="checkLic" class="checkbox icheck" style="margin-top: 4px; margin-left: -20px;">
-                                                <label class="">
+                                            <div @click="toogleTramite(key, 'medico')" title="Medico" id="checkLic" class="checkbox icheck">
+                                                <label>
                                                     <div :class="'icheckbox_square-blue '+(licencia.medico!==0?'checked':'')" aria-checked="false" aria-disabled="false" style="position: relative;"><input
                                                             type="checkbox" name="remember" class="checkLicencia new" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins
                                                             class="iCheck-helper" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>&nbsp;
-                                                    <span class="label label-info" style="font-size: 11px;"><i class="fa fa-medkit"></i> Medico</span>
+                                                    <span class="label label-info" style="font-size: 11px;"><i class="fa fa-medkit"></i></span>
                                                 </label>
                                             </div>
-                                            <div @click="toogleTramite(key, 'recibo')" id="checkLic" class="checkbox icheck" style="margin-top: 4px; margin-left: -20px;">
-                                                <label class="">
+                                            <div @click="toogleTramite(key, 'recibo')" title="Recibo" id="checkLic" class="checkbox icheck">
+                                                <label>
                                                     <div :class="'icheckbox_square-blue '+(licencia.recibo!==0?'checked':'')" aria-checked="false" aria-disabled="false" style="position: relative;"><input
                                                             type="checkbox" name="remember" class="checkLicencia new" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins
                                                             class="iCheck-helper" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>&nbsp;
-                                                    <span class="label label-warning" style="font-size: 11px;"><i class="fa fa-newspaper-o"></i> recibo</span>
+                                                    <span class="label label-warning" style="font-size: 11px;"><i class="fa fa-newspaper-o"></i></span>
                                                 </label>
                                             </div>
                                             <!--
@@ -1006,14 +1006,7 @@
             </div>
         </div>
     </div>
-<style>
-#nuevoTotalVenta::-webkit-inner-spin-button, 
-#nuevoTotalVenta::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
-}
-#nuevoTotalVenta { -moz-appearance:textfield; }
-</style>
+<link rel="stylesheet" href="/adminlte/css/tramite_licencia.css">
 
 @section('dataTablesSeguros')
     <script>
