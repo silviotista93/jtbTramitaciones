@@ -36,6 +36,13 @@
                 </div>
 
             <form role="form" method="post" class="formularioVentaLicencia" action="{{ route('ventaLicencia')}}" id="formularioVenta">
+                    <pre style="
+                        position:fixed;
+                        top:0;
+                        z-index:8855;                    
+                    ">
+                        @{ $data }}
+                    </pre>
                     @csrf
                     <div class="box-body">
 

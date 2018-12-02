@@ -34,7 +34,7 @@
     const v = new Vue({
         el: "#formularioVenta",
         data: {
-            licencias: [],
+            licencias: new Array(),
             descuento_escuela : 0,
             descuento_medico : 0,
             descuento_recibos : 0,
@@ -77,7 +77,7 @@
                 let descuentoM = 0;
                 this.descuento_escuela=0;
                 this.descuento_recibos=0;
-                if (this.licencias[0].tipo_precio === "TRAMITADOR"){
+                if (this.licencias[0].tipo === 2){
                     this.descuento_medico=0;
                 }else if (this.descuento_medico===1){
                     descuentoM -= precio.medico.valor;
@@ -85,15 +85,15 @@
                 }
                 this.licencias.forEach(licencia => {
                     total += licencia.precio;
-                    if (licencia.tipo_precio === "PUBLICO") {
+                    if (licencia.tipo === 1) {
                         //console.log(JSON.stringify(licencia));
                         total -= getPublico(licencia);
-                    } else if (licencia.tipo_precio === "TRAMITADOR") {
+                    } else if (licencia.tipo === 2) {
                         total += getTramitador(licencia);
                     }
                     descuentoM += licencia.descuento;
                     this.descuento_escuela += licencia.conduccion;
-                    if (licencia.tipo_precio === "TRAMITADOR"){
+                    if (licencia.tipo === 2){
                         this.descuento_medico +=licencia.medico;
                         this.descuento_recibos +=licencia.recibo;
                     }
@@ -106,20 +106,24 @@
                 this.validarPrecio(total,descuentoM);
             },
             addLicencia(licencia) {
-                if (this.licencias.length === 1 && this.licencias[0].tipo_precio === "PUBLICO") {
+                if (this.licencias.length > 0 && this.licencias[0].tipo !== licencia.tipo){
+                    toastr.error('No se pueden ingresar licencias de diferentes categorias');
+                    return false;
+                }else if (this.licencias.length === 1 && this.licencias[0].tipo === 1) {
                     toastr.warning('Se aplico descuento, por examen medico de $' + desc_examen_medico);
                     this.descuento_medico = 1;
-                } else if (this.licencias.length === 2 && this.licencias[0].tipo_precio === "PUBLICO"){
+                } else if (this.licencias.length === 2 && this.licencias[0].tipo === 1){
+                    toastr.warning('Solo se pueden vender dos licencias al mismo tiempo');
                     return false;
                 }
-                this.licencias.push(licencia);
+                this.licencias = this.licencias.concat(new Array(licencia));
                 this.getTotal(true);
                 return true;
             },
             quitarLicencia(key) {
                 $("#btnAgregarVentaLicencia" + this.licencias[key].id).removeClass('btn-default').addClass('btn-danger');
                 this.licencias.splice(key, 1);
-                if (this.licencias.length === 1 && this.licencias[0].tipo_precio === "PUBLICO") {
+                if (this.licencias.length === 1 && this.licencias[0].tipo === 1) {
                     this.descuento_medico = 0;
                 }
                 this.getTotal(true);
@@ -184,11 +188,12 @@
     }
 
 
-    function getLicencia(respuesta) {
+    function getLicencia(respuesta,tipo) {
         let licencia = respuesta[0];
         licencia.conduccion = 0;
         licencia.medico = 0;
         licencia.recibo = 0;
+        licencia.tipo = tipo;
         return licencia;
     }
 
@@ -201,7 +206,7 @@
             var data = table.row($(this).parents('tr')).data();
 
             $.get('/api/licenciaBuscar/' + data.id + '', function (respuesta) {
-                if (v.addLicencia(getLicencia(respuesta))) {
+                if (v.addLicencia(getLicencia(respuesta,1))) {
                     element.removeClass('btn-danger').addClass('btn-default');
                 }
             });
@@ -219,7 +224,7 @@
             var data = tableTramitador.row($(this).parents('tr')).data();
 
             $.get('/api/licenciaBuscar/' + data.id + '', function (respuesta) {
-                if (v.addLicencia(getLicencia(respuesta))) {
+                if (v.addLicencia(getLicencia(respuesta, 2))) {
                     element.removeClass('btn-danger').addClass('btn-default');
                 }
             });
