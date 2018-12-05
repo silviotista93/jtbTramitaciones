@@ -13,12 +13,13 @@ class UserController extends Controller
 {
     public function index()
     {
-
+        $rolUserAdmin = Role::where("name", "=", "Administrador")->first();
+        $rolUserSecre = Role::where("name", "=", "Secretari@")->first();
         $usuarios = User::role(['Administrador', 'Secretari@'])->get();
         $roles = Role::where("name", "=", "Administrador")->orWhere("name", "=", "Secretari@")->get()->sortBy('id');
         $editRoles = Role::pluck('name', 'id');
 
-        return view('admin.usuarios', compact('usuarios', 'roles', 'editRoles'));
+        return view('admin.usuarios', compact('usuarios', 'roles', 'editRoles','rolUserAdmin','rolUserSecre'));
     }
 
     public function store(Request $request)
@@ -118,7 +119,6 @@ class UserController extends Controller
         $prueba = $request->get('roles');
 
         if ($traerDatosUsuario['password'] == null) {
-
 
             $password = str_random(8);
             $data['password'] = bcrypt($password);
@@ -272,6 +272,30 @@ class UserController extends Controller
         ]);
         $user->update($id_vendedor);
         $user->assignRole($request->roles);
+        return back()->with('flash', 'Roles actualizados');
+    }
+
+    //ACTUALIZAR ROLES PARA NUEVO USUARIO
+    public function updateRolNuevoUsuario(Request $request, User $user)
+    {
+        $traerDatosUsuario = User::select('*')->where('id', '=', $user)->first();
+
+        if ($traerDatosUsuario['password'] == null) {
+
+            $password = str_random(8);
+            $data['password'] = bcrypt($password);
+            $user->update();
+            $user->assignRole($request->roles);
+
+            UserWasCreated::dispatch($user, $password);
+            return back()->with('flash', 'Roles actualizados, Hemos enviado un correo electronico con las credenciales para iniciar en el sistema');
+
+        } else {
+
+            $user->update();
+            $user->assignRole($request->roles);
+        }
+
         return back()->with('flash', 'Roles actualizados');
     }
 

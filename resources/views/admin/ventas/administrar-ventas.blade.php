@@ -106,6 +106,7 @@
                         data: "idcliente.apellidos",defaultContent:'<span class="label label-danger text-center">Ningún valor por defecto</span>',
                         render:function (data,type, JsonResultRow,meta) {
                             var datos = JsonResultRow.tramites_abono;
+                            console.log(datos);
                             var ultimo = datos[datos.length-1].estado;
 
                             if (ultimo == 'Debe'){

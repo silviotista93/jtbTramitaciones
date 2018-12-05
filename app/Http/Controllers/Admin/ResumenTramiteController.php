@@ -17,13 +17,11 @@ class ResumenTramiteController extends Controller
 
     //RECIBO PARA SEGURO
     public function facturaPdf($id){
-
         $obtenerDatos = ResumenTramite::where('id' ,$id)->with('segurosTramite','idcliente','tipoTramite')->first();
         $pdf = PDF::loadView('admin.factura', compact('obtenerDatos'))->setPaper ([ 0 , 0 , 226.77 , 379.84 ]);
         return $pdf->stream('listado.pdf');
     }
     public function facturaAbonoPdf($id){
-
         $datosAbono = Abono::where('id' ,$id)->with('resumenTramite')->first();
         $pdf = PDF::loadView('admin.factura-abono', compact('datosAbono'))->setPaper ([ 0 , 0 , 226.77 , 379.84 ]);
         return $pdf->stream('listado.pdf');
@@ -95,11 +93,8 @@ class ResumenTramiteController extends Controller
             'saldo' => $request->get('saldo'),
             'nota' => $request->get('nota'),
             'estado' => $request->get('estadoSaldo'),
-            'resumen_tramite_id' => $request->get('id_resumen_tramite')
+            'resumen_tramite_id' => $cliente->id
         ]);
-
-
-
 
         return  back()->withFlash('Venta Realizada Correctamente');
     }
@@ -121,6 +116,13 @@ class ResumenTramiteController extends Controller
 
     //VENTAS TRAMITE LICENCIA
     public function agregarLicencia(Request $request){
+       $curso = '';
+        $cursoConduccion = $request->get('validar_curso');
+           if ($cursoConduccion == 1){
+               $curso = 'Realizado';
+           }else{
+               $curso = 'Pendiente';
+           }
 
         $cliente = ResumenTramite::create([
 
@@ -134,7 +136,8 @@ class ResumenTramiteController extends Controller
             'idTramitador' => $request->get('seleccionarTramitador'),
             'descuento_medico' => $request->get('descuento_medico'),
             'descuento_escuela' => $request->get('descuento_escuela'),
-            'descuento_recibos' => $request->get('descuento_recibos')
+            'descuento_recibos' => $request->get('descuento_recibos'),
+            'escuela_conduccion' => $curso
 
         ]);
         $licencias = $request->idLicencia;
@@ -159,11 +162,8 @@ class ResumenTramiteController extends Controller
             'saldo' => $request->get('saldo'),
             'nota' => $request->get('nota'),
             'estado' => $request->get('estadoSaldo'),
-            'resumen_tramite_id' => $request->get('id_resumen_tramite')
+            'resumen_tramite_id' => $cliente->id
         ]);
-
-
-
 
         return  back()->withFlash('Tramite Realizado Correctamente');
     }
@@ -180,8 +180,6 @@ class ResumenTramiteController extends Controller
             'total' => $request->get('total'),
             'estado' => $request->get('estado'),
             'idTramitador' => $request->get('seleccionarTramitador'),
-
-
         ]);
 
         $placaMoto = $request->get('placaMoto');
@@ -211,14 +209,8 @@ class ResumenTramiteController extends Controller
             'resumen_tramite_id' => $resumenTramite->id
         ]);
 
-
-
-
         return  back()->withFlash('Tramite Realizado Correctamente');
     }
-
-
-
 
     //ACTUALIZAR EL ESTADO DEL TRAMITE DE LAS LICENCIAS
 
@@ -236,6 +228,7 @@ class ResumenTramiteController extends Controller
 
     public function actualizarEstadoMedico(Request $request, $id){
         $examenMedico = ResumenTramite::find($id);
+        $validarCurso =
         $request->validate([
             'g-recaptcha-response' => 'required|captcha'
         ]);

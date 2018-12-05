@@ -45,7 +45,7 @@
                                             </thead>
                                             <tbody>
                                             @foreach($licenciasPublico as $licenciaPublico)
-                                                @if($licenciaPublico->tipo_licencia == 'Primera Vez')
+                                                @if($licenciaPublico->tipo_licencia == 'PRIMERA VEZ')
                                                     <tr>
                                                         <td>{{$licenciaPublico->categoria}}</td>
                                                         <td>{{$licenciaPublico->precio}}</td>
@@ -89,7 +89,7 @@
                                             </thead>
                                             <tbody>
                                             @foreach($licenciasPublico as $licenciaPublico)
-                                                @if($licenciaPublico->tipo_licencia == 'Refrendacion')
+                                                @if($licenciaPublico->tipo_licencia == 'REFRENDACIÓN')
                                                     <tr>
                                                         <td>{{$licenciaPublico->categoria}}</td>
                                                         <td>{{$licenciaPublico->precio}}</td>
@@ -133,7 +133,7 @@
                                             </thead>
                                             <tbody>
                                             @foreach($licenciasPublico as $licenciaPublico)
-                                                @if($licenciaPublico->tipo_licencia == 'Recategorizar')
+                                                @if($licenciaPublico->tipo_licencia == 'RECATEGORIZAR')
                                                     <tr>
                                                         <td>{{$licenciaPublico->categoria}}</td>
                                                         <td>{{$licenciaPublico->precio}}</td>
@@ -204,8 +204,9 @@
                                             </tr>
                                             </thead>
                                             <tbody>
+
                                             @foreach($licenciasTramitador as $licenciaTramitador)
-                                                @if($licenciaTramitador->tipo_licencia == 'Primera Vez')
+                                                @if($licenciaTramitador->tipo_licencia == 'PRIMERA VEZ')
                                                     <tr>
                                                         <td>{{$licenciaTramitador->categoria}}</td>
                                                         <td>{{$licenciaTramitador->precio}}</td>
@@ -248,8 +249,9 @@
                                             </tr>
                                             </thead>
                                             <tbody>
+
                                             @foreach($licenciasTramitador as $licenciaTramitador)
-                                                @if($licenciaTramitador->tipo_licencia == 'Refrendacion')
+                                                @if($licenciaTramitador->tipo_licencia == 'REFRENDACIÓN')
                                                     <tr>
                                                         <td>{{$licenciaTramitador->categoria}}</td>
                                                         <td>{{$licenciaTramitador->precio}}</td>
@@ -293,7 +295,7 @@
                                             </thead>
                                             <tbody>
                                             @foreach($licenciasTramitador as $licenciaTramitador)
-                                                @if($licenciaTramitador->tipo_licencia == 'Recategorizar')
+                                                @if($licenciaTramitador->tipo_licencia == 'RECATEGORIZAR')
                                                     <tr>
                                                         <td>{{$licenciaTramitador->categoria}}</td>
                                                         <td>{{$licenciaTramitador->precio}}</td>

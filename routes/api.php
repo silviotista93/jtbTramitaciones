@@ -79,3 +79,9 @@ Route::get('/tramitadorEmailBuscar/{email}',function ($email){
 
     return \App\User::where('email','=',$email)->with('roles')->first();
 });
+
+//BUSCAR AGREGAR USUARIO POR EMAIL
+Route::get('/usuarioEmailBuscar/{email}',function ($email){
+
+    return \App\User::where('email','=',$email)->with('roles')->first();
+});

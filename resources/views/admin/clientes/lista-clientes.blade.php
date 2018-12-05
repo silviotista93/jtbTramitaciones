@@ -348,7 +348,7 @@
                 {data: 'created_at'},
                 {
                     render:function (data,type, JsonResultRow,meta) {
-                        return '<button href="" idcliente="'+JsonResultRow.id+'" class="btn btn-sm btn-info btnEditarCliente" data-toggle="modal" data-target="#modalEditarCliente"><i class="fa fa-pencil"></i></button>'
+                        return '<button href="" idcliente="'+JsonResultRow.id+'" class="btn btn-sm text-center btn-info btnEditarCliente" data-toggle="modal" data-target="#modalEditarCliente"><i class="fa fa-pencil"></i></button>'
 
                     }
                 },
