@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\DB;
 
 
 class ResumenTramiteController extends Controller
@@ -116,13 +117,6 @@ class ResumenTramiteController extends Controller
 
     //VENTAS TRAMITE LICENCIA
     public function agregarLicencia(Request $request){
-       $curso = '';
-        $cursoConduccion = $request->get('validar_curso');
-           if ($cursoConduccion == 1){
-               $curso = 'Realizado';
-           }else{
-               $curso = 'Pendiente';
-           }
 
         $cliente = ResumenTramite::create([
 
@@ -137,9 +131,8 @@ class ResumenTramiteController extends Controller
             'descuento_medico' => $request->get('descuento_medico'),
             'descuento_escuela' => $request->get('descuento_escuela'),
             'descuento_recibos' => $request->get('descuento_recibos'),
-            'escuela_conduccion' => $curso
-
         ]);
+
         $licencias = $request->idLicencia;
         $cantidad = $request->nuevaCantidadLicencia;
         $validar_curso = $request->validar_curso;
@@ -156,6 +149,9 @@ class ResumenTramiteController extends Controller
                     'precio_venta' => $sumaPrecio[$i]]
             ]);
         }
+       $validar = \Illuminate\Support\Facades\DB::table('resumen_licencia')
+            ->select('validar_curso')->where('id_resumen_tramite',$cliente)->get();
+
 
         $abono=Abono::create([
             'valor_abono' => $request->get('abono'),
@@ -165,7 +161,7 @@ class ResumenTramiteController extends Controller
             'resumen_tramite_id' => $cliente->id
         ]);
 
-        return  back()->withFlash('Tramite Realizado Correctamente');
+        dd($validar);
     }
 
     //VENTAS TRAMITE DE TRANSITO

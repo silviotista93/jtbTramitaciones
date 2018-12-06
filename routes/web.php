@@ -21,9 +21,10 @@ Route::get('/ventas/{id}',function ($id){
     return \App\ResumenTramite::where('idTramitador' ,$id)->with('segurosTramite','idcliente','tipoTramite')->get();
 });
 
-Route::get('/ruta-consultas/{id}',function ($idTramitador){
+Route::get('/ruta-consultas/{id}',function ($id) {
 
-    return \App\ResumenTramite::where('idTramitador',$idTramitador)->with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono')->get();
+    return \Illuminate\Support\Facades\DB::table('resumen_licencia')
+        ->select('validar_curso')->where('id_resumen_tramite', $id)->get();
 });
 Route::get('/consulta-abonos/{id}',function ($id){
     return \App\Abono::where('id' ,$id)->with('resumenTramite')->first();
