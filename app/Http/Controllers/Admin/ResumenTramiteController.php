@@ -149,9 +149,27 @@ class ResumenTramiteController extends Controller
                     'precio_venta' => $sumaPrecio[$i]]
             ]);
         }
-       $validar = \Illuminate\Support\Facades\DB::table('resumen_licencia')
-            ->select('validar_curso')->where('id_resumen_tramite',$cliente)->get();
 
+       $validar = DB::table('resumen_licencia')
+            ->select('validar_curso')->where('id_resumen_tramite',$cliente->id)->get();
+            $realizoCurzo=true;
+            for ($i=0; $i <count($validar) ; $i++) { 
+                
+                if ($validar[$i]->validar_curso===0) {
+                    $realizoCurzo=false;
+                }
+
+               
+            }
+
+            if ($realizoCurzo) {
+                $cliente->update([
+                    'escuela_conduccion'=>'Realizado'
+                 ]);
+                echo "si realizo ";
+                die();
+            }
+          /*  echo "string".$validar[0]->validar_curso;*/
 
         $abono=Abono::create([
             'valor_abono' => $request->get('abono'),
@@ -161,7 +179,8 @@ class ResumenTramiteController extends Controller
             'resumen_tramite_id' => $cliente->id
         ]);
 
-        dd($validar);
+        return  back()->withFlash('Tramite realizado correctamente');
+        
     }
 
     //VENTAS TRAMITE DE TRANSITO
