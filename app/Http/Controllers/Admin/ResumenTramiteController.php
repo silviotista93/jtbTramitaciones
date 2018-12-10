@@ -162,13 +162,7 @@ class ResumenTramiteController extends Controller
                
             }
 
-            if ($realizoCurzo) {
-                $cliente->update([
-                    'escuela_conduccion'=>'Realizado'
-                 ]);
-                echo "si realizo ";
-                die();
-            }
+           
           /*  echo "string".$validar[0]->validar_curso;*/
 
         $abono=Abono::create([
@@ -178,6 +172,13 @@ class ResumenTramiteController extends Controller
             'estado' => $request->get('estadoSaldo'),
             'resumen_tramite_id' => $cliente->id
         ]);
+
+         if ($realizoCurzo) {
+                $cliente->update([
+                    'escuela_conduccion'=>'Realizado'
+                 ]);
+                
+            }
 
         return  back()->withFlash('Tramite realizado correctamente');
         
