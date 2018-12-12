@@ -373,6 +373,7 @@
 
                                                     <input type="number" class="form-control input-lg inputAbono"
                                                            min="0"
+                                                           :max="descuentoAdicional"
                                                            id="" name="abono" value="0"
                                                            placeholder="Abono" required>
                                                     <span class="input-group-addon"><i
@@ -389,11 +390,11 @@
                                                             <span class="input-group-addon"><i
                                                                         class="ion ion-social-usd"></i></span>
 
-                                                    <input type="number" class="form-control input-lg inputClassTotal"
+                                                    <input type="number" class="form-control input-lg"
                                                            id="nuevoTotalVenta" name=""
-                                                           placeholder="0" disabled="true" v-on:change="getTotal(false)" value="0">
+                                                           placeholder="0" :value="descuentoAdicional" disabled="true" v-on:change="updateDescuento" value="0">
 
-                                                    <input type="hidden" name="total" id="totalVentaDB" class="inputClassTotal">
+                                                    <input type="hidden" name="total" id="totalVentaDB" :value="getTotal">
                                                     <input type="hidden" name="estado" value="En Tramite">
                                                     <div id="camposSaldosLicencia">
                                                         <input type="hidden" name="saldo"
