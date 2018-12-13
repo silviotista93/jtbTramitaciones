@@ -416,7 +416,7 @@
                                         </tr>
                                     @endif
                                     @if($infoVentaDatos->descuento !== 0)
-                                        @php($totalDescuento=$totalLicencia-$precioMedico->valor-$infoVentaDatos->total)
+                                        @php($totalDescuento=$totalLicencia-$precioMedico->valor-$infoVentaDatos->total-$precioEscuela->valor)
                                         <tr>
                                             <th><span class="label label-success" style="font-size: 12px">Descuento Especial:</span>
                                             </th>
