@@ -58,13 +58,11 @@
         },
         methods: {
             aplicarDescuento() {
-                $('.validar_descuento').val('1');
                 $('#mostrar-btn-cancelar-descu').show('blid');
                 $('#mostrar-btn-descuento').hide('blid');
                 $('#nuevoTotalVenta').removeAttr('disabled');
             },
             cancelarDescuento() {
-                $('.validar_descuento').val('0');
                 $('#mostrar-btn-descuento').show('blid');
                 $('#nuevoTotalVenta').attr('disabled', true);
                 $('#mostrar-btn-cancelar-descu').hide('blid');
@@ -176,6 +174,12 @@
             }
         },
         computed: {
+            hayDescuentoAdicional(){
+                if (this.total !== this.descuentoAdicional){
+                    return 1;
+                }
+                return 0;
+            },
             getTotal() {
                 let totalT = 0;
                 let descuentoM = 0;

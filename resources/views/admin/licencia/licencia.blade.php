@@ -482,7 +482,7 @@
 
                     <div class="box-footer">
                         <input type="hidden" name="descuento_escuela" :value="descuento_escuela">
-                        <input type="hidden" name="descuento" class="validar_descuento" value="0">
+                        <input type="hidden" name="descuento" class="validar_descuento" :value="hayDescuentoAdicional">
                         <input type="hidden" name="descuento_medico" :value="descuento_medico">
                         <input type="hidden" name="descuento_recibos" :value="descuento_recibos">
                         <button type="submit" class="btn btn-primary pull-right crearVentaLicencia">Crear Venta</button>
