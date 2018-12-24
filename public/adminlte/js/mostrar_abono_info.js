@@ -31,8 +31,7 @@ $(function () {
 
 
         $('#historial_abonos').hide('blind');
-
-
+        
     });
 
 

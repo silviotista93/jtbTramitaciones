@@ -91,19 +91,7 @@ $(".crearVentaTrans").click(function (e) {
 
 
     } else {
-    	if (max == 0 || min == 0) {
-    		max = $('#totalVentaDB').val();
-    	}
-
-    	if ($('#nuevoTotalVenta').val() > max || $('#nuevoTotalVenta').val() < min) {
-
-    		toastr.error(' la cantidad propuesta esta fuera del rango permitido');
-    		$('#nuevoTotalVenta').val(max);
-
-    		return false;
-    	} else {
-    		$("#totalVentaDB").val($('#nuevoTotalVenta').val());
-    	}
+    	
     	$.confirm({
     		animation: 'top',
     		closeAnimation: 'scale',
