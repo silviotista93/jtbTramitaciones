@@ -54,9 +54,9 @@
 <table class="letra-tabla">
     <tr>
         <td style="width: 40px">Cant.</td>
-        <td style="width: 105px">Descrip.</td>
+        <td style="width: 100px">Descrip.</td>
+        <td style="width: 70px"></td>
         <td style="width: 70px"> Precio</td>
-        <td style="width: 70px"> Total</td>
     </tr>
     <tbody>
     @foreach($obtenerDatos->licenciaTramite as $obtenerDato)
@@ -65,9 +65,9 @@
             <td style="text-align: center">{{$obtenerDatos->cantidadLicencia($obtenerDato->id)[0]->cantidad}}</td>
 
             <td> {{$obtenerDato->tipo_licencia}} {{$obtenerDato->categoria}}</td>
+            <td></td>
             <td>$ {{$obtenerDatos->cantidadLicencia($obtenerDato->id)[0]->precio_venta}}</td>
 
-            <td>{{$obtenerDatos->total}}</td>
         </tr>
     @endforeach
     <tr class="letra-contenido-tabla">

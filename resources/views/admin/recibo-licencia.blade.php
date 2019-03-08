@@ -67,7 +67,6 @@
                         <th>Tipo</th>
                         <th>Descripción</th>
                         <th>Precio</th>
-                        <th>Total</th>
                     </tr>
                     </thead>
                     @foreach($obtenerDatos->licenciaTramite as $obtenerDato)
@@ -77,11 +76,10 @@
                             <td data-label="Description" class="tableitem">{{$obtenerDato->categoria}}
                             </td>
                             <td data-label="Unit Price" class="tableitem">$ {{$obtenerDatos->cantidadLicencia($obtenerDato->id)[0]->precio_venta}}</td>
-                            <td data-label="Taxable Amount" class="tableitem">$ {{$obtenerDatos->cantidadLicencia($obtenerDato->id)[0]->precio_venta}}</td>
                         </tr>
                     @endforeach
                     <tr class="list-item total-row">
-                        <th colspan="4" class="tableitem"> Total</th>
+                        <th colspan="3" class="tableitem"> Total</th>
                         <td data-label="Grand Total" class="tableitem">$ {{$obtenerDatos->total}}</td>
                     </tr>
                 </table>

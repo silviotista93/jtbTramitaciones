@@ -60,9 +60,7 @@ class AdministrarVentasController extends Controller
         $historialAbonos = Abono::select('*')->where('resumen_tramite_id','=',$id)->get();
         $abono = Abono::select('*')->where('resumen_tramite_id','=',$id)->orderby('created_at','DESC')->first();
         $tipoIdentificacion = User::with('tipoDocumento')->first();
-
-        $precioMedico = Medico::first();
-        return view('admin.ventas.info-venta-transito',compact('infoVentaDatos','tipoIdentificacion','historialAbonos','abono','precioMedico','tramites'));
+        return view('admin.ventas.info-venta-transito',compact('infoVentaDatos','tipoIdentificacion','historialAbonos','abono'));
     }
 
     //TRAMITES DE TRAMITADOR ESPECIFICO

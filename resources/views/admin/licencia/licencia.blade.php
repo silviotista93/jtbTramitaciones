@@ -371,13 +371,14 @@
 
                                                 <div class="input-group">
 
-                                                    <input type="number" class="form-control input-lg inputAbono"
+                                                    <input type="text" class="form-control input-lg inputAbono"
                                                            min="0"
                                                            :max="descuentoAdicional"
-                                                           id="" name="abono" value="0"
+                                                           id="input_abono_licencia_format"  value="0"
                                                            placeholder="Abono" required>
                                                     <span class="input-group-addon"><i
                                                                 class="ion ion-social-usd"></i></span>
+                                                    <input type="hidden" id="input_abono_licencia" name="abono" value="0">
 
                                                 </div>
 
@@ -390,7 +391,7 @@
                                                             <span class="input-group-addon"><i
                                                                         class="ion ion-social-usd"></i></span>
 
-                                                    <input type="number" class="form-control input-lg"
+                                                    <input type="text" class="form-control input-lg"
                                                            id="nuevoTotalVenta" name=""
                                                            placeholder="0" :value="descuentoAdicional" disabled="true" v-on:change="updateDescuento" value="0">
 

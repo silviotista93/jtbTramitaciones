@@ -248,12 +248,13 @@
 
                                                 <div class="input-group">
 
-                                                    <input type="number" class="form-control input-lg inputAbono"
+                                                    <input type="text" class="form-control input-lg inputAbono"
                                                            min="0"
-                                                           id="" name="abono" value="0"
+                                                           id="input_abono_seguro_format"  value="0"
                                                            placeholder="Abono" required>
                                                     <span class="input-group-addon"><i
                                                                 class="ion ion-social-usd"></i></span>
+                                                    <input type="hidden" id="input_abono_seguro" name="abono" value="0">
 
                                                 </div>
 
@@ -268,7 +269,7 @@
 
                                                     <input type="text" class="form-control input-lg"
                                                            id="nuevoTotalVentaSeguro" name=""
-                                                           placeholder="00000" readonly required>
+                                                           placeholder="0" readonly required>
 
                                                     <input type="hidden" name="total" id="totalVentaDB">
                                                     <input type="hidden" name="estado" value="Entregado">

@@ -29,6 +29,7 @@
                             <tr class="text-center">
                                 <th>Id</th>
                                 <th>Detalle</th>
+                                <th>Tipo Gasto</th>
                                 <th>Valor</th>
                                 <th>Fecha</th>
                             </tr>
@@ -70,6 +71,21 @@
                                           placeholder="Detalle ...">{{old('detalle')}}</textarea>
                                 {!! $errors->first('detalle','<span class="help-block">*:message</span>')!!}
                             </div>
+                            <div class="form-group {{$errors->has('tipo_gasto')? 'has-error':''}}">
+                                <label for="">Tipo de Gasto</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                    <select name="tipo_gasto" id="tipo_gasto" class="form-control">
+                                        <option value="">Seleccione</option>
+                                        @foreach($tipo_gastos as $tipo_gasto)
+                                            <option class="text-uppercase" {{old('tipo_gasto')==$tipo_gasto->id ? 'selected':''}} value="{{$tipo_gasto->id}}">{{$tipo_gasto->tipo_gasto}}</option>
+
+                                        @endforeach
+
+                                    </select>
+                                    {!! $errors->first('tipo_gasto','<span class="help-block">Seleccione Tipo</span>')!!}
+                                </div>
+                            </div>
                             <div class="form-group {{$errors->has('valor_gasto')? 'has-error':''}}">
                                 <label for=""><span class="text-danger">*</span> Por valor de</label>
                                 <div class="input-group">
@@ -104,6 +120,7 @@
                     defaultContent: '<span class="label label-danger text-center">Ningún valor por defecto</span>'
                 },
                 {data: 'detalle'},
+                {data: 'tipo_gasto.tipo_gasto'},
                 {data: 'valor'},
                 {data: 'created_at'},
             ],

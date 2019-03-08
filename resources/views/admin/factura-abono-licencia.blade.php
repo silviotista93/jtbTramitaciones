@@ -55,8 +55,8 @@
     <tr>
         <td style="width: 40px">Cant.</td>
         <td style="width: 105px">Descrip.</td>
+        <td style="width: 70px"></td>
         <td style="width: 70px"> Precio</td>
-        <td style="width: 70px"> Total</td>
     </tr>
     <tbody>
 
@@ -68,9 +68,9 @@
             <td style="text-align: center">{{($datosAbono->cantidad)}}</td>
 
             <td>{{$datosAbono->tipo_licencia}} {{$datosAbono->categoria}}</td>
+            <td></td>
             <td>$ {{$datosAbono->precio_venta}}</td>
 
-            <td>$ {{$datosAbono->precio_venta}}</td>
         </tr>
     @endforeach
 

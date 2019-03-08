@@ -15,6 +15,7 @@ class CreateGastosTable extends Migration
     {
         Schema::create('gastos', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('id_tipo_gasto')->nullable();
             $table->mediumText('detalle');
             $table->double('valor');
             $table->timestamps();

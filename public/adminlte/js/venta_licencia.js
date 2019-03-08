@@ -328,7 +328,6 @@
         var precio = $('.nuevoPrecioLicencia');
         var tipoLicencia = $('.tipoLicencia');
 
-
         for (var i = 0; i < descripcion.length; i++) {
             listarLicencias.push({
                 "categoria": $(descripcion[i]).val(),
@@ -576,6 +575,7 @@
             )
             $("#estadoSaldoLicencia").val('Cancelado');
         })
+
     });
 
     /*=============================================
@@ -592,6 +592,7 @@
         var cambio = 0;
         efectivo = $(this).val();
         saldo = $('#totalVentaDB').val();
+        $('#input_abono_licencia').val(efectivo);
         cambio = Number(saldo - efectivo);
         if (cambio < 0) {
             $.confirm({
@@ -644,3 +645,7 @@
     });
     //licencias.changeTotal($('#nuevoTotalVenta'));
 })();
+
+$(document).ready(function () {
+    $("#input_abono_licencia_format").number(true, 2);
+});
