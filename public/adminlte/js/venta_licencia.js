@@ -394,6 +394,7 @@
             } else {
                 $("#totalVentaDB").val($('#nuevoTotalVenta').val());
             }
+            total = $("#totalVentaDB").val();
             $.confirm({
                 animation: 'top',
                 closeAnimation: 'scale',
@@ -429,9 +430,15 @@
                     '                  <th>Categoria</th>\n' +
                     '                  <th>Precio</th>\n' +
                     '                </tr>\n' +
-                    '                 <tbody> ' +
+                    '                 <tbody style="border-bottom:2px solid #888;"> ' +
                     '                    ' + fila + '     ' +
                     '                </tbody>  ' +
+                    '<tfoot>'+
+                    '<tr><td colspan="2"></td>'+
+                            '<th scope="row" style="text-align: right;">Total:</th>'+
+                            '<td>'+total+'</td>'+
+                        '</tr>'+
+                    '</tfoot>'+
                     '                </table> ' +
                     '       </div>' +
                     '   </div>' +
@@ -464,6 +471,8 @@
             );
 
         });
+
+        
     });
 
     /*=============================================

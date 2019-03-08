@@ -493,5 +493,6 @@ desired effect
      user experience. Slimscroll is required when using the
      fixed layout. -->
 @include('sweet::alert')
+<script src="/js/utils.js"></script>
 </body>
 </html>
