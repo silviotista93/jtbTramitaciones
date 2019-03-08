@@ -21,6 +21,8 @@ $(document).ready(function(){
         validarCliente()
     });
 
+
+
 });
 
 function ocultarInfoCliente(){
@@ -250,6 +252,7 @@ function sumarTotalPreciosSeguro() {
 
     //PONER FORMATO AL PRECIO DE LOS SEGUROS
     $("#nuevoTotalVentaSeguro").number(true, 2);
+    $("#input_abono_seguro_format").number(true, 2);
 }
 
 
@@ -532,6 +535,7 @@ $(".inputAbono").keyup(function(){
     var cambio=0;
     efectivo = $(this).val();
     saldo=$('#totalVentaDB').val();
+    $('#input_abono_seguro').val(efectivo);
     cambio =  Number(saldo-efectivo);
     if(cambio < 0 ){
         $.confirm({

@@ -71,7 +71,6 @@
                         <th>Tipo</th>
                         <th>Descripción</th>
                         <th>Precio</th>
-                        <th>Total</th>
                     </tr>
                     </thead>
                     @php($resumen = $datosAbonos->obtenerDatosTramiteLicencia($datosAbonos->resumenTramite->id))
@@ -84,12 +83,11 @@
                                 {{$datosAbono->categoria}}
                             </td>
                             <td data-label="Unit Price" class="tableitem">$ {{$datosAbono->precio_venta}} </td>
-                            <td data-label="Taxable Amount" class="tableitem">$ {{$datosAbono->precio_venta}} </td>
                         </tr>
                     @endforeach
 
                     <tr class="list-item total-row">
-                        <th colspan="4" class="tableitem"> Total</th>
+                        <th colspan="3" class="tableitem"> Total</th>
                         <td data-label="Grand Total" class="tableitem">$ {{$datosAbonos->obtenerDatosTramiteLicencia($datosAbonos->resumenTramite->id)[0]->total}}</td>
                     </tr>
                 </table>

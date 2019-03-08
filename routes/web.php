@@ -140,9 +140,9 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
 
     //Tramites de cada tramitador
     Route::get('/tramitador-ventas/{idTramitador}','AdministrarVentasController@tramitesTramitador')->name('tramitadorVentas');
-    Route::get('/api/admin-tramites/{idTramitador}',function ($idTramitador){
+    Route::get('/api/admin-tramites/{idTramitador}',function (Illuminate\Http\Request $request,$idTramitador){
         $tramiteTramitador = \App\ResumenTramite::with('segurosTramite','idcliente','tipoTramite','idVendedor','tramitesAbono');
-        if ($request->get('fechaInicio') && $request->get('fechaFin')) {
+        if ( $request->get('fechaInicio') && $request->get('fechaFin')) {
             $fi = \Carbon\Carbon::parse($request->get('fechaInicio'))->toDateString();
             $ff = \Carbon\Carbon::parse($request->get('fechaFin'))->toDateString();
             $tramiteTramitador = $tramiteTramitador->whereDate("created_at",">=",$fi." 00:00:00")->whereDate("created_at", "<=", $ff." 11:59:59");
@@ -224,7 +224,7 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     Route::get('/gastos','GastosController@index')->name('gastos');
     Route::post('/gasto-creado','GastosController@store')->name('gasto-creado');
     Route::get('/api/gastos-table',function (){
-       return datatables()->of(\App\Gasto::all())->toJson();
+       return datatables()->of(\App\Gasto::with('tipo_gasto'))->toJson();
     })->name('tabla_gastos');
 });
 
