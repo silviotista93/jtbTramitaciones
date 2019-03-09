@@ -91,7 +91,7 @@ $(".crearVentaTrans").click(function (e) {
 
 
     } else {
-    	
+    	let total = $("#totalVentaDBTransi").val();
     	$.confirm({
     		animation: 'top',
     		closeAnimation: 'scale',
@@ -128,7 +128,7 @@ $(".crearVentaTrans").click(function (e) {
     		'                  <th>Tramite</th>\n' +
     		'                  <th>Precio</th>\n' +
     		'                </tr>\n' +
-    		'                 <tbody> ' +
+    		'                 <tbody style="border-bottom:2px solid #888;"> ' +
     		'                  <tr>       '+
     		'                  <td>'+$('#id_vehiculo option[value='+tv+']').text() +" "+$('#id_servicio option[value='+ts+']').text() +'</td>'+
     		'                  <td>'+ $('#placaCarro').val()+'</td>'+
@@ -136,7 +136,13 @@ $(".crearVentaTrans").click(function (e) {
     		'                  <td>'+datos+'</td>'+
     		'                  <td>'+$('#totalVentaDBTransi').val() +'</td>'+
     		'                  </tr>       '+
-    		'                </tbody>  ' +
+            '                </tbody>  ' +
+                            '<tfoot>'+
+                            '<tr><td colspan="3"></td>'+
+                                    '<th scope="row" style="text-align: right;">Total:</th>'+
+                                    '<td>'+total+'</td>'+
+                                '</tr>'+
+                            '</tfoot>'+
     		'                </table> ' +
     		'       </div>' +
     		'   </div>' +
