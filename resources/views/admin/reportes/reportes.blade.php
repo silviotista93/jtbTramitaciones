@@ -25,21 +25,20 @@
     </div>
     <div class="box-body">
         <div class="row">
-            <div class="col-xs-11" style="margin: auto;float:none;">
+            <div class="col-xs-12 col-md-6" style="margin: auto;">
                 <div class="box box-solid bg-teal-gradient">
                     <div class="box-header">
                         <i class="fa fa-th">
-                                <h3 class="box-title">Gráfico de Ventas</h3>
-                            </i>
+                            <h3 class="box-title">Gráfico de Ventas</h3>
+                        </i>
                     </div>
                     <div class="box-body border-radius-none nuevoGraficoVentas">
-                        <div class="chart" id="line-chart-ventas" style="height: 250px;"></div>
+                        <div class="chart" id="line-chart-ventas" style="height: 250px;display:none;"></div>
+                        <div id="txtGraficaVentas" style="text-align: center;font-weight: bold;font-size: 1.4rem;">No hay registros...</div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-11" style="margin: auto;float:none;">
+            <div class="col-xs-12 col-md-6" style="margin: auto;">
                 <div class="box box-solid bg-red-gradient">
                     <div class="box-header">
                         <i class="fa fa-th">
@@ -53,20 +52,23 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div style="text-align: center;">
-        <!-- Tramites Más Vendidos -->
-        <div class="box box-danger">
-            <div class="box-header with-border">
-                <h3 class="box-title">Tramites Más Vendidos</h3>
-            </div>
-            <div class="box-body">
-                <canvas id="pieChart" style="height: 265px; width: 531px;" width="531" height="265"></canvas>
-            </div>
-            <!-- /.box-body -->
+        <div class="row">
+                <div class="col-xs-6" style="text-align: center;">
+                    <!-- Tramites Más Vendidos -->
+                    <div class="box box-danger">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Tramites Más Vendidos</h3>
+                        </div>
+                        <div class="box-body">
+                            <canvas id="pieChart" style="height: 265px; width: 531px;" width="531" height="265"></canvas>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
         </div>
-        <!-- /.box -->
     </div>
+    
 </div>
 
 

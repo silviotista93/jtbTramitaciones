@@ -20,7 +20,14 @@ function graficar (){
         fechaFin: fechaFin
     };
     $.get(url,data,function (r){
-        grafico.setData(r);
+        if (r.length < 1){
+            $("#txtGraficaVentas").show();
+            $("#line-chart-ventas").hide();
+        }else{
+            $("#txtGraficaVentas").hide();
+            $("#line-chart-ventas").show();
+            grafico.setData(r);
+        }
     },"JSON").fail(function (){
         alert("Error al cargar los datos");
     });

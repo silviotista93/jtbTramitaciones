@@ -24,15 +24,6 @@
                         <i class=""></i> Agregar Gasto
                     </button>
                 </div>
-                <hr>
-                <div class="box-header">
-                    <div class="form-group">
-                        <button type="button" class="btn btn-default pull-right" id="daterange-gastos-btn">
-                                <span><i class="fa fa-calendar"></i> Rango de Fecha</span>
-                                <i class="fa fa-caret-down"></i>
-                            </button>
-                    </div>
-                </div>
                 <div class="box-body table-responsive">
                     <table class="table table-bordered table-striped dt-responsive table_clientes">
                         <thead>
@@ -48,24 +39,25 @@
 
                     </table>
                 </div>
-                <hr>
-                <div class="box box-solid bg-red-gradient">
-                    <div class="box-header">
-                        <i class="fa fa-th">
-                                <h3 class="box-title">Gráfico de Gastos</h3>
-                            </i>
-                    </div>
-                    <div class="box-body border-radius-none">
-                        <div class="chart" id="line-chart-gastos" style="height: 250px;display:none;"></div>
-                        <div id="txtGraficaGastos" style="text-align: center;font-weight: bold;font-size: 1.4rem;">No hay registros...</div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
     <div class="col-md-5">
         <div class="box box-danger">
             <div class="box-header">
+                <h3 class="box-title">Gráfico de Gastos</h3>
+                    <button type="button" class="btn btn-default pull-right" id="daterange-gastos-btn">
+                        <span><i class="fa fa-calendar"></i> Rango de Fecha</span>
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+            </div>
+            <div class="box-body">
+                <div class="box box-solid bg-red-gradient">
+                    <div class="box-body border-radius-none">
+                        <div class="chart" id="line-chart-gastos" style="height: 250px;display:none;"></div>
+                        <div id="txtGraficaGastos" style="text-align: center;font-weight: bold;font-size: 1.4rem;">No hay registros...</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
