@@ -188,6 +188,7 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
 
     //REPORTES
     Route::get('/reportes','ReportesController@index')->name('reportes');
+    Route::get("/reportes/gastos", "ReportesController@reporteGastos")->name("reporteGastos");
 
     //Recibo Licencia
     Route::get('/recibo-licencia/{id}','ResumenTramiteController@reciboPdfLicencia')->name('generar.recibo-licencia');
@@ -223,8 +224,18 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     //GASTOS
     Route::get('/gastos','GastosController@index')->name('gastos');
     Route::post('/gasto-creado','GastosController@store')->name('gasto-creado');
-    Route::get('/api/gastos-table',function (){
-       return datatables()->of(\App\Gasto::with('tipo_gasto'))->toJson();
+    Route::get('/api/gastos-table',function (Illuminate\Http\Request $request){
+        $gastos = \App\Gasto::with('tipo_gasto');
+        if ($request->get('fechaInicio') && $request->get('fechaFin')) {
+            $fi = \Carbon\Carbon::parse($request->get('fechaInicio'))->toDateString();
+            $ff = \Carbon\Carbon::parse($request->get('fechaFin'))->toDateString();
+            if ($fi !== $ff){
+                $gastos = $gastos->whereBetween("created_at",[$fi,$ff])->orWhereDate("created_at","=",$ff);
+            } else {
+                $gastos = $gastos->whereDate("created_at","=",$fi);
+            }
+        }
+        return datatables()->of($gastos->get())->toJson();
     })->name('tabla_gastos');
 });
 

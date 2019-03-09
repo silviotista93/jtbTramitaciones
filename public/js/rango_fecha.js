@@ -2,8 +2,8 @@ moment.locale("es");
 var fechaInicio = null;
 var fechaFin = null;
 function startRangoFecha(selectorFecha, fnSucess, fnCancel){
-    let = storageFechaInicio = selectorFecha+"_fechaInicio";
-    let = storageFechaFin = selectorFecha+"_fechaFin";
+    let storageFechaInicio = selectorFecha+"_fechaInicio";
+    let storageFechaFin = selectorFecha+"_fechaFin";
     fechaInicio = getStorage(storageFechaInicio);
     fechaFin = getStorage(storageFechaFin);
     let fecha = $(selectorFecha);
@@ -13,7 +13,7 @@ function startRangoFecha(selectorFecha, fnSucess, fnCancel){
         fechaInicial = moment(fechaInicio);
         fechaFinal = moment(fechaFin);
         let span = fecha.find("span");
-        span.html(fechaInicial.format("MMMM D, YYYY")+"-"+fechaFinal.format("MMMM D, YYYY"))
+        span.html(fechaInicial.format("MMMM D, YYYY")+"-"+fechaFinal.format("MMMM D, YYYY"));
     }
     fecha.daterangepicker({
         "locale": idioma,

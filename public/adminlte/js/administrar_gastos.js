@@ -2,32 +2,20 @@ function success(start, end){
     fechaFin = end;
     fechaInicio = start;
     graficar();
+    cargarTabla ();
 }
 
 function cancel (){
     graficar();
+    cargarTabla ();
 }
 
 $(function (){
-    startRangoFecha("#daterange-btn2", success, cancel);
+    startRangoFecha("#daterange-gastos-btn", success, cancel);
     graficar();
 });
 
 function graficar (){
-    let url = "/test";
-    let data = {
-        fechaInicio: fechaInicio,
-        fechaFin: fechaFin
-    };
-    $.get(url,data,function (r){
-        grafico.setData(r);
-    },"JSON").fail(function (){
-        alert("Error al cargar los datos");
-    });
-    graficarGastos();
-}
-
-function graficarGastos (){
     let data = {
         fechaInicio: fechaInicio,
         fechaFin: fechaFin
@@ -39,7 +27,7 @@ function graficarGastos (){
         }else{
             $("#txtGraficaGastos").hide();
             $("#line-chart-gastos").show();
-            graficoGastos.setData(r);
+            grafico.setData(r);
         }
     },"JSON").fail(function (){
         alert("Error al cargar los datos");
