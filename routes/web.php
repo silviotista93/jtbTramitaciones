@@ -189,6 +189,7 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     //REPORTES
     Route::get('/reportes','ReportesController@index')->name('reportes');
     Route::get("/reportes/gastos", "ReportesController@reporteGastos")->name("reporteGastos");
+    Route::get("/reportes/tramites", "ReportesController@reporteTramites")->name("reporteTramites");
 
     //Recibo Licencia
     Route::get('/recibo-licencia/{id}','ResumenTramiteController@reciboPdfLicencia')->name('generar.recibo-licencia');

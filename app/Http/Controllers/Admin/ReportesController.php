@@ -11,8 +11,8 @@ use App\Gasto;
 class ReportesController extends Controller
 {
     public function index(){
-
-        return view('admin.reportes.reportes');
+        $resumenTramites = $this->reporteTramites();
+        return view('admin.reportes.reportes', compact("resumenTramites"));
     }
 
     public function datosGrafica(Request $request){
@@ -43,5 +43,23 @@ class ReportesController extends Controller
         }
         $resumenTramite = $resumenTramite->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))->get();
         return $resumenTramite->toJson();
+    }
+
+    public function reporteTramites(){
+        $resumenTramites = ResumenTramite::join('tramites', 'tramites.id', '=', 'resumen_tramites.id_tipoTramite')->groupBy("id_tipoTramite")
+        ->selectRaw("count(id_tipoTramite) as value, nombre as label")
+        ->get();
+        $color =     ["#f56954", "#00a65a", "#f39c12", "#00c0ef", "#3c8dbc", "#d2d6de"];
+        $highlight = ["#f56954", "#00a65a", "#f39c12", "#00c0ef", "#3c8dbc", "#d2d6de"];
+        /*
+        $color =     ["#f44336", "#3f51b5"];
+        $highlight = ["#c62828", "#283593"];
+        */
+        for ($i=0; $i<count($resumenTramites); $i++){
+            $resumenTramites[$i]->color = $color[$i];
+            $resumenTramites[$i]->highlight = $highlight[$i];
+        }
+
+        return $resumenTramites;
     }
 }
