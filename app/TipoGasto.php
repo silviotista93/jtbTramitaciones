@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class TipoGasto extends Model
 {
-    protected $fillable = ['tipo_gasto'];
+    const ACTIVE = 1;
+    const INACTIVE = 2;
+
+    protected $fillable = ['tipo_gasto','state'];
     public function gastos(){
         return $this->hasMany(Gasto::class);
     }

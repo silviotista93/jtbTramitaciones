@@ -16,6 +16,9 @@ class CreateTipoGastosTable extends Migration
         Schema::create('tipo_gastos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('tipo_gasto');
+            $table->enum('estado', [
+               \App\TipoGasto::ACTIVE,
+               \App\TipoGasto::INACTIVE])->default(\App\TipoGasto::ACTIVE);
             $table->timestamps();
         });
     }

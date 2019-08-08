@@ -30,8 +30,8 @@ Route::get('/consulta-abonos/{id}',function ($id){
     return \App\Abono::where('id' ,$id)->with('resumenTramite')->first();
 });
 
-Route::get('/usuario', function (){
-   return App\User::select('name','apellidos')->orderby('created_at','DESC')->take(1)->first();
+Route::get('/ver-gasto', function (){
+   return \App\Gasto::where('id','=',1)->with('tipo_gasto')->first();
 });
 
 Route::get('/tramitesTransi/{id}',function ($id){
@@ -223,6 +223,10 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
 
 
     //GASTOS
+    Route::get('/api/tipos-gastos',function (){
+        return datatables()->of(\App\TipoGasto::all())->toJson();
+    })->name('tipos_gastos_table');
+    Route::post('/agregar-tipo-gasto','GastosController@crear_tipo_gasto')->name('agregar_tipo_gasto');
     Route::get('/gastos','GastosController@index')->name('gastos');
     Route::post('/gasto-creado','GastosController@store')->name('gasto-creado');
     Route::get('/api/gastos-table',function (Illuminate\Http\Request $request){

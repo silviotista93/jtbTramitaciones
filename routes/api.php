@@ -59,7 +59,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//BUSCAR CLIENTE
+//BUSCAR TRAMITADOR
 Route::get('/tramitadorBuscar/{id}',function ($id){
 
     return \App\User::where('id','=',$id)->first();
@@ -84,4 +84,10 @@ Route::get('/tramitadorEmailBuscar/{email}',function ($email){
 Route::get('/usuarioEmailBuscar/{email}',function ($email){
 
     return \App\User::where('email','=',$email)->with('roles')->first();
+});
+
+//BUSCAR GASTO
+Route::get('/gastoBuscar/{id}',function ($id){
+
+    return \App\Gasto::where('id','=',$id)->with('tipo_gasto')->first();
 });

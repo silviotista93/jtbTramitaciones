@@ -18,6 +18,8 @@ class CreateGastosTable extends Migration
             $table->unsignedInteger('id_tipo_gasto')->nullable();
             $table->mediumText('detalle');
             $table->double('valor');
+            $table->double('codigo')->nullable();
+            $table->string('persona');
             $table->timestamps();
         });
     }

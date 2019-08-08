@@ -15,19 +15,7 @@ class TipoGastoTableSeeder extends Seeder
         TipoGasto::truncate();
 
         $tipo_gasto = new TipoGasto;
-        $tipo_gasto->tipo_gasto = "Doña Pastora";
-        $tipo_gasto->save();
-
-        $tipo_gasto = new TipoGasto;
-        $tipo_gasto->tipo_gasto = "Gasolina Motos";
-        $tipo_gasto->save();
-
-        $tipo_gasto = new TipoGasto;
-        $tipo_gasto->tipo_gasto = "Gasolina Carros";
-        $tipo_gasto->save();
-
-        $tipo_gasto = new TipoGasto;
-        $tipo_gasto->tipo_gasto = "Serivicios Publicos";
+        $tipo_gasto->tipo_gasto = "Comisiones";
         $tipo_gasto->save();
     }
 }
