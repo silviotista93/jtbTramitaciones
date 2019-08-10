@@ -47,4 +47,29 @@ class GastosController extends Controller
 
         return back()->with('flash','Tipo gasto creado correctamente');
     }
+
+    public function actualizar_tipo_gasto (Request $request){
+        $this->validate($request,[
+            'id' => 'required|numeric',
+            'tipo_gasto' => 'required'
+        ]);
+
+        $tipo_gasto = TipoGasto::find($request->id);
+        $tipo_gasto->tipo_gasto = $request->get('tipo_gasto');
+        $tipo_gasto->save();
+
+        return back()->with('flash','Tipo gasto actualizado correctamente');
+    }
+
+    public function actualizar_estado_tipo_gasto (Request $request){
+        $data = $this->validate($request,[
+            'id' => 'required|numeric',
+            'estado' => 'required|in:true,false'
+        ]);
+        $tipo_gasto = TipoGasto::find($data["id"]);
+        $tipo_gasto->estado = $data["estado"]==="true" ? TipoGasto::ACTIVE : TipoGasto::INACTIVE;
+        $tipo_gasto->save();
+
+        return response()->json(["msg" => "Estado actualizado"], 200);
+    }
 }

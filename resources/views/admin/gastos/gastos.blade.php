@@ -5,15 +5,55 @@
         <small>Gastos</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#" data-toggle="modal" data-target="#modalConfigurarGasto"><i class="fa fa-gears"></i>
-                Configuración</a></li>
+        <li>
+            <a href="#" 
+                data-toggle="modal" 
+                data-target="#modalConfigurarGasto" 
+                id="openConfiguracion"
+                >
+                    <i class="fa fa-gears"></i>
+                    Configuración
+            </a>    
+        </li>
     </ol>
 
 
 
 @stop
 @section('contenido')
+<style>
+#form_agregar_gasto:not(.update) #btnActualizar,
+#form_agregar_gasto:not(.update) #btnCancelar,
+#form_agregar_gasto.update #btnCrear,
+#form_agregar_gasto.update .container--table,
+#form_agregar_gasto.update #btnCerrar
+{
+    display: none;
+}
+
+.toggle--container {
+    text-align: center;
+}
+.toggle--container .toggle{
+    width: 7rem !important;
+}
+
+</style>
     <div class="row">
+        <!--
+        <div class="col-md-12" style="padding: 2rem;">
+            <label for="tipo">Mostrar gastos de:</label>
+            <select name="opciones" id="tipo" class="form-control" style="display: inline-block; width: auto;">
+                <option value="all">Todos</option>
+                <option value="all">Casa</option>
+                <option value="all">Comicion</option>
+            </select>
+            <button type="button" class="btn btn-default pull-right" id="daterange-gastos-btn">
+                <span><i class="fa fa-calendar"></i> Rango de Fecha</span>
+                <i class="fa fa-caret-down"></i>
+            </button>
+        </div>
+        -->
         <div class="col-md-7">
             <div class="box box-danger">
                 <div class="box-header">
@@ -42,7 +82,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5" style="float: right">
             <div class="box box-danger">
                 <div class="box-header">
                     <h3 class="box-title">Gráfico de Gastos</h3>
@@ -225,42 +265,45 @@
                     <h4 class="modal-title" id="myModalLabel" style="color: #FFFFFF">Configurar Gastos<i class=""></i>
                     </h4>
                 </div>
-                <form class="form_agregar_gasto" method="POST" action="{{route ('agregar_tipo_gasto')}}">
+                <form class="form_agregar_gasto" id="form_agregar_gasto" method="post" data-crear="{{route ('agregar_tipo_gasto')}}" data-actualizar="{{route ('actualizar_tipo_gasto')}}" action="{{route ('agregar_tipo_gasto')}}">
                     @csrf
                     <div class="modal-body">
                         <div class="box-body">
-
+                            <input id="txtId" type="hidden" name="id">
                             <div class="form-group {{$errors->has('tipo_gasto')? 'has-error':''}}">
                                 <label for=""><span class="text-danger">*</span> Nombre tipo gasto</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-money"></i></span>
-                                    <input id="" type="text" name="tipo_gasto" value="{{old('tipo_gasto')}}"
+                                    <input id="txtNombre" type="text" name="tipo_gasto" value="{{old('tipo_gasto')}}"
                                            class="form-control"
-                                           placeholder="tipo gasto">{!! $errors->first('tipo_gasto','<span class="help-block">*:message</span>')!!}
+                                           placeholder="tipo gasto">
                                 </div>
+                                {!! $errors->first('tipo_gasto','<span class="help-block">*:message</span>')!!}
                             </div>
-                            <div class="form-group">
-                                <label for=""><span class="text-danger"></span> Lista de tipos de gastos</label>
-                            </div>
-                            <div class="box-body table-responsive">
-                                <table class="table table-bordered table-striped dt-responsive" id="table_tipo_gastos">
-                                    <thead>
-                                    <tr class="text-center">
-                                        <th>Id</th>
-                                        <th>Tipo de gasto</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                    </thead>
-
-
-                                </table>
+                            <div class="container--table">
+                                <div class="form-group">
+                                    <label for=""><span class="text-danger"></span> Lista de tipos de gastos</label>
+                                </div>
+                                <div class="box-body table-responsive">
+                                    <table class="table table-bordered table-striped dt-responsive" id="table_tipo_gastos">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>Id</th>
+                                                <th>Tipo de gasto</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-danger">Crear tipo gasto</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCerrar">Cerrar</button>
+                        <button type="submit" class="btn btn-danger" id="btnCrear">Crear tipo gasto</button>
+                        <button type="button" class="btn btn-danger" id="btnCancelar">Cancelar</button>
+                        <button type="submit" class="btn btn-warning" id="btnActualizar">Actualizar tipo gasto</button>
                     </div>
                 </form>
             </div>
@@ -312,6 +355,7 @@
             if (table !== null) {
                 table.destroy();
             }
+            totalGastos = 0;
             table = $('.table_clientes').DataTable({
                 "processing": true,
                 "serverSide": true,
@@ -334,8 +378,7 @@
                     {data: 'created_at'},
                     {
                         render: function (data, type, JsonResultRow, meta) {
-                            return '<button class="btn btn-sm center-block btn-danger btn_ver_gasto" id_ver_gasto="' + JsonResultRow.id + '" data-toggle="modal" data-target="#modal_ver_gasto"><i class="fa fa-eye"></i></button>'
-
+                            return '<button class="btn btn-sm center-block btn-danger btn_ver_gasto" id_ver_gasto="' + JsonResultRow.id + '" data-toggle="modal" data-target="#modal_ver_gasto"><i class="fa fa-eye"></i></button>';
                         }
                         , defaultContent: '<span class="label label-danger text-center">Ningún valor por defecto</span>'
                     },
@@ -375,7 +418,7 @@
         DATATABLES TIPOS DE GASTOS
         =============================================*/
 
-        $('#table_tipo_gastos').DataTable({
+        table1 = $('#table_tipo_gastos').DataTable({
             "processing": true,
             "serverSide": true,
             "data": null,
@@ -391,12 +434,18 @@
                     defaultContent: '<span class="label label-danger text-center">Ningún valor por defecto</span>'
                 },
                 {
+                    className: "toggle--container",
                     data: 'estado',
+                    render: function (data, type, JsonResultRow,) {
+                        return `<input class="estadoGasto" type="checkbox"
+                                       ${ data == {{ \App\TipoGasto::ACTIVE }} ? 'checked':''} data-toggle="toggle"
+                                       data-size="small" data-id="${JsonResultRow.id}">`;
+                    },
                     defaultContent: '<span class="label label-danger text-center">Ningún valor por defecto</span>'
                 },
                 {
                     render: function (data, type, JsonResultRow, meta) {
-                        return '<button class="btn btn-sm center-block btn-danger" id_tipo_gasto="' + JsonResultRow.id + '" data-toggle="modal" data-target="#modal_editar_tipo_gasto"><i class="fa fa-pencil"></i></button>'
+                        return '<button class="btn btn-sm center-block btn-danger editarTipoGasto" data-id_tipo_gasto="' + JsonResultRow.id + '" data-toggle="modal" data-acc=\''+JSON.stringify(JsonResultRow)+'\'><i class="fa fa-pencil"></i></button>'
 
                     }
                     , defaultContent: '<span class="label label-danger text-center">Ningún valor por defecto</span>'
@@ -426,6 +475,17 @@
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                 }
             }
+        });
+        
+        funcionClickCheckbox = function (element, status) {
+            $.post("{{route("actualizar_estado_tipo_gasto")}}", {estado: status, id: element.attr('data-id')}, res => {
+                console.log(res);
+            });
+        };
+
+        table1.on( 'draw', function () {
+            console.log( 'Redraw occurred at: '+new Date().getTime() );
+            $('.estadoGasto').bootstrapToggle();
         });
     </script>
 @endsection

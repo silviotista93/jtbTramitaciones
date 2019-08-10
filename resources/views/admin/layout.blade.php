@@ -348,6 +348,13 @@ desired effect
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="/adminlte/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="/adminlte/js/toogle_button.js"></script>
+<script>
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': "{!! csrf_token() !!}"
+    }
+});
+</script>
 <!-- Morris.js charts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="/adminlte/plugins/morris/morris.min.js"></script>

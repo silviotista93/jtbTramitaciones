@@ -227,6 +227,8 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
         return datatables()->of(\App\TipoGasto::all())->toJson();
     })->name('tipos_gastos_table');
     Route::post('/agregar-tipo-gasto','GastosController@crear_tipo_gasto')->name('agregar_tipo_gasto');
+    Route::post('/actualizar-tipo-gasto','GastosController@actualizar_tipo_gasto')->name('actualizar_tipo_gasto');
+    Route::post('/actualizar-estado-tipo-gasto','GastosController@actualizar_estado_tipo_gasto')->name('actualizar_estado_tipo_gasto');
     Route::get('/gastos','GastosController@index')->name('gastos');
     Route::post('/gasto-creado','GastosController@store')->name('gasto-creado');
     Route::get('/api/gastos-table',function (Illuminate\Http\Request $request){

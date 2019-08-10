@@ -1,3 +1,5 @@
+const frmTipoServicio = $("#form_agregar_gasto");
+
 function success(start, end){
     fechaFin = end;
     fechaInicio = start;
@@ -13,7 +15,31 @@ function cancel (){
 $(function (){
     startRangoFecha("#daterange-gastos-btn", success, cancel);
     graficar();
+    $("#table_tipo_gastos").on('click', '.editarTipoGasto', function (e) {
+        e.preventDefault();
+        cargarDatosActualizar(JSON.parse($(this).attr('data-acc')));
+    });
+    
+    $("#btnCancelar").click(function (e) {
+        reset();
+    });
+    
+    $("#openConfiguracion").click(reset);
 });
+
+function reset () {
+    $("#form_agregar_gasto").removeClass('update');
+    $("#txtNombre").val('');
+    $("#txtId").val('');
+    frmTipoServicio.attr("action", frmTipoServicio.attr("data-crear"));
+}
+
+function cargarDatosActualizar(data) {
+    $("#form_agregar_gasto").addClass('update');
+    $("#txtId").val(data.id);
+    $("#txtNombre").val(data.tipo_gasto);
+    frmTipoServicio.attr("action", frmTipoServicio.attr("data-actualizar"));
+}
 
 function graficar (){
     let data = {
