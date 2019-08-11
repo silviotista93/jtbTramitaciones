@@ -4,12 +4,12 @@ function success(start, end){
     fechaFin = end;
     fechaInicio = start;
     graficar();
-    cargarTabla ();
+    cargarTabla();
 }
 
 function cancel (){
     graficar();
-    cargarTabla ();
+    cargarTabla();
 }
 
 $(function (){
@@ -25,6 +25,15 @@ $(function (){
     });
     
     $("#openConfiguracion").click(reset);
+//modal_ver_gasto
+    $("#btnEditarGasto").click(() => {
+        $("#modal_ver_gasto").addClass("edit");
+        $("#modal_ver_gasto input,#modal_ver_gasto select, #modal_ver_gasto textarea").removeAttr("disabled");
+    });
+
+    $("#btnAgregarGasto").click(()  => {
+        $(".valor_gasto_db").val('');
+    });
 });
 
 function reset () {

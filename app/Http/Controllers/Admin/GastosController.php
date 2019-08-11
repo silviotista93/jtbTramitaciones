@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 class GastosController extends Controller
 {
     public function index(){
-        $tipo_gastos = TipoGasto::all();
+        $tipo_gastos = TipoGasto::where("estado", "=", TipoGasto::ACTIVE)->get();
         return view('admin.gastos.gastos',compact('tipo_gastos'));
     }
 
@@ -33,6 +33,33 @@ class GastosController extends Controller
         ]);
 
         return back()->with('flash','Gasto ingresado correctamente');
+    }
+
+    public function actualizarGasto(Request $request) {
+        $request->validate([
+            'detalle' => 'required',
+            'tipo_gasto' => 'required',
+            'valor_gasto' => 'required',
+            'persona' => 'required',
+            'id' => 'required|numeric'
+        ]);
+        
+        $gasto = Gasto::where('id', '=', $request->id)->first();
+        $valor = str_replace('.', '', $request->get('valor'));
+        $valor = str_replace(',', '', $valor);
+        if (\Carbon\Carbon::parse($gasto->created_at)->toDateString() !== \Carbon\Carbon::now()->toDateString()) {
+            return back()->with('flash','No se puede actualizar este gasto '.json_encode($gasto));
+        }
+
+        $gasto->update([
+            'detalle' => strtoupper($request->get('detalle')),
+            'valor' => $valor,
+            'id_tipo_gasto' => $request->get('tipo_gasto'),
+            'persona' => $request->get('persona'),
+            'codigo' => $request->get('codigo'),
+        ]);
+
+        return back()->with('flash','Gasto actualizado con exito');
     }
 
     public function crear_tipo_gasto (Request $request){
@@ -71,5 +98,9 @@ class GastosController extends Controller
         $tipo_gasto->save();
 
         return response()->json(["msg" => "Estado actualizado"], 200);
+    }
+
+    public function get_tipo_gastos() {
+        return TipoGasto::where('estado', "=", TipoGasto::ACTIVE)->get();
     }
 }

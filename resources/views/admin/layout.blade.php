@@ -49,6 +49,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 
     <![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/adminlte/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="/adminlte/js/toogle_button.js"></script>
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -345,9 +348,6 @@ desired effect
 
 <!-- jQuery 2.2.3 -->
 <meta name="_token" content="{!! csrf_token() !!}"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="/adminlte/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="/adminlte/js/toogle_button.js"></script>
 <script>
 $.ajaxSetup({
     headers: {

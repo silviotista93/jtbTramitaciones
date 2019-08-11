@@ -231,6 +231,7 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
     Route::post('/actualizar-estado-tipo-gasto','GastosController@actualizar_estado_tipo_gasto')->name('actualizar_estado_tipo_gasto');
     Route::get('/gastos','GastosController@index')->name('gastos');
     Route::post('/gasto-creado','GastosController@store')->name('gasto-creado');
+    Route::post('/actualizar-gasto','GastosController@actualizarGasto')->name('actualizar_gasto');
     Route::get('/api/gastos-table',function (Illuminate\Http\Request $request){
         $gastos = \App\Gasto::with('tipo_gasto');
         if ($request->get('fechaInicio') && $request->get('fechaFin')) {
@@ -242,6 +243,9 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
                 $gastos = $gastos->whereDate("created_at","=",$fi);
             }
         }
+        $gastos->whereHas('tipo_gasto', function ($q) {
+            return $q->where("estado", "=", \App\TipoGasto::ACTIVE);
+        });
         return datatables()->of($gastos->get())->toJson();
     })->name('tabla_gastos');
 });
