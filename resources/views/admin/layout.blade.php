@@ -407,7 +407,7 @@ $.ajaxSetup({
 <script src="/adminlte/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
-
+@stack('js')
 <script>
     $(function () {
 

@@ -243,6 +243,10 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
                 $gastos = $gastos->whereDate("created_at","=",$fi);
             }
         }
+        $tipoGasto = $request->get("tipoGasto");
+        if (is_numeric($tipoGasto) && $tipoGasto > 0) {
+            $gastos->where('id_tipo_gasto', '=', $tipoGasto);
+        }
         $gastos->whereHas('tipo_gasto', function ($q) {
             return $q->where("estado", "=", \App\TipoGasto::ACTIVE);
         });

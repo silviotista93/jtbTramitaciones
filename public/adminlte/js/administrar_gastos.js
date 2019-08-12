@@ -1,42 +1,52 @@
 const frmTipoServicio = $("#form_agregar_gasto");
 
-function success(start, end){
+tipoGasto = 0;
+
+const cargarDatos = function () {
+    graficar();
+    cargarTabla();
+}
+
+function success(start, end) {
     fechaFin = end;
     fechaInicio = start;
-    graficar();
-    cargarTabla();
+    cargarDatos();
 }
 
-function cancel (){
-    graficar();
-    cargarTabla();
+function cancel() {
+    cargarDatos();
 }
 
-$(function (){
+$(function () {
     startRangoFecha("#daterange-gastos-btn", success, cancel);
     graficar();
     $("#table_tipo_gastos").on('click', '.editarTipoGasto', function (e) {
         e.preventDefault();
         cargarDatosActualizar(JSON.parse($(this).attr('data-acc')));
     });
-    
+
     $("#btnCancelar").click(function (e) {
         reset();
     });
-    
+
+    $("#select_tipo_opciones").change(function () {
+        tipoGasto = $(this).val();
+        cargarDatos();
+    });
+
     $("#openConfiguracion").click(reset);
-//modal_ver_gasto
+    //modal_ver_gasto
     $("#btnEditarGasto").click(() => {
         $("#modal_ver_gasto").addClass("edit");
         $("#modal_ver_gasto input,#modal_ver_gasto select, #modal_ver_gasto textarea").removeAttr("disabled");
     });
 
-    $("#btnAgregarGasto").click(()  => {
+    $("#btnAgregarGasto").click(() => {
         $(".valor_gasto_db").val('');
     });
 });
 
-function reset () {
+function reset() {
     $("#form_agregar_gasto").removeClass('update');
     $("#txtNombre").val('');
     $("#txtId").val('');
@@ -50,21 +60,21 @@ function cargarDatosActualizar(data) {
     frmTipoServicio.attr("action", frmTipoServicio.attr("data-actualizar"));
 }
 
-function graficar (){
+function graficar() {
     let data = {
         fechaInicio: fechaInicio,
         fechaFin: fechaFin
     };
-    $.get(urlGastos,data,function (r){
-        if (r.length < 1){
+    $.get(urlGastos, data, function (r) {
+        if (r.length < 1) {
             $("#txtGraficaGastos").show();
             $("#line-chart-gastos").hide();
-        }else{
+        } else {
             $("#txtGraficaGastos").hide();
             $("#line-chart-gastos").show();
             grafico.setData(r);
         }
-    },"JSON").fail(function (){
+    }, "JSON").fail(function () {
         alert("Error al cargar los datos");
     });
 }

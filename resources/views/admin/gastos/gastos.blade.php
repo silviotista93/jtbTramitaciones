@@ -38,20 +38,20 @@
     }
 </style>
 <div class="row">
-    <!--
-        <div class="col-md-12" style="padding: 2rem;">
-            <label for="tipo">Mostrar gastos de:</label>
-            <select name="opciones" id="tipo" class="form-control" style="display: inline-block; width: auto;">
-                <option value="all">Todos</option>
-                <option value="all">Casa</option>
-                <option value="all">Comicion</option>
-            </select>
-            <button type="button" class="btn btn-default pull-right" id="daterange-gastos-btn">
-                <span><i class="fa fa-calendar"></i> Rango de Fecha</span>
-                <i class="fa fa-caret-down"></i>
-            </button>
-        </div>
-        -->
+    
+    <div class="col-md-12" style="padding: 2rem;">
+        <label for="select_tipo_opciones">Mostrar gastos de:</label>
+        <select name="opciones" id="select_tipo_opciones" class="form-control" style="display: inline-block; width: auto;">
+            <option value="0">Todos</option>
+            @foreach ($tipo_gastos as $tipo)
+                <option value="{{$tipo->id}}">{{$tipo->tipo_gasto}}</option>
+            @endforeach
+        </select>
+        <button type="button" class="btn btn-default pull-right" id="daterange-gastos-btn">
+            <span><i class="fa fa-calendar"></i> Rango de Fecha</span>
+            <i class="fa fa-caret-down"></i>
+        </button>
+    </div>
     <div class="col-md-7">
         <div class="box box-danger">
             <div class="box-header">
@@ -84,10 +84,10 @@
         <div class="box box-danger">
             <div class="box-header">
                 <h3 class="box-title">Gráfico de Gastos</h3>
-                <button type="button" class="btn btn-default pull-right" id="daterange-gastos-btn">
+{{--            <button type="button" class="btn btn-default pull-right" id="daterange-gastos-btn">
                     <span><i class="fa fa-calendar"></i> Rango de Fecha</span>
                     <i class="fa fa-caret-down"></i>
-                </button>
+                </button> --}}
             </div>
             <div class="box-body">
                 <div class="box box-solid bg-red-gradient">
@@ -117,7 +117,7 @@
                         <h1 style="font-weight: bold">$ 100.000</h1>
                     </div>
                     <div class="col-md-4">
-                        <button class="btn btn-success pull-right" data-target="" style="margin-top: 20px;">
+                        <button class="btn btn-success pull-right" id="exportarExcel" style="margin-top: 20px;">
                             <i class=""></i> Excel
                         </button>
                     </div>
@@ -363,8 +363,9 @@
 
 
 <script>
+    const fechaAc = new Date().toISOString().slice(0,10);
     var table = null;
-
+        
         function cargarTabla() {
             if (table !== null) {
                 table.destroy();
@@ -378,7 +379,8 @@
                     url: "{{route('tabla_gastos')}}",
                     data: {
                         fechaInicio: fechaInicio,
-                        fechaFin: fechaFin
+                        fechaFin: fechaFin,
+                        tipoGasto: tipoGasto
                     }
                 },
                 "columns": [
@@ -420,9 +422,25 @@
                         "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
                         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                     }
-                }
+                },
+                buttons: [
+                    {
+                        extend: 'excel', 
+                        className: 'excel',
+                        sheetName: 'Gastos_'+fechaAc,
+                        footer: true,
+                        filename: "Gastos_"+fechaAc,
+                        exportOptions: {
+                            columns: [ 1, 2, 3, 4 ]
+                        }
+                    }
+                ]
             });
         }
+
+        $("#exportarExcel").click(function () {
+            table.buttons(".excel").trigger();
+        });
 
         cargarTabla();
         @if (count($errors) > 0)
@@ -504,3 +522,7 @@
         });
 </script>
 @endsection
+@push('js')
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.6/b-html5-1.5.6/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.6/b-html5-1.5.6/datatables.min.js"></script>
+@endpush
