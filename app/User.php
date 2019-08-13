@@ -13,6 +13,8 @@ class User extends Authenticatable
 {
     use Notifiable, HasRoles;
 
+    const ACTIVE = 1;
+    const INACTIVE = 2;
 
     protected $fillable = [
         'name','apellidos','id_tipoIdentificacion','identificacion','email','telefono','telefono_2','foto' ,'password','estado','genero','fecha_nacimiento','id_vendedor'

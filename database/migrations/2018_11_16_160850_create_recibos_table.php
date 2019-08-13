@@ -15,7 +15,9 @@ class CreateRecibosTable extends Migration
     {
         Schema::create('recibos', function (Blueprint $table) {
             $table->increments('id');
-            $table->double('valor')->nullable();
+            $table->double('precio_unico')->nullable();
+            $table->double('precio_doble')->nullable();
+            $table->unsignedInteger('id_transito')->nullable();
             $table->timestamps();
         });
     }
