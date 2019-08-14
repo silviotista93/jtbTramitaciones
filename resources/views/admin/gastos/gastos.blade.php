@@ -105,7 +105,7 @@
         <div class="box box-danger">
             <div class="box-header">
                 <div class="form-group">
-                    <h3 class="box-title">Costos <span style="color: red; font-weight: bold">Comisiones</span></h3>
+                    <h3 class="box-title">Costos <span style="color: red; font-weight: bold" id="txtTipoGasto">Comisiones</span></h3>
                 </div>
             </div>
             <div class="box-body">
@@ -114,7 +114,7 @@
                         <h1 style="font-weight: bold">TOTAL</h1>
                     </div>
                     <div class="col-md-4">
-                        <h1 style="font-weight: bold">$ 100.000</h1>
+                        <h1 style="font-weight: bold">$ <span id="totalGastos">100.000</span></h1>
                     </div>
                     <div class="col-md-4">
                         <button class="btn btn-success pull-right" id="exportarExcel" style="margin-top: 20px;">

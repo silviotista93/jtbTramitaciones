@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\TipoGasto;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\ResumenTramite;
@@ -31,6 +32,8 @@ class ReportesController extends Controller
     }
 
     public function reporteGastos(Request $request){
+        $tipoGasto = $request->input('tipoGasto', null);
+
         $resumenTramite = Gasto::select(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d") as fecha'),DB::raw('SUM(valor) as gasto'));
         if ($request->get('fechaInicio') && $request->get('fechaFin')) {
             $fi = \Carbon\Carbon::parse($request->get('fechaInicio'))->toDateString();
@@ -41,8 +44,24 @@ class ReportesController extends Controller
                 $resumenTramite = $resumenTramite->whereDate("created_at","=",$fi);
             }
         }
+
+        $tipoGastoText = 'todos';
+        if (is_numeric($tipoGasto) && $tipoGasto > 0) {
+            $resumenTramite = $resumenTramite->where('id_tipo_gasto', '=', $tipoGasto);
+            $tipoGastoText = TipoGasto::where('id', '=', $tipoGasto)->first()->tipo_gasto;
+        }
+
+        $resumenTramite = $resumenTramite->whereNotIn('id_tipo_gasto',
+            \App\TipoGasto::select('id')->where('estado', '=', \App\TipoGasto::INACTIVE )->get());
+
+        $total = $resumenTramite->sum('valor');
         $resumenTramite = $resumenTramite->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))->get();
-        return $resumenTramite->toJson();
+
+        return response()->json([
+            'resumen' => $resumenTramite,
+            'total' => $total,
+            'tipoGasto' => $tipoGastoText
+        ]); $resumenTramite->toJson();
     }
 
     public function reporteTramites(){
