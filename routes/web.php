@@ -26,8 +26,8 @@ Route::get('/ruta-consultas/{id}',function ($id) {
     return \Illuminate\Support\Facades\DB::table('resumen_licencia')
         ->select('validar_curso')->where('id_resumen_tramite', $id)->get();
 });
-Route::get('/consulta-abonos/{id}',function ($id){
-    return \App\Abono::where('id' ,$id)->with('resumenTramite')->first();
+Route::get('/tramitadores-categorias/{id}',function ($id){
+    return \App\User::where('id',$id)->with('categorias_tramitador')->first();
 });
 
 Route::get('/ver-gasto', function (){
@@ -94,12 +94,13 @@ Route::group(['prefix' => 'admin', 'namespace' =>'Admin','middleware' => 'loginV
    
 
     //Tramitadores
-    Route::get('/tramitadores','UserController@indexTramitadores')->name('tramitadores');
-    Route::post('/tramitador-creado', 'UserController@agregarTramitador')->name('tramitadorCreado');
+    Route::get('/editar-tramitador/{id}', 'TramitadorController@index_editar_tramitador')->name('editar.tramitador');
+    Route::get('/tramitadores','TramitadorController@indexTramitadores')->name('tramitadores');
+    Route::post('/tramitador-creado', 'TramitadorController@agregarTramitador')->name('tramitadorCreado');
     Route::put('/actualizar-tramitador/{user}','UserController@editarTramitador')->name('tramitadorActualizado');
     Route::delete('/tramitador-eliminar/{id}','UserController@eliminarTramitador')->name('tramitadorEliminar');
     Route::get('/api/tramitadores',function (){
-        return datatables()->of(\App\User::role(['Tramitador'])->get())->toJson();
+        return datatables()->of(\App\User::role(['Tramitador'])->with('categorias_tramitador')->orderby('created_at','DES')->get())->toJson();
     });
 
     //Crear tramite seguros

@@ -18,7 +18,7 @@ class Login
     {
         $msg = "Necesita iniciar session para ver la información";
         if (Auth::user()) {
-            if (Auth::user()->estado !== "activo") {
+            if (Auth::user()->estado !== '1') {
                 $msg = "No tiene permisos para acceder, consulte con el administrador";
                 Auth::logout();
                 return back()->with('eliminar',$msg);
