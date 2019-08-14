@@ -27,6 +27,8 @@ class Licencia extends Model
         return $this->hasMany(ResumenTramite::class);
     }
 
-
+    public function tramitador_categorias(){
+        return $this->hasMany(User::class);
+    }
 
 }

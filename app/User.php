@@ -17,7 +17,7 @@ class User extends Authenticatable
     const INACTIVE = 2;
 
     protected $fillable = [
-        'name','apellidos','id_tipoIdentificacion','identificacion','email','telefono','telefono_2','foto' ,'password','estado','genero','fecha_nacimiento','id_vendedor'
+        'name','apellidos','id_tipoIdentificacion','identificacion','direccion','email','telefono','telefono_2','foto' ,'password','estado','genero','fecha_nacimiento','id_vendedor'
     ];
 
     /**
@@ -57,6 +57,17 @@ class User extends Authenticatable
     //FUNCION QUE PERMITE PONER FECHAS CARBON EN ESPAÑOL
     public function getCreatedAtAttribute($date){
         return new Date($date);
+    }
+    /*public function categorias_tramitador($id){
+        return DB::table('categoria_tramitadors')
+            ->select('*')
+            ->join('user','user.id','=' , 'categoria_tramitadors','categoria_tramitadors.id_usuario')
+            ->where('id_usuario', $id)
+            ->get();
+    }*/
+
+    public function categorias_tramitador(){
+        return $this->belongsToMany(Licencia::class, 'categoria_tramitadors','id_usuario','id_categoria')->withPivot('porcentaje_curso','porcentaje_sincurso');
     }
 
 }
