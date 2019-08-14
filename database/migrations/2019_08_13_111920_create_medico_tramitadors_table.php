@@ -15,7 +15,7 @@ class CreateMedicoTramitadorsTable extends Migration
     {
         Schema::create('medico_tramitadors', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_categoria');
+            $table->unsignedInteger('id_usuario');
             $table->unsignedInteger('id_medico');
             $table->float('porcentaje_unico');
             $table->float('porcentaje_doble');

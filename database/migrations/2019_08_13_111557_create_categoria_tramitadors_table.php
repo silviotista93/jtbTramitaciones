@@ -19,8 +19,6 @@ class CreateCategoriaTramitadorsTable extends Migration
             $table->unsignedInteger('id_usuario');
             $table->float('porcentaje_curso')->nullable();;
             $table->float('porcentaje_sincurso')->nullable();;
-            $table->float('descuento_curso')->nullable();;
-            $table->float('descuento_sincurso')->nullable();;
             $table->timestamps();
         });
     }

@@ -15,7 +15,15 @@ class PrecioRecibosTableSeeder extends Seeder
         Recibo::truncate();
 
         $recibo = new Recibo;
-        $recibo->valor = 70000;
+        $recibo->precio_unico = 72000;
+        $recibo->precio_doble = 144000;
+        $recibo->id_transito = 1;
+        $recibo->save();
+
+        $recibo = new Recibo;
+        $recibo->precio_unico = 72000;
+        $recibo->precio_doble = 115000;
+        $recibo->id_transito = 2;
         $recibo->save();
     }
 }
