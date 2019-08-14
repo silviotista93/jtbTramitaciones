@@ -5,7 +5,7 @@ tipoGasto = 0;
 const cargarDatos = function () {
     graficar();
     cargarTabla();
-}
+};
 
 function success(start, end) {
     fechaFin = end;
@@ -63,7 +63,8 @@ function cargarDatosActualizar(data) {
 function graficar() {
     let data = {
         fechaInicio: fechaInicio,
-        fechaFin: fechaFin
+        fechaFin: fechaFin,
+        tipoGasto: tipoGasto
     };
     $.get(urlGastos, data, function (r) {
         if (r.length < 1) {
@@ -72,7 +73,9 @@ function graficar() {
         } else {
             $("#txtGraficaGastos").hide();
             $("#line-chart-gastos").show();
-            grafico.setData(r);
+            grafico.setData(r.resumen);
+            $("#txtTipoGasto").text(r.tipoGasto);
+            $("#totalGastos").text(r.total);
         }
     }, "JSON").fail(function () {
         alert("Error al cargar los datos");
