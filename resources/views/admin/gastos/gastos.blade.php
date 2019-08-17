@@ -52,7 +52,7 @@
             <i class="fa fa-caret-down"></i>
         </button>
     </div>
-    <div class="col-md-7">
+    <div class="col-md-12">
         <div class="box box-danger">
             <div class="box-header">
                 <div class="form-group">
@@ -68,26 +68,62 @@
                                 <th>Id</th>
                                 <th>Detalle</th>
                                 <th>Tipo Gasto</th>
-                                <th>Valor</th>
+                                <th>Responsable</th>
+                                <th>Factura</th>
                                 <th>Fecha</th>
+                                <th>Valor</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-
-
+                        <tfoot style="display: none;">
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>Total:</th>
+                                <th class="totalGastos">$0</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-5" style="float: right">
+
+    <div class="col-md-6">
+        <div class="box box-danger">
+            <div class="box-header">
+                <div class="form-group" style="display: flex; justify-content: space-between; margin-bottom: 0;">
+                    <h3 class="box-title" style="display: flex; align-items: center;">Costos <span style="color: red; font-weight: bold; margin-left: .5rem;" id="txtTipoGasto">Comisiones</span></h3>
+                    <div class="row pull-right" style="display: flex;">
+                        <div>
+                            <h1 style="font-weight: bold; padding-right: .5rem;">TOTAL</h1>
+                        </div>
+                        <div style="padding: 0 1rem;">
+                            <h1 style="font-weight: bold"><span class="totalGastos">$0</span></h1>
+                        </div>
+                        <div style="margin-right: 1rem;">
+                            <button class="btn btn-success " id="exportarExcel" style="margin-top: 20px;">
+                                <i class=""></i> Excel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
         <div class="box box-danger">
             <div class="box-header">
                 <h3 class="box-title">Gráfico de Gastos</h3>
-{{--            <button type="button" class="btn btn-default pull-right" id="daterange-gastos-btn">
-                    <span><i class="fa fa-calendar"></i> Rango de Fecha</span>
-                    <i class="fa fa-caret-down"></i>
-                </button> --}}
+                {{--            <button type="button" class="btn btn-default pull-right" id="daterange-gastos-btn">
+                                    <span><i class="fa fa-calendar"></i> Rango de Fecha</span>
+                                    <i class="fa fa-caret-down"></i>
+                                </button> --}}
             </div>
             <div class="box-body">
                 <div class="box box-solid bg-red-gradient">
@@ -96,30 +132,6 @@
                         <div id="txtGraficaGastos" style="text-align: center;font-weight: bold;font-size: 1.4rem;">
                             No hay registros...
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-7">
-        <div class="box box-danger">
-            <div class="box-header">
-                <div class="form-group">
-                    <h3 class="box-title">Costos <span style="color: red; font-weight: bold" id="txtTipoGasto">Comisiones</span></h3>
-                </div>
-            </div>
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h1 style="font-weight: bold">TOTAL</h1>
-                    </div>
-                    <div class="col-md-4">
-                        <h1 style="font-weight: bold">$ <span id="totalGastos">100.000</span></h1>
-                    </div>
-                    <div class="col-md-4">
-                        <button class="btn btn-success pull-right" id="exportarExcel" style="margin-top: 20px;">
-                            <i class=""></i> Excel
-                        </button>
                     </div>
                 </div>
             </div>
@@ -390,8 +402,10 @@
                     },
                     {data: 'detalle'},
                     {data: 'tipo_gasto.tipo_gasto'},
-                    {data: 'valor'},
+                    {data: 'persona'},
+                    {data: 'codigo'},
                     {data: 'created_at'},
+                    {data: 'valor'},
                     {
                         render: function (data, type, JsonResultRow, meta) {
                             return '<button class="btn btn-sm center-block btn-danger btn_ver_gasto" id_ver_gasto="' + JsonResultRow.id + '" data-toggle="modal" data-target="#modal_ver_gasto"><i class="fa fa-eye"></i></button>';
@@ -425,13 +439,13 @@
                 },
                 buttons: [
                     {
-                        extend: 'excel', 
+                        extend: 'excelHtml5',
                         className: 'excel',
                         sheetName: 'Gastos_'+fechaAc,
                         footer: true,
                         filename: "Gastos_"+fechaAc,
                         exportOptions: {
-                            columns: [ 1, 2, 3, 4 ]
+                            columns: [ 1, 2, 3, 4, 5, 6 ]
                         }
                     }
                 ]

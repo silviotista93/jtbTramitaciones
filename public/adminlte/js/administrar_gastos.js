@@ -75,7 +75,7 @@ function graficar() {
             $("#line-chart-gastos").show();
             grafico.setData(r.resumen);
             $("#txtTipoGasto").text(r.tipoGasto);
-            $("#totalGastos").text(r.total);
+            $(".totalGastos").text("$ "+r.total);
         }
     }, "JSON").fail(function () {
         alert("Error al cargar los datos");
