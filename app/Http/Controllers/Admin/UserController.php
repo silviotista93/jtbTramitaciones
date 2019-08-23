@@ -299,36 +299,6 @@ class UserController extends Controller
         return back()->with('flash', 'Roles actualizados');
     }
 
-    //TRAMITADORES
-    public function indexTramitadores()
-    {
-        $rolesTramitador = Role::where("name", "=", "Tramitador")->first();
-        $usuarios = User::role(['Tramitador'])->get();
-        return view('admin.tramitadores', compact('usuarios', 'rolesTramitador'));
-    }
-
-    public function agregarTramitador(Request $request)
-    {
-        session(['type' => 'tramitador']);
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'apellidos' => 'required',
-            'email' => 'required|string|email|max:255|unique:users',
-            'telefono' => 'required',
-            'telefono_2' => '',
-        ]);
-
-        $data = User::create([
-            'name' => strtoupper($request->get('name')),
-            'apellidos' => strtoupper($request->get('apellidos')),
-            'email' => $request->get('email'),
-            'telefono' => $request->get('telefono'),
-            'telefono_2' => $request->get('telefono_2'),
-        ]);
-        $user = $data;
-        $user->assignRole($request->rol);
-        return back()->withFlash('Tramitador Creado Existosamente');
-    }
 
     public function editarTramitador(Request $request, User $user)
     {

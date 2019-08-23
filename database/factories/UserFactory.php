@@ -14,10 +14,18 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(App\User::class, function (Faker $faker) {
+    $name = $faker->name;
+    $apellidos = $faker->lastName;
+    $estado = $faker->randomElement([\App\User::ACTIVE, \App\User::INACTIVE]);
     return [
-        'name' => $faker->name,
+        'name' => $name,
+        'apellidos' => $apellidos,
+        'identificacion' => $faker->unique()->numberBetween(0, 300),
         'email' => $faker->unique()->safeEmail,
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+        'telefono' => $faker->phoneNumber,
+        'telefono_2' => $faker->phoneNumber,
+        'foto' => '/adminlte/img/perfil.jpg',
         'remember_token' => str_random(10),
     ];
 });

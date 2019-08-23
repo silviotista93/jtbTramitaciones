@@ -15,7 +15,8 @@ class PrecioMedicoTableSeeder extends Seeder
         Medico::truncate();
 
         $medico = new Medico;
-        $medico->valor = 70000;
+        $medico->precio_unico = 140000;
+        $medico->precio_doble = 194000;
         $medico->save();
     }
 }

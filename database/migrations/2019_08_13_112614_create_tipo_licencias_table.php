@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMedicosTable extends Migration
+class CreateTipoLicenciasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateMedicosTable extends Migration
      */
     public function up()
     {
-        Schema::create('medicos', function (Blueprint $table) {
+        Schema::create('tipo_licencias', function (Blueprint $table) {
             $table->increments('id');
-            $table->double('precio_unico')->nullable();;
-            $table->double('precio_doble')->nullable();
+            $table->string('tipo_licencia');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateMedicosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('medicos');
+        Schema::dropIfExists('tipo_licencias');
     }
 }

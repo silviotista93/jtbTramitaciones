@@ -22,6 +22,9 @@
                         data-target="#modalAgregarTramitador">
                     <i class="fa fa-plus"></i> Crear Tramitador
                 </button>
+                {{--<a href="{{ route('agregar.tramitador') }}" class="btn btn-primary pull-right">
+                    <i class="fa fa-plus"></i> Crear Tramitador
+                </a>--}}
             </div>
         </div>
 
@@ -108,6 +111,15 @@
                                                data-inputmask='"mask": "(999) 999-9999"'
                                                data-mask placeholder="Ingrese teléfono 2">
                                         {!! $errors->first('telefono_2','<span class="help-block">*:message</span>')!!}
+                                    </div>
+                                </div>
+                                <div class="form-group {{$errors->has('direccion')? 'has-error':''}}">
+                                    <label for=""><span class="text-danger">*</span> Direccion</label><span class="help-block inline"> (Opcional)</span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        <input type="text" name="direccion" value="{{old('direccion')}}" class="form-control"
+                                               placeholder="Ingrese direccion">
+                                        {!! $errors->first('direccion','<span class="help-block">*:message</span>')!!}
                                     </div>
                                 </div>
                                 <input type="hidden" name="rol" value="3">
@@ -298,9 +310,11 @@
 
 @section('dataTablesTramitadores')
     <script>
+        var url = '/admin/editar-tramitador/'
         $('.table_tramitadores').DataTable({
             "processing": true,
             "serverSide": true,
+            "order": [[3, "asc" ]],
             "data": null,
             "ajax": "/admin/api/tramitadores",
             "columns":[
@@ -313,9 +327,9 @@
                 {
                     render:function (data,type, JsonResultRow,meta) {
                         return '<div class="text-center">' +
-                            '<button class="btn btn-sm btn-info btnEditarTramitador" idTramitador="'+JsonResultRow.id+'" data-target="#modalEditarTramitador" data-toggle="modal"><i class="fa fa-pencil"></i></button>' +
+                            '<a href="/admin/editar-tramitador/'+JsonResultRow.id+'" class="btn btn-sm btn-info"><i class="fa fa-pencil"></i></a>'
                                 @if(auth()->user()->hasRole('Administrador'))
-                            ' <form method="post" class="formDeleteTramita inline" action="">' +
+                            +' <form method="post" class="formDeleteTramita inline" action="">' +
                             '@csrf
                                 <input type="hidden" name="_method" value="DELETE">' +
                             '<a idTramitador="'+JsonResultRow.id+'" class="btn btn-sm btn-danger btnEliminarTramitador"><i class="fa fa-times"></i></a>' +

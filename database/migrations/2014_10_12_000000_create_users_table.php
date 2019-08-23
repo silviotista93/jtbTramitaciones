@@ -21,10 +21,13 @@ class CreateUsersTable extends Migration
             $table->string('apellidos');
             $table->string('email')->unique();
             $table->string('password')->nullable();
+            $table->mediumText('direccion')->nullable();
             $table->string('telefono');
             $table->string('telefono_2')->nullable();
             $table->string('foto')->nullable();
-            $table->enum('estado',["activo", "inactivo"])->default("activo");
+            $table->enum('estado',[
+                \App\User::ACTIVE,
+                \App\User::INACTIVE])->default(\App\User::ACTIVE);
             $table->enum('genero',["masculino","femenino"])->nullable();
             $table->timestamp('fecha_nacimiento')->nullable();
             $table->rememberToken();

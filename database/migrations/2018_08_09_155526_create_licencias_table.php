@@ -16,10 +16,10 @@ class CreateLicenciasTable extends Migration
         Schema::create('licencias', function (Blueprint $table) {
             $table->increments('id');
             $table->string('categoria');
-            $table->string('tipo_precio');
-            $table->string('tipo_licencia');
-            $table->double('precio');
-            $table->double('descuento');
+            $table->double('precio_curso');
+            $table->double('precio_sincurso');
+            $table->double('precio_descuento_curso');
+            $table->double('precio_descuento_sincurso');
             $table->unsignedInteger('id_tipo_tramite');
             $table->timestamps();
         });

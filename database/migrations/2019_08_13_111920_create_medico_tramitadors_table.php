@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMedicosTable extends Migration
+class CreateMedicoTramitadorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateMedicosTable extends Migration
      */
     public function up()
     {
-        Schema::create('medicos', function (Blueprint $table) {
+        Schema::create('medico_tramitadors', function (Blueprint $table) {
             $table->increments('id');
-            $table->double('precio_unico')->nullable();;
-            $table->double('precio_doble')->nullable();
+            $table->unsignedInteger('id_usuario');
+            $table->unsignedInteger('id_medico');
+            $table->float('porcentaje_unico');
+            $table->float('porcentaje_doble');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateMedicosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('medicos');
+        Schema::dropIfExists('medico_tramitadors');
     }
 }
